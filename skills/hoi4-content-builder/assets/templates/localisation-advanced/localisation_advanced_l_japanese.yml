@@ -1,0 +1,11 @@
+﻿l_japanese:
+ # 使用前に MOD と MOD_example_modifier を置換し、翻訳時はすべての書式トークンを保持してください。
+ MOD_advanced_title: "§C高度なローカライズ§!"
+ MOD_advanced_variable: "補正値：[?modifier@MOD_example_modifier|.1%%+]"
+ MOD_advanced_party: "民主主義の支持率：[?party_popularity@democratic|%Y0]"
+ MOD_advanced_election: "前回の選挙：[ROOT.GetLastElection]"
+ MOD_advanced_country: "国家：[ROOT.GetNameWithFlag]"
+ MOD_advanced_date: "日付：[?global.date.GetDateStringNoHourLong]"
+ MOD_advanced_cost: "£pol_power §Y50§!"
+ MOD_advanced_nested: "現在のセクション：$MOD_advanced_title$"
+ MOD_advanced_bound_row: "§Y$LABEL$§!：$VALUE$"

@@ -148,3 +148,22 @@ The GPL-3.0-only
 project was downloaded from PyPI into a temporary analysis directory and used
 solely to statically unpack one PyInstaller executable. Neither that extractor
 nor extracted third-party bytecode is distributed with these skills.
+
+## Localisation reference supplement
+
+The 2026-07-17 localisation expansion used the community-maintained
+[HOI4 localisation reference](https://hoi4.parawikis.com/wiki/%E6%9C%AC%E5%9C%B0%E5%8C%96)
+for discovery and Paradox's official
+[Performance and Modding diary](https://store.steampowered.com/news/app/394360/view/6148070194801725069)
+for the introduction of bound localisation, context-aware GUI text, and
+localisation formatters. Patch-note checks also included the official Steam
+news feed for later localisation fixes.
+
+Every promoted current token was rechecked against Operation Postern 1.19.2.0
+(d245): `interface/core.gfx`, current localisation consumers,
+`documentation/loc_objects_documentation.md`,
+`documentation/loc_formatter_documentation.md`, and
+`documentation/dynamic_variables_documentation.md`. The Wiki function table is
+explicitly version-stale, so the generated installed documents take priority.
+The skill contains an independently written operational reference and small
+original templates rather than copied Wiki or Paradox prose.

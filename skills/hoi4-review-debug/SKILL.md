@@ -19,8 +19,10 @@ description: Diagnose, review, optimize, migrate, and test Hearts of Iron IV mod
 - Runtime test: ask for consent, isolate the playset, launch with `-debug`, run
   the smallest scenario, inspect fresh logs, iterate, and restore user settings.
 
-Read [review-workflows.md](references/review-workflows.md), the sibling base
-skill's `performance-debugging.md` and `review-checklist.md`, and the builder's
+Read [review-workflows.md](references/review-workflows.md),
+[field-tested-pitfalls.md](references/field-tested-pitfalls.md), the sibling
+base skill's `performance-debugging.md`, `review-checklist.md`, and
+`localisation-deep-dive.md`, and the builder's
 [test-mod.md](../hoi4-content-builder/workflows/test-mod.md) for runtime work.
 
 ## Establish evidence
@@ -33,6 +35,8 @@ parser errors, semantic errors, runtime behavior, and optional-media warnings.
 Use the read-only tools when applicable:
 
 - `scripts/analyze-hoi4-log.ps1`: prioritize and compare logs.
+- `scripts/audit-localisation.ps1`: inspect BOMs, headers, suffixes, duplicate
+  keys, colour markers, nested tokens, dynamic variables, and functions.
 - `scripts/audit-hoi4-map.ps1`: check map IDs/colors and history membership.
 - `scripts/audit-vanilla-overrides.ps1`: inventory overrides, `replace_path`,
   hashes, and migration gates.

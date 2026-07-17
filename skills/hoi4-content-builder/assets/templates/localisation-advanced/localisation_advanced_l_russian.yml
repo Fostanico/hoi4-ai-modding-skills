@@ -1,0 +1,11 @@
+﻿l_russian:
+ # Перед использованием замените MOD и MOD_example_modifier; сохраняйте все маркеры форматирования при переводе.
+ MOD_advanced_title: "§CРасширенная локализация§!"
+ MOD_advanced_variable: "Модификатор: [?modifier@MOD_example_modifier|.1%%+]"
+ MOD_advanced_party: "Поддержка демократии: [?party_popularity@democratic|%Y0]"
+ MOD_advanced_election: "Последние выборы: [ROOT.GetLastElection]"
+ MOD_advanced_country: "Государство: [ROOT.GetNameWithFlag]"
+ MOD_advanced_date: "Дата: [?global.date.GetDateStringNoHourLong]"
+ MOD_advanced_cost: "£pol_power §Y50§!"
+ MOD_advanced_nested: "Текущий раздел: $MOD_advanced_title$"
+ MOD_advanced_bound_row: "§Y$LABEL$§!: $VALUE$"

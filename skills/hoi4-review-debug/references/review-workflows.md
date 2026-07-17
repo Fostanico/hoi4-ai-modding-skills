@@ -80,11 +80,16 @@ set/clear lifecycle, saves, or dependency behavior.
 ## Localisation review
 
 - Validate BOM, header, indent, quotes, and formatting tokens.
+- Run `scripts/audit-localisation.ps1 -ModRoot <MOD_ROOT>` and treat unknown
+  colour markers, broken brackets, and same-file duplicate keys as errors.
 - Search exact keys across loaded localisation.
 - Auto-remove only exact key/value duplicates. Same-key/different-value entries
   require an explicit canonical choice.
 - Check every visible consumer and scripted-localisation fallback.
 - Test dynamic text in its actual UI context.
+- Use the base skill's `localisation-deep-dive.md` for formatted variables,
+  scope functions, icons, nesting, bound localisation, and formatter syntax.
+- Use `field-tested-pitfalls.md` before a bulk cleanup or GUI-tooltip rewrite.
 
 ## Lifecycle audit
 

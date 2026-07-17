@@ -22,6 +22,7 @@ game root.
 | `localisation_l_simp_chinese.yml` | Simplified Chinese player-facing localisation skeleton | current localisation consumers | `localisation/simp_chinese/*.yml` |
 | `localisation_l_russian.yml` | Russian player-facing localisation skeleton | current localisation consumers | `localisation/russian/*.yml` |
 | `localisation_l_japanese.yml` | Japanese player-facing localisation skeleton | current localisation consumers | `localisation/japanese/*.yml` |
+| `localisation-advanced/*` | Four-language colours, icons, formatted variables, scope functions, nested text, and bound-localisation examples | `documentation/loc_objects_documentation.md`, `documentation/dynamic_variables_documentation.md` | `interface/core.gfx`, current `localisation/*/*.yml`, current bound/context-aware GUI consumers |
 | `collection-effect.txt` | Filtered collection iteration in a scripted effect | `common/collections/_documentation.md` | `common/factions/goals/faction_goals_short_term.txt` |
 | `array-effects.txt` | Scope-array add, iterate, and cleanup effects | `documentation/effects_documentation.md` | `common/decisions/SWI.txt` |
 | `event-target-caller.txt` | Save a state target and immediately fire an event | `documentation/effects_documentation.md` | `common/decisions/POL.txt`, `WTT_border_conflicts.txt` |
@@ -64,6 +65,10 @@ game root.
   translate values only, and preserve scripted tokens, variables, icons, and
   color codes exactly. The skill instructions remain English; these files are
   player-facing output templates.
+- Advanced localisation templates are demonstrations, not a single drop-in
+  feature. Replace `MOD`, define `MOD_example_modifier`, and copy only entries
+  whose real consumer provides the required country scope or bound parameters.
+  A token being documented does not make every GUI textbox context-aware.
 - `GER`, state `64`, state `999`, province `1`, and every `MOD`
   identifier are deliberate replacement markers.
 - The state template is not a complete map-change kit. Follow the map/history

@@ -117,6 +117,10 @@ consumer-specific and copy a current inlay example before using them.
 
 ## Localisation format
 
+For colours, icons, formatted variables, scope functions, nesting, bound text,
+the current formatter inventory, four-language templates, and diagnostics, read
+[localisation-deep-dive.md](localisation-deep-dive.md).
+
 - Preserve the target repository's localisation encoding and key-version
   convention. New HOI4 localisation files are normally UTF-8 with BOM; verify
   this against the target build and existing language files.

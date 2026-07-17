@@ -1,0 +1,11 @@
+﻿l_english:
+ # Replace MOD and MOD_example_modifier before use. Preserve every formatting token while translating.
+ MOD_advanced_title: "§CAdvanced localisation§!"
+ MOD_advanced_variable: "Modifier: [?modifier@MOD_example_modifier|.1%%+]"
+ MOD_advanced_party: "Democratic support: [?party_popularity@democratic|%Y0]"
+ MOD_advanced_election: "Last election: [ROOT.GetLastElection]"
+ MOD_advanced_country: "Country: [ROOT.GetNameWithFlag]"
+ MOD_advanced_date: "Date: [?global.date.GetDateStringNoHourLong]"
+ MOD_advanced_cost: "£pol_power §Y50§!"
+ MOD_advanced_nested: "Current section: $MOD_advanced_title$"
+ MOD_advanced_bound_row: "§Y$LABEL$§!: $VALUE$"

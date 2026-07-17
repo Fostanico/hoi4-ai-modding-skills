@@ -41,6 +41,9 @@ answers cannot be discovered or safely defaulted.
   diplomacy, factions, peace conferences, entities, landmarks, music, sound.
 - [gui-localisation.md](references/gui-localisation.md): GUI, GFX, scripted GUI,
   scripted localisation, sprites, tooltips, encodings, and localisation.
+- [localisation-deep-dive.md](references/localisation-deep-dive.md): colours,
+  icons, formatted variables, scope functions, nested and bound text,
+  formatters, dynamic consumers, templates, and localisation diagnostics.
 - [performance-debugging.md](references/performance-debugging.md): hot paths,
   caching, log triage, debug mode, and runtime evidence.
 - [version-migration.md](references/version-migration.md): game updates and

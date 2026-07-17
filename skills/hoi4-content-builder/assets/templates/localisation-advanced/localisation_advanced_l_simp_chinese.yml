@@ -1,0 +1,11 @@
+﻿l_simp_chinese:
+ # 使用前请替换 MOD 与 MOD_example_modifier；翻译时保留所有格式化标记。
+ MOD_advanced_title: "§C高级本地化§!"
+ MOD_advanced_variable: "修正值：[?modifier@MOD_example_modifier|.1%%+]"
+ MOD_advanced_party: "民主主义支持率：[?party_popularity@democratic|%Y0]"
+ MOD_advanced_election: "上次选举：[ROOT.GetLastElection]"
+ MOD_advanced_country: "国家：[ROOT.GetNameWithFlag]"
+ MOD_advanced_date: "日期：[?global.date.GetDateStringNoHourLong]"
+ MOD_advanced_cost: "£pol_power §Y50§!"
+ MOD_advanced_nested: "当前章节：$MOD_advanced_title$"
+ MOD_advanced_bound_row: "§Y$LABEL$§!：$VALUE$"
