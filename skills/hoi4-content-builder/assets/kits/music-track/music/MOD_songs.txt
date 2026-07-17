@@ -1,0 +1,10 @@
+music_station = "base_music"
+
+music = {
+	song = "MOD_track"
+	chance = {
+		modifier = {
+			factor = 1
+		}
+	}
+}

@@ -1,0 +1,18 @@
+scripted_gui = {
+	MOD_modal_scripted_gui = {
+		window_name = "MOD_modal_window"
+		context_type = player_context
+		dirty = MOD_modal_revision
+
+		visible = {
+			has_country_flag = MOD_modal_visible
+		}
+
+		effects = {
+			MOD_modal_close_button_click = {
+				clr_country_flag = MOD_modal_visible
+				add_to_variable = { MOD_modal_revision = 1 }
+			}
+		}
+	}
+}

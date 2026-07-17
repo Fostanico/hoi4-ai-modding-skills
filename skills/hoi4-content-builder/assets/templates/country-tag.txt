@@ -1,0 +1,2 @@
+# Place under common/country_tags and replace MOD and the definition path.
+MOD = "countries/MOD.txt"

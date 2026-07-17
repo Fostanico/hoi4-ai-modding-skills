@@ -1,0 +1,12 @@
+# Copy into common/scripted_effects and replace every MOD token and numeric ID.
+# set_state_name runs in state scope; set_province_name takes a province ID.
+MOD_rename_state_and_capital = {
+	999 = {
+		set_state_name = MOD_STATE_NAME
+	}
+
+	set_province_name = {
+		id = 1
+		name = MOD_PROVINCE_NAME
+	}
+}

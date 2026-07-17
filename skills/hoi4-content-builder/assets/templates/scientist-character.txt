@@ -1,0 +1,18 @@
+# Requires a matching specialization and any referenced scientist traits.
+characters = {
+	MOD_scientist = {
+		name = MOD_scientist
+		portraits = {
+			civilian = {
+				large = GFX_portrait_unknown
+			}
+		}
+		scientist = {
+			desc = MOD_scientist_desc
+			traits = { MOD_SCIENTIST_TRAIT }
+			skills = {
+				MOD_SPECIALIZATION = 2
+			}
+		}
+	}
+}

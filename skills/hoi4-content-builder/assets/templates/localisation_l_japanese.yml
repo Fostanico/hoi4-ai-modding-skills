@@ -1,0 +1,12 @@
+﻿l_japanese:
+ MOD_first_focus: "サンプル国家方針"
+ MOD_first_focus_desc: "実際の国家方針の説明に置き換えてください。"
+ MOD_national_spirit: "サンプル国民精神"
+ MOD_national_spirit_desc: "実際の国民精神の説明に置き換えてください。"
+ MOD_character: "サンプル人物"
+ MOD_decision_category: "サンプルディシジョン"
+ MOD_take_decision: "サンプルディシジョン"
+ MOD_take_decision_desc: "実際のディシジョンの説明に置き換えてください。"
+ MOD.1.t: "サンプルイベント"
+ MOD.1.desc: "実際のイベント本文に置き換えてください。"
+ MOD.1.a: "確認"

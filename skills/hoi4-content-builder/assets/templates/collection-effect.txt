@@ -1,0 +1,18 @@
+# Copy into common/scripted_effects and replace every MOD token.
+# Current vanilla collection consumers use the nested input shape below.
+MOD_apply_to_eligible_faction_members = {
+	every_collection_element = {
+		input = {
+			input = game:scope
+			operators = {
+				faction_members
+				limit = {
+					has_country_flag = MOD_collection_eligible
+				}
+			}
+			name = MOD_ELIGIBLE_FACTION_MEMBERS
+		}
+
+		add_political_power = 5
+	}
+}

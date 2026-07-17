@@ -1,0 +1,25 @@
+add_namespace = mod_state_event
+
+country_event = {
+	id = mod_state_event.1
+	title = mod_state_event.1.t
+	desc = mod_state_event.1.desc
+	is_triggered_only = yes
+
+	option = {
+		name = mod_state_event.1.a
+
+		event_target:MOD_selected_state = {
+			set_state_flag = MOD_state_prepared
+			add_building_construction = {
+				type = infrastructure
+				level = 1
+				instant_build = yes
+			}
+		}
+	}
+
+	option = {
+		name = mod_state_event.1.b
+	}
+}

@@ -1,0 +1,16 @@
+* text=auto
+
+.gitattributes text eol=lf
+.gitignore text eol=lf
+LICENSE text eol=lf
+*.md text eol=lf
+*.txt text eol=lf
+*.gui text eol=lf
+*.gfx text eol=lf
+*.asset text eol=lf
+*.mod text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+*.json text eol=lf
+*.py text eol=lf
+*.ps1 text eol=crlf

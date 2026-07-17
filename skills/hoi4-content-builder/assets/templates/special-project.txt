@@ -1,0 +1,32 @@
+# Requires a real specialization, project tag, icon, rewards, and facility path.
+MOD_special_project = {
+	specialization = MOD_SPECIALIZATION
+	icon = GFX_MOD_SPECIAL_PROJECT
+	project_tags = MOD_PROJECT_TAG
+	prototype_time = sp_time.prototype.medium
+	complexity = sp_complexity.medium
+
+	breakthrough_cost = {
+		MOD_SPECIALIZATION = 1
+	}
+
+	available = {
+		FROM = { always = yes }
+	}
+
+	resource_cost = {
+		resources = { steel = 1 }
+	}
+
+	ai_will_do = { base = 1 }
+
+	project_output = {
+		country_effects = {
+			set_country_flag = MOD_special_project_completed
+		}
+	}
+
+	generic_prototype_rewards = {
+		MOD_PROTOTYPE_REWARD
+	}
+}

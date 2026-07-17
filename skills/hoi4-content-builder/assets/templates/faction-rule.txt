@@ -1,0 +1,4 @@
+MOD_faction_leader_rule = {
+	type = member_rules
+	trigger = { is_faction_leader = yes }
+}

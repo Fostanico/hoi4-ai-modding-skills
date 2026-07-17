@@ -1,0 +1,17 @@
+# Copy into common/scripted_effects and replace every MOD token.
+# The caller and every array element are expected to be country scopes.
+MOD_remember_country = {
+	add_to_array = {
+		array = ROOT.MOD_country_targets
+		value = THIS
+	}
+}
+
+MOD_apply_to_remembered_countries = {
+	for_each_scope_loop = {
+		array = MOD_country_targets
+		add_political_power = 5
+	}
+
+	clear_array = MOD_country_targets
+}

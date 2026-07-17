@@ -1,0 +1,39 @@
+MOD_state_event_category = {
+	MOD_prepare_selected_state = {
+		icon = GFX_decision_generic_construction
+
+		allowed = {
+			original_tag = GER
+		}
+
+		state_target = yes
+		on_map_mode = map_and_decisions_view
+		target_array = ROOT.core_states
+
+		target_trigger = {
+			FROM = {
+				is_fully_controlled_by = ROOT
+				NOT = {
+					has_state_flag = MOD_state_prepared
+				}
+			}
+		}
+
+		cost = 25
+		fire_only_once = yes
+
+		complete_effect = {
+			FROM = {
+				save_event_target_as = MOD_selected_state
+			}
+
+			country_event = {
+				id = mod_state_event.1
+			}
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+}

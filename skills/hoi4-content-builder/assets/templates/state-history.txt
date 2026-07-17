@@ -1,0 +1,28 @@
+# Replace every numeric example with IDs verified in map/definition.csv and the
+# current state files. The state id differs from province IDs.
+state = {
+	id = 999
+	name = "STATE_999"
+	manpower = 100000
+	state_category = rural
+
+	history = {
+		owner = GER
+		add_core_of = GER
+
+		victory_points = {
+			1 1
+		}
+
+		buildings = {
+			infrastructure = 1
+			industrial_complex = 1
+		}
+	}
+
+	provinces = {
+		1
+	}
+
+	local_supplies = 0.0
+}

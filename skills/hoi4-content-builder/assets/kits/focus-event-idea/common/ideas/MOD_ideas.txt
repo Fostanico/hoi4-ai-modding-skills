@@ -1,0 +1,15 @@
+ideas = {
+	country = {
+		MOD_program_spirit = {
+			allowed = {
+				original_tag = GER
+			}
+
+			removal_cost = -1
+
+			modifier = {
+				stability_factor = 0.05
+			}
+		}
+	}
+}

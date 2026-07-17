@@ -1,0 +1,5 @@
+# Country scope. Call with: MOD_can_receive_reward = yes
+MOD_can_receive_reward = {
+	is_subject = no
+	has_war = no
+}

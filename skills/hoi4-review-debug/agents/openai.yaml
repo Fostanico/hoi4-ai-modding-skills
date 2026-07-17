@@ -1,0 +1,4 @@
+interface:
+  display_name: "HOI4 Review and Debug"
+  short_description: "Review, diagnose, simplify, and test HOI4 PDX content"
+  default_prompt: "Use $hoi4-review-debug to diagnose and verify this HOI4 issue with the bundled read-only tools, installed schema, current consumers, and fresh logs. Ask for explicit consent before controlling Steam or launching an isolated -debug test."

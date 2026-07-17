@@ -1,0 +1,9 @@
+# Replace the tag, equipment categories, localisation/generic names, and lists.
+MOD = {
+	destroyer = {
+		prefix = ""
+		generic = { "MOD_DESTROYER_GENERIC" }
+		unique = { "Example Destroyer" }
+	}
+	air_wing_names_template = AIR_WING_NAME_GER_FALLBACK
+}

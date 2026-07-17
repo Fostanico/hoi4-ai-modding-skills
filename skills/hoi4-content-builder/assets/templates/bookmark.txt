@@ -1,0 +1,22 @@
+bookmarks = {
+	bookmark = {
+		name = "MOD_BOOKMARK_NAME"
+		desc = "MOD_BOOKMARK_DESC"
+		date = 1936.1.1.12
+		picture = "GFX_select_date_1936"
+		default_country = "MOD"
+		default = yes
+
+		filters = { label }
+		label_order = { MOD_LABEL }
+		scrollable_country_list = yes
+
+		MOD = {
+			history = "MOD_BOOKMARK_COUNTRY_DESC"
+			ideology = neutrality
+			label = { MOD_LABEL }
+			ideas = { MOD_IDEA }
+			focuses = { MOD_FOCUS }
+		}
+	}
+}

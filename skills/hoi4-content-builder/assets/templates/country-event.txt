@@ -1,0 +1,17 @@
+add_namespace = MOD
+
+# Triggered event skeleton. Keep is_triggered_only = yes when a focus, decision,
+# on_action, or scripted effect is the caller.
+country_event = {
+	id = MOD.1
+	title = MOD.1.t
+	desc = MOD.1.desc
+	picture = GFX_report_event_generic_factory
+
+	is_triggered_only = yes
+
+	option = {
+		name = MOD.1.a
+		add_political_power = 25
+	}
+}

@@ -1,0 +1,12 @@
+MOD_infantry_templates = {
+	available_for = { MOD }
+	role = infantry
+	upgrade_prio = { factor = 2 }
+
+	MOD_infantry_default = {
+		upgrade_prio = { factor = 1 }
+		target_template = {
+			regiments = { infantry = 9 }
+		}
+	}
+}

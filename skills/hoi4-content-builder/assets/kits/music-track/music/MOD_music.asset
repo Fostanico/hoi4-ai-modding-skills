@@ -1,0 +1,5 @@
+music = {
+	name = "MOD_track"
+	file = "MOD_track.ogg"
+	volume = 0.65
+}

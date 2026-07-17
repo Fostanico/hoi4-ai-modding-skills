@@ -1,0 +1,8 @@
+﻿l_english:
+ MOD_launch_program: "Launch the example program"
+ MOD_launch_program_desc: "Replace the prefix, target country, and all text before use."
+ MOD_program_spirit: "Example program"
+ MOD_program_spirit_desc: "A national spirit granted through the example event."
+ MOD.1.t: "Program approved"
+ MOD.1.desc: "The example program is ready to begin."
+ MOD.1.a: "Begin"

@@ -1,0 +1,15 @@
+add_namespace = MOD
+
+country_event = {
+	id = MOD.1
+	title = MOD.1.t
+	desc = MOD.1.desc
+	picture = GFX_report_event_generic_factory
+
+	is_triggered_only = yes
+
+	option = {
+		name = MOD.1.a
+		add_ideas = MOD_program_spirit
+	}
+}

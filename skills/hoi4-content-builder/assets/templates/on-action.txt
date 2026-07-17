@@ -1,0 +1,8 @@
+on_actions = {
+	# Replace GER in the hook name with the target tag.
+	on_weekly_GER = {
+		effect = {
+			add_political_power = 5
+		}
+	}
+}

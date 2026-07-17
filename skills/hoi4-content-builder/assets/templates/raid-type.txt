@@ -1,0 +1,40 @@
+# Replace icons, sound, target/start rules, unit types, and all outcome effects.
+types = {
+	MOD_raid = {
+		days_to_prepare = 30
+		days_re_enable = 30
+		speed_multiplier = 10
+		max_distance = 20
+		category = MOD_raid_category
+		custom_map_icon = GFX_MOD_RAID_TARGET
+		target_icon = GFX_MOD_RAID_TARGET
+		launch_sound = MOD_RAID_LAUNCH_SOUND
+		command_power = 10
+		fire_only_once = no
+
+		allowed = { always = yes }
+		visible = { always = yes }
+		show_target = { always = yes }
+
+		target_type = { province = any }
+		starting_point = {
+			building_types = { supply_node }
+			allow_faction_buildings = yes
+		}
+		unit_requirements = {
+			battalion_types = { infantry = { min = 1 } }
+		}
+		arrow = { type = land }
+
+		success_factors = {
+			success = { base = 0.5 }
+		}
+
+		success_levels = {
+			failure = { actor_effects = { add_raid_history_entry = yes } }
+			limited_success = { actor_effects = { add_raid_history_entry = yes } }
+			success = { actor_effects = { add_raid_history_entry = yes } }
+			critical_success = { actor_effects = { add_raid_history_entry = yes } }
+		}
+	}
+}

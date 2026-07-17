@@ -1,0 +1,6 @@
+spriteTypes = {
+	spriteType = {
+		name = "GFX_MOD_background_small"
+		texturefile = "gfx/loadingscreens/MOD_background_small.dds"
+	}
+}

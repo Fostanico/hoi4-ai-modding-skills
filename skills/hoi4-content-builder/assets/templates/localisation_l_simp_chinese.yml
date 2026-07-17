@@ -1,0 +1,12 @@
+﻿l_simp_chinese:
+ MOD_first_focus: "示例国策"
+ MOD_first_focus_desc: "请替换为实际的国策说明。"
+ MOD_national_spirit: "示例民族精神"
+ MOD_national_spirit_desc: "请替换为实际的民族精神说明。"
+ MOD_character: "示例角色"
+ MOD_decision_category: "示例决议"
+ MOD_take_decision: "示例决议"
+ MOD_take_decision_desc: "请替换为实际的决议说明。"
+ MOD.1.t: "示例事件"
+ MOD.1.desc: "请替换为实际的事件正文。"
+ MOD.1.a: "确认"

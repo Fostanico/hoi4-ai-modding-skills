@@ -1,0 +1,8 @@
+﻿l_english:
+ MOD_state_event_category: "State development"
+ MOD_prepare_selected_state: "Prepare [FROM.GetName]"
+ MOD_prepare_selected_state_desc: "Select a core state and confirm its development in an event."
+ mod_state_event.1.t: "Development in [MOD_selected_state.GetName]"
+ mod_state_event.1.desc: "Should we improve the infrastructure of [MOD_selected_state.GetName] now?"
+ mod_state_event.1.a: "Approve"
+ mod_state_event.1.b: "Postpone"

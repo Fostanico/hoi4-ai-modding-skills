@@ -1,0 +1,4 @@
+interface:
+  display_name: "HOI4 PDX Modding"
+  short_description: "Develop and validate Hearts of Iron IV PDX mods"
+  default_prompt: "Use $hoi4-pdx-modding to implement or review this Hearts of Iron IV change against the real mod root, installed vanilla schema, current consumers, and active dependencies."

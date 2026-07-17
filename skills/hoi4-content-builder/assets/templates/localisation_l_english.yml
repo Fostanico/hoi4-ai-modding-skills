@@ -1,0 +1,12 @@
+﻿l_english:
+ MOD_first_focus: "Example focus"
+ MOD_first_focus_desc: "Replace with the real focus description."
+ MOD_national_spirit: "Example national spirit"
+ MOD_national_spirit_desc: "Replace with the real idea description."
+ MOD_character: "Example character"
+ MOD_decision_category: "Example decisions"
+ MOD_take_decision: "Example decision"
+ MOD_take_decision_desc: "Replace with the real decision description."
+ MOD.1.t: "Example event"
+ MOD.1.desc: "Replace with the real event text."
+ MOD.1.a: "Confirm"

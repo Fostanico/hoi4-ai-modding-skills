@@ -1,0 +1,6 @@
+spriteTypes = {
+	SpriteType = {
+		name = "GFX_MOD_focus_icon"
+		texturefile = "gfx/interface/goals/MOD_focus_icon.dds"
+	}
+}

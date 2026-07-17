@@ -1,0 +1,8 @@
+MOD_faction_template = {
+	name = MOD_FACTION_NAME
+	manifest = MOD_FACTION_MANIFEST
+	icon = GFX_faction_icon_generic_neutrality
+
+	goals = { MOD_FACTION_GOAL }
+	default_rules = { MOD_FACTION_RULE }
+}

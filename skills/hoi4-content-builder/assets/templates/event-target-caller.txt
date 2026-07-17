@@ -1,0 +1,11 @@
+# Copy into common/scripted_effects and replace every MOD token.
+# Call in country scope with TARGET_STATE set to a state scope.
+MOD_open_state_event = {
+	$TARGET_STATE$ = {
+		save_event_target_as = MOD_selected_state
+	}
+
+	country_event = {
+		id = MOD.1
+	}
+}

@@ -1,0 +1,13 @@
+MOD_faction_goal = {
+	name = MOD_FACTION_GOAL_NAME
+	description = MOD_FACTION_GOAL_DESCRIPTION
+	category = short_term
+	visible = { always = yes }
+	available = { always = yes }
+	completed = { has_country_flag = MOD_faction_goal_complete }
+	group = MOD_FACTION_GOAL_GROUP
+	auto_complete = yes
+	ai_will_do = { factor = 1 }
+	complete_effect = { set_country_flag = MOD_faction_goal_rewarded }
+	cancel = { always = no }
+}

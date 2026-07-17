@@ -1,0 +1,8 @@
+categories = {
+	MOD_raid_category = {
+		intel_source = army
+		visible = { always = yes }
+		available = { always = yes }
+		faction_influence_score_on_success = 0
+	}
+}

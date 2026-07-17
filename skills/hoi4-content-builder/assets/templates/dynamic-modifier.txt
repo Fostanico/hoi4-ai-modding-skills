@@ -1,0 +1,19 @@
+# Copy into common/dynamic_modifiers and replace every MOD token.
+# MOD_dynamic_bonus is read from the country/state/unit-leader scope to which
+# this modifier is attached. Dynamic modifiers update daily unless forced.
+MOD_variable_dynamic_modifier = {
+	icon = GFX_idea_unknown
+	enable = {
+		always = yes
+	}
+	remove_trigger = {
+		always = no
+	}
+
+	political_power_gain = MOD_dynamic_bonus
+}
+
+# Add from an effect in the intended owner scope:
+# add_dynamic_modifier = { modifier = MOD_variable_dynamic_modifier }
+# After changing MOD_dynamic_bonus, use this only when same-day refresh matters:
+# force_update_dynamic_modifier = yes

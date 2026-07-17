@@ -1,0 +1,11 @@
+MOD_ai_plan = {
+	allowed = { original_tag = MOD }
+	enable = { always = yes }
+	abort = { always = no }
+
+	ai_strategy = {
+		type = alliance
+		id = "GER"
+		value = 100
+	}
+}

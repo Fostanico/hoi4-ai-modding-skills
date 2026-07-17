@@ -1,0 +1,26 @@
+MOD_decision_category = {
+	MOD_take_decision = {
+		icon = GFX_decision_generic_decision
+
+		allowed = {
+			original_tag = GER
+		}
+
+		visible = {
+		}
+
+		available = {
+			political_power > 49
+		}
+
+		cost = 50
+
+		complete_effect = {
+			add_stability = 0.05
+		}
+
+		ai_will_do = {
+			base = 1
+		}
+	}
+}

@@ -1,0 +1,4 @@
+animation = {
+	name = "MOD_idle_animation"
+	file = "MOD_idle.anim"
+}

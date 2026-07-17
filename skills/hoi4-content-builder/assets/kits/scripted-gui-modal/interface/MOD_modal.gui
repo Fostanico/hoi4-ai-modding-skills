@@ -1,0 +1,45 @@
+guiTypes = {
+	containerWindowType = {
+		name = "MOD_modal_window"
+		position = { x = -300 y = -180 }
+		orientation = CENTER
+		size = { width = 600 height = 360 }
+		moveable = yes
+		click_to_front = yes
+
+		background = {
+			name = "MOD_modal_background"
+			quadTextureSprite = "GFX_tiled_window_1b_border"
+		}
+
+		instantTextBoxType = {
+			name = "MOD_modal_title"
+			position = { x = 40 y = 32 }
+			font = "hoi_24header"
+			text = "MOD_modal_title"
+			maxWidth = 520
+			maxHeight = 32
+			format = center
+			alwaystransparent = yes
+		}
+
+		instantTextBoxType = {
+			name = "MOD_modal_body"
+			position = { x = 55 y = 92 }
+			font = "hoi_18mbs"
+			text = "MOD_modal_body"
+			maxWidth = 490
+			maxHeight = 170
+			format = left
+			alwaystransparent = yes
+		}
+
+		buttonType = {
+			name = "MOD_modal_close_button"
+			position = { x = 548 y = 18 }
+			quadTextureSprite = "GFX_closebutton"
+			clicksound = click_close
+			pdx_tooltip = "MOD_modal_close_tt"
+		}
+	}
+}

@@ -1,0 +1,4 @@
+entity = {
+	name = "MOD_entity"
+	pdxmesh = "MOD_mesh"
+}

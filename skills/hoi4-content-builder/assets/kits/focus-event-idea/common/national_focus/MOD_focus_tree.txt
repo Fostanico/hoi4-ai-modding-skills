@@ -1,0 +1,30 @@
+focus_tree = {
+	id = MOD_focus_tree
+
+	country = {
+		factor = 0
+		modifier = {
+			add = 10
+			tag = GER
+		}
+	}
+
+	default = no
+	continuous_focus_position = { x = 0 y = 1000 }
+
+	focus = {
+		id = MOD_launch_program
+		icon = GFX_goal_generic_production
+		x = 0
+		y = 0
+		cost = 10
+
+		completion_reward = {
+			country_event = { id = MOD.1 }
+		}
+
+		ai_will_do = {
+			factor = 1
+		}
+	}
+}

@@ -1,0 +1,6 @@
+# Province ID, equipment type, owner, and amount must exist at the bookmark.
+air_wings = {
+	1 = {
+		fighter_equipment_0 = { owner = "MOD" amount = 24 }
+	}
+}

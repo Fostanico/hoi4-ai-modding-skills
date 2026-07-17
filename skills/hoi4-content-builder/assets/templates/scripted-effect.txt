@@ -1,0 +1,5 @@
+# Country scope. Call with: MOD_apply_reward = yes
+MOD_apply_reward = {
+	add_political_power = 25
+	add_stability = 0.02
+}

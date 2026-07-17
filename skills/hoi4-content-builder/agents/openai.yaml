@@ -1,0 +1,4 @@
+interface:
+  display_name: "HOI4 Content Builder"
+  short_description: "Turn plain-language ideas into complete HOI4 mods"
+  default_prompt: "Use $hoi4-content-builder to turn this plain-language idea into a complete HOI4 mod or feature. Infer PDX implementation details, use verified workflows and templates, validate the full dependency graph, and ask before any AI-assisted in-game test."

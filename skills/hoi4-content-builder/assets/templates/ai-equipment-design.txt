@@ -1,0 +1,20 @@
+# Replace role, airframe, slots, modules, and country with current valid IDs.
+MOD_air_designs = {
+	category = air
+	available_for = { MOD }
+	roles = { MOD_AIR_ROLE }
+	priority = { factor = 100 }
+
+	MOD_air_design = {
+		priority = { factor = 10 }
+		history = yes
+		target_variant = {
+			match_value = 1000
+			type = MOD_AIRFRAME
+			modules = {
+				MOD_SLOT = MOD_MODULE
+			}
+		}
+		allowed_modules = { MOD_MODULE }
+	}
+}

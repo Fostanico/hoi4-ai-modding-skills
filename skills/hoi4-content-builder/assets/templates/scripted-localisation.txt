@@ -1,0 +1,24 @@
+# Copy into common/scripted_localisation and replace every MOD token.
+# Call from country-scoped localisation as [ROOT.GetMODReadinessText].
+defined_text = {
+	name = GetMODReadinessText
+	text = {
+		trigger = {
+			check_variable = {
+				MOD_readiness > 74
+			}
+		}
+		localization_key = MOD_READINESS_HIGH
+	}
+	text = {
+		trigger = {
+			check_variable = {
+				MOD_readiness > 24
+			}
+		}
+		localization_key = MOD_READINESS_MEDIUM
+	}
+	text = {
+		localization_key = MOD_READINESS_LOW
+	}
+}
