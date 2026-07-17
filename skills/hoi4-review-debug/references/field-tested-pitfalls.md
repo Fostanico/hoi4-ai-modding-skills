@@ -58,6 +58,10 @@ file should live in the matching `localisation/<language>/` directory. A valid
 sentence in a mismatched file can silently disappear or pollute another
 language's collision set.
 
+Use only `key: "Text"`. Never use `key:0 "Text"` or another numeric key-version
+suffix, even when an old mod or tutorial uses it. Migrate the entry by removing
+the suffix before it enters a template or production file.
+
 ### Dynamic text needs a real context
 
 Square-bracket functions and `[?variables]` can render literally when the

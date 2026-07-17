@@ -22,9 +22,9 @@
    before adding targeted decisions.
 5. Use weekly or event-driven hooks when the intended cadence permits. Never
    migrate a daily invariant merely because a neighboring system is weekly.
-6. Add every visible name and description. Preserve the target repository's
-   language, key-version, and encoding convention; new localisation normally
-   uses UTF-8 with BOM and a matching language header.
+6. Add every visible name and description. Use only `key: "Text"`, never
+   `key:0 "Text"`; preserve the language identity, matching header, and UTF-8
+   BOM.
 
 ## Verify
 

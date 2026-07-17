@@ -83,9 +83,9 @@ l_english:
  MOD_example: "Example text"
 ```
 
-Preserve the target project's key-version convention. Both `key: "Text"` and
-legacy `key:0 "Text"` exist in the ecosystem; do not rewrite a whole project
-solely to match a template.
+Use `key: "Text"` exclusively. Never emit `key:0 "Text"` or any other numeric
+key-version suffix. When old mods, tutorials, or source snapshots contain that
+syntax, treat it as migration input and remove the suffix.
 
 To override a small number of vanilla/dependency keys deliberately, define
 only those keys in `localisation/<language>/replace/`. Do not copy a complete
@@ -477,6 +477,7 @@ Run both the general validator and focused audit:
 Then inspect fresh `text.log` and `error.log`. Search for:
 
 - duplicate/overlapping localisation keys;
+- any versioned key such as `key:0 "Text"` instead of `key: "Text"`;
 - missing or invalid colour characters;
 - unresolved keys or debug strings;
 - literal `$KEY$`, `[Scope.GetProperty]`, or `[?variable|format]` output;

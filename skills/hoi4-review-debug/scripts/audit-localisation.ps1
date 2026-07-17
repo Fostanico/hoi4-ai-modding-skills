@@ -106,6 +106,9 @@ foreach ($file in $files) {
     for ($index = 0; $index -lt $lines.Count; $index++) {
         $lineNumber = $index + 1
         $line = $lines[$index]
+        if ($line -match '^\s+([^\s:#]+):(\d+)\s*"') {
+            Add-Issue Error $relative $lineNumber 'versioned-key' "Key '$($Matches[1])' uses forbidden version suffix :$($Matches[2]); use an unversioned key."
+        }
         if ($line -notmatch '^\s+([^\s:#]+):(?:\d+)?\s*"(.*)"\s*(?:#.*)?$') { continue }
 
         $key = $Matches[1]

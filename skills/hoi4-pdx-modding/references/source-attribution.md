@@ -117,9 +117,9 @@ project uses its existing Codex skills and validator.
 
 ## Community tutorial library supplement
 
-On 2026-07-16, Steam Workshop item `3445449478` was reviewed from the local
-Workshop cache. The item identifies itself as a community HOI4 modding tutorial
-library and targets `1.19.2.0`, but it also contains older examples, material
+On 2026-07-16, the community tutorial collection 秋起图书馆 (Steam Workshop item
+`3445449478`) was reviewed from the local Workshop cache. It targets `1.19.2.0`,
+but also contains older examples, material
 for named total-conversion mods, third-party programs, and packaged runtimes.
 
 A Microsoft Defender custom scan of the 2.47 GB tree reported no threats with

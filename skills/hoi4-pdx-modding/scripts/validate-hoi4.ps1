@@ -7,6 +7,8 @@ param(
 
     [string]$ModRoot,
 
+    # Retained so older validation commands remain callable. Suffixes are
+    # rejected unconditionally.
     [switch]$ForbidLocalisationVersionSuffix
 )
 
@@ -179,8 +181,8 @@ foreach ($file in $files) {
     $fileKeys = @{}
     for ($lineNumber = 0; $lineNumber -lt $lines.Count; $lineNumber++) {
         $line = $lines[$lineNumber]
-        if ($ForbidLocalisationVersionSuffix -and $line -match '^\s+([^\s:#]+):(\d+)\s*"') {
-            $errors.Add("${relative}:$($lineNumber + 1): key '$($Matches[1])' has deprecated version suffix :$($Matches[2])")
+        if ($line -match '^\s+([^\s:#]+):(\d+)\s*"') {
+            $errors.Add("${relative}:$($lineNumber + 1): key '$($Matches[1])' uses forbidden version suffix :$($Matches[2]); use an unversioned key")
         }
         if ($line -notmatch '^\s+([^\s:#]+):\s*"(.*)"\s*(?:#.*)?$') { continue }
         $key = $Matches[1]

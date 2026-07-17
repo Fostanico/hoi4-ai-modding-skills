@@ -79,7 +79,9 @@ set/clear lifecycle, saves, or dependency behavior.
 
 ## Localisation review
 
-- Validate BOM, header, indent, quotes, and formatting tokens.
+- Validate BOM, header, indent, quotes, and formatting tokens. Require
+  `key: "Text"`; any numeric key-version suffix such as `key:0 "Text"` is an
+  error.
 - Run `scripts/audit-localisation.ps1 -ModRoot <MOD_ROOT>` and treat unknown
   colour markers, broken brackets, and same-file duplicate keys as errors.
 - Search exact keys across loaded localisation.

@@ -4,7 +4,7 @@ Copyright 2026 HOI4 AI Modding Skills contributors.
 
 The distributed skill set is licensed under Creative Commons
 Attribution-ShareAlike 4.0 International (CC BY-SA 4.0). See
-`HOI4_AI_MODDING_SKILLS_LICENSE.txt`.
+`LICENSE`.
 
 ## Upstream adapted guidance
 
@@ -16,9 +16,9 @@ copyright the Millennium Dawn Development Team and contributors, under CC BY-SA
 repository-specific rules with portable, current-vanilla verification.
 
 The skills also record independently rewritten lessons from three community
-skill snapshots and Steam Workshop tutorial item `3445449478`. Their code and
-prose were not copied where licensing was incompatible or unclear. Exact source,
-version, license, security-review, and adoption details are in
+skill snapshots and 秋起图书馆 (Steam Workshop item `3445449478`). Their code
+and prose were not copied where licensing was incompatible or unclear. Exact
+source, version, license, security-review, and adoption details are in
 `hoi4-pdx-modding/references/source-attribution.md` and the community audit
 references.
 

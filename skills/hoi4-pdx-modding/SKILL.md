@@ -16,7 +16,8 @@ description: Implement, explain, refactor, and validate portable Hearts of Iron 
    dependency supplies a database.
 4. Search definitions and callers across the target mod before editing. Treat
    identifiers, paths, sprite names, equipment archetypes, and localisation
-   keys as case-sensitive.
+   keys as case-sensitive. Localisation entries must use `key: "Text"`;
+   `key:0 "Text"` and every other numeric key-version suffix are errors.
 5. Use the Wiki to understand concepts. Prove uncertain fields, scopes, tokens,
    and file layout with the installed build's generated documentation, current
    vanilla consumers, and exact dependency version.

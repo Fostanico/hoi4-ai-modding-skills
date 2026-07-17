@@ -121,9 +121,8 @@ For colours, icons, formatted variables, scope functions, nesting, bound text,
 the current formatter inventory, four-language templates, and diagnostics, read
 [localisation-deep-dive.md](localisation-deep-dive.md).
 
-- Preserve the target repository's localisation encoding and key-version
-  convention. New HOI4 localisation files are normally UTF-8 with BOM; verify
-  this against the target build and existing language files.
+- Localisation files must use UTF-8 with BOM. Preserve the existing language
+  identity and verify the file layout against the target build.
 - Put the file under `localisation/<language>/`, use the matching
   `_l_<language>.yml` suffix, and start with the exact language header, for
   example:
@@ -132,9 +131,8 @@ the current formatter inventory, four-language templates, and diagnostics, read
 l_simp_chinese:
 ```
 
-- Follow the target project's established key syntax. Both unversioned keys and
-  the older `:0` form exist in real mods, so do not rewrite the style merely to
-  match a template:
+- Use unversioned keys only. `key:0 "Text"` and every other numeric suffix are
+  forbidden even when copied from an old mod or tutorial:
 
 ```yaml
  example_key: "文本"
