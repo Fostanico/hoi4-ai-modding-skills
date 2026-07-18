@@ -100,6 +100,20 @@ counter to weekly execution. Record each mechanic's cadence and player-visible
 units before refactoring. If cadence intentionally changes, preserve old
 variable/flag names for save compatibility unless a migration covers them.
 
+### Internal names are not semantic evidence
+
+An ASCII character token was once transliterated into the wrong displayed
+proper name during a performance review even though the maintained
+localisation and character description identified the character correctly.
+This can also misidentify policies, currencies, organizations, dates, and
+failure behavior.
+
+Before describing or changing an existing path, search the token's decision,
+event, GUI, scripted-localisation, tooltip, modifier, and character text. Build
+the code ID -> visible name -> player promise map first. When code and text
+disagree, record a semantic conflict and resolve it from project intent and
+runtime evidence; never let a plausible transliteration decide the feature.
+
 ### Search consumers before deleting or renaming state
 
 Flags, variables, event targets, localisation keys, sprite names, and scripted
@@ -124,9 +138,10 @@ from loading at all.
 
 1. Read project guidance and identify the current build and playset.
 2. Preserve unrelated changes and inspect the actual newest logs.
-3. Search definitions and consumers before editing identifiers.
-4. Fix the earliest root cause in each error bucket.
-5. Run the base validator and the focused localisation/map/override audits.
-6. Run stale-ID searches, encoding checks, and `git diff --check`.
-7. Ask before launching Steam or HOI4; report static and runtime evidence
+3. Read the affected localisation and map code IDs to visible meaning.
+4. Search definitions and consumers before editing identifiers.
+5. Fix the earliest root cause in each error bucket.
+6. Run the base validator and the focused localisation/map/override audits.
+7. Run stale-ID searches, encoding checks, and `git diff --check`.
+8. Ask before launching Steam or HOI4; report static and runtime evidence
    separately.

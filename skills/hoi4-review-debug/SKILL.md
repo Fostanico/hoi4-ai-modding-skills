@@ -22,7 +22,9 @@ description: Diagnose, review, optimize, migrate, and test Hearts of Iron IV mod
 Read [review-workflows.md](references/review-workflows.md),
 [field-tested-pitfalls.md](references/field-tested-pitfalls.md), the sibling
 base skill's `performance-debugging.md`, `review-checklist.md`, and
-`localisation-deep-dive.md`, and the builder's
+`localisation-deep-dive.md`. For every existing-feature review, also follow
+[semantic-intent-audit.md](../hoi4-pdx-modding/references/semantic-intent-audit.md)
+before accepting an inferred feature meaning. Use the builder's
 [test-mod.md](../hoi4-content-builder/workflows/test-mod.md) for runtime work.
 
 ## Establish evidence
@@ -31,6 +33,13 @@ Inspect target guidance, version, dependencies, playset, `git status`, changed
 files, definitions, callers, and the newest relevant log. Use installed schema
 and current vanilla/dependency consumers for unfamiliar tokens. Distinguish
 parser errors, semantic errors, runtime behavior, and optional-media warnings.
+
+Before judging or optimizing a feature, read its names, descriptions, options,
+tooltips, scripted-localisation branches, GUI labels, and character text. Map
+each code ID to its visible meaning and player-facing promise. Never identify a
+character or mechanic by transliterating an internal token. Treat any
+code/localisation disagreement as a finding to resolve, not as permission to
+ignore the localisation.
 
 Use the read-only tools when applicable:
 

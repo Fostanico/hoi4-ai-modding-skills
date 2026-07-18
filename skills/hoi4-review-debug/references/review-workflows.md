@@ -10,10 +10,14 @@
 4. Locate the token and object type in the installed vanilla documentation map.
    Record supported scope/targets from generated docs and nesting/lifecycle
    from a current working consumer. Reject TODO/TBD design syntax.
-5. Trace runtime entry point to the failing object and every scope transition.
-6. Bucket parser, invalid-token/scope, missing-ID, resource, and runtime-state
+5. Read the affected names, descriptions, options, tooltips, GUI labels,
+   scripted-localisation branches, and character text. Record the code ID,
+   visible meaning, player promise, lifecycle, and invariant. Do not infer a
+   proper name or feature role from the token itself.
+6. Trace runtime entry point to the failing object and every scope transition.
+7. Bucket parser, invalid-token/scope, missing-ID, resource, and runtime-state
    errors. Fix the earliest parser error first.
-7. Form one testable cause. If authorized to fix, make the smallest change and
+8. Form one testable cause. If authorized to fix, make the smallest change and
    rerun the same reproduction before broad cleanup.
 
 For a deterministic first pass over a current log:
@@ -29,8 +33,9 @@ explicit, and even then it refuses replacement without `-Force`.
 
 ## Code-quality and adversarial review
 
-Check syntax, scopes, initialization, identifiers, cross-file wiring, lifecycle,
-save compatibility, and performance. Then attack boundary cases:
+Build the semantic-intent map first, then check syntax, scopes, initialization,
+identifiers, cross-file wiring, lifecycle, save compatibility, and performance.
+Attack boundary cases only after the player-visible purpose is established:
 
 - missing/dead target or changed controller;
 - empty array, first/last index, denominator zero, and maximum values;

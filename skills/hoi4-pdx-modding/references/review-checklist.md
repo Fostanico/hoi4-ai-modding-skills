@@ -13,6 +13,20 @@
   every reported migration against installed generated documentation and a
   current vanilla example.
 
+## Semantic intent
+
+- Build a code ID -> visible name -> player-facing promise map from actual
+  localisation before interpreting or changing an existing feature.
+- Read names, descriptions, options, tooltips, modifier text, scripted
+  localisation, GUI labels, debug text, and character descriptions that belong
+  to the affected path.
+- Do not transliterate or expand an internal ID, abbreviation, filename, or
+  variable name into a proper name or gameplay meaning.
+- Reconcile displayed dates, costs, cooldowns, units, first-use behavior,
+  failure handling, and manual choices with the implementation.
+- Report code/localisation/documentation disagreement explicitly; after an
+  intentional behavior change, update every affected visible consumer.
+
 ## PDX structure
 
 - Braces balance and blocks are nested under valid parents.
@@ -71,6 +85,8 @@ doubled replacements.
   boundaries?
 - Can a delayed or weekly effect run twice or never run?
 - Does a visible tooltip describe the effect actually applied?
+- Did the review read that tooltip and the associated name/description before
+  assigning a narrative or gameplay meaning to the code token?
 - Can an event or callback call itself indefinitely?
 - Does a dependency override this definition or use a different token version?
 - Was the token removed, deprecated, or renamed by a recent official patch?

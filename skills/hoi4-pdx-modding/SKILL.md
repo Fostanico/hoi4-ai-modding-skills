@@ -18,7 +18,12 @@ description: Implement, explain, refactor, and validate portable Hearts of Iron 
    identifiers, paths, sprite names, equipment archetypes, and localisation
    keys as case-sensitive. Localisation entries must use `key: "Text"`;
    `key:0 "Text"` and every other numeric key-version suffix are errors.
-5. Use the Wiki to understand concepts. Prove uncertain fields, scopes, tokens,
+5. Read the affected feature's names, descriptions, options, tooltips, scripted
+   localisation, GUI text, and character descriptions before inferring its
+   purpose. Build the code-to-visible-meaning map in
+   [semantic-intent-audit.md](references/semantic-intent-audit.md); never infer
+   proper names or gameplay intent from IDs, filenames, or variable names.
+6. Use the Wiki to understand concepts. Prove uncertain fields, scopes, tokens,
    and file layout with the installed build's generated documentation, current
    vanilla consumers, and exact dependency version.
 
@@ -45,6 +50,9 @@ answers cannot be discovered or safely defaulted.
 - [localisation-deep-dive.md](references/localisation-deep-dive.md): colours,
   icons, formatted variables, scope functions, nested and bound text,
   formatters, dynamic consumers, templates, and localisation diagnostics.
+- [semantic-intent-audit.md](references/semantic-intent-audit.md): mandatory
+  code-to-localisation mapping before existing-feature fixes, refactors,
+  performance work, migration, or documentation.
 - [performance-debugging.md](references/performance-debugging.md): hot paths,
   caching, log triage, debug mode, and runtime evidence.
 - [version-migration.md](references/version-migration.md): game updates and
@@ -67,17 +75,21 @@ performance analysis, and runtime testing.
 1. Convert the request into a content contract: caller, starting scope,
    visible result, AI behavior, lifecycle, DLC/dependency gates, IDs, assets,
    save impact, and acceptance tests.
-2. Trace scope from each real caller through scripted effects, triggers,
+2. For existing content, derive the visible result from the actual
+   localisation and scripted-localisation consumers. Reconcile their promised
+   names, dates, costs, cooldowns, and failure behavior with project guidance
+   and code before editing.
+3. Trace scope from each real caller through scripted effects, triggers,
    events, decisions, on_actions, and GUI callbacks. Guard optional scopes.
-3. Reuse tokens proven in the current target. A generated modifier proves
+4. Reuse tokens proven in the current target. A generated modifier proves
    engine recognition, not that every consumer accepts it; require a working
    consumer for database-specific fields.
-4. Create definitions before consumers and wire the complete dependency chain,
+5. Create definitions before consumers and wire the complete dependency chain,
    including localisation, GUI/GFX, assets, history, AI, and lifecycle cleanup.
-5. Preserve unrelated changes and stable flags/variables unless an explicit
+6. Preserve unrelated changes and stable flags/variables unless an explicit
    migration plan covers old saves. Prefer event-driven or batched updates to
    global daily scans when behavior permits.
-6. Treat copied templates as parameterized skeletons. Replace every placeholder
+7. Treat copied templates as parameterized skeletons. Replace every placeholder
    and revalidate against the target build and dependencies.
 
 ## Validate proportionally

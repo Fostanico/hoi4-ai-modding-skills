@@ -9,6 +9,9 @@
 
 ## Hot-path rules
 
+- Read the affected localisation and build a code-to-visible-behavior map
+  before changing cadence, caching, failure handling, or manual/automatic
+  boundaries. Identifier names do not establish feature intent.
 - Prefer event-driven updates and narrow on_actions.
 - Batch low-urgency state changes weekly or monthly when gameplay semantics
   permit it.

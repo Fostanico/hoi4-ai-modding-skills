@@ -19,6 +19,12 @@ never assume the paths or conventions from the machine that authored this
 skill. Verify version-sensitive syntax in installed documentation and current
 vanilla or dependency consumers.
 
+When extending or repairing existing content, first read all affected visible
+localisation and scripted-localisation consumers. Follow the sibling skill's
+[semantic-intent-audit.md](../hoi4-pdx-modding/references/semantic-intent-audit.md)
+before translating IDs into a content contract. Identifiers are not evidence
+for character names, narrative roles, costs, dates, or player-facing behavior.
+
 ## Choose a workflow
 
 - New mod from an idea: [build-complete-mod.md](workflows/build-complete-mod.md)
@@ -54,12 +60,13 @@ all dependent resources, and a minimal runtime test before promoting it.
 ## Build the complete graph
 
 1. Establish stable IDs and file ownership.
-2. Create definitions before consumers.
-3. Wire callers, lifecycle updates, cleanup, AI, and compatibility gates.
-4. Add localisation and visible assets for every player-facing path.
-5. Search the whole target mod for definitions, callers, stale IDs, and
+2. Map IDs to visible names, descriptions, tooltips, and promised behavior.
+3. Create definitions before consumers.
+4. Wire callers, lifecycle updates, cleanup, AI, and compatibility gates.
+5. Add or update localisation and visible assets for every player-facing path.
+6. Search the whole target mod for definitions, callers, stale IDs, and
    collisions. Preserve unrelated work and project encoding conventions.
-6. Keep a minimal runnable path first; add branches and optimization only after
+7. Keep a minimal runnable path first; add branches and optimization only after
    the core path validates.
 
 Do not stop after writing the central object. A focus needs effects and text; a
