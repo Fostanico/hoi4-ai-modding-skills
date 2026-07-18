@@ -31,6 +31,37 @@ Add `-BaselinePath old-error.log -AsJson` to separate new, unchanged, and
 removed unique entries. The command is read-only unless `-OutputPath` is
 explicit, and even then it refuses replacement without `-Force`.
 
+## Windows crash dumps
+
+When a crash package contains `minidump.dmp` or another `.dmp`, detect
+`cdb.exe`, `WinDbgX.exe`, or the `Microsoft.WinDbg` AppX package. If WinDbg is
+already installed, use it; do not stop at `exception.txt` or text-log
+inspection. Do not install it without explicit user authorization. Prefer CDB
+for a reproducible, unattended pass and preserve the original dump:
+
+```powershell
+$pkg = Get-AppxPackage -Name Microsoft.WinDbg
+$cdb = Join-Path $pkg.InstallLocation 'amd64\cdb.exe'
+& $cdb -z '<CRASH_DIR>\minidump.dmp' -logo '<CRASH_DIR>\windbg-analysis.txt' `
+  -c '.symfix;.reload;!analyze -v;.ecxr;r;kv;lm;lmvm hoi4;q'
+```
+
+Record the exception operation (`read`, `write`, or `execute`), fault address,
+register context, first trustworthy stack frame, failing module, process
+uptime, loaded and unloaded third-party modules, and failure bucket. For an
+indirect null call, disassemble the caller and inspect the target slot. RTTI,
+nearby source-path strings, and object memory may identify the affected engine
+class even when function symbols are absent.
+
+Public HOI4 builds do not normally include Paradox private PDBs. Large offsets
+from the nearest exported `PHYSFS_*` symbol are not function identities or
+proof of a filesystem fault. A module being loaded is not proof that it caused
+the crash. Correlate dump time, process uptime, active playset, reproduction
+steps, fresh logs, and the affected engine class before assigning a mod file or
+third-party DLL as the cause. If no debugger is available, analyze
+`exception.txt` and fresh logs, but state that the native call site remains
+unresolved.
+
 ## Code-quality and adversarial review
 
 Build the semantic-intent map first, then check syntax, scopes, initialization,

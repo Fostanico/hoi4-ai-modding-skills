@@ -1,6 +1,6 @@
 ---
 name: hoi4-review-debug
-description: Diagnose, review, optimize, migrate, and test Hearts of Iron IV mods from source through an isolated in-game run. Use for error.log triage, parser or scope bugs, broken GUI/assets/localisation, AI behavior, performance, save/lifecycle risks, compatibility, version updates, template audits, regression plans, or user-approved Steam and game testing.
+description: Diagnose, review, optimize, migrate, and test Hearts of Iron IV mods from source through an isolated in-game run. Use for error.log triage, Windows crash dumps/minidumps, parser or scope bugs, broken GUI/assets/localisation, AI behavior, performance, save/lifecycle risks, compatibility, version updates, template audits, regression plans, or user-approved Steam and game testing.
 ---
 
 # HOI4 review and debug
@@ -44,6 +44,9 @@ ignore the localisation.
 Use the read-only tools when applicable:
 
 - `scripts/analyze-hoi4-log.ps1`: prioritize and compare logs.
+- Installed WinDbg/CDB: when a Windows crash package contains a `.dmp`, use the
+  debugger read-only before judging the crash; follow the minidump workflow in
+  `review-workflows.md`. Do not install a debugger without user authorization.
 - `scripts/audit-localisation.ps1`: inspect BOMs, headers, suffixes, duplicate
   keys, colour markers, nested tokens, dynamic variables, and functions.
 - `scripts/audit-hoi4-map.ps1`: check map IDs/colors and history membership.
