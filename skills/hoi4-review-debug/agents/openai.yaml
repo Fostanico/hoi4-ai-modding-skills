@@ -1,4 +1,4 @@
 interface:
   display_name: "HOI4 Review and Debug"
-  short_description: "Review, diagnose, simplify, and test HOI4 PDX content"
-  default_prompt: "Use $hoi4-review-debug to diagnose and verify this HOI4 issue with the bundled read-only tools, installed schema, current consumers, and fresh logs. For crashes, ask for the exact pre-crash actions and obtain explicit consent before any minimal, lawful native reverse engineering. Separately ask for consent before controlling Steam or launching an isolated -debug test."
+  short_description: "Audit, improve, balance, diagnose, and test HOI4 mods"
+  default_prompt: "Use $hoi4-review-debug to establish a read-only cross-file baseline, understand player-facing intent, and improve this existing HOI4 mod with evidence. Separate objective defects from subjective design or balance choices and obtain approval before the latter. For crashes, ask for exact pre-crash actions and consent before minimal lawful native analysis; separately ask before controlling Steam or launching an isolated -debug test."

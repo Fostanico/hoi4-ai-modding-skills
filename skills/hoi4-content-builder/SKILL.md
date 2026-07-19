@@ -24,6 +24,9 @@ localisation and scripted-localisation consumers. Follow the sibling skill's
 [semantic-intent-audit.md](../hoi4-pdx-modding/references/semantic-intent-audit.md)
 before translating IDs into a content contract. Identifiers are not evidence
 for character names, narrative roles, costs, dates, or player-facing behavior.
+For a whole-mod health, balance, UX, or improvement pass rather than one
+requested feature, route to the sibling `hoi4-review-debug` skill's
+`improve-existing-mod.md` workflow.
 
 ## Choose a workflow
 

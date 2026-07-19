@@ -1,6 +1,6 @@
 ---
 name: hoi4-review-debug
-description: Diagnose, review, optimize, migrate, and test Hearts of Iron IV mods from source through an isolated in-game run. Use for error.log triage, Windows crash dumps/minidumps, parser or scope bugs, broken GUI/assets/localisation, AI behavior, performance, save/lifecycle risks, compatibility, version updates, template audits, regression plans, or user-approved Steam and game testing.
+description: Diagnose, review, improve, balance, optimize, migrate, and test existing Hearts of Iron IV mods from source through an isolated in-game run. Use for whole-mod health audits, gameplay design/balance/UX review, error.log triage, Windows crash dumps/minidumps, parser or scope bugs, broken GUI/assets/localisation, AI behavior, performance, save/lifecycle risks, compatibility, version updates, template audits, regression plans, or user-approved Steam and game testing.
 ---
 
 # HOI4 review and debug
@@ -10,7 +10,14 @@ description: Diagnose, review, optimize, migrate, and test Hearts of Iron IV mod
 - Diagnosis: reproduce and trace one symptom before changing code.
 - Fix: identify the earliest root cause, repair the smallest coherent graph,
   and rerun the reproduction.
+- Existing-mod improvement: establish a whole-mod baseline, rank engineering
+  and player-experience findings, obtain approval for subjective changes, then
+  improve in reviewable batches using
+  [improve-existing-mod.md](workflows/improve-existing-mod.md).
 - Review: report concrete findings ordered by impact with file/line evidence.
+- Gameplay/balance/UX: compare the implemented player loop, costs, rewards, AI,
+  feedback, layout, and localisation against the documented player promise;
+  use [gameplay-balance-ux-review.md](references/gameplay-balance-ux-review.md).
 - Performance: determine execution frequency and scope count before optimizing.
 - Lifecycle/save audit: enumerate create, update, consume, clear, reload,
   migration, and dependency paths.
@@ -23,7 +30,8 @@ description: Diagnose, review, optimize, migrate, and test Hearts of Iron IV mod
   the smallest scenario, inspect fresh logs, iterate, and restore user settings.
 
 Read [review-workflows.md](references/review-workflows.md),
-[field-tested-pitfalls.md](references/field-tested-pitfalls.md), the sibling
+[field-tested-pitfalls.md](references/field-tested-pitfalls.md),
+[mod-doctor.md](references/mod-doctor.md), the sibling
 base skill's `performance-debugging.md`, `review-checklist.md`, and
 `localisation-deep-dive.md`. For every existing-feature review, also follow
 [semantic-intent-audit.md](../hoi4-pdx-modding/references/semantic-intent-audit.md)
@@ -51,6 +59,10 @@ ignore the localisation.
 
 Use the read-only tools when applicable:
 
+- `scripts/audit-hoi4-mod.ps1`: build a cross-file health baseline covering
+  event and scripted-object graphs, strong localisation/GFX/resource links,
+  duplicate/orphan definitions, periodic hot-path heuristics, and comment
+  coverage. Treat heuristic findings as leads, not automatic edit authority.
 - `scripts/analyze-hoi4-log.ps1`: prioritize and compare logs.
 - Installed WinDbg/CDB: when a Windows crash package contains a `.dmp`, use the
   debugger read-only before judging the crash; follow the minidump workflow in
@@ -81,6 +93,11 @@ options, alter a playset, or start HOI4 without that consent.
 For every applied fix or refactor, update the canonical mod technical document,
 current development handoff, and readable comments for affected contracts.
 Review their accuracy alongside code and localisation before completion.
+
+For a whole-mod improvement, fill the bundled
+`assets/templates/mod-improvement-report.md` with the before/after baseline,
+approved scope, evidence, deferred design choices, and remaining risks. Never
+silently turn a balance preference or narrative taste into a defect.
 
 For an approved test, use computer-use when available and follow the builder's
 runtime workflow. Enable only the target mod, plus exact required dependencies
