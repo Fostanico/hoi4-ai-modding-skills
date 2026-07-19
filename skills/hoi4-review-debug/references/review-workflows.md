@@ -33,6 +33,15 @@ explicit, and even then it refuses replacement without `-Force`.
 
 ## Windows crash dumps
 
+Before native analysis, ask the user to reconstruct the shortest exact action
+timeline leading to the crash. Record the game build, playset, DLCs, save or
+new-game state, the last windows/tabs/buttons used, pause and speed state, date
+advance, save/load, console or debug commands, GUI debug and hot refresh,
+whether files were edited while the game was running, overlays/injectors, and
+whether a full clean restart reproduces the crash. Treat this behavior as
+evidence that can distinguish a static content defect from a reload-lifecycle
+failure.
+
 When a crash package contains `minidump.dmp` or another `.dmp`, detect
 `cdb.exe`, `WinDbgX.exe`, or the `Microsoft.WinDbg` AppX package. If WinDbg is
 already installed, use it; do not stop at `exception.txt` or text-log
@@ -52,6 +61,24 @@ uptime, loaded and unloaded third-party modules, and failure bucket. For an
 indirect null call, disassemble the caller and inspect the target slot. RTTI,
 nearby source-path strings, and object memory may identify the affected engine
 class even when function symbols are absent.
+
+Before disassembling native callers, inspecting vtables/RTTI, or otherwise
+reverse-engineering a program, obtain the user's explicit consent. Proceed only
+when the user lawfully controls the supplied dump and installed binary and the
+work is permitted by applicable law. Keep it to the minimum needed for crash
+and compatibility diagnosis: preserve hashes and original evidence, work
+read-only, and stop once the affected class, call path, or mod-facing contract
+is identified. Do not bypass DRM or access controls, seek unrelated proprietary
+logic or secrets, patch or redistribute the executable, claim access to private
+symbols, or reproduce substantial decompiled code. If authority or legality is
+unclear, stop and state the limitation; this workflow is not legal advice.
+
+Separate the report into confirmed dump facts, behavior-correlated inference,
+legal or technical limitations, and the clean runtime test still needed. If GUI
+files were edited in-session and GUI debug or hot refresh was then enabled,
+consider stale scripted-GUI updater references or destroyed/recreated controls.
+Require a full game restart without hot refresh before blaming otherwise valid
+static `.gui` or `scripted_guis` bindings.
 
 Public HOI4 builds do not normally include Paradox private PDBs. Large offsets
 from the nearest exported `PHYSFS_*` symbol are not function identities or

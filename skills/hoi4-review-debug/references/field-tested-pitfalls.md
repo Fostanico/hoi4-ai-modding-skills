@@ -93,6 +93,18 @@ encoding, braces, references, and known tokens; it cannot prove that a GUI
 clicked, a scope existed, or a dynamic value refreshed. Only a fresh run after
 the edit can do that.
 
+### GUI hot reload is not lifecycle proof
+
+Editing GUI files while the game is running and then enabling GUI debug or hot
+refresh can destroy and recreate controls while a scripted GUI updater still
+holds an old object reference. A dump may then show a source control reduced to
+a base GUI object followed by an indirect null call. Treat that pattern as a
+hot-reload lifecycle hypothesis, not immediate proof that the static binding is
+invalid.
+
+Ask for the exact pre-crash operation sequence and reproduce after a full game
+restart without hot refresh before changing otherwise valid GUI bindings.
+
 ### Nearby performance work must preserve cadence
 
 Merging repeated weekly scans does not authorize moving an unrelated daily

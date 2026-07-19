@@ -16,6 +16,9 @@ description: Diagnose, review, optimize, migrate, and test Hearts of Iron IV mod
   migration, and dependency paths.
 - Template audit: verify target build, placeholders, schema, current consumer,
   dependency chain, and runtime status.
+- Native crash diagnosis: ask for the exact pre-crash action timeline, obtain
+  explicit consent before reverse engineering, and keep any lawful analysis
+  read-only and limited to the compatibility question.
 - Runtime test: ask for consent, isolate the playset, launch with `-debug`, run
   the smallest scenario, inspect fresh logs, iterate, and restore user settings.
 
@@ -34,6 +37,11 @@ files, definitions, callers, and the newest relevant log. Use installed schema
 and current vanilla/dependency consumers for unfamiliar tokens. Distinguish
 parser errors, semantic errors, runtime behavior, and optional-media warnings.
 
+For a crash, ask what the player did immediately before it before assigning a
+cause. Record the window, tab, or control used; pause and speed state; date
+advance; save/load; console and debug commands; GUI debug or hot refresh;
+in-session file edits; overlays; and whether a clean restart reproduces it.
+
 Before judging or optimizing a feature, read its names, descriptions, options,
 tooltips, scripted-localisation branches, GUI labels, and character text. Map
 each code ID to its visible meaning and player-facing promise. Never identify a
@@ -46,7 +54,8 @@ Use the read-only tools when applicable:
 - `scripts/analyze-hoi4-log.ps1`: prioritize and compare logs.
 - Installed WinDbg/CDB: when a Windows crash package contains a `.dmp`, use the
   debugger read-only before judging the crash; follow the minidump workflow in
-  `review-workflows.md`. Do not install a debugger without user authorization.
+  `review-workflows.md`. Obtain explicit consent before reverse-engineering a
+  native call path, and do not install a debugger without user authorization.
 - `scripts/audit-localisation.ps1`: inspect BOMs, headers, suffixes, duplicate
   keys, colour markers, nested tokens, dynamic variables, and functions.
 - `scripts/audit-hoi4-map.ps1`: check map IDs/colors and history membership.
