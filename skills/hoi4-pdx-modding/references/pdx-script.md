@@ -37,8 +37,11 @@ the installed generated documentation and current examples decide what to emit.
 - Preserve the target file's indentation. Prefer tabs for new PDX blocks when
   the target repository has no established style.
 - Put `{` on the declaration line and the matching `}` at the outer indent.
-- Keep comments short and explain invariants, engine quirks, or non-obvious
-  scope choices rather than restating code.
+- Comment every file or subsystem sufficiently for another maintainer to find
+  its purpose and entry point. Explain invariants, scope contracts, state
+  ownership/lifetime, cadence and units, save/compatibility constraints, and
+  engine workarounds where they are not obvious. Keep comments readable and
+  close to the affected block; do not mechanically restate each line.
 - Balanced braces are a minimum check, not proof of valid field nesting.
 
 ## Scopes

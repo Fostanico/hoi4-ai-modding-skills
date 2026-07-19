@@ -68,6 +68,10 @@ all dependent resources, and a minimal runtime test before promoting it.
    collisions. Preserve unrelated work and project encoding conventions.
 7. Keep a minimal runnable path first; add branches and optimization only after
    the core path validates.
+8. Create or update the mod's technical documentation and current development
+   handoff, and add readable contract comments to the implementation. Use the
+   base skill's `development-documentation.md` and the bundled documentation
+   templates; documentation is part of the feature graph.
 
 Do not stop after writing the central object. A focus needs effects and text; a
 GUI needs sprites, callbacks, and localisation; a project needs facilities,

@@ -9,7 +9,8 @@ special projects, factions, compatibility layers, or save migrations.
    scripted-localisation branches, and player-facing promises before defining
    the system. Do not infer proper names or roles from tokens.
 3. Define the state machine, scope contracts, data owners, dependency graph,
-   performance budget, compatibility matrix, and migration/reload behavior.
+   performance budget, compatibility matrix, and migration/reload behavior in
+   both the implementation plan and canonical technical documentation.
 4. Verify every database field against installed documentation and a current
    vanilla or exact-dependency consumer. Do not infer unsupported objects from
    a plausible token name.
@@ -24,3 +25,5 @@ special projects, factions, compatibility layers, or save migrations.
 9. Run static checks and the smallest matrix that covers distinct behavior.
 10. Ask for runtime-test consent, follow `test-mod.md`, compare fresh logs, and
    iterate until acceptance tests pass or a concrete engine blocker is proven.
+   Reconcile contract comments and record the final evidence, risks, and next
+   actions in the development handoff.

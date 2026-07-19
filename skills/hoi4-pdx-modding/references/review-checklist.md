@@ -78,6 +78,25 @@ Preserve save compatibility or provide explicit initialization/migration for old
 saves. After bulk replacement, inspect surrounding identifiers for partial or
 doubled replacements.
 
+## Documentation and readability
+
+- The canonical mod technical document was created or updated in the same
+  change and records the affected architecture, entry points, IDs, state
+  ownership, lifecycle, dependencies, compatibility, and test procedure.
+- The current development handoff records changed files, design decisions,
+  validation evidence, runtime status, remaining risks, and next actions.
+- Durable technical truth and change-specific handoff are kept distinct, even
+  when the project stores them as two sections in one file.
+- New or changed code has readable comments for file/subsystem purpose and
+  non-obvious scope, state, units, cadence, cleanup, save behavior, performance,
+  compatibility, or engine-workaround decisions.
+- Comments explain why and contracts rather than translating every token into
+  prose. Stale comments, dead commented-out code, and claims contradicted by
+  the implementation were removed or corrected.
+- Project documentation links to identifiers and owned files instead of
+  duplicating generic PDX language rules already maintained by the skill, Wiki,
+  or installed game documentation.
+
 ## Adversarial questions
 
 - What happens if the target country no longer exists?
@@ -99,6 +118,7 @@ doubled replacements.
 
 ## Handoff evidence
 
+- Canonical technical-document and development-handoff updates.
 - Bundled static validator result.
 - `git diff --check` result.
 - Targeted stale-ID and duplicate-definition searches.

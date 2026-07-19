@@ -78,6 +78,10 @@ checks, and a fresh-log comparison. Static work ends with a consent question:
 does the user want AI-assisted in-game testing? Never open Steam, change launch
 options, alter a playset, or start HOI4 without that consent.
 
+For every applied fix or refactor, update the canonical mod technical document,
+current development handoff, and readable comments for affected contracts.
+Review their accuracy alongside code and localisation before completion.
+
 For an approved test, use computer-use when available and follow the builder's
 runtime workflow. Enable only the target mod, plus exact required dependencies
 for a submod; use `-debug`; start a new game from the earliest available

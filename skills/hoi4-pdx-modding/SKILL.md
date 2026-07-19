@@ -63,6 +63,9 @@ answers cannot be discovered or safely defaulted.
   choosing installed schema sources and debug commands.
 - [review-checklist.md](references/review-checklist.md): reviews, renames,
   regression checks, encoding, and handoff.
+- [development-documentation.md](references/development-documentation.md):
+  mandatory technical documentation, change handoff, and readable code-comment
+  contracts for every implementation or repair.
 - [source-attribution.md](references/source-attribution.md): provenance and
   licensing when maintaining or redistributing these skills.
 
@@ -91,6 +94,10 @@ performance analysis, and runtime testing.
    global daily scans when behavior permits.
 7. Treat copied templates as parameterized skeletons. Replace every placeholder
    and revalidate against the target build and dependencies.
+8. Update the mod's canonical technical documentation and current development
+   handoff in the same change. Add readable comments at file/subsystem
+   boundaries and around non-obvious scope, state, lifecycle, performance,
+   compatibility, and engine-workaround logic.
 
 ## Validate proportionally
 
@@ -104,6 +111,8 @@ Then search for stale/sample IDs, duplicate definitions, missing localisation
 or GFX links, descriptor/load-root mistakes, conflict markers, and encoding
 violations. Run the repository's diff/format checks when available. Inspect a
 fresh `error.log`; fix the earliest parser error in each file before cascades.
+Treat current technical documentation, handoff evidence, and meaningful code
+comments as part of completion, not optional cleanup after the code works.
 
 Static checks cannot prove scope, timing, GUI interaction, AI choice, history
 loading, or asset rendering. After static validation, use the sibling runtime

@@ -10,7 +10,9 @@
    redistribution rights cover every bundled code and asset. Do not redistribute
    Paradox or third-party game assets merely because they were verification
    sources.
-5. Package from a clean manifest with relative paths and inspect the archive
+5. Verify the canonical technical guide, current development handoff, and code
+   comments match the released implementation. Record runtime gaps honestly.
+6. Package from a clean manifest with relative paths and inspect the archive
    listing before publishing. Hash the final archive and record the version.
-6. Publish source and tagged releases from a repository when possible so users
+7. Publish source and tagged releases from a repository when possible so users
    can review history and install only the intended skill/mod directories.

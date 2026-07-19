@@ -12,7 +12,8 @@
 4. Choose the nearest verified template or working current consumer. Search
    the target mod for ID, localisation, and resource collisions.
 5. Implement the smallest complete dependency chain, including lifecycle,
-   cleanup, AI, localisation, and visible resources that the feature needs.
+   cleanup, AI, localisation, visible resources, readable contract comments,
+   and technical-documentation updates that the feature needs.
 6. Trace caller scope through every nested trigger/effect and guard optional
    scopes. Preserve stable save state or add an idempotent migration.
 7. Rebuild the semantic map after editing and reconcile every changed date,
@@ -20,4 +21,5 @@
 8. Run targeted validator, stale-placeholder/link searches, encoding and diff
    checks, then compare a fresh log with baseline evidence.
 9. Ask for AI-assisted runtime-test consent and follow `test-mod.md` only after
-   approval. Record remaining manual interactions explicitly.
+   approval. Update the current development handoff with static/runtime
+   evidence and remaining manual interactions.

@@ -57,9 +57,20 @@ game root.
 | `scripts/generate-gfx-manifest.ps1` | Deterministic sprite and optional focus-shine manifest | consumer; no adjacent schema | `interface/goals.gfx`, `interface/goals_shine.gfx` |
 | `scripts/new-country-scaffold.ps1` | Staged country/tag/history/character/localisation generator | current consumers | `country_tags/00_countries.txt`, `countries/Germany.txt`, `history/countries/GER - Germany.txt` |
 
+## Project engineering templates
+
+These templates describe the mod being built rather than HOI4 database syntax:
+
+| Resource | Intended use |
+| --- | --- |
+| `mod-technical-guide.md` | Durable architecture, identifiers, lifecycle, compatibility, and test contract |
+| `development-handoff.md` | Current change state, evidence, risks, and concrete next actions |
+
 ## Boundaries
 
 - These are structural skeletons, not globally correct gameplay defaults.
+- Reuse an established project guide or handoff instead of creating duplicate
+  documentation. The engineering templates are starting points only.
 - The four localisation templates intentionally share the same keys. Copy each
   requested language into its matching `localisation/<language>/` directory,
   translate values only, and preserve scripted tokens, variables, icons, and

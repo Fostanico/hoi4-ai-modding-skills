@@ -7,6 +7,8 @@
    and avoid `replace_path` unless the requested design requires replacement.
 3. Write the content contract and architecture: IDs, databases, callers,
    lifecycle, AI, assets, localisation, compatibility, save behavior, tests.
+   Start the canonical technical guide and development handoff from the bundled
+   templates when the project has no established equivalents.
 4. Create the smallest playable vertical slice from verified templates. Define
    objects before consumers and use project conventions for paths/encoding.
 5. Complete the dependency graph: entry points, effects/triggers, UI/GFX,
@@ -19,8 +21,8 @@
 8. Ask whether the user wants AI-assisted in-game testing. If yes, follow
    `test-mod.md`; if no, provide the smallest manual test plan without opening
    Steam or changing the playset.
-9. Incorporate test evidence, update project handoff documentation only for
-   durable project-specific state or conventions, then follow `release-mod.md`.
+9. Incorporate test evidence; reconcile code comments; update durable technical
+   documentation and the change-specific handoff; then follow `release-mod.md`.
 
 Done means the requested player experience works as a complete graph, not that
 one central script file exists.
