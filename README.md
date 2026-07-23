@@ -20,6 +20,7 @@
 - ChatGPT、Claude 等网页版：在平台支持自定义 Skills 时，分别上传三个单独的 skill ZIP。
 
 目录内必须保留 `SKILL.md` 以及相邻的 `references/`、`workflows/`、`assets/` 和 `scripts/`。
+各平台的详细目录与发布注意事项见 [安装与共享指南](docs/INSTALLATION.md)。
 
 ## 使用
 

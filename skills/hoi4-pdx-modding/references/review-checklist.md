@@ -53,6 +53,11 @@
 - Focus prerequisites, positions, mutual exclusions, icons, rewards, and
   localisation agree.
 - Idea/MIO add/remove/unlock paths and sprites agree.
+- For artwork audits, follow the review skill's
+  [icon-audit.md](../../hoi4-review-debug/references/icon-audit.md): include
+  game DLC roots and exact dependencies; distinguish broken GFX/assets from
+  generic defaults, `none`/`nothing`, hidden objects, inheritance, and optional
+  icons.
 - GUI window/element names, GFX sprite names, texture paths, scripted GUI
   callbacks, and localisation keys agree.
 - Scripted GUI refresh uses a meaningful dirty value or has an explicit reason

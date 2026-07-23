@@ -246,6 +246,39 @@ function Test-AssetPath {
     return $false
 }
 
+function Find-AssetAlternatives {
+    param([string]$Reference, [object]$SourceFile, [string[]]$Roots)
+
+    $normalized = $Reference.Replace('/', [IO.Path]::DirectorySeparatorChar).Replace('\', [IO.Path]::DirectorySeparatorChar)
+    $relativeDirectory = [IO.Path]::GetDirectoryName($normalized)
+    if ($null -eq $relativeDirectory) { $relativeDirectory = '' }
+    $baseName = [IO.Path]::GetFileNameWithoutExtension($normalized)
+    $expectedExtension = [IO.Path]::GetExtension($normalized)
+    if ([string]::IsNullOrWhiteSpace($baseName)) { return @() }
+
+    $directories = [Collections.Generic.List[string]]::new()
+    $sourceDirectory = [IO.Path]::GetDirectoryName($SourceFile.FullName)
+    if (-not [string]::IsNullOrWhiteSpace($sourceDirectory)) {
+        $directories.Add((Join-Path $sourceDirectory $relativeDirectory))
+    }
+    foreach ($root in $Roots) {
+        if (-not [string]::IsNullOrWhiteSpace($root)) {
+            $directories.Add((Join-Path $root $relativeDirectory))
+        }
+    }
+
+    $alternatives = [Collections.Generic.List[string]]::new()
+    foreach ($directory in @($directories | Sort-Object -Unique)) {
+        if (-not (Test-Path -LiteralPath $directory -PathType Container)) { continue }
+        foreach ($candidate in Get-ChildItem -LiteralPath $directory -File -ErrorAction SilentlyContinue) {
+            if ($candidate.BaseName -ne $baseName -or $candidate.Extension -eq $expectedExtension) { continue }
+            if (@('.dds', '.png', '.tga') -notcontains $candidate.Extension.ToLowerInvariant()) { continue }
+            $alternatives.Add($candidate.FullName)
+        }
+    }
+    return @($alternatives | Sort-Object -Unique)
+}
+
 function Get-GfxTextureSignature {
     param([object]$Location, [object[]]$IndexedFiles)
 
@@ -276,6 +309,15 @@ foreach ($dependency in $DependencyRoots) {
     $resolvedDependencies.Add((Resolve-ExistingDirectory -Path $dependency -Label 'Dependency root'))
 }
 $GameRoot = Resolve-ExistingDirectory -Path $GameRoot -Label 'Game root'
+$gameDlcRoots = [Collections.Generic.List[string]]::new()
+if (-not [string]::IsNullOrWhiteSpace($GameRoot)) {
+    $gameDlcDirectory = Join-Path $GameRoot 'dlc'
+    if (Test-Path -LiteralPath $gameDlcDirectory -PathType Container) {
+        foreach ($directory in Get-ChildItem -LiteralPath $gameDlcDirectory -Directory -ErrorAction SilentlyContinue) {
+            $gameDlcRoots.Add($directory.FullName)
+        }
+    }
+}
 
 $allFiles = [Collections.Generic.List[object]]::new()
 foreach ($file in Get-PrimaryFiles -Root $ModRoot) {
@@ -601,6 +643,33 @@ if (-not [string]::IsNullOrWhiteSpace($GameRoot) -and $gameLocalisationCandidate
 $missingLocalisationKeys = @($localisationReferences.Keys | Where-Object { -not $allLocalisationKeys.ContainsKey($_) })
 Publish-MissingReferences -Keys $missingLocalisationKeys -ReferenceMap $localisationReferences -Code 'MISSING_LOCALISATION' -Noun 'strong localisation key'
 
+$gameDlcGfxCandidates = @($gfxReferences.Keys | Where-Object { -not $gfxDefinitions.ContainsKey($_) })
+if ($gameDlcRoots.Count -gt 0 -and $gameDlcGfxCandidates.Count -gt 0) {
+    $escapedGfxCandidates = @($gameDlcGfxCandidates | ForEach-Object { [regex]::Escape($_) })
+    $gameDlcGfxPattern = [regex]::new(
+        ('(?<![A-Za-z0-9_])name\s*=\s*"?(' + ($escapedGfxCandidates -join '|') + ')"?'),
+        [Text.RegularExpressions.RegexOptions]::Compiled
+    )
+    foreach ($gameDlcRoot in $gameDlcRoots) {
+        $gameDlcInterface = Join-Path $gameDlcRoot 'interface'
+        if (-not (Test-Path -LiteralPath $gameDlcInterface -PathType Container)) { continue }
+        foreach ($gameDlcFile in Get-ChildItem -LiteralPath $gameDlcInterface -Recurse -File -ErrorAction SilentlyContinue | Where-Object { @('.gfx', '.gui') -contains $_.Extension.ToLowerInvariant() }) {
+            try {
+                $gameDlcContent = [IO.File]::ReadAllText($gameDlcFile.FullName, [Text.Encoding]::UTF8)
+                foreach ($match in $gameDlcGfxPattern.Matches($gameDlcContent)) {
+                    Add-MapEntry -Map $gfxDefinitions -Key $match.Groups[1].Value -Value ([pscustomobject]@{
+                        root = 'game-dlc'
+                        file = Get-RelativePath -Root $gameDlcRoot -Path $gameDlcFile.FullName
+                        line = 1
+                    })
+                }
+            }
+            catch {
+                Add-Finding -Severity Warning -Code 'GAME_DLC_GFX_READ_FAILED' -Message "Could not inspect DLC GFX file '$($gameDlcFile.FullName)'." -Location $null -Evidence $_.Exception.Message -Heuristic $false
+            }
+        }
+    }
+}
 $missingGfxKeys = @($gfxReferences.Keys | Where-Object { -not $gfxDefinitions.ContainsKey($_) })
 Publish-MissingReferences -Keys $missingGfxKeys -ReferenceMap $gfxReferences -Code 'MISSING_GFX' -Noun 'GFX object'
 
@@ -608,12 +677,21 @@ $assetSearchRoots = [Collections.Generic.List[string]]::new()
 $assetSearchRoots.Add($ModRoot)
 foreach ($dependency in $resolvedDependencies) { $assetSearchRoots.Add($dependency) }
 if (-not [string]::IsNullOrWhiteSpace($GameRoot)) { $assetSearchRoots.Add($GameRoot) }
+foreach ($gameDlcRoot in $gameDlcRoots) { $assetSearchRoots.Add($gameDlcRoot) }
 $missingAssetPaths = [Collections.Generic.List[string]]::new()
+$extensionMismatchAssetPaths = [Collections.Generic.List[string]]::new()
 foreach ($assetPath in $assetReferences.Keys) {
     $firstReference = $assetReferences[$assetPath][0]
     $sourceFile = $primaryFiles | Where-Object { $_.RelativePath -eq $firstReference.file } | Select-Object -First 1
     if ($null -ne $sourceFile -and -not (Test-AssetPath -Reference $assetPath -SourceFile $sourceFile -Roots @($assetSearchRoots))) {
-        $missingAssetPaths.Add($assetPath)
+        $alternatives = @(Find-AssetAlternatives -Reference $assetPath -SourceFile $sourceFile -Roots @($assetSearchRoots))
+        if ($alternatives.Count -gt 0) {
+            $extensionMismatchAssetPaths.Add($assetPath)
+            Add-Finding -Severity Warning -Code 'ASSET_EXTENSION_MISMATCH' -Message "Asset path '$assetPath' is missing, but the same basename exists with another texture extension." -Location $firstReference -Evidence (($alternatives | Select-Object -First 6) -join ', ') -Heuristic $false
+        }
+        else {
+            $missingAssetPaths.Add($assetPath)
+        }
     }
 }
 Publish-MissingReferences -Keys @($missingAssetPaths) -ReferenceMap $assetReferences -Code 'MISSING_ASSET' -Noun 'asset path'
@@ -668,6 +746,7 @@ $result = [pscustomobject]@{
         mod = $ModRoot
         dependencies = @($resolvedDependencies)
         game = $GameRoot
+        gameDlcRoots = @($gameDlcRoots)
     }
     summary = [pscustomobject]@{
         filesScanned = $allFiles.Count
@@ -701,6 +780,7 @@ $result = [pscustomobject]@{
         unresolvedGfxTokens = $missingGfxKeys.Count
         assetPaths = $assetReferences.Count
         unresolvedAssetPaths = $missingAssetPaths.Count
+        extensionMismatchAssetPaths = $extensionMismatchAssetPaths.Count
     }
     commentCoverage = @($commentStats | Sort-Object file)
     findings = $orderedFindings

@@ -31,7 +31,8 @@ description: Diagnose, review, improve, balance, optimize, migrate, and test exi
 
 Read [review-workflows.md](references/review-workflows.md),
 [field-tested-pitfalls.md](references/field-tested-pitfalls.md),
-[mod-doctor.md](references/mod-doctor.md), the sibling
+[mod-doctor.md](references/mod-doctor.md), and, for missing or broken artwork,
+[icon-audit.md](references/icon-audit.md). Also read the sibling
 base skill's `performance-debugging.md`, `review-checklist.md`, and
 `localisation-deep-dive.md`. For every existing-feature review, also follow
 [semantic-intent-audit.md](../hoi4-pdx-modding/references/semantic-intent-audit.md)
@@ -62,7 +63,9 @@ Use the read-only tools when applicable:
 - `scripts/audit-hoi4-mod.ps1`: build a cross-file health baseline covering
   event and scripted-object graphs, strong localisation/GFX/resource links,
   duplicate/orphan definitions, periodic hot-path heuristics, and comment
-  coverage. Treat heuristic findings as leads, not automatic edit authority.
+  coverage. When `-GameRoot` is supplied it also target-scans installed DLC
+  interface trees and distinguishes same-basename texture extension mismatches.
+  Treat heuristic findings as leads, not automatic edit authority.
 - `scripts/analyze-hoi4-log.ps1`: prioritize and compare logs.
 - Installed WinDbg/CDB: when a Windows crash package contains a `.dmp`, use the
   debugger read-only before judging the crash; follow the minidump workflow in
