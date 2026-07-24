@@ -23,14 +23,18 @@ description: Diagnose, review, improve, balance, optimize, migrate, and test exi
   migration, and dependency paths.
 - Template audit: verify target build, placeholders, schema, current consumer,
   dependency chain, and runtime status.
-- Native crash diagnosis: ask for the exact pre-crash action timeline, obtain
-  explicit consent before reverse engineering, and keep any lawful analysis
-  read-only and limited to the compatibility question.
+- Native crash diagnosis: ask for the exact pre-crash action timeline and
+  governing jurisdiction, then follow the staged consent and confidence gates
+  in
+  [native-crash-reverse-engineering.md](references/native-crash-reverse-engineering.md).
+  Never infer jurisdiction from language or broaden one authorization into
+  static decompilation, tool installation, or live-process debugging.
 - Runtime test: ask for consent, isolate the playset, launch with `-debug`, run
   the smallest scenario, inspect fresh logs, iterate, and restore user settings.
 
 Read [review-workflows.md](references/review-workflows.md),
 [field-tested-pitfalls.md](references/field-tested-pitfalls.md),
+[native-crash-reverse-engineering.md](references/native-crash-reverse-engineering.md),
 [mod-doctor.md](references/mod-doctor.md), and, for missing or broken artwork,
 [icon-audit.md](references/icon-audit.md). Also read the sibling
 base skill's `performance-debugging.md`, `review-checklist.md`, and
@@ -70,7 +74,10 @@ Use the read-only tools when applicable:
 - Installed WinDbg/CDB: when a Windows crash package contains a `.dmp`, use the
   debugger read-only before judging the crash; follow the minidump workflow in
   `review-workflows.md`. Obtain explicit consent before reverse-engineering a
-  native call path, and do not install a debugger without user authorization.
+  native call path. If minimum analysis is not high-confidence, report the
+  missing evidence and ask before verified Ghidra/JDK acquisition or deeper
+  static analysis; ask again before launching or attaching to a live process.
+  Do not install tools without user authorization.
 - `scripts/audit-localisation.ps1`: inspect BOMs, headers, suffixes, duplicate
   keys, colour markers, nested tokens, dynamic variables, and functions.
 - `scripts/audit-hoi4-map.ps1`: check map IDs/colors and history membership.

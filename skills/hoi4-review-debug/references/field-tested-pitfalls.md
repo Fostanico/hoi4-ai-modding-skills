@@ -93,6 +93,23 @@ encoding, braces, references, and known tokens; it cannot prove that a GUI
 clicked, a scope existed, or a dynamic value refreshed. Only a fresh run after
 the edit can do that.
 
+### The last log entry is not the crashing native path
+
+A log line immediately before a crash may come from another worker thread or
+an earlier queued operation. One investigated crash ended after an
+equipment-variant message, while the exception context and RTTI chain were in
+parallel decision-AI trigger evaluation. Keep log defects as findings, but do
+not promote temporal adjacency into native causation.
+
+Trace the faulting instruction and operands, inspect the object/vtable/RTTI
+chain, compare all threads and locks, and map the recovered object back to a
+specific script category or identifier. Report the engine failure, script
+trigger surface, possible timing amplifiers, and unrelated errors separately.
+If minimum WinDbg evidence cannot support a high-confidence result, use the
+staged authorization workflow in
+`native-crash-reverse-engineering.md`; do not fill the missing native evidence
+with a plausible mod theory.
+
 ### GUI hot reload is not lifecycle proof
 
 Editing GUI files while the game is running and then enabling GUI debug or hot

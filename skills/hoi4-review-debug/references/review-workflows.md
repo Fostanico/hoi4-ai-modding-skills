@@ -42,6 +42,14 @@ whether a full clean restart reproduces the crash. Treat this behavior as
 evidence that can distinguish a static content defect from a reload-lifecycle
 failure.
 
+Read
+[native-crash-reverse-engineering.md](native-crash-reverse-engineering.md)
+before analyzing native code. Confirm the country or territory whose law
+applies; language is only a prompt-language hint, never a jurisdiction signal.
+Use separate consent gates for minimum WinDbg analysis, verified tool
+acquisition plus deeper static analysis, and live-process/full-dump or hardware
+breakpoint work.
+
 When a crash package contains `minidump.dmp` or another `.dmp`, detect
 `cdb.exe`, `WinDbgX.exe`, or the `Microsoft.WinDbg` AppX package. If WinDbg is
 already installed, use it; do not stop at `exception.txt` or text-log
@@ -72,6 +80,16 @@ is identified. Do not bypass DRM or access controls, seek unrelated proprietary
 logic or secrets, patch or redistribute the executable, claim access to private
 symbols, or reproduce substantial decompiled code. If authority or legality is
 unclear, stop and state the limitation; this workflow is not legal advice.
+
+After the minimum WinDbg pass, label the result high, medium, or low confidence
+using the native-analysis reference. If it is not high-confidence, do not
+guess. Explain the exact missing evidence and ask whether to proceed to maximum
+lawful static diagnosis. When approved, detect existing tools first; otherwise
+download the current official stable Ghidra release and its currently required
+Eclipse Temurin LTS JDK only after checksum, signature where applicable,
+archive-path, and antivirus checks. Ask again before running the game,
+attaching a debugger, taking a full user-mode dump, or setting a hardware data
+breakpoint on a suspicious field.
 
 Separate the report into confirmed dump facts, behavior-correlated inference,
 legal or technical limitations, and the clean runtime test still needed. If GUI
