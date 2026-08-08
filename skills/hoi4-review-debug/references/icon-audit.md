@@ -80,8 +80,18 @@ broken until the engine's class-specific prefix has been applied.
 
 ### Ideas
 
-- `picture = GFX_x` uses `GFX_x` exactly.
-- `picture = foo` conventionally resolves as `GFX_idea_foo`.
+- Register a custom idea sprite as `name = "GFX_idea_<token>"`. The prefix is
+  part of the registered name and must not be removed there.
+- Prefer the short consumer form `picture = <token>`; for example,
+  `name = "GFX_idea_yuzu_example"` pairs with
+  `picture = yuzu_example`.
+- Normalize `picture = <token>` and `picture = GFX_idea_<token>` to the same
+  expected sprite during static audits. Do not report either form as a naming
+  mismatch merely because the other style was used.
+- Use the explicit `picture = GFX_idea_<token>` form only after the player
+  reports that the preferred short form fails to render in the exact target
+  playset. Retest after changing only the consumer, then continue checking the
+  loaded `.gfx` registration and exact texture path if it still fails.
 - `picture = idea_foo` resolves as `GFX_idea_foo`, not
   `GFX_idea_idea_foo`.
 - With no `picture`, test the conventional `GFX_idea_<idea_id>` fallback.

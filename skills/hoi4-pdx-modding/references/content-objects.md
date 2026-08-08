@@ -94,6 +94,15 @@ country_event = {
 
 - Define the correct category and use a real sprite token; a missing picture
   commonly produces a blank icon rather than an obvious parser failure.
+- For a custom idea sprite, keep the registration explicit and complete:
+  `name = "GFX_idea_<token>"`. In the idea definition, prefer the shorter
+  `picture = <token>` form; for example, register
+  `GFX_idea_yuzu_example` and consume it as `picture = yuzu_example`.
+  Do not remove `GFX_idea_` from the registered sprite name.
+- If the player reports that the preferred short form does not render in the
+  exact target playset, change only the consumer to
+  `picture = GFX_idea_<token>` and retest. Treat this explicit form as the
+  compatibility fallback, not the default authoring style.
 - Use `original_tag` in a nation-restricted `allowed` block when civil-war tags
   should retain access.
 - Verify add, remove, swap, cancel, and timed-expiry paths. A `swap_ideas` where

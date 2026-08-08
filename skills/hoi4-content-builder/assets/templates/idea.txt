@@ -1,6 +1,8 @@
 ideas = {
 	country = {
 		MOD_national_spirit = {
+			picture = MOD_national_spirit
+
 			allowed = {
 				original_tag = GER
 			}

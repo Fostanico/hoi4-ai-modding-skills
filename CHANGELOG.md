@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased
+
+- 明确 idea 图标的推荐写法：sprite 注册保持
+  `name = "GFX_idea_<token>"`，idea 默认使用 `picture = <token>`；只有玩家报告
+  短写在目标环境中无效时，才回退到显式 `picture = GFX_idea_<token>`。
+- 重写中英文 README，将项目重点调整为既有 MOD 的维护、诊断与完善，同时保留完整
+  的自然语言开发流程，并补充 Codex 安装、调用、工作流、功能范围和授权边界。
+
 ## 1.3.0 - 2026-07-24
 
 - 新增原生崩溃诊断的分级授权流程：已有证据、最小必要 WinDbg、最大必要静态逆向，
