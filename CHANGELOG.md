@@ -2,6 +2,21 @@
 
 ## Unreleased
 
+- 新增 22 条匿名化真实对话回归案例，使用原始提示词 SHA-256 指纹保留来源稳定性，
+  并加入隐私、结构、Skill 路由和行为边界验证器。
+- Mod Doctor 升级到 JSON schema 2：支持当前 playset 自动解析、Git changed-only、
+  历史基线差分、有期限的抑制规则、媒体清单、确定问题/启发式线索分层，以及
+  Text、JSON、Markdown、SARIF 输出。
+- 新增 Windows GitHub Actions 静态回归流程，覆盖三个 Skill 树、Markdown 链接、
+  PowerShell 解析、Mod Doctor fixture、多文件套件和模板清单。
+- 新增科技到装备解锁、游戏规则到开局缓存两个多文件套件；关键字段已对照
+  HOI4 1.19.2.0 (d245) 原版科技、装备、game rules 和 on_actions 消费者。
+- 新增机器可读 `template-manifest.json` 及构建/验证脚本，53 个资源条目覆盖
+  78 个模板与套件文件，并记录来源、目标 build、验证日期和必做检查。
+- 新增媒体空间审计与优化工作流，覆盖 DDS 头、mipmap、cubemap、格式伪装、
+  显式消费者、精确重复、回滚断点、像素等价和运行时兼容性边界。
+- 中英文 README 与安装指南改为默认要求三个 Skills 同版本成套安装；单独安装
+  明确标注为缺少兄弟参考和完整工作流的高级用法。
 - 记录1.19.2实机结论：`gfx/loadingscreens` 的全尺寸背景与缩略图必须使用
   DDS；像素一致并同步更改 GFX 注册的 PNG 仍无法加载。
 - 新增具名王牌飞行员与自定义特工参考，覆盖 `add_ace`、自定义王牌类型、

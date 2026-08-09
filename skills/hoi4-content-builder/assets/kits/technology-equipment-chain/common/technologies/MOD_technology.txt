@@ -1,0 +1,27 @@
+technologies = {
+    MOD_advanced_infantry_equipment = {
+        enable_equipments = {
+            MOD_infantry_equipment_4
+        }
+
+        dependencies = {
+            advanced_infantry_weapons = 1
+        }
+
+        research_cost = 1.5
+        start_year = 1945
+
+        folder = {
+            name = infantry_folder
+            position = { x = 0 y = 24 }
+        }
+
+        categories = {
+            infantry_weapons
+        }
+
+        ai_will_do = {
+            factor = 1
+        }
+    }
+}

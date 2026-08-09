@@ -1,0 +1,10 @@
+spriteTypes = {
+    SpriteType = {
+        name = "GFX_FIX_duplicate_a"
+        texturefile = "gfx/interface/FIX_a.png"
+    }
+    SpriteType = {
+        name = "GFX_FIX_duplicate_b"
+        texturefile = "gfx/interface/FIX_b.png"
+    }
+}

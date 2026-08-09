@@ -1,7 +1,7 @@
 # Verified template catalog
 
 Verified against installed Hearts of Iron IV Operation Postern 1.19.2.0 (d245)
-on 2026-07-16 through 2026-07-17. Paths below are relative to the installed
+on 2026-07-16 through 2026-08-09. Paths below are relative to the installed
 game root.
 
 | Resource | Intended use | Installed documentation | Current vanilla consumer |
@@ -55,8 +55,13 @@ game root.
 | `kits/frontend-background` | Selectable main-menu background and thumbnail registration | current database comments | `common/frontend/backgrounds/base_backgrounds.txt`, `interface/small_background.gfx` |
 | `kits/named-ace-operative` | Script-only named ace plus fixed-portrait custom operative | effect/modifier docs and sibling `aces-operatives.md` | `events/USA.txt`, `events/AAT_Denmark.txt`, `common/unit_leader/00_traits.txt`, ace/operative GFX consumers |
 | `kits/music-track` | OGG track added to the base music station | consumer; no adjacent schema | `music/music.asset`, `music/_songs.txt` |
+| `kits/technology-equipment-chain` | Technology, inherited equipment variant, technology sprite, and localisation | technology/effect documentation plus consumers | `common/technologies/infantry.txt`, `common/units/equipment/infantry.txt`, `interface/Technologies.gfx` |
+| `kits/game-rule-startup` | Game rule cached once per human country through a startup event and country flag | `common/on_actions/_documentation.md`, trigger documentation | `common/game_rules/00_game_rules.txt`, `common/on_actions/00_on_actions.txt`, `events/AAT_Sweden.txt` |
 | `scripts/generate-gfx-manifest.ps1` | Deterministic sprite and optional focus-shine manifest | consumer; no adjacent schema | `interface/goals.gfx`, `interface/goals_shine.gfx` |
 | `scripts/new-country-scaffold.ps1` | Staged country/tag/history/character/localisation generator | current consumers | `country_tags/00_countries.txt`, `countries/Germany.txt`, `history/countries/GER - Germany.txt` |
+| `assets/template-manifest.json` | Machine-readable inventory, provenance, target build, runtime status, and required checks for every template and kit | this catalog | `scripts/validate-template-manifest.ps1` |
+| `scripts/build-template-manifest.ps1` | Deterministic manifest rebuild after a reviewed catalog change | this catalog | `assets/templates/`, `assets/kits/` |
+| `scripts/validate-template-manifest.ps1` | Reject missing, duplicate, stale, or incompletely described template resources | manifest schema in script | `assets/template-manifest.json` |
 
 ## Project engineering templates
 
@@ -120,3 +125,15 @@ These templates describe the mod being built rather than HOI4 database syntax:
   use direct `GFX`, while trait icons resolve as `GFX_trait_<trait ID>`.
 - The music kit requires `music/MOD_track.ogg`. It adds a track to
   `base_music`; a custom station needs additional GUI and station resources.
+- The technology/equipment kit extends the vanilla infantry-equipment archetype.
+  Replace every stat, year, folder position, parent, category, localisation,
+  and icon for the intended equipment family. The verified field is
+  `enable_equipments` (plural), and cross-tree prerequisites use
+  `dependencies = { technology = 1 }`. The kit requires
+  `gfx/interface/technologies/MOD_advanced_infantry_equipment.dds` and an
+  in-game technology-tree and production test.
+- The game-rule kit caches the selected option one hour after `on_startup` for
+  each human-controlled country. Later features should test
+  `has_country_flag = MOD_content_enabled`. Rework the target set for AI-only,
+  country-specific, observer, or multiplayer-host semantics; do not assume a
+  global startup hook already has country scope.

@@ -9,6 +9,23 @@ param(
 
     [switch]$AsJson,
 
+    [ValidateSet('Text', 'Json', 'Markdown', 'Sarif')]
+    [string]$Format = 'Text',
+
+    [switch]$ChangedOnly,
+
+    [string]$GitBase = 'HEAD',
+
+    [string]$BaselinePath,
+
+    [string]$SuppressionsPath,
+
+    [switch]$AutoResolvePlayset,
+
+    [string]$UserDataRoot,
+
+    [switch]$AuditMedia,
+
     [string]$OutputPath,
 
     [switch]$Force,
@@ -132,6 +149,8 @@ function New-Location {
 
 $script:Findings = [Collections.Generic.List[object]]::new()
 $script:SuppressedFindings = 0
+$script:BaselineSuppressedFindings = 0
+$script:PolicySuppressedFindings = 0
 
 function Add-Finding {
     param(
@@ -150,6 +169,7 @@ function Add-Finding {
         location = $Location
         evidence = $Evidence
         heuristic = $Heuristic
+        certainty = if ($Heuristic) { 'lead' } else { 'confirmed' }
     })
 }
 
@@ -299,14 +319,223 @@ function Get-GfxTextureSignature {
     return ''
 }
 
+function Read-JsonFile {
+    param([string]$Path, [string]$Label)
+
+    if ([string]::IsNullOrWhiteSpace($Path)) { return $null }
+    $resolved = Resolve-Path -LiteralPath $Path -ErrorAction SilentlyContinue
+    if ($null -eq $resolved -or -not (Test-Path -LiteralPath $resolved.Path -PathType Leaf)) {
+        throw "$Label file does not exist: $Path"
+    }
+    try {
+        return [IO.File]::ReadAllText($resolved.Path, [Text.Encoding]::UTF8) | ConvertFrom-Json
+    }
+    catch {
+        throw "$Label is not valid JSON: $Path`n$($_.Exception.Message)"
+    }
+}
+
+function Get-DefaultUserDataRoot {
+    if (-not [string]::IsNullOrWhiteSpace($env:USERPROFILE)) {
+        return Join-Path $env:USERPROFILE 'Documents\Paradox Interactive\Hearts of Iron IV'
+    }
+    return $null
+}
+
+function Get-PlaysetDependencyRoots {
+    param([string]$DataRoot, [string]$TargetModRoot)
+
+    $loadFile = Join-Path $DataRoot 'dlc_load.json'
+    if (-not (Test-Path -LiteralPath $loadFile -PathType Leaf)) {
+        throw "Active playset file does not exist: $loadFile"
+    }
+    $load = Read-JsonFile -Path $loadFile -Label 'Active playset'
+    $resolved = [Collections.Generic.List[object]]::new()
+    foreach ($descriptorEntry in @($load.enabled_mods)) {
+        if ([string]::IsNullOrWhiteSpace([string]$descriptorEntry)) { continue }
+        $descriptorPath = Join-Path $DataRoot ([string]$descriptorEntry).Replace('/', '\')
+        if (-not (Test-Path -LiteralPath $descriptorPath -PathType Leaf)) {
+            Add-Finding -Severity Warning -Code 'PLAYSET_DESCRIPTOR_MISSING' -Message "Enabled playset descriptor is missing: $descriptorEntry" -Location $null -Evidence $descriptorPath
+            continue
+        }
+        $descriptorText = [IO.File]::ReadAllText($descriptorPath, [Text.Encoding]::UTF8)
+        $pathMatch = [regex]::Match($descriptorText, '(?m)^\s*path\s*=\s*"([^"]+)"')
+        if (-not $pathMatch.Success) {
+            Add-Finding -Severity Warning -Code 'PLAYSET_PATH_MISSING' -Message "Enabled descriptor has no path field: $descriptorEntry" -Location $null -Evidence $descriptorPath
+            continue
+        }
+        $candidate = $pathMatch.Groups[1].Value.Replace('/', '\')
+        if (-not [IO.Path]::IsPathRooted($candidate)) { $candidate = Join-Path $DataRoot $candidate }
+        $candidatePath = Resolve-Path -LiteralPath $candidate -ErrorAction SilentlyContinue
+        if ($null -eq $candidatePath -or -not (Test-Path -LiteralPath $candidatePath.Path -PathType Container)) {
+            Add-Finding -Severity Warning -Code 'PLAYSET_MOD_ROOT_MISSING' -Message "Enabled descriptor points to a missing mod root: $descriptorEntry" -Location $null -Evidence $candidate
+            continue
+        }
+        $root = $candidatePath.Path.TrimEnd('\', '/')
+        if ([string]::Equals($root, $TargetModRoot, [StringComparison]::OrdinalIgnoreCase)) { continue }
+        $resolved.Add([pscustomobject]@{
+            descriptor = $descriptorPath
+            root = $root
+        })
+    }
+    return @($resolved)
+}
+
+function Get-GitChangedFiles {
+    param([string]$Root, [string]$Base)
+
+    $previousErrorAction = $ErrorActionPreference
+    $ErrorActionPreference = 'SilentlyContinue'
+    try {
+        & git -C $Root rev-parse --is-inside-work-tree 2>$null | Out-Null
+        if ($LASTEXITCODE -ne 0) { throw '-ChangedOnly requires ModRoot to be inside a Git worktree.' }
+        $changed = [Collections.Generic.HashSet[string]]::new([StringComparer]::OrdinalIgnoreCase)
+        $tracked = @(& git -C $Root diff --name-only --diff-filter=ACMR $Base -- 2>$null)
+        if ($LASTEXITCODE -ne 0) { throw "Could not compare Git changes against '$Base'." }
+        $untracked = @(& git -C $Root ls-files --others --exclude-standard 2>$null)
+    }
+    finally { $ErrorActionPreference = $previousErrorAction }
+    foreach ($path in @($tracked) + @($untracked)) {
+        if (-not [string]::IsNullOrWhiteSpace($path)) { [void]$changed.Add($path.Trim().Replace('/', '\')) }
+    }
+    return $changed
+}
+
+function Get-FindingFingerprint {
+    param([object]$Finding)
+
+    $file = if ($null -ne $Finding.location) { ([string]$Finding.location.file).Replace('/', '\').ToLowerInvariant() } else { '' }
+    $payload = "$($Finding.code)|$file|$($Finding.message)"
+    $bytes = [Text.Encoding]::UTF8.GetBytes($payload)
+    $hash = [Security.Cryptography.SHA256]::Create().ComputeHash($bytes)
+    return ([BitConverter]::ToString($hash)).Replace('-', '').ToLowerInvariant()
+}
+
+function Resolve-AssetFile {
+    param([string]$Reference, [object]$SourceFile, [string[]]$Roots)
+
+    $normalized = $Reference.Replace('/', [IO.Path]::DirectorySeparatorChar).Replace('\', [IO.Path]::DirectorySeparatorChar)
+    $candidates = [Collections.Generic.List[string]]::new()
+    $sourceDirectory = [IO.Path]::GetDirectoryName($SourceFile.FullName)
+    if (-not [string]::IsNullOrWhiteSpace($sourceDirectory)) { $candidates.Add((Join-Path $sourceDirectory $normalized)) }
+    foreach ($root in $Roots) {
+        if (-not [string]::IsNullOrWhiteSpace($root)) { $candidates.Add((Join-Path $root $normalized)) }
+    }
+    foreach ($candidate in $candidates) {
+        if (Test-Path -LiteralPath $candidate -PathType Leaf) { return (Resolve-Path -LiteralPath $candidate).Path }
+    }
+    return $null
+}
+
+function Test-AutoDiscoveredMedia {
+    param([string]$RelativePath)
+
+    $path = $RelativePath.Replace('\', '/').ToLowerInvariant()
+    return (
+        $path -eq 'thumbnail.png' -or
+        $path.StartsWith('gfx/flags/') -or
+        $path.StartsWith('gfx/achievements/') -or
+        $path -match '^music/hoi4maintheme[^/]*\.ogg$'
+    )
+}
+
+function Get-MediaInventory {
+    param([string]$Root, [object[]]$IndexedFiles, [hashtable]$ReferenceMap, [string[]]$SearchRoots)
+
+    $extensions = @('.dds', '.png', '.tga', '.jpg', '.jpeg', '.wav', '.ogg', '.mp3')
+    $files = @(Get-ChildItem -LiteralPath $Root -Recurse -File -ErrorAction SilentlyContinue | Where-Object {
+        $extensions -contains $_.Extension.ToLowerInvariant() -and
+        -not ((Get-RelativePath -Root $Root -Path $_.FullName).Split(@('\', '/'), [StringSplitOptions]::RemoveEmptyEntries) | Where-Object { $_ -in @('.git', '.agents', 'dist', 'tmp') })
+    })
+
+    $referenced = [Collections.Generic.HashSet[string]]::new([StringComparer]::OrdinalIgnoreCase)
+    foreach ($reference in $ReferenceMap.Keys) {
+        $location = $ReferenceMap[$reference] | Select-Object -First 1
+        $source = $IndexedFiles | Where-Object { $_.RootKind -eq $location.root -and $_.RelativePath -eq $location.file } | Select-Object -First 1
+        if ($null -eq $source) { continue }
+        $resolved = Resolve-AssetFile -Reference $reference -SourceFile $source -Roots $SearchRoots
+        if (-not [string]::IsNullOrWhiteSpace($resolved) -and $resolved.StartsWith($Root, [StringComparison]::OrdinalIgnoreCase)) {
+            [void]$referenced.Add($resolved)
+        }
+    }
+
+    $records = [Collections.Generic.List[object]]::new()
+    $hashGroups = @{}
+    foreach ($file in $files) {
+        $relative = Get-RelativePath -Root $Root -Path $file.FullName
+        $hash = (Get-FileHash -LiteralPath $file.FullName -Algorithm SHA256).Hash.ToLowerInvariant()
+        if (-not $hashGroups.ContainsKey($hash)) { $hashGroups[$hash] = [Collections.Generic.List[object]]::new() }
+        $hashGroups[$hash].Add($file)
+        $records.Add([pscustomobject]@{
+            path = $relative
+            extension = $file.Extension.ToLowerInvariant()
+            bytes = $file.Length
+            referenced = $referenced.Contains($file.FullName)
+            autoDiscovered = Test-AutoDiscoveredMedia -RelativePath $relative
+            sha256 = $hash
+        })
+    }
+
+    $duplicateGroups = [Collections.Generic.List[object]]::new()
+    [long]$potentialSavings = 0
+    foreach ($hash in $hashGroups.Keys) {
+        $group = @($hashGroups[$hash])
+        if ($group.Count -lt 2) { continue }
+        $saving = [long]$group[0].Length * ($group.Count - 1)
+        $potentialSavings += $saving
+        $duplicateGroups.Add([pscustomobject]@{
+            sha256 = $hash
+            bytesEach = [long]$group[0].Length
+            potentialSavingsBytes = $saving
+            paths = @($group | ForEach-Object { Get-RelativePath -Root $Root -Path $_.FullName } | Sort-Object)
+        })
+    }
+    $unreferenced = @($records | Where-Object { -not $_.referenced -and -not $_.autoDiscovered })
+    $totalMeasure = $records | Measure-Object bytes -Sum
+    $unreferencedMeasure = $unreferenced | Measure-Object bytes -Sum
+    $totalBytes = if ($null -ne $totalMeasure -and $null -ne $totalMeasure.Sum) { [long]$totalMeasure.Sum } else { [long]0 }
+    $unreferencedBytes = if ($null -ne $unreferencedMeasure -and $null -ne $unreferencedMeasure.Sum) { [long]$unreferencedMeasure.Sum } else { [long]0 }
+    $byExtension = @($records | Group-Object extension | ForEach-Object {
+        [pscustomobject]@{
+            extension = $_.Name
+            files = $_.Count
+            bytes = [long](($_.Group | Measure-Object bytes -Sum).Sum)
+        }
+    } | Sort-Object bytes -Descending)
+
+    return [pscustomobject]@{
+        files = $records.Count
+        bytes = $totalBytes
+        byExtension = $byExtension
+        exactDuplicateGroups = @($duplicateGroups | Sort-Object potentialSavingsBytes -Descending)
+        potentialDuplicateSavingsBytes = $potentialSavings
+        unreferencedCandidates = $unreferenced.Count
+        unreferencedCandidateBytes = $unreferencedBytes
+        unreferencedExamples = @($unreferenced | Sort-Object bytes -Descending | Select-Object -First 20 path, bytes, extension)
+    }
+}
+
 if ([string]::IsNullOrWhiteSpace($ModRoot)) {
     $ModRoot = Get-DefaultModRoot
 }
 $ModRoot = Resolve-ExistingDirectory -Path $ModRoot -Label 'Mod root'
+if ($AsJson) { $Format = 'Json' }
+$changedFiles = if ($ChangedOnly) { Get-GitChangedFiles -Root $ModRoot -Base $GitBase } else { $null }
+$playsetDescriptors = [Collections.Generic.List[string]]::new()
 
 $resolvedDependencies = [Collections.Generic.List[string]]::new()
 foreach ($dependency in $DependencyRoots) {
     $resolvedDependencies.Add((Resolve-ExistingDirectory -Path $dependency -Label 'Dependency root'))
+}
+if ($AutoResolvePlayset) {
+    if ([string]::IsNullOrWhiteSpace($UserDataRoot)) { $UserDataRoot = Get-DefaultUserDataRoot }
+    $UserDataRoot = Resolve-ExistingDirectory -Path $UserDataRoot -Label 'HOI4 user data root'
+    foreach ($entry in Get-PlaysetDependencyRoots -DataRoot $UserDataRoot -TargetModRoot $ModRoot) {
+        $playsetDescriptors.Add($entry.descriptor)
+        if (-not ($resolvedDependencies | Where-Object { [string]::Equals($_, $entry.root, [StringComparison]::OrdinalIgnoreCase) })) {
+            $resolvedDependencies.Add($entry.root)
+        }
+    }
 }
 $GameRoot = Resolve-ExistingDirectory -Path $GameRoot -Label 'Game root'
 $gameDlcRoots = [Collections.Generic.List[string]]::new()
@@ -727,10 +956,87 @@ if ($orphanGfxKeys.Count -gt 0) {
     Add-Finding -Severity Info -Code 'ORPHAN_GFX_SUMMARY' -Message "$($orphanGfxKeys.Count) GFX objects have no additional token reference." -Location $null -Evidence ("Dynamic or pattern-generated GUI consumers may exist. Examples: " + ((@($orphanGfxKeys | Sort-Object | Select-Object -First 12)) -join ', ')) -Heuristic $true
 }
 
-$allOrderedFindings = @($script:Findings | Sort-Object @{ Expression = { switch ($_.severity) { 'Error' { 0 } 'Warning' { 1 } default { 2 } } } }, code, @{ Expression = { if ($null -ne $_.location) { $_.location.file } else { '' } } }, @{ Expression = { if ($null -ne $_.location) { $_.location.line } else { 0 } } })
+$mediaInventory = $null
+if ($AuditMedia) {
+    $mediaInventory = Get-MediaInventory -Root $ModRoot -IndexedFiles $primaryFiles -ReferenceMap $assetReferences -SearchRoots @($assetSearchRoots)
+    if ($mediaInventory.exactDuplicateGroups.Count -gt 0) {
+        Add-Finding -Severity Info -Code 'DUPLICATE_MEDIA_SUMMARY' -Message "$($mediaInventory.exactDuplicateGroups.Count) groups of byte-identical media were found." -Location $null -Evidence "Potential deduplication savings: $($mediaInventory.potentialDuplicateSavingsBytes) bytes. Review consumer paths before removing copies."
+    }
+    if ($mediaInventory.unreferencedCandidates -gt 0) {
+        Add-Finding -Severity Info -Code 'UNREFERENCED_MEDIA_SUMMARY' -Message "$($mediaInventory.unreferencedCandidates) media files have no explicit reference in the indexed mod files." -Location $null -Evidence 'This is a lead only: engine-discovered, generated, dependency, and pattern-based consumers can evade static indexing.' -Heuristic $true
+    }
+}
+
+$candidateFindings = @($script:Findings)
+if ($ChangedOnly) {
+    $candidateFindings = @($candidateFindings | Where-Object {
+        if ($null -ne $_.location -and $changedFiles.Contains(([string]$_.location.file).Replace('/', '\'))) { return $true }
+        foreach ($changedPath in $changedFiles) {
+            if (-not [string]::IsNullOrWhiteSpace($_.evidence) -and $_.evidence.IndexOf($changedPath, [StringComparison]::OrdinalIgnoreCase) -ge 0) { return $true }
+        }
+        return $false
+    })
+}
+
+$suppressionPolicy = Read-JsonFile -Path $SuppressionsPath -Label 'Suppression policy'
+if ($null -ne $suppressionPolicy) {
+    if ($suppressionPolicy.schemaVersion -ne 1 -or $null -eq $suppressionPolicy.suppressions) {
+        throw 'Suppression policy must use schemaVersion 1 and contain suppressions.'
+    }
+    $activeSuppressions = [Collections.Generic.List[object]]::new()
+    foreach ($rule in @($suppressionPolicy.suppressions)) {
+        if ([string]::IsNullOrWhiteSpace([string]$rule.code) -or [string]::IsNullOrWhiteSpace([string]$rule.reason)) {
+            throw 'Every suppression requires code and reason.'
+        }
+        if (-not [string]::IsNullOrWhiteSpace([string]$rule.expires)) {
+            $expiry = [DateTime]::MinValue
+            if (-not [DateTime]::TryParseExact([string]$rule.expires, 'yyyy-MM-dd', [Globalization.CultureInfo]::InvariantCulture, [Globalization.DateTimeStyles]::None, [ref]$expiry)) {
+                throw "Invalid suppression expiry '$($rule.expires)'; use YYYY-MM-DD."
+            }
+            if ($expiry.Date -lt (Get-Date).Date) {
+                Add-Finding -Severity Warning -Code 'EXPIRED_SUPPRESSION' -Message "Suppression for '$($rule.code)' expired on $($rule.expires)." -Location $null -Evidence ([string]$rule.reason)
+                continue
+            }
+        }
+        $activeSuppressions.Add($rule)
+    }
+    $candidateFindings = @($candidateFindings | Where-Object {
+        $finding = $_
+        $matched = $false
+        foreach ($rule in $activeSuppressions) {
+            if ($finding.code -ne [string]$rule.code) { continue }
+            $file = if ($null -ne $finding.location) { [string]$finding.location.file } else { '' }
+            $filePattern = if ($null -ne $rule.PSObject.Properties['filePattern']) { [string]$rule.filePattern } else { '' }
+            $messagePattern = if ($null -ne $rule.PSObject.Properties['messagePattern']) { [string]$rule.messagePattern } else { '' }
+            if (-not [string]::IsNullOrWhiteSpace($filePattern) -and $file -notmatch $filePattern) { continue }
+            if (-not [string]::IsNullOrWhiteSpace($messagePattern) -and $finding.message -notmatch $messagePattern) { continue }
+            $matched = $true
+            break
+        }
+        if ($matched) { $script:PolicySuppressedFindings++ }
+        return -not $matched
+    })
+    $expiredFindings = @($script:Findings | Where-Object { $_.code -eq 'EXPIRED_SUPPRESSION' })
+    $candidateFindings = @($candidateFindings) + $expiredFindings
+}
+
+$baseline = Read-JsonFile -Path $BaselinePath -Label 'Baseline report'
+if ($null -ne $baseline) {
+    $baselineFingerprints = [Collections.Generic.HashSet[string]]::new([StringComparer]::OrdinalIgnoreCase)
+    foreach ($finding in @($baseline.findings)) { [void]$baselineFingerprints.Add((Get-FindingFingerprint -Finding $finding)) }
+    $candidateFindings = @($candidateFindings | Where-Object {
+        $exists = $baselineFingerprints.Contains((Get-FindingFingerprint -Finding $_))
+        if ($exists) { $script:BaselineSuppressedFindings++ }
+        return -not $exists
+    })
+}
+
+$allOrderedFindings = @($candidateFindings | Sort-Object @{ Expression = { switch ($_.severity) { 'Error' { 0 } 'Warning' { 1 } default { 2 } } } }, code, @{ Expression = { if ($null -ne $_.location) { $_.location.file } else { '' } } }, @{ Expression = { if ($null -ne $_.location) { $_.location.line } else { 0 } } })
 $errorCount = @($allOrderedFindings | Where-Object { $_.severity -eq 'Error' }).Count
 $warningCount = @($allOrderedFindings | Where-Object { $_.severity -eq 'Warning' }).Count
 $infoCount = @($allOrderedFindings | Where-Object { $_.severity -eq 'Info' }).Count
+$confirmedCount = @($allOrderedFindings | Where-Object { $_.certainty -eq 'confirmed' }).Count
+$leadCount = @($allOrderedFindings | Where-Object { $_.certainty -eq 'lead' }).Count
 $script:SuppressedFindings = [Math]::Max(0, $allOrderedFindings.Count - $MaxFindings)
 $orderedFindings = @($allOrderedFindings | Select-Object -First $MaxFindings)
 $modLocalisationCompoundKeys = @($localisationDefinitions.Keys | Where-Object {
@@ -740,11 +1046,20 @@ $languages = @($modLocalisationCompoundKeys | ForEach-Object { $_.Split('|', 2)[
 
 $result = [pscustomobject]@{
     tool = 'HOI4 Mod Doctor'
-    schemaVersion = 1
+    schemaVersion = 2
     generatedAt = (Get-Date).ToString('o')
+    mode = [pscustomobject]@{
+        format = $Format
+        changedOnly = [bool]$ChangedOnly
+        gitBase = if ($ChangedOnly) { $GitBase } else { $null }
+        baseline = $BaselinePath
+        suppressionPolicy = $SuppressionsPath
+        mediaAudit = [bool]$AuditMedia
+    }
     roots = [pscustomobject]@{
         mod = $ModRoot
         dependencies = @($resolvedDependencies)
+        playsetDescriptors = @($playsetDescriptors)
         game = $GameRoot
         gameDlcRoots = @($gameDlcRoots)
     }
@@ -754,7 +1069,11 @@ $result = [pscustomobject]@{
         errors = $errorCount
         warnings = $warningCount
         info = $infoCount
-        suppressed = $script:SuppressedFindings
+        confirmed = $confirmedCount
+        heuristicLeads = $leadCount
+        outputTruncated = $script:SuppressedFindings
+        baselineSuppressed = $script:BaselineSuppressedFindings
+        policySuppressed = $script:PolicySuppressedFindings
     }
     inventory = [pscustomobject]@{
         events = $eventDefinitions.Count
@@ -783,6 +1102,7 @@ $result = [pscustomobject]@{
         extensionMismatchAssetPaths = $extensionMismatchAssetPaths.Count
     }
     commentCoverage = @($commentStats | Sort-Object file)
+    media = $mediaInventory
     findings = $orderedFindings
     limitations = @(
         'This is a static, read-only audit. It does not prove runtime correctness or balance.',
@@ -792,32 +1112,110 @@ $result = [pscustomobject]@{
     )
 }
 
-if ($AsJson) {
-    $rendered = $result | ConvertTo-Json -Depth 8
-}
-else {
-    $lines = [Collections.Generic.List[string]]::new()
-    $lines.Add('HOI4 Mod Doctor')
-    $lines.Add("Root: $ModRoot")
-    $lines.Add("Scanned: $($result.summary.modFilesScanned) mod files / $($result.summary.filesScanned) effective files")
-    $lines.Add("Definitions: $($result.inventory.events) events, $($result.inventory.scriptedEffects) scripted effects, $($result.inventory.scriptedTriggers) scripted triggers, $($result.inventory.gfxObjects) GFX objects")
-    $lines.Add("Localisation: $($result.inventory.localisationKeys) keys across $($languages.Count) languages")
-    $lines.Add("Findings: $errorCount errors, $warningCount warnings, $infoCount info, $($script:SuppressedFindings) suppressed")
-    $lines.Add('')
-    foreach ($finding in $orderedFindings) {
-        $locationText = ''
-        if ($null -ne $finding.location) {
-            $locationText = " [$($finding.location.file):$($finding.location.line)]"
-        }
-        $heuristicText = if ($finding.heuristic) { ' (heuristic)' } else { '' }
-        $lines.Add("[$($finding.severity)] $($finding.code)$locationText$heuristicText - $($finding.message)")
-        if (-not [string]::IsNullOrWhiteSpace($finding.evidence)) {
-            $lines.Add("  $($finding.evidence)")
-        }
+switch ($Format) {
+    'Json' {
+        $rendered = $result | ConvertTo-Json -Depth 10
     }
-    $lines.Add('')
-    $lines.Add('Static findings are a baseline, not runtime proof or permission to make subjective design changes.')
-    $rendered = $lines -join [Environment]::NewLine
+    'Markdown' {
+        $lines = [Collections.Generic.List[string]]::new()
+        $lines.Add('# HOI4 Mod Doctor')
+        $lines.Add('')
+        $lines.Add('## Summary')
+        $lines.Add('')
+        $lines.Add("- Root: ``$ModRoot``")
+        $lines.Add("- Scanned: $($result.summary.modFilesScanned) mod files / $($result.summary.filesScanned) effective files")
+        $lines.Add("- Findings: $errorCount errors, $warningCount warnings, $infoCount info")
+        $lines.Add("- Certainty: $confirmedCount confirmed findings, $leadCount heuristic leads")
+        $lines.Add("- Filtered: $($script:BaselineSuppressedFindings) baseline, $($script:PolicySuppressedFindings) policy, $($script:SuppressedFindings) output cap")
+        foreach ($section in @(
+            [pscustomobject]@{ Heading = 'Confirmed findings'; Findings = @($orderedFindings | Where-Object { $_.certainty -eq 'confirmed' }) },
+            [pscustomobject]@{ Heading = 'Heuristic leads'; Findings = @($orderedFindings | Where-Object { $_.certainty -eq 'lead' }) }
+        )) {
+            $lines.Add('')
+            $lines.Add("## $($section.Heading)")
+            $lines.Add('')
+            if ($section.Findings.Count -eq 0) { $lines.Add('_None._') }
+            foreach ($finding in $section.Findings) {
+                $locationText = if ($null -ne $finding.location) { " (``$($finding.location.file):$($finding.location.line)``)" } else { '' }
+                $lines.Add("- **$($finding.severity) $($finding.code)**${locationText}: $($finding.message)")
+                if (-not [string]::IsNullOrWhiteSpace($finding.evidence)) { $lines.Add("  Evidence: $($finding.evidence)") }
+            }
+        }
+        if ($null -ne $mediaInventory) {
+            $lines.Add('')
+            $lines.Add('## Media')
+            $lines.Add('')
+            $lines.Add("- Files: $($mediaInventory.files)")
+            $lines.Add("- Bytes: $($mediaInventory.bytes)")
+            $lines.Add("- Exact duplicate groups: $($mediaInventory.exactDuplicateGroups.Count)")
+            $lines.Add("- Potential duplicate savings: $($mediaInventory.potentialDuplicateSavingsBytes) bytes")
+            $lines.Add("- Unreferenced candidates: $($mediaInventory.unreferencedCandidates) ($($mediaInventory.unreferencedCandidateBytes) bytes)")
+        }
+        $lines.Add('')
+        $lines.Add('Static findings are a baseline, not runtime proof or permission to make subjective design changes.')
+        $rendered = $lines -join [Environment]::NewLine
+    }
+    'Sarif' {
+        $rules = @($orderedFindings | Group-Object code | ForEach-Object {
+            [pscustomobject]@{
+                id = $_.Name
+                name = $_.Name
+                shortDescription = [pscustomobject]@{ text = $_.Group[0].message }
+                properties = [pscustomobject]@{ certainty = $_.Group[0].certainty }
+            }
+        })
+        $sarifResults = @($orderedFindings | ForEach-Object {
+            $level = switch ($_.severity) { 'Error' { 'error' } 'Warning' { 'warning' } default { 'note' } }
+            $locations = @()
+            if ($null -ne $_.location) {
+                $locations = @([pscustomobject]@{
+                    physicalLocation = [pscustomobject]@{
+                        artifactLocation = [pscustomobject]@{ uri = ([string]$_.location.file).Replace('\', '/') }
+                        region = [pscustomobject]@{ startLine = [int]$_.location.line }
+                    }
+                })
+            }
+            [pscustomobject]@{
+                ruleId = $_.code
+                level = $level
+                message = [pscustomobject]@{ text = $_.message }
+                locations = $locations
+                properties = [pscustomobject]@{ certainty = $_.certainty; evidence = $_.evidence }
+            }
+        })
+        $sarif = [pscustomobject]@{
+            version = '2.1.0'
+            '$schema' = 'https://json.schemastore.org/sarif-2.1.0.json'
+            runs = @([pscustomobject]@{
+                tool = [pscustomobject]@{ driver = [pscustomobject]@{ name = 'HOI4 Mod Doctor'; informationUri = 'https://github.com/Fostanico/hoi4-ai-modding-skills'; rules = $rules } }
+                results = $sarifResults
+            })
+        }
+        $rendered = $sarif | ConvertTo-Json -Depth 12
+    }
+    default {
+        $lines = [Collections.Generic.List[string]]::new()
+        $lines.Add('HOI4 Mod Doctor')
+        $lines.Add("Root: $ModRoot")
+        $lines.Add("Scanned: $($result.summary.modFilesScanned) mod files / $($result.summary.filesScanned) effective files")
+        $lines.Add("Definitions: $($result.inventory.events) events, $($result.inventory.scriptedEffects) scripted effects, $($result.inventory.scriptedTriggers) scripted triggers, $($result.inventory.gfxObjects) GFX objects")
+        $lines.Add("Localisation: $($result.inventory.localisationKeys) keys across $($languages.Count) languages")
+        $lines.Add("Findings: $errorCount errors, $warningCount warnings, $infoCount info; $confirmedCount confirmed, $leadCount heuristic")
+        $lines.Add("Filtered: $($script:BaselineSuppressedFindings) baseline, $($script:PolicySuppressedFindings) policy, $($script:SuppressedFindings) output cap")
+        $lines.Add('')
+        foreach ($finding in $orderedFindings) {
+            $locationText = if ($null -ne $finding.location) { " [$($finding.location.file):$($finding.location.line)]" } else { '' }
+            $lines.Add("[$($finding.severity)] $($finding.code)$locationText [$($finding.certainty)] - $($finding.message)")
+            if (-not [string]::IsNullOrWhiteSpace($finding.evidence)) { $lines.Add("  $($finding.evidence)") }
+        }
+        if ($null -ne $mediaInventory) {
+            $lines.Add('')
+            $lines.Add("Media: $($mediaInventory.files) files / $($mediaInventory.bytes) bytes; $($mediaInventory.exactDuplicateGroups.Count) exact duplicate groups; $($mediaInventory.unreferencedCandidates) unreferenced candidates")
+        }
+        $lines.Add('')
+        $lines.Add('Static findings are a baseline, not runtime proof or permission to make subjective design changes.')
+        $rendered = $lines -join [Environment]::NewLine
+    }
 }
 
 if (-not [string]::IsNullOrWhiteSpace($OutputPath)) {

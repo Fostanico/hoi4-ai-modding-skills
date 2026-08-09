@@ -61,6 +61,8 @@ answers cannot be discovered or safely defaulted.
   full-file vanilla overrides.
 - [media-models-shaders.md](references/media-models-shaders.md): textures,
   entities, animations, models, audio, and shaders.
+- [media-optimization.md](references/media-optimization.md): consumer-aware
+  format conversion, deduplication, rollback, and size verification.
 - [vanilla-documentation-map.md](references/vanilla-documentation-map.md):
   choosing installed schema sources and debug commands.
 - [review-checklist.md](references/review-checklist.md): reviews, renames,

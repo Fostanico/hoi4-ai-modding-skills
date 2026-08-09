@@ -1,0 +1,8 @@
+spriteTypes = {
+    # Provide this DDS before enabling the kit. Current technology consumers
+    # resolve the tech token through GFX_<technology>_medium.
+    SpriteType = {
+        name = "GFX_MOD_advanced_infantry_equipment_medium"
+        texturefile = "gfx/interface/technologies/MOD_advanced_infantry_equipment.dds"
+    }
+}

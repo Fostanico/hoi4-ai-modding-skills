@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "suppressions": [
+    {
+      "code": "ORPHAN_EVENT",
+      "filePattern": "^events\\\\public_api\\.txt$",
+      "messagePattern": "Possibly unreachable event",
+      "reason": "This event is a documented API called by a dependent mod.",
+      "expires": "2099-12-31"
+    }
+  ]
+}

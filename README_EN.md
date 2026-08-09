@@ -20,8 +20,12 @@ do not already know the HOI4 scripting language.
 | `hoi4-pdx-modding` | PDX script, scopes, lifecycle, cross-file contracts, localisation, migration, technical documentation, comments, and static validation |
 | `hoi4-content-builder` | Events, decisions, focuses, characters, ideas, MIOs, GUI, AI, OOBs, maps, music, models, and complete systems from plain-language requirements |
 
-The skills work independently, but installing all three gives Codex the full
-maintenance and development workflow.
+**Install all three skills together.** They share validation rules, workflows,
+and sibling references: `content-builder` turns requirements into complete
+content, `pdx-modding` supplies language and version verification, and
+`review-debug` handles maintenance, regression, and runtime evidence. A single
+skill can still load, but it loses sibling references and cannot provide the
+package's full workflow.
 
 ## Install in Codex
 
@@ -109,6 +113,23 @@ specific review or diagnosis workflow.
 - Technical guides, handoff notes, readable comments, validation records, and release checks
 - `error.log`, crash dumps, WinDbg, and consent-based advanced native diagnosis
 
+## Engineering Features
+
+- A real-dialogue regression set in `evals/real-dialogue-regression.json`.
+  Prompts are anonymized, source prompts are represented only by SHA-256
+  fingerprints, and private session or project identifiers are not published.
+- Mod Doctor 2 can resolve the active playset, focus on Git changes, compare a
+  prior baseline, apply expiring suppressions, separate confirmed findings from
+  heuristic leads, and emit Text, JSON, Markdown, or SARIF.
+- Multi-file kits cover established content chains plus technology-to-equipment
+  unlocks and game-rule startup initialization.
+- `assets/template-manifest.json` records the target build, source consumers,
+  verification dates, and required checks. Its validator ensures every template
+  and kit file is registered exactly once.
+- The media workflow inventories DDS metadata, literal consumers, exact
+  duplicates, and measured conversion candidates without treating every DDS as
+  a PNG opportunity.
+
 ## Boundaries
 
 The skills instruct the agent to verify claims against the target game version,
@@ -125,7 +146,9 @@ requires a clear explanation of purpose and scope plus the user's consent.
 
 - Claude Code: `~/.claude/skills/` or a project's `.claude/skills/`.
 - Gemini CLI: `~/.gemini/skills/`, `~/.agents/skills/`, or a supported workspace path.
-- Clients that accept uploaded custom skills: use the individual skill ZIP files from a release.
+- Clients that accept uploaded custom skills: install all three skill ZIP files
+  from the same release. Single-skill installation is for advanced users who
+  explicitly accept the missing sibling workflows.
 
 Discovery paths can change. Check the current documentation for the client you
 are installing into.

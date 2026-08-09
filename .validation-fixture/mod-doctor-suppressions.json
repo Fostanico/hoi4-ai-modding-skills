@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "suppressions": [
+    {
+      "code": "MISSING_EVENT_TARGET_UNVERIFIED",
+      "messagePattern": "event target references",
+      "reason": "Regression fixture for policy filtering.",
+      "expires": "2099-12-31"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+on_actions = {
+    # on_startup has no fixed country scope. Dispatch one initialization event
+    # to each human-controlled country and cache the selected rule as a flag.
+    on_startup = {
+        effect = {
+            every_country = {
+                limit = {
+                    is_ai = no
+                }
+                country_event = {
+                    id = MOD_game_rule.1
+                    hours = 1
+                }
+            }
+        }
+    }
+}

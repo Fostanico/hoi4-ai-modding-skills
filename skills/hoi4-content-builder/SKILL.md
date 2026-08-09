@@ -50,6 +50,11 @@ multi-file dependency chain. Read [template-catalog.md](references/template-cata
 before copying. Replace every `MOD`, sample numeric ID, path, asset, and text.
 Templates are not permission to skip target-build verification.
 
+Treat `assets/template-manifest.json` as the machine-readable verification
+contract. Run `scripts/validate-template-manifest.ps1` after changing templates
+or kits; rebuild the manifest with `scripts/build-template-manifest.ps1 -Force`
+only after updating the human catalog and verifying the new current consumer.
+
 Use `scripts/new-country-scaffold.ps1` to generate a staged country tree and
 `scripts/generate-gfx-manifest.ps1` for deterministic sprite registration.
 Generate into an empty staging directory, review the diff, then merge only the

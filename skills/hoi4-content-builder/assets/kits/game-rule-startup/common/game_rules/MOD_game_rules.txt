@@ -1,0 +1,16 @@
+MOD_content_mode = {
+    name = MOD_RULE_CONTENT_MODE
+    group = MOD_RULE_GROUP
+
+    default = {
+        name = MOD_CONTENT_ENABLED
+        text = MOD_RULE_CONTENT_ENABLED
+        desc = MOD_RULE_CONTENT_ENABLED_DESC
+    }
+
+    option = {
+        name = MOD_CONTENT_DISABLED
+        text = MOD_RULE_CONTENT_DISABLED
+        desc = MOD_RULE_CONTENT_DISABLED_DESC
+    }
+}

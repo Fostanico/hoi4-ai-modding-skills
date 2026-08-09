@@ -1,0 +1,3 @@
+l_english:
+ FIX.1.t: "Fixture event"
+ FIX.1.d: "A static validation fixture."

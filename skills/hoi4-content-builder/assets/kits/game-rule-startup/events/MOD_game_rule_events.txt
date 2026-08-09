@@ -1,0 +1,22 @@
+add_namespace = MOD_game_rule
+
+country_event = {
+    id = MOD_game_rule.1
+    hidden = yes
+    is_triggered_only = yes
+
+    immediate = {
+        if = {
+            limit = {
+                has_game_rule = {
+                    rule = MOD_content_mode
+                    option = MOD_CONTENT_ENABLED
+                }
+            }
+            set_country_flag = MOD_content_enabled
+        }
+        else = {
+            clr_country_flag = MOD_content_enabled
+        }
+    }
+}

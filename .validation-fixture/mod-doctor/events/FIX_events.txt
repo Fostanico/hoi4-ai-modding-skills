@@ -1,0 +1,12 @@
+add_namespace = FIX
+
+country_event = {
+    id = FIX.1
+    title = FIX.1.t
+    desc = FIX.1.d
+    is_triggered_only = yes
+
+    immediate = {
+        country_event = FIX.missing
+    }
+}

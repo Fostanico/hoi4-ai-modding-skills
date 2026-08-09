@@ -8,14 +8,17 @@
 - `hoi4-pdx-modding`：提供 PDX 语言、目录、版本核验和静态验证基础；
 - `hoi4-review-debug`：负责日志、审查、迁移、性能和经用户同意的实机测试。
 
-建议三个一起安装。使用时用户只需描述玩法、题材、规则和素材，不需要先写 PDX
+必须把三个作为同一套件一起安装，才能获得完整的跨 skill 引用、验证和交接流程。
+单独安装虽然可能被客户端识别，但会缺失兄弟 skill 中的基础规则或专项流程，不能
+发挥本项目的最大作用。使用时用户只需描述玩法、题材、规则和素材，不需要先写 PDX
 代码。目标 MOD 自己的变量、flag、依赖和编码约定应留在该 MOD 的技术交接文档，
 不要写回通用 skills。
 
 ## 发布给别人
 
 1. 发布仓库源代码和版本化 release，不要只发来历不明的压缩包。
-2. release 同时提供总包与三个单独 skill ZIP，并公布 SHA-256。
+2. release 以包含三套 skill 的总包为默认下载，并公布 SHA-256；若平台只能逐个上传，
+   可同时提供三个单独 ZIP，但应明确要求来自同一版本并全部安装。
 3. 保留 `LICENSE`、`ATTRIBUTION.md` 和各 skill 的完整目录结构。
 4. 不要打包 Paradox 原版文件、Workshop 教程、其他 MOD 素材或本机路径。原版和
    第三方文件只用于核验，除非其许可证明确允许再分发。
@@ -25,7 +28,8 @@
 ## ChatGPT
 
 在支持 Personal Skills 的 ChatGPT 账户中，打开个人头像 > **Skills** >
-**Create** > **Upload from your computer**，逐个上传三个 skill ZIP。安装后可以在
+**Create** > **Upload from your computer**，逐个上传同一 release 的三个 skill ZIP，
+并确认三者均已启用。安装后可以在
 Skills 页面分享给 workspace 成员或生成共享链接。Personal Skills 的可用套餐和
 管理员开关会变化，以 [OpenAI Skills 官方说明](https://help.openai.com/en/articles/20001066-skills-in-chatgpt)
 为准；ChatGPT 会扫描上传包，但上传者和使用者仍应自行审查脚本与来源。

@@ -1,0 +1,17 @@
+name: Validate skills
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  static-regression:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run regression suite
+        shell: pwsh
+        run: ./scripts/run-static-regression.ps1

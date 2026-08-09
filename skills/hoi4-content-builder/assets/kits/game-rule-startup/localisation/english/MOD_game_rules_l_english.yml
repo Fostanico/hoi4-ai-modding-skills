@@ -1,0 +1,7 @@
+﻿l_english:
+ MOD_RULE_GROUP: "Mod Content"
+ MOD_RULE_CONTENT_MODE: "Optional Content"
+ MOD_RULE_CONTENT_ENABLED: "Enabled"
+ MOD_RULE_CONTENT_ENABLED_DESC: "Enable this optional content at game start."
+ MOD_RULE_CONTENT_DISABLED: "Disabled"
+ MOD_RULE_CONTENT_DISABLED_DESC: "Disable this optional content at game start."

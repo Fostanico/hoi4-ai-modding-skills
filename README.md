@@ -18,7 +18,10 @@ Agent Skills。它们现在更侧重于维护、诊断和完善已有 MOD，同�
 | `hoi4-pdx-modding` | PDX 脚本、scope、生命周期、跨文件契约、本地化、版本迁移、技术文档、注释和静态校验 |
 | `hoi4-content-builder` | 从自然语言需求制作事件、决议、国策、角色、ideas、MIO、GUI、AI、OOB、地图、音乐、模型和完整系统 |
 
-三套 skill 可以单独使用，但一起安装时覆盖最完整。
+**建议始终把三套 skill 一起安装。** 它们共享验证规则、工作流和跨 skill 引用：
+`content-builder` 负责把需求落成完整内容，`pdx-modding` 提供语言和版本核验基础，
+`review-debug` 负责维护、回归和运行时证据。单独安装可以读取该 skill 的入口说明，
+但会缺少兄弟 skill 的参考资料、验证步骤和完整交接流程，无法发挥这套包的最大作用。
 
 ## 在 Codex 中安装
 
@@ -98,6 +101,19 @@ Codex 通常会自动发现更新；没有出现时重启 Codex。在 Codex CLI 
 - 技术文档、交接内容、可读注释、验证记录和发布前检查
 - `error.log`、crash dumps、WinDbg 与经过授权的进阶原生诊断
 
+## 工程能力
+
+- 真实对话回归集：`evals/real-dialogue-regression.json` 收录匿名化的真实任务，
+  以来源提示词 SHA-256 指纹保留可追溯性，不公开私有会话或项目标识。
+- Mod Doctor 2：可读取当前 playset、只审查 Git 变更、比较历史基线、应用有期限的
+  抑制规则，并输出 Text、JSON、Markdown 或 SARIF；确定问题与启发式线索分开统计。
+- 多文件套件：除事件、国策、idea、GUI、音乐、具名王牌与特工等链路外，还包括
+  科技解锁装备和游戏规则启动初始化。
+- 模板机器清单：`assets/template-manifest.json` 记录目标游戏 build、来源消费者、
+  验证日期和必做检查，验证器确保全部模板文件均被登记。
+- 媒体优化：按消费者、DDS 元数据、显式引用和重复哈希审计空间占用；加载图、
+  mipmap、cubemap 和模型材质不会被当作普通图片盲目转换。
+
 ## 使用边界
 
 Skills 会要求 AI 尽量核对目标版本的原版文件、随游戏安装的文档、实际启用的依赖
@@ -111,7 +127,8 @@ Steam、控制游戏、安装诊断工具、逆向分析、附加进程或采集
 
 - Claude Code：放入 `~/.claude/skills/` 或项目的 `.claude/skills/`。
 - Gemini CLI：放入 `~/.gemini/skills/`、`~/.agents/skills/` 或工作区支持的目录。
-- 支持上传自定义 Skill 的客户端：分别使用发行包中的单 skill ZIP。
+- 支持上传自定义 Skill 的客户端：一次安装同一 release 中的三个 skill ZIP；只有
+  明确了解跨 skill 功能缺失的高级用户才应做单 skill 安装。
 
 不同客户端的发现路径会变化，安装前请核对对应平台的当前文档。
 
