@@ -103,6 +103,7 @@ specific review or diagnosis workflow.
 - `on_actions` hot paths, global scans, cadence, and event-driven alternatives
 - Localisation encoding, duplicate keys, colors, icons, formatted variables, scope functions, and multilingual templates
 - GUI/GFX registration, idea/decision/trait icons, texture paths, audio, and dependency assets
+- Loading-screen DDS constraints, named ace pilots, and custom operative traits, icons, and fixed portraits
 - Compatibility branches for vanilla and major total conversions, version migration, and save lifecycle risks
 - Gameplay loops, numerical balance, AI usability, feedback, counterplay, and player experience
 - Technical guides, handoff notes, readable comments, validation records, and release checks

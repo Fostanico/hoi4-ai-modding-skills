@@ -1,3 +1,4 @@
+# Runtime-confirmed: this consumer requires DDS; a registered PNG does not load.
 # Requires gfx/loadingscreens/MOD_background.dds.
 MOD_background = {
 	# Optional current fields:

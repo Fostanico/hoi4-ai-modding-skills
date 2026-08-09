@@ -79,6 +79,19 @@ kits, then rescan all languages for collisions.
 
 ## Script, GUI, and lifecycle
 
+### Loading screens are not ordinary PNG-capable sprites
+
+A tested set of working loading-screen DDS files was losslessly converted to
+pixel-identical RGBA PNG files, and the known `.gfx` registrations were updated
+to the new extension. The engine did not load the PNG backgrounds. Restoring
+the DDS files fixed the path.
+
+For `gfx/loadingscreens`, require DDS for both the full-size background and its
+small selector image. Do not infer support from ideas, portraits, or other GFX
+sprites that successfully use PNG. Static path, dimensions, and decoded-pixel
+checks cannot prove that this consumer accepts the codec; exercise frontend
+selection and an actual loading transition.
+
 ### The first parser error creates misleading cascades
 
 One malformed quote, slash, brace, or token can produce dozens of later scope,

@@ -80,3 +80,10 @@ used by the current adjacent vanilla asset, preserve alpha and mipmap needs,
 check dimensions expected by the consumer, and inspect the rendered result in
 game. Frontend background and thumbnail filenames are fixed by their database
 and GFX registrations even when the image authoring tool is flexible.
+
+Loading screens are a confirmed exception to general PNG-capable GFX paths:
+keep `gfx/loadingscreens` full-size backgrounds and thumbnails as DDS. In a
+1.19.2 in-game test, pixel-identical RGBA PNG replacements failed even after
+the explicit `.gfx` texture paths were updated. Do not propose PNG conversion
+as a loading-screen size optimization; optimize a DDS using the compression,
+alpha, mipmap, and quality contract verified for the target consumer instead.

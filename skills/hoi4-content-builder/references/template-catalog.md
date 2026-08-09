@@ -53,6 +53,7 @@ game root.
 | `kits/scripted-gui-modal` | Player-context modal with dirty refresh and close callback | `common/scripted_guis/_documentation.md` | vanilla scripted-GUI and sprite consumers |
 | `kits/targeted-state-event` | Targeted decision to saved-state event chain | decision/effect docs | `common/decisions/AUS.txt`, `POL.txt`, current event consumers |
 | `kits/frontend-background` | Selectable main-menu background and thumbnail registration | current database comments | `common/frontend/backgrounds/base_backgrounds.txt`, `interface/small_background.gfx` |
+| `kits/named-ace-operative` | Script-only named ace plus fixed-portrait custom operative | effect/modifier docs and sibling `aces-operatives.md` | `events/USA.txt`, `events/AAT_Denmark.txt`, `common/unit_leader/00_traits.txt`, ace/operative GFX consumers |
 | `kits/music-track` | OGG track added to the base music station | consumer; no adjacent schema | `music/music.asset`, `music/_songs.txt` |
 | `scripts/generate-gfx-manifest.ps1` | Deterministic sprite and optional focus-shine manifest | consumer; no adjacent schema | `interface/goals.gfx`, `interface/goals_shine.gfx` |
 | `scripts/new-country-scaffold.ps1` | Staged country/tag/history/character/localisation generator | current consumers | `country_tags/00_countries.txt`, `countries/Germany.txt`, `history/countries/GER - Germany.txt` |
@@ -109,8 +110,13 @@ These templates describe the mod being built rather than HOI4 database syntax:
   and unit categories are version-sensitive placeholders. Replace them only
   with tokens proven in the target build and dependencies.
 - The frontend kit requires full and thumbnail DDS files named exactly after
-  the database/GFX registrations. Current vanilla examples are 1920x1440 and
-  192x144 respectively. The kit deliberately does not override
-  `frontendmainview.gui`.
+  the database/GFX registrations. PNG loading screens failed a 1.19.2 runtime
+  test even when pixel-identical and correctly registered. Current vanilla DDS
+  examples are 1920x1440 and 192x144 respectively. The kit deliberately does
+  not override `frontendmainview.gui`.
+- The named ace/operative kit uses placeholders for country tag, names, assets,
+  nationality, modifiers, and localisation. Ace portraits need tag-specific
+  aliases and cannot be selected directly by `add_ace`; operative portraits
+  use direct `GFX`, while trait icons resolve as `GFX_trait_<trait ID>`.
 - The music kit requires `music/MOD_track.ogg`. It adds a track to
   `base_music`; a custom station needs additional GUI and station resources.

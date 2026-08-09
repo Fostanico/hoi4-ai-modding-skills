@@ -1,0 +1,20 @@
+leader_traits = {
+	MOD_named_operative_trait = {
+		type = operative
+		trait_type = personality_trait
+
+		# This trait is assigned only by the scripted creation effect.
+		new_commander_weight = {
+			factor = 0
+		}
+
+		modifier = {
+			intel_network_gain = 0.50
+			intel_network_gain_factor = 0.50
+			own_operative_detection_chance_factor = -0.50
+			own_operative_capture_chance_factor = -0.50
+			operation_outcome = 0.25
+			operation_cost = -0.25
+		}
+	}
+}

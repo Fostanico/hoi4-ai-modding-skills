@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+- 记录1.19.2实机结论：`gfx/loadingscreens` 的全尺寸背景与缩略图必须使用
+  DDS；像素一致并同步更改 GFX 注册的 PNG 仍无法加载。
+- 新增具名王牌飞行员与自定义特工参考，覆盖 `add_ace`、自定义王牌类型、
+  国家 TAG/姓名绑定肖像、`create_operative_leader`、自定义特工特质、图标、
+  固定肖像、本地化、DLC gate 与实机验收。
+- 新增 `kits/named-ace-operative` 多文件套件，可直接复用王牌类型、特工特质、
+  创建 effect、GFX 与英文本地化引用链。
 - 明确 idea 图标的推荐写法：sprite 注册保持
   `name = "GFX_idea_<token>"`，idea 默认使用 `picture = <token>`；只有玩家报告
   短写在目标环境中无效时，才回退到显式 `picture = GFX_idea_<token>`。

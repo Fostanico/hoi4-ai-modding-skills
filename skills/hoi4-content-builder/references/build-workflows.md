@@ -43,6 +43,10 @@
 
 - Character: define a stable ID, roles, availability, portrait, localisation,
   recruitment, retirement, and role changes using current vanilla examples.
+- Named ace or operative: read the sibling `aces-operatives.md`; define the
+  ace type or operative trait, creation effect, exact portrait/icon GFX,
+  localisation, DLC gates, random-generation policy, and runtime assignment or
+  roster test as one dependency chain.
 - Idea: define category, picture, modifiers, restriction, and every
   add/remove/swap/expiry path.
 - MIO: require `allowed`; define categories and initial trait; build the trait

@@ -1,0 +1,20 @@
+spriteTypes = {
+	# Register one alias for every supported player tag. The suffix must match
+	# the add_ace name and surname exactly.
+	spriteType = {
+		name = "GFX_MOD_TAG_ace_Example_Pilot"
+		texturefile = "gfx/aces/MOD_named_ace.dds"
+	}
+
+	# Operatives accept a direct portrait GFX token.
+	spriteType = {
+		name = "GFX_portrait_MOD_named_operative"
+		texturefile = "gfx/leaders/MOD/MOD_named_operative.png"
+	}
+
+	# Operative trait icons resolve by GFX_trait_<trait ID>.
+	spriteType = {
+		name = "GFX_trait_MOD_named_operative_trait"
+		texturefile = "gfx/interface/traits/MOD_named_operative_trait.png"
+	}
+}

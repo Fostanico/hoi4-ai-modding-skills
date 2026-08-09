@@ -34,6 +34,13 @@ Current `common/frontend/backgrounds/base_backgrounds.txt` defines one key per
 consumer dimensions unless a verified custom `gfx` path intentionally changes
 the full-size behavior.
 
+Treat DDS as mandatory in `gfx/loadingscreens`. A 1.19.2 runtime test converted
+21 working uncompressed RGBA DDS loading screens to pixel-identical RGBA PNGs
+and updated every known `.gfx` path; the engine failed to load them. Restoring
+the original DDS files and registrations restored the supported contract.
+Ordinary GFX sprites accepting PNG does not imply that the loading-screen
+database accepts PNG.
+
 Current `interface/frontendmainview.gui` contains the `change_background`,
 `background_selection`, and `available_background` containers. A mod that
 retains an older full-file override without these containers removes current UI

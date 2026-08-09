@@ -43,6 +43,8 @@ answers cannot be discovered or safely defaulted.
   focuses, ideas, MIOs, on_actions, and dynamic modifiers.
 - [ai-and-military-content.md](references/ai-and-military-content.md): AI
   strategies, equipment designs, division templates, OOBs, variants, and names.
+- [aces-operatives.md](references/aces-operatives.md): named ace types,
+  `add_ace`, custom operative traits, fixed portraits, icons, and runtime tests.
 - [diplomacy-factions-assets.md](references/diplomacy-factions-assets.md):
   diplomacy, factions, peace conferences, entities, landmarks, music, sound.
 - [gui-localisation.md](references/gui-localisation.md): GUI, GFX, scripted GUI,

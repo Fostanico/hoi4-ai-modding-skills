@@ -1,0 +1,25 @@
+# Country-scope callers. Replace the sample names and every MOD placeholder.
+MOD_create_named_ace = {
+	add_ace = {
+		# These exact values also form the ace portrait sprite suffix.
+		name = "Example"
+		surname = "Pilot"
+		callsign = "Viper"
+		type = MOD_named_fighter_ace
+		is_female = no
+	}
+}
+
+MOD_create_named_operative = {
+	if = {
+		limit = { has_dlc = "La Resistance" }
+		create_operative_leader = {
+			name = MOD_named_operative
+			GFX = GFX_portrait_MOD_named_operative
+			traits = { MOD_named_operative_trait }
+			bypass_recruitment = yes
+			female = no
+			nationalities = { MOD_TAG }
+		}
+	}
+}
