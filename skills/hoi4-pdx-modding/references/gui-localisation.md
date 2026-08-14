@@ -77,7 +77,11 @@ bound_tooltip = {
 - Contextual localisation can test nullable objects with
   `[(OBJECT ? TRUE_CASE : FALSE_CASE)]`. Do not use this as a script trigger;
   it is localisation syntax and still requires the correct consumer context.
-- Provide a deterministic fallback branch.
+- `defined_text` is first-match. Put state-specific branches before any
+  unconditional fallback; never put `trigger = { }` or an omitted-trigger
+  branch before later conditions. Prefer explicit complementary triggers for
+  binary GUI states, and test both states in-game because static validation
+  cannot prove which branch renders.
 - Avoid expensive global searches in text evaluated every frame.
 - When a shared nested `$KEY$` renders literally in a known project context,
   preserve the documented direct-inline fallback instead of reintroducing it.

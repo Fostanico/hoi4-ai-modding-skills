@@ -24,6 +24,18 @@ try {
     & (Join-Path $repo 'skills\hoi4-content-builder\scripts\validate-template-manifest.ps1')
     if ($LASTEXITCODE -ne 0) { throw 'Template manifest validation failed.' }
 
+    $scriptedLocTemplate = [IO.File]::ReadAllText(
+        (Join-Path $repo 'skills\hoi4-content-builder\assets\templates\scripted-localisation.txt'),
+        [Text.Encoding]::UTF8
+    )
+    $triggerCount = [regex]::Matches($scriptedLocTemplate, '(?m)^\s*trigger\s*=\s*\{').Count
+    $highIndex = $scriptedLocTemplate.IndexOf('localization_key = MOD_READINESS_HIGH', [StringComparison]::Ordinal)
+    $mediumIndex = $scriptedLocTemplate.IndexOf('localization_key = MOD_READINESS_MEDIUM', [StringComparison]::Ordinal)
+    $lowIndex = $scriptedLocTemplate.IndexOf('localization_key = MOD_READINESS_LOW', [StringComparison]::Ordinal)
+    Assert-True ($triggerCount -eq 2) 'Scripted-localisation template must keep two conditional branches and one final fallback.'
+    Assert-True ($scriptedLocTemplate -notmatch 'trigger\s*=\s*\{\s*\}') 'Scripted-localisation template must not contain an empty trigger.'
+    Assert-True (0 -le $highIndex -and $highIndex -lt $mediumIndex -and $mediumIndex -lt $lowIndex) 'Scripted-localisation fallback must remain the final branch.'
+
     foreach ($script in Get-ChildItem -LiteralPath $repo -Recurse -File -Filter '*.ps1' | Where-Object { $_.FullName -notmatch '[\\/]dist[\\/]' }) {
         $parseErrors = $null
         [void][Management.Automation.Language.Parser]::ParseFile($script.FullName, [ref]$null, [ref]$parseErrors)

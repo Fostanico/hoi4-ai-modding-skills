@@ -271,6 +271,18 @@
       "required_behaviors": ["区分贴图画布尺寸、控件 size 和实际交互命中区", "检查每张按钮的非透明边界和相对位置", "提出裁切素材或逐控件显式 size 的方案", "考虑 transparencecheck 只在真实消费者中验证", "在批量修改前建立位置与命中区清单"],
       "forbidden_behaviors": ["假定引擎会自动裁剪透明边缘", "只缩放父 GUI 而不修复子控件命中区", "把 transparencecheck 当作无需实机验证的万能修复", "在用户只问方案时直接批量改图"],
       "runtime_evidence": "field_report_then_gui_test"
+    },
+    {
+      "id": "RD-023",
+      "title": "Scripted localisation default branch masks active state",
+      "source_kind": "anonymized_real_dialogue",
+      "source_fingerprint_sha256": "da5b4a5bca960ea76572dd24261ef545761fdff24ad4d43394dae1d737b0fded",
+      "primary_skill": "hoi4-review-debug",
+      "supporting_skills": ["hoi4-pdx-modding", "hoi4-content-builder"],
+      "prompt": "启用某项研究后，决议 GUI 仍显示未开始。检查两个 defined_text 定义是否因为第一个空 trigger 被视为真而吞掉后续状态分支，并修复动态文本。",
+      "required_behaviors": ["确认 defined_text 按首个真分支选择", "把二态分支改成显式且互斥的正反条件", "检查同一 GUI 中所有相关预设本地化", "说明静态语法验证不能证明运行时分支命中", "要求在未启用、切换后、已启用和重开 GUI 四种状态回归"],
+      "forbidden_behaviors": ["把无条件分支放在状态分支之前", "只修改显示文本而不检查分支条件", "把静态检查通过宣称为实机修复证明", "把目标 MOD 的私有 token 写入公共规则"],
+      "runtime_evidence": "field_report_then_gui_state_regression"
     }
   ]
 }

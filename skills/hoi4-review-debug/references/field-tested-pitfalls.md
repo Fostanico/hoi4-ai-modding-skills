@@ -70,6 +70,20 @@ title may need its documented dynamic setting; a custom GUI needs the correct
 scripted-GUI `context_type`; `context_aware_text` requires a context-aware
 owner. Copy a current consumer of the same UI class and test it.
 
+### An unconditional scripted-localisation branch can hide every later state
+
+`defined_text` selects the first true branch. A real GUI stayed on its
+"not started" text after the feature flag was set because its first branch used
+`trigger = { }`; that branch was always true, so the later active-state branch
+was unreachable. The files passed static syntax checks because the script was
+valid.
+
+For a binary state, use explicit complementary triggers (`has_*` and
+`NOT = { has_* }`). For ordered ranges, place the unconditional fallback last.
+Then test the inactive state, the transition, the active state, and close/reopen
+behavior in the actual GUI. Treat a clean validator as syntax evidence, not
+proof of runtime branch selection.
+
 ### Template keys collide when kits are combined unchanged
 
 Independent examples commonly reuse `MOD.1.t`, `MOD.1.desc`, and `MOD.1.a`.

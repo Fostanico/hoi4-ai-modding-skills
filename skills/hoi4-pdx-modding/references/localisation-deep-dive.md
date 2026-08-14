@@ -366,7 +366,8 @@ High-value rules:
 
 ### Scripted localisation
 
-Use ordered branches with an unconditional fallback:
+`defined_text` uses first-match semantics: the topmost true branch wins. For a
+binary state, make both branches explicit and mutually exclusive:
 
 ```pdx
 defined_text = {
@@ -376,10 +377,17 @@ defined_text = {
 		localization_key = MOD_status_ready
 	}
 	text = {
+		trigger = { NOT = { has_country_flag = MOD_status_ready } }
 		localization_key = MOD_status_default
 	}
 }
 ```
+
+Never place `trigger = { }`, or a branch with no `trigger`, before a later
+state-specific branch. An empty or omitted trigger is unconditional and can
+consume every call, leaving a GUI stuck on its default text even though the
+underlying flag or variable changed. For ordered numeric thresholds, an
+unconditional fallback is valid only as the final branch.
 
 Call it only from a consumer that supports dynamic localisation:
 
@@ -387,8 +395,10 @@ Call it only from a consumer that supports dynamic localisation:
  MOD_status_line: "Status: [MOD_status_text]"
 ```
 
-The topmost true branch wins. Keep frequent triggers cheap and always provide a
-fallback so missing state does not produce an empty or debug string.
+Keep frequent triggers cheap and ensure the branch set is exhaustive. Static
+syntax validation cannot prove branch selection: test every state in the real
+consumer, including changing the state while the GUI is open and after closing
+and reopening it.
 
 ### Bound localisation
 

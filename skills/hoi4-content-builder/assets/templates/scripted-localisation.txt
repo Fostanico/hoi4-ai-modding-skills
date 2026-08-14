@@ -2,6 +2,7 @@
 # Call from country-scoped localisation as [ROOT.GetMODReadinessText].
 defined_text = {
 	name = GetMODReadinessText
+	# First true branch wins. Keep thresholds from most specific/highest to lowest.
 	text = {
 		trigger = {
 			check_variable = {
@@ -19,6 +20,7 @@ defined_text = {
 		localization_key = MOD_READINESS_MEDIUM
 	}
 	text = {
+		# An unconditional fallback is safe only as the final branch.
 		localization_key = MOD_READINESS_LOW
 	}
 }
