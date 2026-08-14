@@ -1,0 +1,12 @@
+# Attach the scripted GUI to the category. Add the real decisions in the
+# project's normal decision files; this kit only replaces the description area.
+MOD_cover_category = {
+	icon = GFX_decision_category_generic
+	scripted_gui = MOD_cover_category_gui
+	priority = 50
+	visible_when_empty = no
+
+	visible = {
+		is_ai = no
+	}
+}

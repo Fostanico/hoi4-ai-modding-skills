@@ -1272,6 +1272,45 @@
                                              ]
                       },
                       {
+                          "id":  "kits-decision-category-cover",
+                          "kind":  "kit",
+                          "catalogKey":  "kits/decision-category-cover",
+                          "paths":  [
+                                        "assets/kits/decision-category-cover/common/decisions/categories/MOD_cover_category.txt",
+                                        "assets/kits/decision-category-cover/common/scripted_guis/MOD_cover_category_scripted_gui.txt",
+                                        "assets/kits/decision-category-cover/gfx/decision/MOD_cover_category_background.png",
+                                        "assets/kits/decision-category-cover/interface/MOD_cover_category.gfx",
+                                        "assets/kits/decision-category-cover/interface/MOD_cover_category.gui",
+                                        "assets/kits/decision-category-cover/localisation/english/MOD_cover_category_l_english.yml",
+                                        "assets/kits/decision-category-cover/localisation/japanese/MOD_cover_category_l_japanese.yml",
+                                        "assets/kits/decision-category-cover/localisation/russian/MOD_cover_category_l_russian.yml",
+                                        "assets/kits/decision-category-cover/localisation/simp_chinese/MOD_cover_category_l_simp_chinese.yml"
+                                    ],
+                          "intendedUse":  "Decision-category GUI with a `500x220` PNG covering the complete native description frame and an overlaid text region",
+                          "sourceEvidence":  {
+                                                 "installedDocumentation":  "`common/scripted_guis/_documentation.md`, `common/decisions/_documentation.md`",
+                                                 "currentConsumers":  "current vanilla decision-category scripted-GUI consumers; field-tested `500x220` cover layout"
+                                             },
+                          "verification":  {
+                                               "targetGameVersion":  "1.19.2.0",
+                                               "targetBuild":  "d245",
+                                               "verifiedOn":  "2026-08-14",
+                                               "staticStatus":  "verified_against_catalogued_sources",
+                                               "runtimeStatus":  "required_after_placeholder_replacement"
+                                           },
+                          "requiredChecks":  [
+                                                 "path_exists",
+                                                 "placeholder_scan",
+                                                 "encoding",
+                                                 "cross_file_identifiers",
+                                                 "current_consumer",
+                                                 "localisation_header_and_key_style",
+                                                 "asset_registration_and_path_case",
+                                                 "whole_kit_static_validation",
+                                                 "smallest_runtime_test"
+                                             ]
+                      },
+                      {
                           "id":  "kits-focus-event-idea",
                           "kind":  "kit",
                           "catalogKey":  "kits/focus-event-idea",

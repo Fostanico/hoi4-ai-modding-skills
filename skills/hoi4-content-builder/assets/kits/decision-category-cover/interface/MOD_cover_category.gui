@@ -1,0 +1,31 @@
+guiTypes = {
+	# The decision-category host is 500x200. The 500x220 texture begins at
+	# { x = 5 y = -18 } so it covers the complete native description frame.
+	# Do not enlarge this container to the texture size.
+	containerWindowType = {
+		name = "MOD_cover_category_window"
+		position = { x = 0 y = -15 }
+		size = { width = 500 height = 200 }
+		clipping = no
+
+		background = {
+			name = "MOD_cover_category_background"
+			quadTextureSprite = "GFX_MOD_cover_category_background"
+			position = { x = 5 y = -18 }
+		}
+
+		# This is a right-side starter layout. Move the text region to match the
+		# composition of the replacement art, while keeping it inside the frame.
+		instantTextBoxType = {
+			name = "MOD_cover_category_text"
+			position = { x = 252 y = 12 }
+			font = "hoi_16mbs"
+			text = "MOD_cover_category_gui_desc"
+			maxWidth = 235
+			maxHeight = 180
+			format = left
+			fixedsize = yes
+			alwaystransparent = yes
+		}
+	}
+}

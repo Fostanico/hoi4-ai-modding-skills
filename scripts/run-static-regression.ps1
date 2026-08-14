@@ -36,6 +36,21 @@ try {
     Assert-True ($scriptedLocTemplate -notmatch 'trigger\s*=\s*\{\s*\}') 'Scripted-localisation template must not contain an empty trigger.'
     Assert-True (0 -le $highIndex -and $highIndex -lt $mediumIndex -and $mediumIndex -lt $lowIndex) 'Scripted-localisation fallback must remain the final branch.'
 
+    $coverKit = Join-Path $repo 'skills\hoi4-content-builder\assets\kits\decision-category-cover'
+    $coverGui = [IO.File]::ReadAllText((Join-Path $coverKit 'interface\MOD_cover_category.gui'), [Text.Encoding]::UTF8)
+    Assert-True ($coverGui -match 'size\s*=\s*\{\s*width\s*=\s*500\s+height\s*=\s*200\s*\}') 'Decision-category cover container must remain 500x200.'
+    Assert-True ($coverGui -match 'position\s*=\s*\{\s*x\s*=\s*5\s+y\s*=\s*-18\s*\}') 'Decision-category cover background must remain at x=5 y=-18.'
+    Add-Type -AssemblyName System.Drawing
+    $coverImage = [Drawing.Image]::FromFile((Join-Path $coverKit 'gfx\decision\MOD_cover_category_background.png'))
+    try {
+        Assert-True ($coverImage.Width -eq 500 -and $coverImage.Height -eq 220) 'Decision-category cover texture must remain exactly 500x220.'
+    }
+    finally { $coverImage.Dispose() }
+    foreach ($locFile in Get-ChildItem -LiteralPath (Join-Path $coverKit 'localisation') -Recurse -File -Filter '*.yml') {
+        $locText = [IO.File]::ReadAllText($locFile.FullName, [Text.Encoding]::UTF8)
+        Assert-True ($locText -match '(?m)^ MOD_cover_category_desc: " "$') "Decision-category cover fallback description must be one space in $($locFile.Name)."
+    }
+
     foreach ($script in Get-ChildItem -LiteralPath $repo -Recurse -File -Filter '*.ps1' | Where-Object { $_.FullName -notmatch '[\\/]dist[\\/]' }) {
         $parseErrors = $null
         [void][Management.Automation.Language.Parser]::ParseFile($script.FullName, [ref]$null, [ref]$parseErrors)
@@ -44,6 +59,7 @@ try {
 
     $validator = Join-Path $repo 'skills\hoi4-pdx-modding\scripts\validate-hoi4.ps1'
     & $validator -ModRoot $repo -Paths @(
+        'skills\hoi4-content-builder\assets\kits\decision-category-cover',
         'skills\hoi4-content-builder\assets\kits\technology-equipment-chain',
         'skills\hoi4-content-builder\assets\kits\game-rule-startup'
     )

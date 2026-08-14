@@ -283,6 +283,18 @@
       "required_behaviors": ["确认 defined_text 按首个真分支选择", "把二态分支改成显式且互斥的正反条件", "检查同一 GUI 中所有相关预设本地化", "说明静态语法验证不能证明运行时分支命中", "要求在未启用、切换后、已启用和重开 GUI 四种状态回归"],
       "forbidden_behaviors": ["把无条件分支放在状态分支之前", "只修改显示文本而不检查分支条件", "把静态检查通过宣称为实机修复证明", "把目标 MOD 的私有 token 写入公共规则"],
       "runtime_evidence": "field_report_then_gui_state_regression"
+    },
+    {
+      "id": "RD-024",
+      "title": "Full-cover decision-category GUI kit",
+      "source_kind": "anonymized_real_dialogue",
+      "source_fingerprint_sha256": "8c0b5ce20b9a7271ec6aa01dcf1c5f6237c7f6c948d6e44e8425715b0363bb76",
+      "primary_skill": "hoi4-content-builder",
+      "supporting_skills": ["hoi4-pdx-modding", "hoi4-review-debug"],
+      "prompt": "把近期实机验证过的、背景图完整覆盖决议组描述框的 scripted GUI 写法整理进公共模板库，要求能够被其他 MOD 直接替换标识符和素材后复用。",
+      "required_behaviors": ["提供决议组到 scripted GUI、GUI、GFX、素材和本地化的完整引用链", "保持 500x200 容器、500x220 背景和 x=5 y=-18 的已验证几何关系", "把原生分类描述设为单个空格并在 GUI 文本框显示正文", "提供不绑定目标 MOD 的替换标识符和四语言本地化", "验证素材尺寸、路径大小写、跨文件标识符和游戏内视觉效果"],
+      "forbidden_behaviors": ["把 500x200 容器扩大成背景图尺寸", "遗漏 scripted_gui 挂载或 GFX 注册", "把项目专有角色和变量带进公共模板", "声称静态校验能够证明文字位置和背景覆盖效果"],
+      "runtime_evidence": "field_tested_geometry_then_runtime_after_asset_replacement"
     }
   ]
 }

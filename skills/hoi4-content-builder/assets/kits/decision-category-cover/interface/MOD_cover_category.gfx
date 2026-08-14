@@ -1,0 +1,6 @@
+spriteTypes = {
+	spriteType = {
+		name = "GFX_MOD_cover_category_background"
+		texturefile = "gfx/decision/MOD_cover_category_background.png"
+	}
+}

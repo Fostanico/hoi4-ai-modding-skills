@@ -1,0 +1,6 @@
+scripted_gui = {
+	MOD_cover_category_gui = {
+		context_type = decision_category
+		window_name = "MOD_cover_category_window"
+	}
+}

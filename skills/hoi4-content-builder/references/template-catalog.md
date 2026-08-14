@@ -51,6 +51,7 @@ game root.
 | `unit-name-list.txt` | Country equipment/name pool skeleton | current consumers | `common/units/names/00_FRA_names.txt` |
 | `kits/focus-event-idea` | Focus to event to idea chain | rows above | rows above |
 | `kits/scripted-gui-modal` | Player-context modal with dirty refresh and close callback | `common/scripted_guis/_documentation.md` | vanilla scripted-GUI and sprite consumers |
+| `kits/decision-category-cover` | Decision-category GUI with a `500x220` PNG covering the complete native description frame and an overlaid text region | `common/scripted_guis/_documentation.md`, `common/decisions/_documentation.md` | current vanilla decision-category scripted-GUI consumers; field-tested `500x220` cover layout |
 | `kits/targeted-state-event` | Targeted decision to saved-state event chain | decision/effect docs | `common/decisions/AUS.txt`, `POL.txt`, current event consumers |
 | `kits/frontend-background` | Selectable main-menu background and thumbnail registration | current database comments | `common/frontend/backgrounds/base_backgrounds.txt`, `interface/small_background.gfx` |
 | `kits/named-ace-operative` | Script-only named ace plus fixed-portrait custom operative | effect/modifier docs and sibling `aces-operatives.md` | `events/USA.txt`, `events/AAT_Denmark.txt`, `common/unit_leader/00_traits.txt`, ace/operative GFX consumers |
@@ -93,6 +94,12 @@ These templates describe the mod being built rather than HOI4 database syntax:
 - The on_action template uses the verified country-specific `on_weekly_TAG`
   form. Prefer an event-driven caller when the real design allows it, and never
   migrate a daily invariant merely because a weekly skeleton exists.
+- The decision-category cover kit keeps a `500x200` GUI container and places an
+  exact `500x220` PNG at `{ x = 5 y = -18 }`; do not resize the container to
+  the texture. Keep the ordinary `<category>_desc` localisation value as one
+  space so the engine does not expose a missing/empty description, and put all
+  visible prose in the GUI text key. PNG support here is consumer-specific and
+  does not override the DDS-only loading-screen rule.
 - Recheck this table after a HOI4 update. Current vanilla consumers are the
   practical authority when generated documentation and runtime behavior differ.
 - The modal kit is statically verified but still requires an in-game click test

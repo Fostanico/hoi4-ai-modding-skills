@@ -15,6 +15,7 @@ game update.
 | Rename a state and a province | `assets/templates/state-name-effect.txt` | `common/national_focus/china_communist_sea.txt` |
 | Bounded targeted-state decision | `assets/templates/targeted-state-decision.txt` | `common/decisions/_documentation.md`; `common/decisions/AUS.txt` |
 | Complete targeted decision to saved-target event chain | `assets/kits/targeted-state-event/` | rows above plus current event/localisation consumers |
+| Full-cover decision-category description | `assets/kits/decision-category-cover/` | scripted-GUI documentation; current vanilla decision-category attachments; field-tested cover geometry |
 | Generate a staged country skeleton | `scripts/new-country-scaffold.ps1` | `common/country_tags/00_countries.txt`, `common/countries/Germany.txt`, `history/countries/GER - Germany.txt`, current character files |
 
 ## Scope contracts
