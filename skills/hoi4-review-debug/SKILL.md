@@ -98,10 +98,18 @@ history IDs, or GUI/GFX wiring.
 
 ## Verify and hand off
 
-Run the base validator, repository checks, stale-reference searches, encoding
-checks, and a fresh-log comparison. Static work ends with a consent question:
-does the user want AI-assisted in-game testing? Never open Steam, change launch
-options, alter a playset, or start HOI4 without that consent.
+Follow the sibling `hoi4-pdx-modding` **Validate proportionally** lanes.
+Do not run the full validator, Mod Doctor, focused audits, or a fresh-log
+comparison because a small edit exists. User AI quota is not free.
+Inspect-only diffs are complete after a careful read.
+
+When scripts are warranted, run the cheapest matching check on the edited
+paths. Broader audits and log comparison belong to whole-mod, rename,
+GUI/map, compatibility, release, or migration work. Non-trivial static
+work ends with a consent question: does the user want AI-assisted in-game
+testing? Never open Steam, change launch options, alter a playset, or
+start HOI4 without that consent. Do not offer a Steam prompt after
+inspect-only work unless the user asked.
 
 For every applied fix or refactor, update the canonical mod technical document,
 current development handoff, and readable comments for affected contracts.

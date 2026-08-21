@@ -105,23 +105,45 @@ performance analysis, and runtime testing.
 
 ## Validate proportionally
 
-Run the bundled validator against the target mod or explicit changed paths:
+Match checking cost to the change. User AI quota, tool rounds, and log
+scrapes are not free. A small edit is not permission to run the full
+validator, Mod Doctor, localisation/map/override/media audits, `-All`, or
+a fresh `error.log` pass.
 
-```powershell
-& <SKILL_ROOT>/scripts/validate-hoi4.ps1 -ModRoot <MOD_ROOT>
-```
+Choose the cheapest sufficient lane before any script:
 
-Then search for stale/sample IDs, duplicate definitions, missing localisation
-or GFX links, descriptor/load-root mistakes, conflict markers, and encoding
-violations. Run the repository's diff/format checks when available. Inspect a
-fresh `error.log`; fix the earliest parser error in each file before cascades.
-Treat current technical documentation, handoff evidence, and meaningful code
-comments as part of completion, not optional cleanup after the code works.
+1. **Inspect-only.** Skip every validation script when a careful read of
+   the diff can catch the failure mode. Typical cases: prose-only
+   localisation where keys, tokens, colours, icons, and encoding are
+   unchanged; comments; documentation wording; or a one-line cleanup
+   already confirmed unique. Read the diff. Stop. Do not offer Steam or
+   in-game testing unless the user asked.
 
-Static checks cannot prove scope, timing, GUI interaction, AI choice, history
-loading, or asset rendering. After static validation, use the sibling runtime
-test workflow, which must ask the user before controlling Steam or launching
-the game. Report static and in-game evidence separately.
+2. **Changed-path scripts.** For ordinary PDX or localisation edits that
+   can break encoding, braces, key style, or in-file references, run the
+   bundled validator on the edited files only:
+
+   ```powershell
+   & <SKILL_ROOT>/scripts/validate-hoi4.ps1 -ModRoot <MOD_ROOT> -Paths <changed files>
+   ```
+
+   Add `git diff --check` on those paths when the repository uses it.
+   Search stale IDs, missing links, or conflict markers only where this
+   diff can create them. Do not launch sibling audits unless the change
+   is in that audit's domain.
+
+3. **Broader static suite.** Reserve `-All`, Mod Doctor, map/override/media
+   audits, template-manifest validation, whole-mod stale-ID sweeps, and a
+   fresh `error.log` comparison for new systems, identifier renames,
+   GUI/GFX wiring, map/history, compatibility, release packaging, version
+   migration, or template/kit edits.
+
+Static checks cannot prove scope, timing, GUI interaction, AI choice,
+history loading, or asset rendering. After lanes 2–3, use the sibling
+runtime test workflow, which must ask the user before controlling Steam
+or launching the game. Report static and in-game evidence separately.
+Inspect-only work may record "scripts skipped; diff read" as completion
+evidence.
 
 After a game update, rebuild the installed documentation inventory with an
 explicit game root:

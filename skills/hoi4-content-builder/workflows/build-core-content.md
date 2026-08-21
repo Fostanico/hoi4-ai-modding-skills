@@ -28,6 +28,8 @@
 
 ## Verify
 
-Run the base validator on all copied PDX/localisation files, search each new ID
-across the repository, inspect `error.log`, and test the shortest complete path
-from caller to visible result.
+Follow the base skill's **Validate proportionally** lanes. Copied PDX and
+localisation files use the changed-path validator, not a whole-mod suite.
+Search each new ID across the repository. Inspect `error.log` and test the
+shortest complete path from caller to visible result only after that
+script lane, and only with user consent for in-game testing.

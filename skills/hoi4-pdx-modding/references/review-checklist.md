@@ -123,9 +123,14 @@ doubled replacements.
 
 ## Handoff evidence
 
-- Canonical technical-document and development-handoff updates.
-- Bundled static validator result.
-- `git diff --check` result.
-- Targeted stale-ID and duplicate-definition searches.
-- Current `error.log` result from the intended playset, when available.
+- Canonical technical-document and development-handoff updates, when the
+  change alters a documented contract.
+- Validation lane used: inspect-only (diff read), changed-path scripts, or
+  broader suite. Skip unused scripts; user AI quota is not free.
+- Bundled static validator result, only when a script lane ran.
+- `git diff --check` result, only when a script lane ran.
+- Targeted stale-ID and duplicate-definition searches, only where the diff
+  can create them.
+- Current `error.log` result from the intended playset, when the change
+  warrants a log comparison.
 - Exact in-game scenarios tested and any remaining manual test steps.

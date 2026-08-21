@@ -477,14 +477,19 @@ icon, bound parameter, and consumer.
 
 ## Validation and diagnostics
 
-Run both the general validator and focused audit:
+Follow the base skill's **Validate proportionally** lanes. Do not run `-All`
+or a whole-mod localisation audit for a prose-only key fix; read the diff.
+
+When many localisation files changed, or the task is a localisation health
+audit, run both the general validator and focused audit:
 
 ```powershell
-& <PDX_SKILL>/scripts/validate-hoi4.ps1 -ModRoot <MOD_ROOT> -All
+& <PDX_SKILL>/scripts/validate-hoi4.ps1 -ModRoot <MOD_ROOT> -Paths <changed files>
 & <REVIEW_SKILL>/scripts/audit-localisation.ps1 -ModRoot <MOD_ROOT>
 ```
 
-Then inspect fresh `text.log` and `error.log`. Search for:
+Use `-All` only for a whole-mod localisation pass. Then, when the lane is
+broader than inspect-only, inspect fresh `text.log` and `error.log`. Search for:
 
 - duplicate/overlapping localisation keys;
 - any versioned key such as `key:0 "Text"` instead of `key: "Text"`;

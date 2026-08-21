@@ -18,8 +18,12 @@
    scopes. Preserve stable save state or add an idempotent migration.
 7. Rebuild the semantic map after editing and reconcile every changed date,
    cost, cooldown, unit, failure path, and visible name.
-8. Run targeted validator, stale-placeholder/link searches, encoding and diff
-   checks, then compare a fresh log with baseline evidence.
-9. Ask for AI-assisted runtime-test consent and follow `test-mod.md` only after
-   approval. Update the current development handoff with static/runtime
-   evidence and remaining manual interactions.
+8. Follow the base skill's **Validate proportionally** lanes. New objects
+   use the changed-path validator, not inspect-only and not `-All`. Search
+   stale placeholders and compare a fresh log only when the lane is broader
+   than a small inspectable diff.
+9. Ask for AI-assisted runtime-test consent after non-trivial static work
+   and follow `test-mod.md` only after approval. Inspect-only work does not
+   need a Steam prompt. Update the current development handoff with the
+   validation lane used, static/runtime evidence, and remaining manual
+   interactions.

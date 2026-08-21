@@ -197,7 +197,12 @@ from loading at all.
 3. Read the affected localisation and map code IDs to visible meaning.
 4. Search definitions and consumers before editing identifiers.
 5. Fix the earliest root cause in each error bucket.
-6. Run the base validator and the focused localisation/map/override audits.
-7. Run stale-ID searches, encoding checks, and `git diff --check`.
-8. Ask before launching Steam or HOI4; report static and runtime evidence
-   separately.
+6. Follow the base skill's **Validate proportionally** lanes. Inspect-only
+   diffs skip scripts. Otherwise run the cheapest matching check on the
+   edited paths; localisation/map/override audits only when that domain
+   changed.
+7. Run stale-ID searches, encoding checks, and `git diff --check` only
+   where the chosen lane requires them.
+8. Ask before launching Steam or HOI4 after non-trivial static work; skip
+   the Steam prompt for inspect-only diffs unless the user asked. Report
+   static and runtime evidence separately.

@@ -88,8 +88,14 @@ history, character, flags, and ownership planning.
 
 ## Finish with evidence
 
-Run the sibling validator and target-repository checks, inspect cross-file links
-and a fresh log, and separate static proof from runtime proof. After static
-checks, explicitly ask whether the user wants AI-assisted in-game testing. If
-they agree and computer-use is available, follow `workflows/test-mod.md` exactly.
-If they decline, provide the smallest manual test plan and do not open Steam.
+Follow the sibling `hoi4-pdx-modding` **Validate proportionally** lanes.
+Do not run the full validator, Mod Doctor, or a log scrape for a small
+inspectable diff. User AI quota is not free.
+
+When the change needs scripts, run the sibling validator on the edited
+paths, inspect only the links those paths can break, and separate static
+proof from runtime proof. After a non-trivial static pass, ask whether the
+user wants AI-assisted in-game testing. If they agree and computer-use is
+available, follow `workflows/test-mod.md` exactly. If they decline, provide
+the smallest manual test plan and do not open Steam. Inspect-only work
+does not require a Steam prompt.

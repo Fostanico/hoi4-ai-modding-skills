@@ -11,8 +11,10 @@
    event-driven calls, explicit cleanup, and dirty-variable refresh.
 6. Search current vanilla for the evidence paths in the reference. If the game
    version or consumer shape changed, stop and re-verify the template.
-7. Run `validate-hoi4.ps1`, stale-reference/conflict-marker searches, encoding
-   checks, and `git diff --check`.
+7. Follow the base skill's **Validate proportionally** lanes. Copied pattern
+   files use `validate-hoi4.ps1` on those paths, plus stale-reference,
+   encoding, and `git diff --check` checks scoped to the copy. Do not run
+   the whole-mod suite for a single pattern drop-in.
 8. Perform the smallest in-game test for event-target lifetime, dynamic
    modifiers, targeted decisions, localisation scope, or GUI behavior, then
    inspect the fresh `error.log`.

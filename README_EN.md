@@ -84,7 +84,10 @@ specific review or diagnosis workflow.
 2. Map events, decisions, effects, triggers, variables, flags, localisation, GUI, and GFX across files.
 3. Separate confirmed defects, compatibility risks, performance problems, and design choices that require author approval.
 4. Present evidence and a staged plan before editing when approval is required.
-5. Apply only the approved scope, run static checks, and state what still requires an in-game test.
+5. Apply only the approved scope. Scale static checks to the diff: inspect-only
+   for tiny edits, changed-path scripts for ordinary files, and the full suite
+   only for large or cross-file work. Do not spend AI quota on validation
+   theater. State what still requires an in-game test.
 
 ### Diagnose Logs and Crashes
 
