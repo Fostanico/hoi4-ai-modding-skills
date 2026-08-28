@@ -76,7 +76,10 @@ and translated values. Common examples:
 | Russian | `russian` |
 | Japanese | `japanese` |
 
-Each entry normally has one leading space and a quoted value:
+Each entry must have exactly one ASCII space before the key and a quoted
+value. The language header stays flush left. Tabs, two-or-more spaces, and
+flush-left keys are errors: editors treat these files as YAML, and mixed
+indent paints the whole buffer red.
 
 ```yaml
 l_english:
@@ -92,6 +95,42 @@ only those keys in `localisation/<language>/replace/`. Do not copy a complete
 vanilla localisation file when a narrow replacement is sufficient.
 
 ## Colours, line breaks, flags, and text icons
+
+### Flags used in visible trigger requirements
+
+When a player-facing requirement block such as `available`, `allow`, or
+`bypass` contains `has_country_flag = MOD_flag`, the generated trigger tooltip
+uses `MOD_flag` as a localisation key. If that key is absent in the active
+language, the UI exposes the internal identifier followed by the engine's
+check or cross marker.
+
+Choose one of two explicit contracts:
+
+1. If the flag is meaningful to the player, define `MOD_flag: "Readable text"`
+   in every supported language.
+2. If the flag is implementation state, wrap the check in `hidden_trigger` and
+   provide a separate localised `custom_trigger_tooltip` or equivalent tooltip
+   that states the real requirement.
+
+Do not add meaningless one-to-one translations merely to silence the raw ID.
+Do not assume a Simplified Chinese entry covers English or Japanese: missing
+keys are language-specific. `visible` normally controls whether an object is
+shown rather than printing its children, but audit it as a potential UI path
+when the exact consumer is uncertain.
+
+For a repository-wide check, run:
+
+```powershell
+& <PDX_SKILL>/scripts/audit-visible-flag-localisation.ps1 `
+  -ModRoot <MOD_ROOT> `
+  -AdditionalLocalisationRoot <GAME_OR_DEPENDENCY_ROOT>
+```
+
+The audit reports exposed requirements separately from potential visibility
+paths and excludes checks already nested inside `hidden_trigger` or
+`custom_trigger_tooltip`. Supply the installed game and exact enabled
+dependencies as additional roots when their localisation is part of the
+effective playset.
 
 ### Current vanilla colours
 
@@ -493,6 +532,7 @@ broader than inspect-only, inspect fresh `text.log` and `error.log`. Search for:
 
 - duplicate/overlapping localisation keys;
 - any versioned key such as `key:0 "Text"` instead of `key: "Text"`;
+- keys that are flush left, tab-indented, or indented with more than one space;
 - missing or invalid colour characters;
 - unresolved keys or debug strings;
 - literal `$KEY$`, `[Scope.GetProperty]`, or `[?variable|format]` output;

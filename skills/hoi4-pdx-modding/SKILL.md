@@ -18,6 +18,10 @@ description: Implement, explain, refactor, and validate portable Hearts of Iron 
    identifiers, paths, sprite names, equipment archetypes, and localisation
    keys as case-sensitive. Localisation entries must use `key: "Text"`;
    `key:0 "Text"` and every other numeric key-version suffix are errors.
+   Key lines use exactly one leading ASCII space; the language header
+   `l_<language>:` stays flush left. Tabs, extra spaces, and flush-left keys
+   are errors because editors parse these files as YAML and mixed indent
+   paints the buffer red.
 5. Read the affected feature's names, descriptions, options, tooltips, scripted
    localisation, GUI text, and character descriptions before inferring its
    purpose. Build the code-to-visible-meaning map in
@@ -54,7 +58,8 @@ answers cannot be discovered or safely defaulted.
   buttons, panels, backgrounds, and large synchronized-strip animations.
 - [localisation-deep-dive.md](references/localisation-deep-dive.md): colours,
   icons, formatted variables, scope functions, nested and bound text,
-  formatters, dynamic consumers, templates, and localisation diagnostics.
+  formatters, dynamic consumers, visible flag conditions, templates, and
+  localisation diagnostics.
 - [semantic-intent-audit.md](references/semantic-intent-audit.md): mandatory
   code-to-localisation mapping before existing-feature fixes, refactors,
   performance work, migration, or documentation.
@@ -96,12 +101,27 @@ performance analysis, and runtime testing.
    consumer for database-specific fields.
 5. Create definitions before consumers and wire the complete dependency chain,
    including localisation, GUI/GFX, assets, history, AI, and lifecycle cleanup.
-6. Preserve unrelated changes and stable flags/variables unless an explicit
+   A `has_country_flag` condition exposed by `available`, `allow`, `bypass`, or
+   another requirement tooltip needs a localisation key for every supported
+   language; otherwise the UI displays the internal flag ID with a check or
+   cross. If the internal flag name should not be player-facing, place the
+   check inside `hidden_trigger` and provide an explicit localised tooltip.
+6. Reuse the owning subsystem's existing file or registry for definitions with
+   the same parser directory, load conditions, lifecycle, and consumer family.
+   Do not create one tiny `.txt`, `.gfx`, `.gui`, or localisation file per
+   object by default. Consolidate related definitions while keeping sections
+   readable; split only for a real load-order or compatibility boundary,
+   independent generated ownership, materially different lifecycle, or a file
+   large enough that consolidation would hinder maintenance. HOI4 normally
+   parses these files at startup rather than rereading them every animation
+   frame, so fewer tiny files mainly reduce file-open/metadata work and project
+   clutter; do not overstate this as continuous runtime disk I/O.
+7. Preserve unrelated changes and stable flags/variables unless an explicit
    migration plan covers old saves. Prefer event-driven or batched updates to
    global daily scans when behavior permits.
-7. Treat copied templates as parameterized skeletons. Replace every placeholder
+8. Treat copied templates as parameterized skeletons. Replace every placeholder
    and revalidate against the target build and dependencies.
-8. Update the mod's canonical technical documentation and current development
+9. Update the mod's canonical technical documentation and current development
    handoff in the same change. Add readable comments at file/subsystem
    boundaries and around non-obvious scope, state, lifecycle, performance,
    compatibility, and engine-workaround logic.

@@ -6,6 +6,18 @@ fix against the target build, consumer, dependency set, and current log.
 
 ## Localisation
 
+### Visible flag requirements expose missing localisation
+
+In generated requirement tooltips, a direct
+`has_country_flag = MOD_internal_state` under `available`, `allow`, `bypass`,
+or a comparable player-facing condition renders the flag token itself with a
+check or cross when the active language has no matching localisation key.
+Either localise the flag in every supported language when it represents a real
+player-facing condition, or hide the implementation check with
+`hidden_trigger` and supply a truthful localised tooltip. Check the effective
+playset before reporting a missing key because vanilla or an exact dependency
+may own the localisation.
+
 ### Duplicate keys are two different problems
 
 - Same key and same value is an exact duplicate. It can normally be removed

@@ -24,7 +24,8 @@
    migrate a daily invariant merely because a neighboring system is weekly.
 6. Add every visible name and description. Use only `key: "Text"`, never
    `key:0 "Text"`; preserve the language identity, matching header, and UTF-8
-   BOM.
+   BOM. Keep the language header flush left and exactly one ASCII space before
+   every key.
 
 ## Verify
 

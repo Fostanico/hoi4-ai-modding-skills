@@ -72,12 +72,31 @@ background = {
 
 ## Registry ownership and file consolidation
 
-Group related animated sprites in the existing `.gfx` registry owned by that
-GUI subsystem. Do not create one tiny `.gfx` file per animation. Split a
-registry only when load order, compatibility, replacement scope, or a genuinely
-independent subsystem requires a boundary. This keeps ownership and stale
-reference cleanup auditable; it is not a claim that the engine continuously
-reads every small file from disk during play.
+Register animations by owning GUI subsystem, not by source media file. When
+several animated sprites share the same parser directory, load conditions, and
+consumer family, add their `frameAnimatedSpriteType` blocks to one existing,
+clearly named `.gfx` registry. Do not make a new `.gfx` file every time a GIF or
+video is converted. For example, all decision-category animated backgrounds in
+one mod should normally live in a single decision-category animation registry,
+while a frontend animation remains separate because it belongs to a different
+GUI subsystem and compatibility boundary.
+
+Apply the same principle to generator output: publish DDS sheets into
+asset-specific directories when that keeps media provenance clear, but merge
+their sprite registrations into the subsystem registry. Preserve stable
+`GFX_*` names and texture paths when consolidating so GUI consumers do not need
+to change. Before deleting old registries, prove every consumer has exactly one
+definition in the merged file, every texture path exists, and no old filename
+or duplicate sprite definition remains.
+
+Keep a separate registry only when there is a concrete reason such as a
+dependency adapter, late load-order override, mutually exclusive compatibility
+target, independent generated file that must be replaced atomically, or a
+registry large enough that further consolidation would materially hinder
+maintenance. HOI4 normally opens and parses `.gfx` files during startup and
+does not reread them for every displayed frame. Avoiding many tiny registries
+therefore reduces startup file-open/metadata work and repository clutter; it is
+not a claim that animation playback continuously performs random disk reads.
 
 ## Large animations and synchronized strips
 
@@ -98,20 +117,13 @@ Register one `frameAnimatedSpriteType` per strip. Every strip must use identical
 `noOfFrames`, `animation_rate_fps`, `looping`, `play_on_show`, and
 `pause_on_loop`. Place one GUI child per strip with contiguous x coordinates,
 the same y coordinate and height, and no gaps or overlap. Show all children at
-the same time.
-
-Coordinates belong to the matched GUI consumer. If child positions are
-top-left anchors, strip `i` starts at `x_i = x_0 + i * S`. If the consumer uses
-center anchors, include the half-strip offset:
-
-```text
-x_i = -W / 2 + S / 2 + i * S
-```
-
-Using `-W / 2 + i * S` with center-anchored strips shifts the complete
-animation left by half a strip and can expose the original background on the
-right. Do not reuse frontend coordinates for a decision panel or another GUI
-class without proving its origin and anchor behavior.
+the same time. In a centered full-screen layout, distinguish the child's
+origin from its visible left edge. With `Orientation = center` and
+`Origo = center`, `position.x` is the strip centre, so strip `i` uses
+`x_i = -W / 2 + S / 2 + i * S`; using `-W / 2 + i * S` shifts the complete
+image left by half a strip. With a proven upper-left origin, positions may use
+left-edge coordinates instead. Other GUI classes must follow their own proven
+coordinate system.
 
 Use one sheet when it fits. Strip tiling adds registrations, GUI elements, and
 seam/synchronization risks, so it is a size-limit workaround rather than the
@@ -119,22 +131,28 @@ default for small icons.
 
 ## Narrow GUI overrides and layout compatibility
 
-When the task is only to animate a background, replace the smallest named GUI
-type that owns that background. Do not copy and override an entire vanilla or
-dependency `frontendmainview.gui`: that also replaces its buttons, logos,
-news panels, social links, and mod-specific layout.
+Do not copy an entire vanilla or dependency `.gui` file merely to replace one
+background. An exact-path full-file override freezes every sibling window,
+button, callback, and layout decision from the copied version and masks total
+conversion frontends that intentionally redefine them.
 
-A compatibility override may live in a deliberately late-loading file such as
-`interface/zzzz_MOD_animated_frontend_background.gui`, but it should redefine
-only the named background owner, for example `frontend_background`. Keep the
-expected zero-position fallback background element when the original consumer
-uses one, then add the animated strip children behind it.
+When a large strip-tiled animation needs multiple GUI children, place only the
+smallest owning named type in a uniquely named, late-sorting `.gui` file. For a
+frontend, this can be a `zzzz_MOD_animated_frontend_background.gui` containing
+only `frontend_background`; leave `frontendmainview.gui` to vanilla or the
+enabled layout mod. The frontend controller also expects background element
+zero, so retain a `background = { name = "Background" ... }` fallback before
+the strip children even when opaque strips visually cover it. A missing element
+zero can log `Could not find "background" element #0`.
 
-Named GUI type replacement is not inheritance. If another mod moves the
-background into a different named container or changes its children, create a
-narrow adapter verified against that exact dependency version. Test a cold
-start with the base mod alone and with every supported layout dependency; hot
-reload does not prove initial load order or replacement behavior.
+This is a named-type replacement, not structural inheritance. It preserves
+sibling top-level GUI types but replaces every child inside the named type.
+There is no proven portable syntax for appending children to an arbitrary
+already-loaded container. If a dependency nests custom buttons or panels inside
+the replaced background container, provide a dependency-specific adapter or
+document the incompatible child. Verify file ordering and duplicate-name
+behavior in the exact playset with a cold start; a unique late filename is not
+runtime proof by itself.
 
 ## Clip, frame, and memory budget
 
@@ -164,12 +182,15 @@ is smaller. A large PNG sheet may expand to much more GPU memory than BC1/BC3.
 Keep frontend and loading backgrounds as DDS unless a current in-game consumer
 proves another format.
 
-PNG compression reduces publication and disk bytes, not the decoded texture
-that the GPU must hold. A decoded RGB/RGBA sheet is normally 24/32 bits per
-pixel, compared with about 4 bits per pixel for BC1 and 8 bits per pixel for
-BC3. At equal dimensions and frame count, PNG-backed animation can therefore
-need roughly six to eight times the BC1 texture memory, or three to four times
-the BC3 texture memory, even when the `.png` files are much smaller.
+For a controlled PNG experiment, transcode the decoded BC1/BC3 pixels rather
+than re-decoding the original source when the requirement is exact visual
+equivalence with the current texture. Call this lossless relative to the
+decoded block-compressed texture, not lossless relative to the pre-BC source.
+Compare every candidate's dimensions and decoded RGBA hash, optimize only
+losslessly, and record both total file bytes and estimated decoded RGB/RGBA
+bytes. PNG can be smaller on disk when large areas are repetitive while still
+using six to eight times the GPU memory of BC1. Treat engine acceptance,
+startup time, playback cadence, and device stability as separate runtime gates.
 
 Use this consumer-oriented default:
 
@@ -178,11 +199,6 @@ Use this consumer-oriented default:
 | Loading-screen background or thumbnail | DDS | Do not use PNG; 1.19.2 runtime test failed |
 | Frontend or other large animation | Opaque BC1 DDS; BC3 only for real alpha | Another format only after exact-consumer runtime proof and memory measurement |
 | Small generic `frameAnimatedSpriteType` | Match the adjacent working asset | PNG is a controlled experiment, not a size-only decision |
-
-If exact losslessness is required for a PNG experiment, decode the accepted DDS
-output first, encode those decoded pixels as PNG, then compare decoded RGBA
-hashes. This proves equivalence to the decoded DDS image, not to an earlier
-uncompressed source that BC compression already changed.
 
 ## Source preparation and hybrid animation
 

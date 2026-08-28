@@ -181,12 +181,23 @@ foreach ($file in $files) {
     $fileKeys = @{}
     for ($lineNumber = 0; $lineNumber -lt $lines.Count; $lineNumber++) {
         $line = $lines[$lineNumber]
-        if ($line -match '^\s+([^\s:#]+):(\d+)\s*"') {
+        if ($line -match '^\s*([^\s:#]+):(\d+)\s*"') {
             $errors.Add("${relative}:$($lineNumber + 1): key '$($Matches[1])' uses forbidden version suffix :$($Matches[2]); use an unversioned key")
         }
-        if ($line -notmatch '^\s+([^\s:#]+):\s*"(.*)"\s*(?:#.*)?$') { continue }
-        $key = $Matches[1]
-        $value = $Matches[2]
+        if ($line -notmatch '^(\s*)([^\s:#]+):\s*"(.*)"\s*(?:#.*)?$') { continue }
+        $indent = $Matches[1]
+        $key = $Matches[2]
+        $value = $Matches[3]
+        if ($indent -cne ' ') {
+            $detail = if ($indent.Length -eq 0) {
+                'flush-left'
+            } elseif ($indent.Contains([char]9)) {
+                'tab indent'
+            } else {
+                "$($indent.Length) spaces"
+            }
+            $errors.Add("${relative}:$($lineNumber + 1): key '$key' must have exactly one leading ASCII space ($detail)")
+        }
         $entry = [pscustomobject]@{ File = $relative; Line = $lineNumber + 1; Value = $value }
         if ($fileKeys.ContainsKey($key)) {
             $previous = $fileKeys[$key]

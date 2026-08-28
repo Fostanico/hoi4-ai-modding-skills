@@ -71,15 +71,21 @@ all dependent resources, and a minimal runtime test before promoting it.
 ## Build the complete graph
 
 1. Establish stable IDs and file ownership.
-2. Map IDs to visible names, descriptions, tooltips, and promised behavior.
-3. Create definitions before consumers.
-4. Wire callers, lifecycle updates, cleanup, AI, and compatibility gates.
-5. Add or update localisation and visible assets for every player-facing path.
-6. Search the whole target mod for definitions, callers, stale IDs, and
+2. Assign each subsystem an existing owner file or compact registry. Add related
+   objects to that owner instead of creating one small file per event, decision,
+   sprite, or asset registration. Consolidate definitions that share parser
+   directory, load conditions, lifecycle, and consumers; keep separate files
+   for genuine compatibility/load-order boundaries, independent generated
+   ownership, or materially different subsystems.
+3. Map IDs to visible names, descriptions, tooltips, and promised behavior.
+4. Create definitions before consumers.
+5. Wire callers, lifecycle updates, cleanup, AI, and compatibility gates.
+6. Add or update localisation and visible assets for every player-facing path.
+7. Search the whole target mod for definitions, callers, stale IDs, and
    collisions. Preserve unrelated work and project encoding conventions.
-7. Keep a minimal runnable path first; add branches and optimization only after
+8. Keep a minimal runnable path first; add branches and optimization only after
    the core path validates.
-8. Create or update the mod's technical documentation and current development
+9. Create or update the mod's technical documentation and current development
    handoff, and add readable contract comments to the implementation. Use the
    base skill's `development-documentation.md` and the bundled documentation
    templates; documentation is part of the feature graph.

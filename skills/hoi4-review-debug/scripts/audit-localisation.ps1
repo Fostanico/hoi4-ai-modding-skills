@@ -106,13 +106,24 @@ foreach ($file in $files) {
     for ($index = 0; $index -lt $lines.Count; $index++) {
         $lineNumber = $index + 1
         $line = $lines[$index]
-        if ($line -match '^\s+([^\s:#]+):(\d+)\s*"') {
+        if ($line -match '^\s*([^\s:#]+):(\d+)\s*"') {
             Add-Issue Error $relative $lineNumber 'versioned-key' "Key '$($Matches[1])' uses forbidden version suffix :$($Matches[2]); use an unversioned key."
         }
-        if ($line -notmatch '^\s+([^\s:#]+):(?:\d+)?\s*"(.*)"\s*(?:#.*)?$') { continue }
+        if ($line -notmatch '^(\s*)([^\s:#]+):(?:\d+)?\s*"(.*)"\s*(?:#.*)?$') { continue }
 
-        $key = $Matches[1]
-        $value = $Matches[2]
+        $indent = $Matches[1]
+        $key = $Matches[2]
+        $value = $Matches[3]
+        if ($indent -cne ' ') {
+            $detail = if ($indent.Length -eq 0) {
+                'flush-left'
+            } elseif ($indent.Contains([char]9)) {
+                'tab indent'
+            } else {
+                "$($indent.Length) spaces"
+            }
+            Add-Issue Error $relative $lineNumber 'key-indent' "Key '$key' must have exactly one leading ASCII space ($detail)."
+        }
         $entry = [pscustomobject]@{ File = $relative; Line = $lineNumber; Value = $value }
 
         if ($fileEntries.ContainsKey($key)) {

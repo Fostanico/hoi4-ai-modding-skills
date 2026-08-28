@@ -142,7 +142,9 @@ l_simp_chinese:
  example_key: "文本"
 ```
 
-- Keep one leading space before each key.
+- Keep exactly one ASCII space before each key. The language header is flush
+  left. Never use a tab, two or more spaces, or a flush-left key. HOI4 loc
+  files are highlighted as YAML, so mixed indent turns the editor red.
 - Quote the value and escape embedded quotes according to working HOI4 examples.
 - Preserve `$KEY$`, `[GetName]`, `[?variable|format]`, `§` color codes, and `£`
   icons exactly unless the change targets them.

@@ -83,6 +83,10 @@ Use the read-only tools when applicable:
   Do not install tools without user authorization.
 - `scripts/audit-localisation.ps1`: inspect BOMs, headers, suffixes, duplicate
   keys, colour markers, nested tokens, dynamic variables, and functions.
+- `../hoi4-pdx-modding/scripts/audit-visible-flag-localisation.ps1`: find
+  `has_country_flag` requirements that would expose an unlocalised internal
+  flag ID in generated check/cross tooltips; distinguish visible requirements,
+  potential visibility paths, and `hidden_trigger` exclusions.
 - `scripts/audit-hoi4-map.ps1`: check map IDs/colors and history membership.
 - `scripts/audit-vanilla-overrides.ps1`: inventory overrides, `replace_path`,
   hashes, and migration gates.

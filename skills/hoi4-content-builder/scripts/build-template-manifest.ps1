@@ -61,7 +61,7 @@ $manifest = [pscustomobject]@{
         [pscustomobject]@{ id = 'encoding'; meaning = 'PDX files use UTF-8 without BOM; localisation follows its language header and project encoding policy.' },
         [pscustomobject]@{ id = 'cross_file_identifiers'; meaning = 'Definitions, callers, GFX names, asset paths, and localisation keys agree across every file in the resource.' },
         [pscustomobject]@{ id = 'current_consumer'; meaning = 'Version-sensitive fields are rechecked against the target build and exact enabled dependencies.' },
-        [pscustomobject]@{ id = 'localisation_header_and_key_style'; meaning = 'Language header is correct and portable templates use key: "Text" without a numeric suffix.' },
+        [pscustomobject]@{ id = 'localisation_header_and_key_style'; meaning = 'Language header is flush left; each key uses exactly one leading ASCII space and key: "Text" without a numeric suffix.' },
         [pscustomobject]@{ id = 'asset_registration_and_path_case'; meaning = 'Registered names, consumer tokens, extensions, and on-disk path case match.' },
         [pscustomobject]@{ id = 'whole_kit_static_validation'; meaning = 'The copied kit passes the base validator as one cross-file unit.' },
         [pscustomobject]@{ id = 'smallest_runtime_test'; meaning = 'The customized kit receives the smallest relevant isolated in-game test after user consent.' }

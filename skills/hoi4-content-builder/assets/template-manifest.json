@@ -29,7 +29,7 @@
                              },
                              {
                                  "id":  "localisation_header_and_key_style",
-                                 "meaning":  "Language header is correct and portable templates use key: \"Text\" without a numeric suffix."
+                                 "meaning":  "Language header is flush left; each key uses exactly one leading ASCII space and key: \"Text\" without a numeric suffix."
                              },
                              {
                                  "id":  "asset_registration_and_path_case",

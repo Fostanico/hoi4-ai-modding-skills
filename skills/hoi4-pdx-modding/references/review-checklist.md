@@ -67,6 +67,9 @@
   reviewed as separate lifecycle branches.
 - Bound/context-aware localisation is used only by a consumer that supplies
   the required support and context.
+- Localisation `.yml` files keep the language header flush left and exactly
+  one ASCII space before every key. Tabs, extra indent, and flush-left keys
+  fail validation because mixed YAML indent paints the editor red.
 
 ## Rename or migration
 
