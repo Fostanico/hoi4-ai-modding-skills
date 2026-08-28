@@ -49,6 +49,9 @@ answers cannot be discovered or safely defaulted.
   diplomacy, factions, peace conferences, entities, landmarks, music, sound.
 - [gui-localisation.md](references/gui-localisation.md): GUI, GFX, scripted GUI,
   scripted localisation, sprites, tooltips, encodings, and localisation.
+- [animated-textures.md](references/animated-textures.md): convert video or
+  frame sequences into `frameAnimatedSpriteType` assets for icons, overlays,
+  buttons, panels, backgrounds, and large synchronized-strip animations.
 - [localisation-deep-dive.md](references/localisation-deep-dive.md): colours,
   icons, formatted variables, scope functions, nested and bound text,
   formatters, dynamic consumers, templates, and localisation diagnostics.

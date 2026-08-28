@@ -33,6 +33,9 @@ requested feature, route to the sibling `hoi4-review-debug` skill's
 - New mod from an idea: [build-complete-mod.md](workflows/build-complete-mod.md)
 - One feature in an existing mod: [build-feature.md](workflows/build-feature.md)
 - Advanced or cross-system feature: [build-advanced-system.md](workflows/build-advanced-system.md)
+- Animated GUI images from video, GIF, or frame sequences: read the sibling
+  [frame-animated texture reference](../hoi4-pdx-modding/references/animated-textures.md)
+  and then use the workflow matching the owning GUI consumer.
 - Country/state/map history: [build-map-history.md](workflows/build-map-history.md)
 - Collections, arrays, event targets, dynamic modifiers, or dynamic text:
   [use-advanced-patterns.md](workflows/use-advanced-patterns.md)

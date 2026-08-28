@@ -25,6 +25,48 @@ Verify the actual OGG decodes, the relative path and case match, chance
 conditions have the intended country scope, the song appears in the player,
 and both peace/war paths are audible as designed.
 
+### Ogg container and codec contract
+
+`.ogg` names the container, not the audio codec. Probe every candidate with a
+tool such as `ffprobe` and record `codec_name`, sample rate, channel layout,
+duration, stream count, and attached-picture/data streams. Renaming an Opus
+stream to `.ogg` does not make it Vorbis.
+
+Runtime evidence for HOI4 1.19.2 establishes a consumer split:
+
+- Ogg Opus reached the frontend and played when used as main-menu/loading
+  music;
+- the same codec did not play through the in-game music player/station;
+- therefore frontend success does not prove station compatibility.
+
+For portable release music that appears in the in-game player, use Ogg Vorbis.
+Use `44100 Hz` unless an exact current consumer proves another rate; current
+game logs recommend 44.1 kHz for music. Treat Opus as an exact-consumer
+experiment, never as a blanket replacement for a Vorbis music library.
+
+Prefer a purchased or otherwise lawful lossless source such as FLAC and encode
+once. Re-encoding an existing MP3 or Vorbis file cannot restore quality and
+adds generation loss. Map only the intended audio stream and strip covers,
+video, subtitles, data, chapters, and source metadata. A representative
+conversion shape is:
+
+```text
+ffmpeg -i source.flac -map 0:a:0 -vn -sn -dn -map_metadata -1 -map_chapters -1 -c:a libvorbis -q:a <measured-quality> -ar 44100 output.ogg
+```
+
+Preserve the intended mono/stereo layout. Fully decode the result and confirm
+that the container has one audio stream and no attached picture or other
+payload. Vorbis quality levels are quality controls, not promised bitrates or
+file sizes: a q5/q6 encode may be larger than an existing aggressively
+compressed file. Compare duration, audible quality, actual bytes, and the
+complete library budget before accepting a batch.
+
+Test main-menu music and the in-game station as separate consumers. For a
+station change, enter a campaign, open the player, play the changed track,
+advance to and from it, let it finish or loop as designed, and inspect a fresh
+log. Preserve originals and a source-to-output manifest outside the release
+mod so a failed batch can be restored without another lossy encode.
+
 ## Models, animations, and entities
 
 The minimal current shapes are:
