@@ -1,0 +1,35 @@
+# Path: common/scripted_diplomatic_actions/*.txt
+# ROOT is the sender. THIS is the recipient.
+scripted_diplomatic_actions = {
+	MOD_diplomatic_action = {
+		allowed = { always = yes }
+		visible = { always = yes }
+		selectable = { always = yes }
+		requires_acceptance = yes
+		cost = 25
+		icon = 1
+		send_description = MOD_diplomatic_action_send
+		receive_description = MOD_diplomatic_action_receive
+		accept_title = MOD_diplomatic_action_accept
+		accept_description = MOD_diplomatic_action_accept_desc
+		reject_title = MOD_diplomatic_action_reject
+		reject_description = MOD_diplomatic_action_reject_desc
+
+		complete_effect = {
+			add_opinion_modifier = {
+				target = ROOT
+				modifier = MOD_opinion
+			}
+		}
+
+		ai_acceptance = {
+			condition = {
+				base = 0
+			}
+		}
+
+		ai_desire = {
+			base = -1
+		}
+	}
+}

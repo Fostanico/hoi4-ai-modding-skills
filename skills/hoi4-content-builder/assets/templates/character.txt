@@ -13,5 +13,14 @@ characters = {
 			expire = "1965.1.1.1"
 			id = -1
 		}
+
+		advisor = {
+			slot = political_advisor
+			idea_token = MOD_character
+			allowed = {
+				original_tag = GER
+			}
+			traits = { popular_figurehead }
+		}
 	}
 }

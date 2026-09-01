@@ -1,0 +1,26 @@
+# Path: common/map_modes/*.txt
+# Loc: MAPMODE_MOD_MAP_MODE, MAPMODE_MOD_MAP_MODE_NAME, MAPMODE_MOD_MAP_MODE_DESCRIPTION
+# Icons: GFX_mapmode_buttons_deselected_small_MOD_map_mode / selected
+scripted_map_modes = {
+	MOD_map_mode = {
+		top = {
+			type = country
+			color = {
+				set_temp_variable = { red = 0.2 }
+				set_temp_variable = { green = 0.4 }
+				set_temp_variable = { blue = 0.8 }
+				set_temp_variable = { alpha = 1.0 }
+			}
+			targets = {
+				target_array = ROOT.subjects
+			}
+			thickness = yes
+		}
+		bottom = {
+			type = none
+		}
+		far_text = country
+		near_text = state
+		update_daily = no
+	}
+}

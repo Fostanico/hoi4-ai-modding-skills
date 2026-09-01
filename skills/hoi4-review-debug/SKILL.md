@@ -1,48 +1,73 @@
 ---
 name: hoi4-review-debug
-description: Diagnose, review, improve, balance, optimize, migrate, and test existing Hearts of Iron IV mods from source through an isolated in-game run. Use for whole-mod health audits, gameplay design/balance/UX review, error.log triage, Windows crash dumps/minidumps, parser or scope bugs, broken GUI/assets/localisation, AI behavior, performance, save/lifecycle risks, compatibility, version updates, template audits, regression plans, or user-approved Steam and game testing.
+description: Review, diagnose, and test existing Hearts of Iron IV mods using source, logs, installed-game evidence, and optional isolated runtime runs. Use for audits, defect or crash triage, balance/UX/performance/lifecycle analysis, migration, or explicitly requested fixes; use hoi4-content-builder for new content and hoi4-pdx-modding for ordinary implementation without a review goal.
 ---
 
 # HOI4 review and debug
 
-## Choose the evidence lane
+## Set scope and choose one evidence lane
 
-- Diagnosis: reproduce and trace one symptom before changing code.
-- Fix: identify the earliest root cause, repair the smallest coherent graph,
-  and rerun the reproduction.
-- Existing-mod improvement: establish a whole-mod baseline, rank engineering
-  and player-experience findings, obtain approval for subjective changes, then
-  improve in reviewable batches using
-  [improve-existing-mod.md](workflows/improve-existing-mod.md).
-- Review: report concrete findings ordered by impact with file/line evidence.
-- Gameplay/balance/UX: compare the implemented player loop, costs, rewards, AI,
-  feedback, layout, and localisation against the documented player promise;
-  use [gameplay-balance-ux-review.md](references/gameplay-balance-ux-review.md).
-- Performance: determine execution frequency and scope count before optimizing.
-- Lifecycle/save audit: enumerate create, update, consume, clear, reload,
-  migration, and dependency paths.
-- Template audit: verify target build, placeholders, schema, current consumer,
-  dependency chain, and runtime status.
-- Native crash diagnosis: ask for the exact pre-crash action timeline and
-  governing jurisdiction, then follow the staged consent and confidence gates
-  in
-  [native-crash-reverse-engineering.md](references/native-crash-reverse-engineering.md).
-  Never infer jurisdiction from language or broaden one authorization into
-  static decompilation, tool installation, or live-process debugging.
-- Runtime test: ask for consent, isolate the playset, launch with `-debug`, run
-  the smallest scenario, inspect fresh logs, iterate, and restore user settings.
+A request to review, explain, or diagnose authorizes read-only investigation,
+not edits. Enter the fix lane only when the user asks to change the mod. Treat
+balance, narrative, and visual taste as design choices unless project guidance
+defines an objective contract; obtain approval before changing them.
 
-Read [review-workflows.md](references/review-workflows.md),
-[field-tested-pitfalls.md](references/field-tested-pitfalls.md),
-[native-crash-reverse-engineering.md](references/native-crash-reverse-engineering.md),
-[mod-doctor.md](references/mod-doctor.md), and, for missing or broken artwork,
-[icon-audit.md](references/icon-audit.md). For footprint reduction or media
-conversion, follow [optimize-media.md](workflows/optimize-media.md). Also read
-the sibling base skill's `performance-debugging.md`, `review-checklist.md`, and
-`localisation-deep-dive.md`. For every existing-feature review, also follow
-[semantic-intent-audit.md](../hoi4-pdx-modding/references/semantic-intent-audit.md)
-before accepting an inferred feature meaning. Use the builder's
-[test-mod.md](../hoi4-content-builder/workflows/test-mod.md) for runtime work.
+Choose the cheapest lane that can answer the request. Read only that lane's
+references; do not preload references from unrelated lanes. Lead review output
+with concrete findings ordered by impact and supported by file/line evidence;
+if no defect is established, say so and list the remaining test gaps.
+
+For any lane that judges or changes an existing player-facing feature, also
+build the code-to-visible-meaning map in
+[semantic-intent-audit.md](../hoi4-pdx-modding/references/semantic-intent-audit.md).
+For a broad review or applied refactor, additionally use the base
+[review-checklist.md](../hoi4-pdx-modding/references/review-checklist.md).
+
+- **One symptom, parser/scope bug, or log triage:** read the matching section of
+  [review-workflows.md](references/review-workflows.md), reproduce the symptom,
+  and trace its first failing caller. Search
+  [field-tested-pitfalls.md](references/field-tested-pitfalls.md) only after the
+  evidence identifies a matching failure class. CWTools squiggles are not
+  evidence by themselves; see
+  [pdx-language.md](../hoi4-pdx-modding/references/pdx-language.md).
+- **Existing-feature review, refactor, or fix:** trace its caller, scope,
+  player-visible promise, state lifecycle, AI path, and dependencies. Enter the
+  edit loop only when the request authorizes a change.
+- **Whole-mod health or improvement:** follow
+  [improve-existing-mod.md](workflows/improve-existing-mod.md) and read
+  [mod-doctor.md](references/mod-doctor.md) before running the baseline audit.
+  Add [gameplay-balance-ux-review.md](references/gameplay-balance-ux-review.md)
+  only when player experience, balance, or design is in scope.
+- **Performance or lifecycle/save risk:** read
+  [performance-debugging.md](../hoi4-pdx-modding/references/performance-debugging.md),
+  then measure cadence, scope count, state creation, invalidation, cleanup, and
+  save/reload behavior before proposing a change.
+- **Localisation or dynamic text:** read
+  [localisation-deep-dive.md](../hoi4-pdx-modding/references/localisation-deep-dive.md).
+  Search the localisation sections of `field-tested-pitfalls.md` only for a
+  reproduced consumer-specific failure or a bulk cleanup.
+- **GUI, GFX, or artwork:** use the base
+  [GUI/localisation reference](../hoi4-pdx-modding/references/gui-localisation.md).
+  Read [icon-audit.md](references/icon-audit.md) only for missing, default,
+  mismatched, or dependency-bound artwork.
+- **Map/history or version update:** use the matching section of
+  `review-workflows.md`; for a game-version migration follow
+  [version-migration.md](workflows/version-migration.md).
+- **Template audit:** follow the builder's
+  [verify-template.md](../hoi4-content-builder/workflows/verify-template.md) and
+  verify the target build, placeholders, schema, current consumer, dependency
+  chain, and runtime status separately.
+- **Media footprint or conversion:** follow
+  [optimize-media.md](workflows/optimize-media.md).
+- **Native crash:** ask for the exact pre-crash action timeline and governing
+  jurisdiction, then read
+  [native-crash-reverse-engineering.md](references/native-crash-reverse-engineering.md)
+  before native analysis. Never infer jurisdiction from language or broaden
+  one authorization into tool installation, static decompilation, or live
+  debugging.
+- **Runtime test:** only after explicit consent, follow the builder's
+  [test-mod.md](../hoi4-content-builder/workflows/test-mod.md). Isolate the
+  playset, test the smallest scenario, inspect fresh logs, and restore settings.
 
 ## Establish evidence
 
@@ -51,11 +76,6 @@ files, definitions, callers, and the newest relevant log. Use installed schema
 and current vanilla/dependency consumers for unfamiliar tokens. Distinguish
 parser errors, semantic errors, runtime behavior, and optional-media warnings.
 
-For a crash, ask what the player did immediately before it before assigning a
-cause. Record the window, tab, or control used; pause and speed state; date
-advance; save/load; console and debug commands; GUI debug or hot refresh;
-in-session file edits; overlays; and whether a clean restart reproduces it.
-
 Before judging or optimizing a feature, read its names, descriptions, options,
 tooltips, scripted-localisation branches, GUI labels, and character text. Map
 each code ID to its visible meaning and player-facing promise. Never identify a
@@ -63,7 +83,7 @@ character or mechanic by transliterating an internal token. Treat any
 code/localisation disagreement as a finding to resolve, not as permission to
 ignore the localisation.
 
-Use the read-only tools when applicable:
+Select only the cheapest matching read-only tool:
 
 - `scripts/audit-hoi4-mod.ps1`: build a cross-file health baseline covering
   event and scripted-object graphs, strong localisation/GFX/resource links,
@@ -74,13 +94,6 @@ Use the read-only tools when applicable:
   interface trees and distinguishes same-basename texture extension mismatches.
   Treat `lead` findings as investigation targets, not edit authority.
 - `scripts/analyze-hoi4-log.ps1`: prioritize and compare logs.
-- Installed WinDbg/CDB: when a Windows crash package contains a `.dmp`, use the
-  debugger read-only before judging the crash; follow the minidump workflow in
-  `review-workflows.md`. Obtain explicit consent before reverse-engineering a
-  native call path. If minimum analysis is not high-confidence, report the
-  missing evidence and ask before verified Ghidra/JDK acquisition or deeper
-  static analysis; ask again before launching or attaching to a live process.
-  Do not install tools without user authorization.
 - `scripts/audit-localisation.ps1`: inspect BOMs, headers, suffixes, duplicate
   keys, colour markers, nested tokens, dynamic variables, and functions.
 - `../hoi4-pdx-modding/scripts/audit-visible-flag-localisation.ps1`: find
@@ -90,6 +103,10 @@ Use the read-only tools when applicable:
 - `scripts/audit-hoi4-map.ps1`: check map IDs/colors and history membership.
 - `scripts/audit-vanilla-overrides.ps1`: inventory overrides, `replace_path`,
   hashes, and migration gates.
+
+Native crash tools and authorization stages are defined only in the native
+crash reference. Do not import that workflow into ordinary script or log
+diagnosis.
 
 Fix the first parser failure in each file before cascades. For every finding,
 state the triggering path, failure mechanism, user-visible effect, and smallest

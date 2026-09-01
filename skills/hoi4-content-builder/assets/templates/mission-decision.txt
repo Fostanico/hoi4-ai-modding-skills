@@ -1,0 +1,21 @@
+# Path: common/decisions/*.txt
+# activation = always = no means a caller must activate the mission.
+MOD_decision_category = {
+	MOD_mission = {
+		icon = GFX_decision_generic_decision
+		activation = {
+			always = no
+		}
+		available = {
+			has_country_flag = MOD_mission_complete
+		}
+		is_good = no
+		days_mission_timeout = 365
+		timeout_effect = {
+			add_stability = -0.05
+		}
+		complete_effect = {
+			add_political_power = 50
+		}
+	}
+}

@@ -1,0 +1,30 @@
+# Path: history/units/TAG_1936.txt
+# location is a province ID. Country-history capital is a state ID.
+# Do not emit army_history or history_queue. Use add_history_entry for unit history.
+# Do not copy DLC-gated support such as field_guns unless the target playset has it.
+
+division_template = {
+	name = "MOD Infantry Division"
+	division_names_group = GER_INF_01
+	regiments = {
+		infantry = { x = 0 y = 0 }
+		infantry = { x = 0 y = 1 }
+		infantry = { x = 0 y = 2 }
+		infantry = { x = 1 y = 0 }
+		infantry = { x = 1 y = 1 }
+		infantry = { x = 1 y = 2 }
+	}
+	support = {
+		engineer = { x = 0 y = 0 }
+	}
+}
+
+units = {
+	division = {
+		name = "1. MOD Division"
+		location = 11542
+		division_template = "MOD Infantry Division"
+		start_experience_factor = 0.2
+		start_equipment_factor = 0.9
+	}
+}

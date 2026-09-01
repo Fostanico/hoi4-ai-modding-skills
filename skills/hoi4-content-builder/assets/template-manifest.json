@@ -46,6 +46,87 @@
                          ],
     "resources":  [
                       {
+                          "id":  "ability-txt",
+                          "kind":  "template",
+                          "catalogKey":  "ability.txt",
+                          "paths":  [
+                                        "assets/templates/ability.txt"
+                                    ],
+                          "intendedUse":  "Army-leader ability",
+                          "sourceEvidence":  {
+                                                 "installedDocumentation":  "current consumer",
+                                                 "currentConsumers":  "`common/abilities/generic_leader_abilities.txt`"
+                                             },
+                          "verification":  {
+                                               "targetGameVersion":  "1.19.2.0",
+                                               "targetBuild":  "d245",
+                                               "verifiedOn":  "2026-08-31",
+                                               "staticStatus":  "verified_against_catalogued_sources",
+                                               "runtimeStatus":  "required_after_placeholder_replacement"
+                                           },
+                          "requiredChecks":  [
+                                                 "path_exists",
+                                                 "placeholder_scan",
+                                                 "encoding",
+                                                 "cross_file_identifiers",
+                                                 "current_consumer"
+                                             ]
+                      },
+                      {
+                          "id":  "achievement-txt",
+                          "kind":  "template",
+                          "catalogKey":  "achievement.txt",
+                          "paths":  [
+                                        "assets/templates/achievement.txt"
+                                    ],
+                          "intendedUse":  "Custom achievement file",
+                          "sourceEvidence":  {
+                                                 "installedDocumentation":  "`documentation/triggers_documentation.md`",
+                                                 "currentConsumers":  "trigger `has_completed_custom_achievement`; no vanilla `common/achievements/` folder"
+                                             },
+                          "verification":  {
+                                               "targetGameVersion":  "1.19.2.0",
+                                               "targetBuild":  "d245",
+                                               "verifiedOn":  "2026-08-31",
+                                               "staticStatus":  "verified_against_catalogued_sources",
+                                               "runtimeStatus":  "required_after_placeholder_replacement"
+                                           },
+                          "requiredChecks":  [
+                                                 "path_exists",
+                                                 "placeholder_scan",
+                                                 "encoding",
+                                                 "cross_file_identifiers",
+                                                 "current_consumer"
+                                             ]
+                      },
+                      {
+                          "id":  "ai-area-txt",
+                          "kind":  "template",
+                          "catalogKey":  "ai-area.txt",
+                          "paths":  [
+                                        "assets/templates/ai-area.txt"
+                                    ],
+                          "intendedUse":  "Strategic-region AI area",
+                          "sourceEvidence":  {
+                                                 "installedDocumentation":  "current consumer",
+                                                 "currentConsumers":  "`common/ai_areas/default.txt`"
+                                             },
+                          "verification":  {
+                                               "targetGameVersion":  "1.19.2.0",
+                                               "targetBuild":  "d245",
+                                               "verifiedOn":  "2026-08-31",
+                                               "staticStatus":  "verified_against_catalogued_sources",
+                                               "runtimeStatus":  "required_after_placeholder_replacement"
+                                           },
+                          "requiredChecks":  [
+                                                 "path_exists",
+                                                 "placeholder_scan",
+                                                 "encoding",
+                                                 "cross_file_identifiers",
+                                                 "current_consumer"
+                                             ]
+                      },
+                      {
                           "id":  "ai-division-template-txt",
                           "kind":  "template",
                           "catalogKey":  "ai-division-template.txt",
@@ -181,16 +262,70 @@
                                              ]
                       },
                       {
+                          "id":  "bop-txt",
+                          "kind":  "template",
+                          "catalogKey":  "bop.txt",
+                          "paths":  [
+                                        "assets/templates/bop.txt"
+                                    ],
+                          "intendedUse":  "Balance-of-power definition",
+                          "sourceEvidence":  {
+                                                 "installedDocumentation":  "current consumer",
+                                                 "currentConsumers":  "`common/bop/PRC.txt`"
+                                             },
+                          "verification":  {
+                                               "targetGameVersion":  "1.19.2.0",
+                                               "targetBuild":  "d245",
+                                               "verifiedOn":  "2026-08-31",
+                                               "staticStatus":  "verified_against_catalogued_sources",
+                                               "runtimeStatus":  "required_after_placeholder_replacement"
+                                           },
+                          "requiredChecks":  [
+                                                 "path_exists",
+                                                 "placeholder_scan",
+                                                 "encoding",
+                                                 "cross_file_identifiers",
+                                                 "current_consumer"
+                                             ]
+                      },
+                      {
+                          "id":  "building-txt",
+                          "kind":  "template",
+                          "catalogKey":  "building.txt",
+                          "paths":  [
+                                        "assets/templates/building.txt"
+                                    ],
+                          "intendedUse":  "Custom building definition",
+                          "sourceEvidence":  {
+                                                 "installedDocumentation":  "current building comments",
+                                                 "currentConsumers":  "`common/buildings/00_buildings.txt`"
+                                             },
+                          "verification":  {
+                                               "targetGameVersion":  "1.19.2.0",
+                                               "targetBuild":  "d245",
+                                               "verifiedOn":  "2026-08-31",
+                                               "staticStatus":  "verified_against_catalogued_sources",
+                                               "runtimeStatus":  "required_after_placeholder_replacement"
+                                           },
+                          "requiredChecks":  [
+                                                 "path_exists",
+                                                 "placeholder_scan",
+                                                 "encoding",
+                                                 "cross_file_identifiers",
+                                                 "current_consumer"
+                                             ]
+                      },
+                      {
                           "id":  "character-txt",
                           "kind":  "template",
                           "catalogKey":  "character.txt",
                           "paths":  [
                                         "assets/templates/character.txt"
                                     ],
-                          "intendedUse":  "Country leader character",
+                          "intendedUse":  "Country leader plus advisor",
                           "sourceEvidence":  {
                                                  "installedDocumentation":  "`common/characters/_documentation.md`",
-                                                 "currentConsumers":  "`common/characters/AFG.txt`"
+                                                 "currentConsumers":  "`common/characters/AFG.txt`, `common/characters/AST.txt`"
                                              },
                           "verification":  {
                                                "targetGameVersion":  "1.19.2.0",
@@ -223,6 +358,60 @@
                                                "targetGameVersion":  "1.19.2.0",
                                                "targetBuild":  "d245",
                                                "verifiedOn":  "2026-07-17",
+                                               "staticStatus":  "verified_against_catalogued_sources",
+                                               "runtimeStatus":  "required_after_placeholder_replacement"
+                                           },
+                          "requiredChecks":  [
+                                                 "path_exists",
+                                                 "placeholder_scan",
+                                                 "encoding",
+                                                 "cross_file_identifiers",
+                                                 "current_consumer"
+                                             ]
+                      },
+                      {
+                          "id":  "combat-tactics-txt",
+                          "kind":  "template",
+                          "catalogKey":  "combat-tactics.txt",
+                          "paths":  [
+                                        "assets/templates/combat-tactics.txt"
+                                    ],
+                          "intendedUse":  "Extra combat tactics appended to the vanilla file",
+                          "sourceEvidence":  {
+                                                 "installedDocumentation":  "current file header",
+                                                 "currentConsumers":  "`common/combat_tactics.txt`"
+                                             },
+                          "verification":  {
+                                               "targetGameVersion":  "1.19.2.0",
+                                               "targetBuild":  "d245",
+                                               "verifiedOn":  "2026-08-31",
+                                               "staticStatus":  "verified_against_catalogued_sources",
+                                               "runtimeStatus":  "required_after_placeholder_replacement"
+                                           },
+                          "requiredChecks":  [
+                                                 "path_exists",
+                                                 "placeholder_scan",
+                                                 "encoding",
+                                                 "cross_file_identifiers",
+                                                 "current_consumer"
+                                             ]
+                      },
+                      {
+                          "id":  "continuous-focus-txt",
+                          "kind":  "template",
+                          "catalogKey":  "continuous-focus.txt",
+                          "paths":  [
+                                        "assets/templates/continuous-focus.txt"
+                                    ],
+                          "intendedUse":  "Continuous-focus palette",
+                          "sourceEvidence":  {
+                                                 "installedDocumentation":  "current consumer",
+                                                 "currentConsumers":  "`common/continuous_focus/generic.txt`"
+                                             },
+                          "verification":  {
+                                               "targetGameVersion":  "1.19.2.0",
+                                               "targetBuild":  "d245",
+                                               "verifiedOn":  "2026-08-31",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -271,7 +460,7 @@
                           "intendedUse":  "Triggered country event",
                           "sourceEvidence":  {
                                                  "installedDocumentation":  "`documentation/effects_documentation.md`",
-                                                 "currentConsumers":  "`events/AAT_Generic_Events.txt`"
+                                                 "currentConsumers":  "`events/AAT_Generic_Events.txt`, `events/WUW_Germany.txt`"
                                              },
                           "verification":  {
                                                "targetGameVersion":  "1.19.2.0",
@@ -331,6 +520,33 @@
                                                "targetGameVersion":  "1.19.2.0",
                                                "targetBuild":  "d245",
                                                "verifiedOn":  "2026-07-17",
+                                               "staticStatus":  "verified_against_catalogued_sources",
+                                               "runtimeStatus":  "required_after_placeholder_replacement"
+                                           },
+                          "requiredChecks":  [
+                                                 "path_exists",
+                                                 "placeholder_scan",
+                                                 "encoding",
+                                                 "cross_file_identifiers",
+                                                 "current_consumer"
+                                             ]
+                      },
+                      {
+                          "id":  "create-equipment-variant-txt",
+                          "kind":  "template",
+                          "catalogKey":  "create-equipment-variant.txt",
+                          "paths":  [
+                                        "assets/templates/create-equipment-variant.txt"
+                                    ],
+                          "intendedUse":  "DLC-branched equipment variant",
+                          "sourceEvidence":  {
+                                                 "installedDocumentation":  "current history consumers",
+                                                 "currentConsumers":  "`history/countries/SIA - Siam.txt`"
+                                             },
+                          "verification":  {
+                                               "targetGameVersion":  "1.19.2.0",
+                                               "targetBuild":  "d245",
+                                               "verifiedOn":  "2026-08-31",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -451,6 +667,33 @@
                                              ]
                       },
                       {
+                          "id":  "diplomatic-enable-trigger-txt",
+                          "kind":  "template",
+                          "catalogKey":  "diplomatic-enable-trigger.txt",
+                          "paths":  [
+                                        "assets/templates/diplomatic-enable-trigger.txt"
+                                    ],
+                          "intendedUse":  "Diplomacy action enable gate",
+                          "sourceEvidence":  {
+                                                 "installedDocumentation":  "vanilla header comments",
+                                                 "currentConsumers":  "`common/scripted_triggers/diplomacy_scripted_triggers.txt`"
+                                             },
+                          "verification":  {
+                                               "targetGameVersion":  "1.19.2.0",
+                                               "targetBuild":  "d245",
+                                               "verifiedOn":  "2026-08-31",
+                                               "staticStatus":  "verified_against_catalogued_sources",
+                                               "runtimeStatus":  "required_after_placeholder_replacement"
+                                           },
+                          "requiredChecks":  [
+                                                 "path_exists",
+                                                 "placeholder_scan",
+                                                 "encoding",
+                                                 "cross_file_identifiers",
+                                                 "current_consumer"
+                                             ]
+                      },
+                      {
                           "id":  "dynamic-modifier-txt",
                           "kind":  "template",
                           "catalogKey":  "dynamic-modifier.txt",
@@ -466,6 +709,33 @@
                                                "targetGameVersion":  "1.19.2.0",
                                                "targetBuild":  "d245",
                                                "verifiedOn":  "2026-07-17",
+                                               "staticStatus":  "verified_against_catalogued_sources",
+                                               "runtimeStatus":  "required_after_placeholder_replacement"
+                                           },
+                          "requiredChecks":  [
+                                                 "path_exists",
+                                                 "placeholder_scan",
+                                                 "encoding",
+                                                 "cross_file_identifiers",
+                                                 "current_consumer"
+                                             ]
+                      },
+                      {
+                          "id":  "equipment-module-txt",
+                          "kind":  "template",
+                          "catalogKey":  "equipment-module.txt",
+                          "paths":  [
+                                        "assets/templates/equipment-module.txt"
+                                    ],
+                          "intendedUse":  "Designer equipment module",
+                          "sourceEvidence":  {
+                                                 "installedDocumentation":  "current module files",
+                                                 "currentConsumers":  "`common/units/equipment/modules/00_tank_modules.txt`"
+                                             },
+                          "verification":  {
+                                               "targetGameVersion":  "1.19.2.0",
+                                               "targetBuild":  "d245",
+                                               "verifiedOn":  "2026-08-31",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -532,6 +802,33 @@
                                              ]
                       },
                       {
+                          "id":  "faction-member-upgrade-txt",
+                          "kind":  "template",
+                          "catalogKey":  "faction-member-upgrade.txt",
+                          "paths":  [
+                                        "assets/templates/faction-member-upgrade.txt"
+                                    ],
+                          "intendedUse":  "Faction member upgrade plus group",
+                          "sourceEvidence":  {
+                                                 "installedDocumentation":  "`common/factions/_documentation.md`",
+                                                 "currentConsumers":  "`common/factions/member_upgrades/member_upgrades.txt`, `member_groups/member_upgrade_groups.txt`"
+                                             },
+                          "verification":  {
+                                               "targetGameVersion":  "1.19.2.0",
+                                               "targetBuild":  "d245",
+                                               "verifiedOn":  "2026-08-31",
+                                               "staticStatus":  "verified_against_catalogued_sources",
+                                               "runtimeStatus":  "required_after_placeholder_replacement"
+                                           },
+                          "requiredChecks":  [
+                                                 "path_exists",
+                                                 "placeholder_scan",
+                                                 "encoding",
+                                                 "cross_file_identifiers",
+                                                 "current_consumer"
+                                             ]
+                      },
+                      {
                           "id":  "faction-rule-txt",
                           "kind":  "template",
                           "catalogKey":  "faction-rule.txt",
@@ -586,6 +883,33 @@
                                              ]
                       },
                       {
+                          "id":  "focus-inlay-txt",
+                          "kind":  "template",
+                          "catalogKey":  "focus-inlay.txt",
+                          "paths":  [
+                                        "assets/templates/focus-inlay.txt"
+                                    ],
+                          "intendedUse":  "Focus-tree inlay definition",
+                          "sourceEvidence":  {
+                                                 "installedDocumentation":  "`common/focus_inlay_windows/documentation.md`",
+                                                 "currentConsumers":  "`common/focus_inlay_windows/sia_khana_ratsadon_inlay_window.txt`"
+                                             },
+                          "verification":  {
+                                               "targetGameVersion":  "1.19.2.0",
+                                               "targetBuild":  "d245",
+                                               "verifiedOn":  "2026-08-31",
+                                               "staticStatus":  "verified_against_catalogued_sources",
+                                               "runtimeStatus":  "required_after_placeholder_replacement"
+                                           },
+                          "requiredChecks":  [
+                                                 "path_exists",
+                                                 "placeholder_scan",
+                                                 "encoding",
+                                                 "cross_file_identifiers",
+                                                 "current_consumer"
+                                             ]
+                      },
+                      {
                           "id":  "idea-txt",
                           "kind":  "template",
                           "catalogKey":  "idea.txt",
@@ -601,6 +925,87 @@
                                                "targetGameVersion":  "1.19.2.0",
                                                "targetBuild":  "d245",
                                                "verifiedOn":  "2026-07-17",
+                                               "staticStatus":  "verified_against_catalogued_sources",
+                                               "runtimeStatus":  "required_after_placeholder_replacement"
+                                           },
+                          "requiredChecks":  [
+                                                 "path_exists",
+                                                 "placeholder_scan",
+                                                 "encoding",
+                                                 "cross_file_identifiers",
+                                                 "current_consumer"
+                                             ]
+                      },
+                      {
+                          "id":  "intelligence-agency-upgrade-txt",
+                          "kind":  "template",
+                          "catalogKey":  "intelligence-agency-upgrade.txt",
+                          "paths":  [
+                                        "assets/templates/intelligence-agency-upgrade.txt"
+                                    ],
+                          "intendedUse":  "Agency upgrade branch",
+                          "sourceEvidence":  {
+                                                 "installedDocumentation":  "`common/intelligence_agency_upgrades/_documentation.md`",
+                                                 "currentConsumers":  "`common/intelligence_agency_upgrades/intelligence_agency_upgrades.txt`"
+                                             },
+                          "verification":  {
+                                               "targetGameVersion":  "1.19.2.0",
+                                               "targetBuild":  "d245",
+                                               "verifiedOn":  "2026-08-31",
+                                               "staticStatus":  "verified_against_catalogued_sources",
+                                               "runtimeStatus":  "required_after_placeholder_replacement"
+                                           },
+                          "requiredChecks":  [
+                                                 "path_exists",
+                                                 "placeholder_scan",
+                                                 "encoding",
+                                                 "cross_file_identifiers",
+                                                 "current_consumer"
+                                             ]
+                      },
+                      {
+                          "id":  "joint-focus-txt",
+                          "kind":  "template",
+                          "catalogKey":  "joint-focus.txt",
+                          "paths":  [
+                                        "assets/templates/joint-focus.txt"
+                                    ],
+                          "intendedUse":  "Shared joint focus with originator/member rewards",
+                          "sourceEvidence":  {
+                                                 "installedDocumentation":  "current consumer",
+                                                 "currentConsumers":  "`common/national_focus/indonesia_joint.txt`"
+                                             },
+                          "verification":  {
+                                               "targetGameVersion":  "1.19.2.0",
+                                               "targetBuild":  "d245",
+                                               "verifiedOn":  "2026-08-31",
+                                               "staticStatus":  "verified_against_catalogued_sources",
+                                               "runtimeStatus":  "required_after_placeholder_replacement"
+                                           },
+                          "requiredChecks":  [
+                                                 "path_exists",
+                                                 "placeholder_scan",
+                                                 "encoding",
+                                                 "cross_file_identifiers",
+                                                 "current_consumer"
+                                             ]
+                      },
+                      {
+                          "id":  "law-idea-txt",
+                          "kind":  "template",
+                          "catalogKey":  "law-idea.txt",
+                          "paths":  [
+                                        "assets/templates/law-idea.txt"
+                                    ],
+                          "intendedUse":  "Economy/trade/manpower law",
+                          "sourceEvidence":  {
+                                                 "installedDocumentation":  "`common/idea_tags/00_idea.txt`",
+                                                 "currentConsumers":  "`common/ideas/_economic.txt`"
+                                             },
+                          "verification":  {
+                                               "targetGameVersion":  "1.19.2.0",
+                                               "targetBuild":  "d245",
+                                               "verifiedOn":  "2026-08-31",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -725,6 +1130,33 @@
                                              ]
                       },
                       {
+                          "id":  "map-mode-txt",
+                          "kind":  "template",
+                          "catalogKey":  "map-mode.txt",
+                          "paths":  [
+                                        "assets/templates/map-mode.txt"
+                                    ],
+                          "intendedUse":  "Scripted map mode",
+                          "sourceEvidence":  {
+                                                 "installedDocumentation":  "`common/map_modes/documentation.md`",
+                                                 "currentConsumers":  "installed documentation example; no live vanilla consumer"
+                                             },
+                          "verification":  {
+                                               "targetGameVersion":  "1.19.2.0",
+                                               "targetBuild":  "d245",
+                                               "verifiedOn":  "2026-08-31",
+                                               "staticStatus":  "verified_against_catalogued_sources",
+                                               "runtimeStatus":  "required_after_placeholder_replacement"
+                                           },
+                          "requiredChecks":  [
+                                                 "path_exists",
+                                                 "placeholder_scan",
+                                                 "encoding",
+                                                 "cross_file_identifiers",
+                                                 "current_consumer"
+                                             ]
+                      },
+                      {
                           "id":  "mio-organization-txt",
                           "kind":  "template",
                           "catalogKey":  "mio-organization.txt",
@@ -740,6 +1172,33 @@
                                                "targetGameVersion":  "1.19.2.0",
                                                "targetBuild":  "d245",
                                                "verifiedOn":  "2026-07-17",
+                                               "staticStatus":  "verified_against_catalogued_sources",
+                                               "runtimeStatus":  "required_after_placeholder_replacement"
+                                           },
+                          "requiredChecks":  [
+                                                 "path_exists",
+                                                 "placeholder_scan",
+                                                 "encoding",
+                                                 "cross_file_identifiers",
+                                                 "current_consumer"
+                                             ]
+                      },
+                      {
+                          "id":  "mission-decision-txt",
+                          "kind":  "template",
+                          "catalogKey":  "mission-decision.txt",
+                          "paths":  [
+                                        "assets/templates/mission-decision.txt"
+                                    ],
+                          "intendedUse":  "Caller-started mission",
+                          "sourceEvidence":  {
+                                                 "installedDocumentation":  "`common/decisions/_documentation.md`",
+                                                 "currentConsumers":  "`common/decisions/INS.txt`"
+                                             },
+                          "verification":  {
+                                               "targetGameVersion":  "1.19.2.0",
+                                               "targetBuild":  "d245",
+                                               "verifiedOn":  "2026-08-31",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -835,6 +1294,33 @@
                                              ]
                       },
                       {
+                          "id":  "mtth-variable-txt",
+                          "kind":  "template",
+                          "catalogKey":  "mtth-variable.txt",
+                          "paths":  [
+                                        "assets/templates/mtth-variable.txt"
+                                    ],
+                          "intendedUse":  "Named MTTH block consumed as `mtth:`",
+                          "sourceEvidence":  {
+                                                 "installedDocumentation":  "`common/mtth/mtth_variables.txt` comments",
+                                                 "currentConsumers":  "`common/mtth/mtth_variables.txt`"
+                                             },
+                          "verification":  {
+                                               "targetGameVersion":  "1.19.2.0",
+                                               "targetBuild":  "d245",
+                                               "verifiedOn":  "2026-08-31",
+                                               "staticStatus":  "verified_against_catalogued_sources",
+                                               "runtimeStatus":  "required_after_placeholder_replacement"
+                                           },
+                          "requiredChecks":  [
+                                                 "path_exists",
+                                                 "placeholder_scan",
+                                                 "encoding",
+                                                 "cross_file_identifiers",
+                                                 "current_consumer"
+                                             ]
+                      },
+                      {
                           "id":  "national-focus-tree-txt",
                           "kind":  "template",
                           "catalogKey":  "national-focus-tree.txt",
@@ -916,6 +1402,87 @@
                                              ]
                       },
                       {
+                          "id":  "oob-land-txt",
+                          "kind":  "template",
+                          "catalogKey":  "oob-land.txt",
+                          "paths":  [
+                                        "assets/templates/oob-land.txt"
+                                    ],
+                          "intendedUse":  "Start-date land OOB",
+                          "sourceEvidence":  {
+                                                 "installedDocumentation":  "current history consumers",
+                                                 "currentConsumers":  "`history/units/CZE_1936.txt`"
+                                             },
+                          "verification":  {
+                                               "targetGameVersion":  "1.19.2.0",
+                                               "targetBuild":  "d245",
+                                               "verifiedOn":  "2026-08-31",
+                                               "staticStatus":  "verified_against_catalogued_sources",
+                                               "runtimeStatus":  "required_after_placeholder_replacement"
+                                           },
+                          "requiredChecks":  [
+                                                 "path_exists",
+                                                 "placeholder_scan",
+                                                 "encoding",
+                                                 "cross_file_identifiers",
+                                                 "current_consumer"
+                                             ]
+                      },
+                      {
+                          "id":  "operation-txt",
+                          "kind":  "template",
+                          "catalogKey":  "operation.txt",
+                          "paths":  [
+                                        "assets/templates/operation.txt"
+                                    ],
+                          "intendedUse":  "Intelligence operation",
+                          "sourceEvidence":  {
+                                                 "installedDocumentation":  "`common/operations/_documentation.md`",
+                                                 "currentConsumers":  "`common/operations/00_operations.txt`"
+                                             },
+                          "verification":  {
+                                               "targetGameVersion":  "1.19.2.0",
+                                               "targetBuild":  "d245",
+                                               "verifiedOn":  "2026-08-31",
+                                               "staticStatus":  "verified_against_catalogued_sources",
+                                               "runtimeStatus":  "required_after_placeholder_replacement"
+                                           },
+                          "requiredChecks":  [
+                                                 "path_exists",
+                                                 "placeholder_scan",
+                                                 "encoding",
+                                                 "cross_file_identifiers",
+                                                 "current_consumer"
+                                             ]
+                      },
+                      {
+                          "id":  "opinion-modifier-txt",
+                          "kind":  "template",
+                          "catalogKey":  "opinion-modifier.txt",
+                          "paths":  [
+                                        "assets/templates/opinion-modifier.txt"
+                                    ],
+                          "intendedUse":  "Opinion modifier",
+                          "sourceEvidence":  {
+                                                 "installedDocumentation":  "current header comments",
+                                                 "currentConsumers":  "`common/opinion_modifiers/00_opinion_modifiers.txt`"
+                                             },
+                          "verification":  {
+                                               "targetGameVersion":  "1.19.2.0",
+                                               "targetBuild":  "d245",
+                                               "verifiedOn":  "2026-08-31",
+                                               "staticStatus":  "verified_against_catalogued_sources",
+                                               "runtimeStatus":  "required_after_placeholder_replacement"
+                                           },
+                          "requiredChecks":  [
+                                                 "path_exists",
+                                                 "placeholder_scan",
+                                                 "encoding",
+                                                 "cross_file_identifiers",
+                                                 "current_consumer"
+                                             ]
+                      },
+                      {
                           "id":  "raid-category-txt",
                           "kind":  "template",
                           "catalogKey":  "raid-category.txt",
@@ -970,6 +1537,33 @@
                                              ]
                       },
                       {
+                          "id":  "reversed-ai-strategy-txt",
+                          "kind":  "template",
+                          "catalogKey":  "reversed-ai-strategy.txt",
+                          "paths":  [
+                                        "assets/templates/reversed-ai-strategy.txt"
+                                    ],
+                          "intendedUse":  "Reversed AI strategy",
+                          "sourceEvidence":  {
+                                                 "installedDocumentation":  "omitted from AI docs; current consumers",
+                                                 "currentConsumers":  "`common/ai_strategy/USA.txt`, `INS.txt`"
+                                             },
+                          "verification":  {
+                                               "targetGameVersion":  "1.19.2.0",
+                                               "targetBuild":  "d245",
+                                               "verifiedOn":  "2026-08-31",
+                                               "staticStatus":  "verified_against_catalogued_sources",
+                                               "runtimeStatus":  "required_after_placeholder_replacement"
+                                           },
+                          "requiredChecks":  [
+                                                 "path_exists",
+                                                 "placeholder_scan",
+                                                 "encoding",
+                                                 "cross_file_identifiers",
+                                                 "current_consumer"
+                                             ]
+                      },
+                      {
                           "id":  "scientist-character-txt",
                           "kind":  "template",
                           "catalogKey":  "scientist-character.txt",
@@ -985,6 +1579,33 @@
                                                "targetGameVersion":  "1.19.2.0",
                                                "targetBuild":  "d245",
                                                "verifiedOn":  "2026-07-17",
+                                               "staticStatus":  "verified_against_catalogued_sources",
+                                               "runtimeStatus":  "required_after_placeholder_replacement"
+                                           },
+                          "requiredChecks":  [
+                                                 "path_exists",
+                                                 "placeholder_scan",
+                                                 "encoding",
+                                                 "cross_file_identifiers",
+                                                 "current_consumer"
+                                             ]
+                      },
+                      {
+                          "id":  "scripted-diplomatic-action-txt",
+                          "kind":  "template",
+                          "catalogKey":  "scripted-diplomatic-action.txt",
+                          "paths":  [
+                                        "assets/templates/scripted-diplomatic-action.txt"
+                                    ],
+                          "intendedUse":  "Scripted diplomatic action",
+                          "sourceEvidence":  {
+                                                 "installedDocumentation":  "vanilla commented schema",
+                                                 "currentConsumers":  "`common/scripted_diplomatic_actions/scripted_diplomatic_actions.txt`"
+                                             },
+                          "verification":  {
+                                               "targetGameVersion":  "1.19.2.0",
+                                               "targetBuild":  "d245",
+                                               "verifiedOn":  "2026-08-31",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -1187,6 +1808,33 @@
                                              ]
                       },
                       {
+                          "id":  "subdoctrine-txt",
+                          "kind":  "template",
+                          "catalogKey":  "subdoctrine.txt",
+                          "paths":  [
+                                        "assets/templates/subdoctrine.txt"
+                                    ],
+                          "intendedUse":  "Subdoctrine with named rewards",
+                          "sourceEvidence":  {
+                                                 "installedDocumentation":  "`common/doctrines/subdoctrines/_documentation.md`",
+                                                 "currentConsumers":  "`common/doctrines/subdoctrines/land/infantry_subdoctrines.txt`"
+                                             },
+                          "verification":  {
+                                               "targetGameVersion":  "1.19.2.0",
+                                               "targetBuild":  "d245",
+                                               "verifiedOn":  "2026-08-31",
+                                               "staticStatus":  "verified_against_catalogued_sources",
+                                               "runtimeStatus":  "required_after_placeholder_replacement"
+                                           },
+                          "requiredChecks":  [
+                                                 "path_exists",
+                                                 "placeholder_scan",
+                                                 "encoding",
+                                                 "cross_file_identifiers",
+                                                 "current_consumer"
+                                             ]
+                      },
+                      {
                           "id":  "targeted-state-decision-txt",
                           "kind":  "template",
                           "catalogKey":  "targeted-state-decision.txt",
@@ -1214,6 +1862,33 @@
                                              ]
                       },
                       {
+                          "id":  "unit-leader-trait-txt",
+                          "kind":  "template",
+                          "catalogKey":  "unit-leader-trait.txt",
+                          "paths":  [
+                                        "assets/templates/unit-leader-trait.txt"
+                                    ],
+                          "intendedUse":  "Land personality plus assignable trait",
+                          "sourceEvidence":  {
+                                                 "installedDocumentation":  "`common/unit_leader/00_traits.txt` header",
+                                                 "currentConsumers":  "`common/unit_leader/00_traits.txt`, `ETH_traits.txt`"
+                                             },
+                          "verification":  {
+                                               "targetGameVersion":  "1.19.2.0",
+                                               "targetBuild":  "d245",
+                                               "verifiedOn":  "2026-08-31",
+                                               "staticStatus":  "verified_against_catalogued_sources",
+                                               "runtimeStatus":  "required_after_placeholder_replacement"
+                                           },
+                          "requiredChecks":  [
+                                                 "path_exists",
+                                                 "placeholder_scan",
+                                                 "encoding",
+                                                 "cross_file_identifiers",
+                                                 "current_consumer"
+                                             ]
+                      },
+                      {
                           "id":  "unit-name-list-txt",
                           "kind":  "template",
                           "catalogKey":  "unit-name-list.txt",
@@ -1229,6 +1904,33 @@
                                                "targetGameVersion":  "1.19.2.0",
                                                "targetBuild":  "d245",
                                                "verifiedOn":  "2026-07-17",
+                                               "staticStatus":  "verified_against_catalogued_sources",
+                                               "runtimeStatus":  "required_after_placeholder_replacement"
+                                           },
+                          "requiredChecks":  [
+                                                 "path_exists",
+                                                 "placeholder_scan",
+                                                 "encoding",
+                                                 "cross_file_identifiers",
+                                                 "current_consumer"
+                                             ]
+                      },
+                      {
+                          "id":  "unit-subunit-txt",
+                          "kind":  "template",
+                          "catalogKey":  "unit-subunit.txt",
+                          "paths":  [
+                                        "assets/templates/unit-subunit.txt"
+                                    ],
+                          "intendedUse":  "Land sub-unit",
+                          "sourceEvidence":  {
+                                                 "installedDocumentation":  "current unit files",
+                                                 "currentConsumers":  "`common/units/infantry.txt`"
+                                             },
+                          "verification":  {
+                                               "targetGameVersion":  "1.19.2.0",
+                                               "targetBuild":  "d245",
+                                               "verifiedOn":  "2026-08-31",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },

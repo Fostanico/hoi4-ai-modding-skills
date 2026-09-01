@@ -35,7 +35,7 @@ function Get-Entry {
         sourceEvidence = [pscustomobject]@{ installedDocumentation = $record.documentation; currentConsumers = $record.consumers }
         verification = [pscustomobject]@{
             targetGameVersion = '1.19.2.0'; targetBuild = 'd245'
-            verifiedOn = if ($CatalogKey -eq 'kits/decision-category-cover') { '2026-08-14' } elseif ($CatalogKey -in @('kits/technology-equipment-chain', 'kits/game-rule-startup')) { '2026-08-09' } else { '2026-07-17' }
+            verifiedOn = if ($CatalogKey -eq 'kits/decision-category-cover') { '2026-08-14' } elseif ($CatalogKey -in @('kits/technology-equipment-chain', 'kits/game-rule-startup')) { '2026-08-09' } elseif ($CatalogKey -in @('building.txt','bop.txt','ability.txt','combat-tactics.txt','opinion-modifier.txt','scripted-diplomatic-action.txt','diplomatic-enable-trigger.txt','ai-area.txt','reversed-ai-strategy.txt','equipment-module.txt','create-equipment-variant.txt','map-mode.txt','achievement.txt','unit-subunit.txt','oob-land.txt','operation.txt','intelligence-agency-upgrade.txt','subdoctrine.txt','unit-leader-trait.txt','focus-inlay.txt','faction-member-upgrade.txt','mission-decision.txt','law-idea.txt','joint-focus.txt','continuous-focus.txt','mtth-variable.txt')) { '2026-08-31' } else { '2026-07-17' }
             staticStatus = 'verified_against_catalogued_sources'; runtimeStatus = 'required_after_placeholder_replacement'
         }
         requiredChecks = @($checks)

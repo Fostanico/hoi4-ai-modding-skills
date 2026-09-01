@@ -1,6 +1,6 @@
 ---
 name: hoi4-content-builder
-description: Turn plain-language ideas into complete, playable Hearts of Iron IV mods and advanced systems. Use when a user describes a mod without knowing PDX script, or requests events, decisions, focuses, countries, characters, ideas, MIOs, doctrines, raids, special projects, AI, OOBs, factions, diplomacy, GUI, map modes, localisation, models, music, or release packaging. Includes verified templates, multi-file kits, full workflows, and runtime-test handoff.
+description: Turn plain-language ideas into complete, playable Hearts of Iron IV mods and advanced systems. Use when a user describes a mod without knowing PDX script, or requests events, decisions, focuses, countries, characters, ideas, MIOs, doctrines, raids, special projects, operations, buildings, BOP, achievements, AI, OOBs, factions, diplomacy, GUI, map modes, localisation, models, music, or release packaging. Includes verified templates, multi-file kits, full workflows, and runtime-test handoff.
 ---
 
 # HOI4 content builder
@@ -27,6 +27,12 @@ for character names, narrative roles, costs, dates, or player-facing behavior.
 For a whole-mod health, balance, UX, or improvement pass rather than one
 requested feature, route to the sibling `hoi4-review-debug` skill's
 `improve-existing-mod.md` workflow.
+
+P-language grammar and editor-tool limits live in the sibling
+[pdx-language.md](../hoi4-pdx-modding/references/pdx-language.md) and
+[ide-extensions.md](../hoi4-pdx-modding/references/ide-extensions.md). Preview
+focus, tech, GUI, or map layout in HOI4 Mod Utilities when the change is
+user-visible; do not paste CWTools or Modding Tools generator output.
 
 ## Choose a workflow
 

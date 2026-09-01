@@ -1,0 +1,41 @@
+# Path: common/national_focus/*.txt
+# joint_focus lives in a shared tree consumed by more than one country.
+# Current vanilla (indonesia_joint.txt) also uses text_icon, offset, allow_branch,
+# completion_reward_joint_originator, and completion_reward_joint_member.
+# Keep a completion_reward block even when empty; joint reward blocks are the
+# player-visible split between originator and member.
+
+joint_focus = {
+	id = MOD_joint_focus
+	icon = GFX_goal_generic_improve_relations
+	x = 0
+	y = 0
+	cost = 10
+
+	available = {
+		is_in_faction_with = GER
+	}
+
+	offset = {
+		x = 0
+		y = 0
+		trigger = {
+			tag = GER
+		}
+	}
+
+	completion_reward = {
+	}
+
+	completion_reward_joint_originator = {
+		add_political_power = 25
+	}
+
+	completion_reward_joint_member = {
+		add_political_power = 10
+	}
+
+	ai_will_do = {
+		factor = 1
+	}
+}

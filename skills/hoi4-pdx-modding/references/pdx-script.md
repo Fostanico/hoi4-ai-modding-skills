@@ -9,6 +9,9 @@
 - Loops and conditions
 - Verification rules
 
+P-language token, link, and editor-mismatch rules live in
+[pdx-language.md](pdx-language.md).
+
 ## Source order
 
 Use sources in this order:
@@ -23,7 +26,9 @@ Use sources in this order:
 
 Use [vanilla-documentation-map.md](vanilla-documentation-map.md) to route a
 task to the correct installed document. Query exact `## <token>` entries in the
-large generated files, then read a complete current vanilla consumer.
+large generated files, then read a complete current vanilla consumer. For the
+script grammar itself, read [pdx-language.md](pdx-language.md). Editor
+diagnostics from CWTools are hints; see [ide-extensions.md](ide-extensions.md).
 
 Wiki pages are community-maintained and can lag game updates. A copied example
 from another mod proves only that the author wrote it, not that the current
@@ -78,6 +83,33 @@ set_variable = { var = MOD_example value = 5 }
 add_to_variable = { var = MOD_example value = 1 }
 ```
 
+Variable math can take `tooltip = loc_key`. Generated docs spell this on
+`set_variable`; current vanilla also uses it on `add_to_variable` in
+`common/national_focus/australia_taog.txt`. Localisation uses `$LEFT$` (value
+before the operation) and `$RIGHT$` (operand or new value). These are
+consumer-injected parameters, not global variables.
+
+```pdx
+add_to_variable = {
+	var = MOD_example
+	value = 0.1
+	tooltip = production_speed_arms_factory_factor_tt
+}
+```
+
+Named MTTH blocks in `common/mtth/` are consumed as `mtth:MOD_mtth_value`.
+Token-valued variables use `token:civilian_economy` and similar. Current
+vanilla assigns them in `events/BFTB_Bulgaria.txt`. Scope into an MIO with
+`mio:<organization id>` and a special project with `sp:<project id>`
+(current consumers: `common/national_focus/australia_taog.txt`,
+`is_special_project_completed = sp:sp_air_radar`). `GetTokenKey` /
+`GetTokenLocalizedKey` are not in installed
+`documentation/loc_objects_documentation.md` and have no vanilla localisation
+consumer in 1.19.2; test the exact GUI/tooltip before relying on them.
+
+Prefer installed math `{ value = N log = base }` over hand-rolled Taylor
+logarithms.
+
 Temporary variables live only for the current execution chain:
 
 ```pdx
@@ -129,6 +161,10 @@ set_temp_variable = {
 Guard division against zero or near-zero denominators. Do not assume malformed
 math will throw a visible error; check `error.log` for `script_math` messages.
 
+Dynamic `manpower`, `max_available_manpower`, and `max_manpower` are marked
+deprecated in installed dynamic-variable docs because they may overflow.
+Prefer `manpower_k`, `max_available_manpower_k`, and `max_manpower_k`.
+
 ## Loops and conditions
 
 - Prefer engine-maintained narrow arrays such as subjects, faction members, or
@@ -142,8 +178,9 @@ math will throw a visible error; check `error.log` for `script_math` messages.
   array operations.
 
 Conditions are implicit AND within a trigger block; an `AND = {}` wrapper is
-normally redundant. HOI4 does not provide a general `NOR = {}` operator. Also
-remember that `NOT = { A B }` means `NOT (A AND B)`, not `NOT A AND NOT B`.
+normally redundant. HOI4 does not provide a general `NOR = {}` operator; `NOR`
+is Norway's country tag. Remember that `NOT = { A B }` means `NOT (A AND B)`,
+not `NOT A AND NOT B`.
 Write separate `NOT` blocks or negate an explicit `OR` when that is the intent.
 
 Inline `check_variable` comparisons support the operators demonstrated by
@@ -186,7 +223,8 @@ Do not silently translate it using ordinary strict-comparison semantics.
   `greater_than_or_equals` and `less_than_or_equals`. This does not make `>=`
   or `<=` valid in ordinary `check_variable` syntax.
 - Script variables and array mutations do not create automatic effect
-  tooltips. Add explicit custom tooltips when the player needs feedback.
+  tooltips. Add `tooltip =` on the variable effect, or an explicit custom
+  tooltip, when the player needs feedback.
 - Distinguish formatted/bound localisation and localisation objects from plain
   localisation keys. Verify the consumer supports the chosen form.
 

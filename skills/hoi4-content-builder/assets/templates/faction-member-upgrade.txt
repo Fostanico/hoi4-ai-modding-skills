@@ -1,0 +1,26 @@
+# Split after copying:
+#  - upgrade objects -> common/factions/member_upgrades/*.txt
+#  - group object    -> common/factions/member_upgrades/member_groups/*.txt
+# upgrade_type is a code-supported list. Current vanilla manpower groups use
+# faction_member_upgrade_manpower. Do not invent a new upgrade_type.
+
+MOD_member_upgrade_none = {
+	bonus = 0.0
+	desc = MOD_MEMBER_UPGRADE_NONE_DESC
+}
+
+MOD_member_upgrade_low = {
+	bonus = 0.05
+}
+
+MOD_member_upgrade_group = {
+	name = MOD_MEMBER_UPGRADE_GROUP
+	desc = MOD_MEMBER_UPGRADE_GROUP_DESC
+	default_upgrade = MOD_member_upgrade_none
+	upgrade_type = faction_member_upgrade_manpower
+	upgrades = {
+		MOD_member_upgrade_none
+		MOD_member_upgrade_low
+	}
+	icon = GFX_manpower_contribution
+}

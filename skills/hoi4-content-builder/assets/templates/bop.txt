@@ -1,0 +1,41 @@
+# Path: common/bop/*.txt
+# left_side/right_side must match the nested side.id tokens.
+MOD_power_balance = {
+	initial_value = 0
+	left_side = MOD_bop_left
+	right_side = MOD_bop_right
+	decision_category = MOD_bop_category
+
+	side = {
+		id = MOD_bop_left
+		icon = GFX_idea_generic_fascism_drift_bonus
+		range = {
+			id = MOD_bop_left_range
+			min = -1
+			max = 0
+			modifier = {
+				stability_factor = 0.05
+			}
+			on_activate = {
+				set_power_balance_gfx = {
+					id = MOD_power_balance
+					side = MOD_bop_left
+					gfx = GFX_idea_generic_fascism_drift_bonus
+				}
+			}
+		}
+	}
+
+	side = {
+		id = MOD_bop_right
+		icon = GFX_idea_generic_democratic_drift_bonus
+		range = {
+			id = MOD_bop_right_range
+			min = 0
+			max = 1
+			modifier = {
+				war_support_factor = 0.05
+			}
+		}
+	}
+}

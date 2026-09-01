@@ -86,6 +86,10 @@ logic are not lost.
   database document and a current consumer before promoting a tutorial snippet.
 - Map and history migrations require complete ID-domain checks. GUI, GFX,
   models, music, and shaders require resource-chain checks plus runtime tests.
+- Consumer goods still combine `consumer_goods_expected_value` with
+  `(1 - consumer_goods_factor)`. Keep both tokens.
+- Custom achievements belong in `common/achievements/` with `unique_id`, not
+  in `common/achievements.txt`.
 
 ## Evidence paths
 

@@ -7,7 +7,9 @@ For copyable files, prefer `../assets/templates/`; for the verified focus to
 event to idea chain, use `../assets/kits/focus-event-idea/`. Their current
 vanilla evidence and deliberate placeholders are listed in
 `template-catalog.md`. The snippets below remain useful for constructs that do
-not yet justify a standalone asset.
+not yet justify a standalone asset. Focus inlays, unit-leader traits, agency
+upgrades, and faction member upgrades now have standalone templates; use those
+instead of expanding the snippets here.
 
 ## Triggered country event
 

@@ -1,8 +1,9 @@
 # Absorbed community capabilities and provenance
 
-Audited 2026-07-16 through 2026-07-17 from Steam Workshop item `3445449478`.
+Audited 2026-07-16 through 2026-07-17, then re-mined 2026-08-31, from Steam
+Workshop item `3445449478`.
 The source tree
-contains 41 executables, packaged DLL/PYD runtimes, 19 archives, source scripts,
+contains 42 executables, packaged DLL/PYD runtimes, archives, source scripts,
 and advanced PDX examples. The community project is treated as a trusted input
 library; current vanilla remains the authority for engine code.
 
@@ -29,6 +30,8 @@ The Workshop item is provenance, not a runtime lookup dependency.
 | Generate GFX registrations | icon/GFX utilities and Python scripts | `hoi4-content-builder/scripts/generate-gfx-manifest.ps1` |
 | Generate a country skeleton | country and character generators | `hoi4-content-builder/scripts/new-country-scaffold.ps1` |
 | Create focus, event, and idea content | zero-code editors and event generators | verified templates and `kits/focus-event-idea` |
+| Buildings, BOP, abilities, tactics, OOB, laws | 常用模板 and special-case tutorials | independently reconstructed templates in `assets/templates/` |
+| Agency upgrades, focus inlays, member upgrades, traits | 将领技能 / 国策内嵌 / 情报教程 | `intelligence-agency-upgrade.txt`, `focus-inlay.txt`, `faction-member-upgrade.txt`, `unit-leader-trait.txt` |
 | Pass a target state into an event | event-target and targeted-decision tutorials | `kits/targeted-state-event` and `event-target-caller.txt` |
 | Use arrays and collections | variable/array/collection tutorials | `array-effects.txt` and `collection-effect.txt` |
 | Use variable modifiers and dynamic text | variable and scripted-localisation tutorials | `dynamic-modifier.txt` and `scripted-localisation.txt` |
@@ -36,6 +39,9 @@ The Workshop item is provenance, not a runtime lookup dependency.
 | Build a custom modal GUI | KR welcome window and super-event examples | `kits/scripted-gui-modal` |
 | Convert flags or media | flag creators, MP4-to-OGG, stitchers | run the checked tool in staging; validate dimensions/codec before import |
 | Edit shaders or dynamic-list GUI | shader editor and advanced GUI packages | current-version research path; requires exact consumer verification and in-game test |
+| Custom music station UI | radio series GUI/GFX | extend `media-models-shaders.md` faceplate/entry contract; do not copy Cher/KR assets |
+| Custom achievements | CzXieDdan achievement tutorial | `assets/templates/achievement.txt` plus vanilla `has_completed_custom_achievement` |
+| RHoiScribe | GitHub/Patreon redirects only | not absorbed; no MCP/skill payload in the library |
 
 ## Binary families
 
@@ -87,6 +93,19 @@ not independently prove safety.
   player-context GUI, and current vanilla sprites.
 - No shader, parliament, total-conversion GUI, or direct map writer is promoted
   until its exact output is verified against current vanilla and tested in game.
+
+## Installed editor extensions
+
+Mined 2026-08-31 from Cursor/VS Code installs. Details:
+`hoi4-pdx-modding/references/ide-extensions.md` and the P-language distillation
+in `pdx-language.md`.
+
+| Need | Community source idea | Skill-owned implementation |
+| --- | --- | --- |
+| P-language scopes, fields, cheap lint | CWTools HOI4 `.cwt` rules (MIT) | `pdx-language.md`; vanilla docs remain authority |
+| Preview focus/tech/GUI/map/DDS | HOI4 Mod Utilities 0.17.2 | human visual QA; do not generate PDX from it |
+| Loc colours, log path, map ID checks | HOI4 Modding Tools 2.5.5 analysis | loc colour table; map audit script; log analyzer |
+| Country/OOB/GUI wizards | Modding Tools generators | verified templates; ignore `create_country_leader` and `:0` stubs |
 
 ## Operating rule
 

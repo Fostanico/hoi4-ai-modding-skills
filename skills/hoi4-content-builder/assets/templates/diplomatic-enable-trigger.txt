@@ -1,0 +1,17 @@
+# Path: common/scripted_triggers/*.txt
+# ROOT is the initiator. FROM is the target.
+# Same-name ENABLE_TRIGGER tokens override or add the named diplomacy gate.
+# Military access is already gated in vanilla by DIPLOMACY_MILACC_ENABLE_TRIGGER.
+# DIPLOMACY_WAR_ENABLE_TRIGGER is documented in comments but not shipped live;
+# defining it in a mod is how a custom war lock is added.
+DIPLOMACY_WAR_ENABLE_TRIGGER = {
+	if = {
+		limit = {
+			has_country_flag = MOD_block_wars
+		}
+		custom_trigger_tooltip = {
+			tooltip = MOD_PREVENT_WAR_TT
+			always = no
+		}
+	}
+}

@@ -40,13 +40,20 @@ answers cannot be discovered or safely defaulted.
 
 - [pdx-script.md](references/pdx-script.md): scopes, variables, arrays, loops,
   effects, triggers, identifiers, and source verification.
+- [pdx-language.md](references/pdx-language.md): Clausewitz/P-language
+  grammar, links (`var:`, `token:`, `mio:`, `sp:`), cardinality, and
+  editor-versus-engine mismatches.
+- [ide-extensions.md](references/ide-extensions.md): CWTools, HOI4 Mod
+  Utilities, and HOI4 Modding Tools as editor aids, not engine authority.
 - [project-structure-history.md](references/project-structure-history.md):
   descriptors, roots, `replace_path`, tags, characters, countries, states,
   provinces, and map/history risk.
 - [content-objects.md](references/content-objects.md): events, decisions,
-  focuses, ideas, MIOs, on_actions, and dynamic modifiers.
+  focuses, ideas, MIOs, on_actions, buildings, BOP, operations, achievements,
+  and dynamic modifiers.
 - [ai-and-military-content.md](references/ai-and-military-content.md): AI
-  strategies, equipment designs, division templates, OOBs, variants, and names.
+  strategies, reversed strategies, equipment designs, division templates,
+  OOBs, modules, variants, tactics, and names.
 - [aces-operatives.md](references/aces-operatives.md): named ace types,
   `add_ace`, custom operative traits, fixed portraits, icons, and runtime tests.
 - [diplomacy-factions-assets.md](references/diplomacy-factions-assets.md):

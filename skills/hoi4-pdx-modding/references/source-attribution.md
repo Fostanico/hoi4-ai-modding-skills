@@ -122,6 +122,18 @@ On 2026-07-16, the community tutorial collection 秋起图书馆 (Steam Workshop
 but also contains older examples, material
 for named total-conversion mods, third-party programs, and packaged runtimes.
 
+On 2026-08-31 the same Workshop cache was re-mined in full: every readable
+`资料` template, special case, adaptation guide, and advanced-code document,
+plus DOCX/PDF extraction. Contested claims were checked against installed
+Operation Postern 1.19.2.0 (d245). The remine added independently reconstructed
+templates for buildings, BOP, abilities, combat tactics, opinion modifiers,
+scripted diplomatic actions, diplomacy enable triggers, AI areas, reversed AI,
+equipment modules, equipment variants, map modes, custom achievements, laws,
+land OOB, land sub-units, operations, joint/continuous focuses, subdoctrines,
+MTTH values, missions, advisor-capable characters, unit-leader traits,
+intelligence-agency upgrades, focus inlays, and faction member upgrades. No
+community template was copied verbatim.
+
 A Microsoft Defender custom scan of the 2.47 GB tree reported no threats with
 signature version `1.455.168.0`. No target executable, macro, DLL, or installer
 was launched. Archives and PyInstaller content were inspected statically in a
@@ -167,3 +179,19 @@ Every promoted current token was rechecked against Operation Postern 1.19.2.0
 explicitly version-stale, so the generated installed documents take priority.
 The skill contains an independently written operational reference and small
 original templates rather than copied Wiki or Paradox prose.
+
+## Installed editor extension supplement
+
+On 2026-08-31 the Cursor installs of CWTools 0.10.31 (MIT, Dayshine),
+HOI4 Mod Utilities 0.17.2 (MIT, Chaofan Yang), and HOI4 Modding Tools 2.5.5
+(MIT, Olander) were reviewed. Companion `paradox-syntax` 0.1.18 is highlight
+only.
+
+The review distilled Clausewitz/P-language grammar, scope links, cardinality,
+and known editor false positives into `pdx-language.md`, plus an operating
+guide in `ide-extensions.md`. No `.cwt` rule file, TextMate grammar, compiled
+extension JavaScript, or generator stub was copied. Contested sizes and
+tokens were checked against installed 1.19.2 (d245): report event pictures are
+210×176, news pictures 397×153, `map/provinces.bmp` is 5632×2048,
+`delete_unit` uses `division_template`, and `manpower` is deprecated in favour
+of `manpower_k`.

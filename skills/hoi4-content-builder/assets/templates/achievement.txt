@@ -1,0 +1,18 @@
+# Path: common/achievements/*.txt
+# Do not put custom achievements in common/achievements.txt. Vanilla Steam
+# achievements live there. Custom entries need unique_id and a dedicated file.
+unique_id = MOD_achievements
+
+MOD_first_achievement = {
+	possible = {
+		is_ironman = yes
+		difficulty > 1
+		has_start_date < 1936.01.02
+		has_any_custom_difficulty_setting = no
+		game_rules_allow_achievements = yes
+		original_tag = GER
+	}
+	happened = {
+		has_country_flag = MOD_achievement_complete
+	}
+}

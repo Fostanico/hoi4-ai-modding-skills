@@ -1,0 +1,27 @@
+# Path: common/abilities/*.txt
+# Do not use removed add_temporary_buff_to_units. Use unit_modifiers.
+ability = {
+	MOD_leader_ability = {
+		name = MOD_leader_ability
+		desc = MOD_leader_ability_desc
+		sound_effect = command_power_ability_offensive
+		type = army_leader
+
+		allowed = {
+			is_leading_army_group = no
+			is_border_war = no
+		}
+
+		cost = 0.22
+		duration = 168
+
+		unit_modifiers = {
+			offence = 0.1
+			breakthrough_factor = 0.1
+		}
+
+		ai_will_do = {
+			factor = -1
+		}
+	}
+}

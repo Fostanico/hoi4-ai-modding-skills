@@ -180,6 +180,14 @@ Common failures:
   `§"` and replace the intended close with `§!`.
 - Missing `§!` can bleed formatting into later UI text.
 
+### Event pictures
+
+Country/report event textures in current vanilla are 210×176 pixels (a few
+209×176). News event textures are 397×153. Register them as `spriteType` under
+`gfx/event_pictures/` and reference `picture = GFX_...` on the event.
+Community editor defaults of 250×135 for report events do not match this
+build.
+
 ### Newlines
 
 Use `\n`; use `\n\n` for a blank line. Preserve intentional spacing from a
@@ -235,7 +243,12 @@ Some engine or bound-localisation consumers inject temporary parameters:
 
 `$VAL$`, `$LEFT$`, `$RIGHT$`, `$REASON$`, and similar names are not global
 variables. They exist only when the owning effect, trigger, GUI widget, or
-bound-localisation object supplies them. Pipe formatting after a `$PARAMETER$`
+bound-localisation object supplies them.
+
+Variable-operation tooltips are one current consumer. `set_variable` documents
+`tooltip` with LEFT/RIGHT tokens. Current vanilla also uses `tooltip` on
+`add_to_variable`. In that consumer `$LEFT$` is the pre-operation value and
+`$RIGHT$` is the operand or new value. Pipe formatting after a `$PARAMETER$`
 is consumer-specific; copy it from that consumer rather than assuming it has
 the same rules as `[?variable|format]`.
 

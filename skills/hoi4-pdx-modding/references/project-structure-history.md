@@ -80,6 +80,13 @@ State IDs and province IDs are different namespaces.
 - `victory_points = { <province_id> <value> }` uses a province ID.
 - Province-scoped building entries inside a state use a province ID as the key.
 - In current vanilla country history, `capital = <state_id>` uses a state ID.
+  Community tutorials that call this a province ID are wrong.
+
+Country map color in `common/countries/*.txt` is not displayed 1:1. Current
+`common/defines/00_graphics.lua` uses
+`COUNTRY_COLOR_SATURATION_MODIFIER = 0.6` and
+`COUNTRY_COLOR_BRIGHTNESS_MODIFIER = 0.8`. Set both to `1.0` only when the
+mod wants file RGB to match in-game color exactly.
 
 Do not infer either ID from a place name, translated localisation, a focus
 title, or memory. Verify the state file and, for province facts, the state's

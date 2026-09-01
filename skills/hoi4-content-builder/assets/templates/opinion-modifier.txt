@@ -1,0 +1,13 @@
+# Path: common/opinion_modifiers/*.txt
+opinion_modifiers = {
+	MOD_opinion = {
+		value = 25
+		decay = 1
+		days = 90
+	}
+
+	MOD_trade_opinion = {
+		value = 15
+		trade = yes
+	}
+}

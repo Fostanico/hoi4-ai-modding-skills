@@ -14,6 +14,12 @@ game update.
 | Conditional dynamic text | `assets/templates/scripted-localisation.txt` | `common/scripted_localisation/00_scripted_localisation.txt` |
 | Rename a state and a province | `assets/templates/state-name-effect.txt` | `common/national_focus/china_communist_sea.txt` |
 | Bounded targeted-state decision | `assets/templates/targeted-state-decision.txt` | `common/decisions/_documentation.md`; `common/decisions/AUS.txt` |
+| Caller-started mission | `assets/templates/mission-decision.txt` | `common/decisions/INS.txt` |
+| Named MTTH value | `assets/templates/mtth-variable.txt` | `common/mtth/mtth_variables.txt` |
+| Reversed AI strategy | `assets/templates/reversed-ai-strategy.txt` | `common/ai_strategy/USA.txt`, `INS.txt` |
+| Focus-tree inlay | `assets/templates/focus-inlay.txt` | `common/focus_inlay_windows/documentation.md`; `sia_khana_ratsadon_inlay_window.txt` |
+| Agency upgrade branch | `assets/templates/intelligence-agency-upgrade.txt` | `common/intelligence_agency_upgrades/_documentation.md` |
+| Assignable unit-leader trait | `assets/templates/unit-leader-trait.txt` | `common/unit_leader/00_traits.txt` |
 | Complete targeted decision to saved-target event chain | `assets/kits/targeted-state-event/` | rows above plus current event/localisation consumers |
 | Full-cover decision-category description | `assets/kits/decision-category-cover/` | scripted-GUI documentation; current vanilla decision-category attachments; field-tested cover geometry |
 | Generate a staged country skeleton | `scripts/new-country-scaffold.ps1` | `common/country_tags/00_countries.txt`, `common/countries/Germany.txt`, `history/countries/GER - Germany.txt`, current character files |
@@ -40,3 +46,12 @@ named-mod super events remain design references. Current scripted-GUI docs
 describe `dynamic_lists`, but no current vanilla consumer was found in this
 installed build. Use them only through `workflows/verify-template.md` and plan
 an in-game test; do not label them vanilla-consumer verified.
+
+Recursive scripted-localisation array printing (a starter `defined_text` that
+mutates a temp index and calls itself) is an empirical community pattern. It
+can crash if used in bare event `desc`/`title`. Prefer trigger/effect/tooltip
+consumers, and treat any `tech_effect` bypass as empirical rather than
+vanilla-consumer verified.
+
+Hand-rolled Taylor logarithms are legacy. Current math docs provide
+`{ value = N log = base }`.

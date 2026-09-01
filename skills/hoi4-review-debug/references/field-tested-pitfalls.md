@@ -161,6 +161,47 @@ invalid.
 Ask for the exact pre-crash operation sequence and reproduce after a full game
 restart without hot refresh before changing otherwise valid GUI bindings.
 
+### Community-tutorial claims that fail current vanilla
+
+These were checked against installed 1.19.2.0 (d245) after reading 秋起图书馆
+templates. Do not re-import them from that library or similar tutorials.
+
+- Country-history `capital` is a state ID. Vanilla
+  `history/countries/GER - Germany.txt` uses `capital = 64`.
+- Event `trigger` and `is_triggered_only` can coexist. Vanilla
+  `events/WUW_Germany.txt` (`germany_mefo_bills.1`) uses both as a fire-time
+  safety check.
+- Advisor slots `navy_command` and `air_command` are not current character
+  slots. Navy/air high command still uses `slot = high_command` plus `ledger`.
+- The idea-category path is `common/idea_tags/00_idea.txt`, not `ideas_tag`.
+- The continuous-focus reset field is `reset_on_civilwar`.
+- There is no current vanilla OOB `army_history`/`history_queue` block. Use
+  `add_history_entry`.
+- Military access can be blocked. Vanilla defines
+  `DIPLOMACY_MILACC_ENABLE_TRIGGER`.
+- Collections are not uniqueness-guaranteed.
+- Custom achievements go in `common/achievements/*.txt` with `unique_id`, not
+  in `common/achievements.txt`.
+- Localisation keys in this project stay `key: "Text"`. Tutorial `key:0`
+  suffixes are errors here even when vanilla still uses them.
+- Prefer math `{ value = N log = base }` over Taylor-series logarithm recipes
+  written for 1.16.
+- Combat-tactic `phases` is a closed vanilla list in
+  `common/combat_tactics.txt`. Do not invent a `MOD_phase` or overwrite that
+  file's phase block unless copying the current vanilla list first.
+- The same library can contradict itself. One country-history tutorial still
+  calls `capital` a province ID; a later note correctly says it is a state ID.
+  Installed `history/countries/GER - Germany.txt` is the authority.
+
+### Editor diagnostics are not engine errors
+
+CWTools will mark many legal `var:`, `token:`, `mio:`, `sp:`, and `array^i`
+forms as errors, and it reports thousands of issues in vanilla. Treat those as
+false positives unless installed documentation or a current consumer agrees.
+Do not adopt HOI4 Modding Tools country-wizard output (`create_country_leader`,
+`key:0`) or its 250×135 report-event picture default; current vanilla report
+pictures are 210×176.
+
 ### Nearby performance work must preserve cadence
 
 Merging repeated weekly scans does not authorize moving an unrelated daily

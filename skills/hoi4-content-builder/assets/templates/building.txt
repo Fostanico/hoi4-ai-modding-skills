@@ -1,0 +1,20 @@
+# Path: common/buildings/*.txt
+# only_costal is the current vanilla spelling. Do not "fix" it to coastal.
+buildings = {
+	MOD_building = {
+		show_on_map = 1
+		base_cost = 8000
+		icon_frame = 1
+		value = 5
+		infrastructure_construction_effect = yes
+		level_cap = {
+			shares_slots = yes
+			state_max = 5
+		}
+		country_modifiers = {
+			modifiers = {
+				political_power_factor = 0.01
+			}
+		}
+	}
+}

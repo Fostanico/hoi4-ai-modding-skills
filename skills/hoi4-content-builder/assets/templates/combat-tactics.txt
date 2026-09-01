@@ -1,0 +1,30 @@
+# Vanilla loads one file: common/combat_tactics.txt. Append tactics there or
+# copy the vanilla file first. Do not emit a phases = { } block unless you are
+# replacing the whole file and keep the current vanilla phase list:
+# close_combat, tactical_withdrawal, seize_bridge, hold_bridge, street_fighting.
+# Tactic IDs that techs or subdoctrines unlock must start with tactic_.
+
+tactic_MOD_attack = {
+	is_attacker = yes
+	trigger = {
+		is_attacker = yes
+		phase = no
+	}
+	active = yes
+	base = { factor = 4 }
+	picture = attack
+	countered_by = tactic_counterattack
+	attacker = 0.05
+}
+
+tactic_MOD_defend = {
+	is_attacker = no
+	trigger = {
+		is_attacker = no
+		phase = no
+	}
+	active = yes
+	base = { factor = 4 }
+	picture = defend
+	defender = 0.05
+}

@@ -38,7 +38,8 @@ reliable:
 
 Never turn a comment containing `TODO`, `TBD`, “syntax just for reference”, or
 an unresolved question into a reusable production template without a current
-working vanilla example.
+working vanilla example. The same rule applies to CWTools `.cwt` TODO
+annotations.
 
 ## Fast lookup workflow
 
@@ -227,6 +228,10 @@ Read the document adjacent to the object being changed:
   `common/map_modes/documentation.md`,
   `common/strategic_locations/documentation.md`, and
   `common/raids/_documentation.md`.
+- Buildings, BOP, abilities, and MTTH: current consumers under
+  `common/buildings`, `common/bop`, `common/abilities`, and `common/mtth`.
+- Custom achievements: `documentation/triggers_documentation.md`
+  (`has_completed_custom_achievement`); files go in `common/achievements/`.
 
 ## Generated documentation inventory
 

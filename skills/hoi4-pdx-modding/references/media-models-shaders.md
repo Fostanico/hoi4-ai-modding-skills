@@ -19,7 +19,9 @@ Current `music/music.asset` uses `music = { name file volume }`; current
 `assets/kits/music-track` kit when a separate station is unnecessary. A custom
 station additionally needs station localisation and current music-player GUI
 faceplate/entry resources, so it is not a rename-only extension of the track
-kit.
+kit. Current vanilla names those GUI windows
+`<station>_faceplate` and `<station>_stations_entry` in
+`interface/music_station_base.gui`.
 
 Verify the actual OGG decodes, the relative path and case match, chance
 conditions have the intended country scope, the song appears in the player,

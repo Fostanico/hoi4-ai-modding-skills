@@ -1,5 +1,19 @@
 # Diplomacy, factions, and assets
 
+## Diplomacy enable triggers
+
+Vanilla `common/scripted_triggers/diplomacy_scripted_triggers.txt` documents
+`DIPLOMACY_<ACTION>_ENABLE_TRIGGER` with ROOT as initiator and FROM as target.
+Prefer `if` plus `custom_trigger_tooltip` inside the enable trigger.
+
+Military access is gateable. Current vanilla ships
+`DIPLOMACY_MILACC_ENABLE_TRIGGER` and `DIPLOMACY_OFFER_MILACC_ENABLE_TRIGGER`.
+A community claim that military access cannot be blocked is false for 1.19.2.
+
+`DIPLOMACY_WAR_ENABLE_TRIGGER` appears in the vanilla comment example but is not
+a live shipped trigger. A mod may define it to add a war lock. Same-name
+scripted triggers override, so do not copy a GER/SOV example into production.
+
 ## Scripted diplomatic actions
 
 - Start from a current vanilla action with the same scope direction and UI
@@ -29,6 +43,10 @@ chosen object supports them.
   leader changes.
 - Do not copy Millennium Dawn rule IDs, UN integration, custom ideology
   restrictions, or modern diplomatic systems.
+- Faction member upgrades are a group plus numbered bonus objects. Keep
+  `upgrade_type` on a code-supported token such as
+  `faction_member_upgrade_manpower`. Current vanilla lives under
+  `common/factions/member_upgrades/`.
 
 ## Peace-conference scripting
 

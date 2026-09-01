@@ -7,6 +7,11 @@
 - National focuses
 - Ideas and dynamic modifiers
 - Military industrial organizations
+- Grand doctrines and subdoctrines
+- Buildings, laws, BOP, abilities, operations, and achievements
+- Unit-leader traits, agency upgrades, and focus inlays
+- Raids and unit modifiers
+- Special projects and scientists
 
 ## Events and on_actions
 
@@ -14,6 +19,12 @@
 - Prefer `is_triggered_only = yes` and fire the event from a focus, decision,
   on_action, scripted effect, or another event. Avoid global mean-time polling
   unless the design truly requires it.
+- Delayed fire uses `hours` / `days` / `months` plus `random_hours` /
+  `random_days`. Prefer `random_hours` over the backwards-compatible
+  `random = N` delay alias. `random = { chance = ... }` is a different effect.
+- `trigger` and `is_triggered_only` can coexist. The trigger is a fire-time
+  safety check, not a polling mean-time. Vanilla `germany_mefo_bills.1` uses
+  both. Do not treat them as mutually exclusive.
 - Confirm the receiving scope and `FROM` at every call site, including delayed
   events. Guard a target that may cease to exist before a delayed event fires.
 - Give title, description, and every visible option matching localisation.
@@ -51,7 +62,10 @@ country_event = {
 - Keep expensive or global checks out of frequently evaluated `visible` blocks;
   cache eligibility through on_actions when appropriate.
 - Pair missions and timed decisions with correct timeout, removal, and cleanup
-  effects.
+  effects. A mission that a caller must start uses `activation = { always = no }`
+  plus `days_mission_timeout`, `timeout_effect`, and `complete_effect`. Copy
+  current vanilla `common/decisions/INS.txt` rather than inventing a polling
+  `activation`.
 - `war_with_on_remove`, `war_with_on_timeout`, and `war_with_on_complete` can
   accept scoped variables in current 1.19. Ensure the variable still resolves
   to a live country at every lifecycle boundary.
@@ -154,6 +168,41 @@ country_event = {
   `max_track_columns`; tracks can gate selection and mastery with `active`.
 - Validate folder, grand doctrine, track, subdoctrine, mastery, GFX, and
   localisation as one dependency chain.
+
+## Buildings, laws, BOP, abilities, operations, and achievements
+
+- Joint focuses live as `joint_focus = { }` in a shared tree. Continuous
+  focuses live under `common/continuous_focus/` as a
+  `continuous_focus_palette`. The vanilla reset field is `reset_on_civilwar`.
+- Economy, trade, and mobilisation laws are ideas with `law = yes` whose
+  slots are declared in `common/idea_tags/00_idea.txt`. That path is
+  `idea_tags`, not `ideas_tag`.
+- Building definitions live in `common/buildings/`. Preserve the vanilla
+  spelling `only_costal`. Match `specialization` on a facility building to a
+  special-project specialization token.
+- Balance of power lives in `common/bop/`. `left_side`/`right_side` must match
+  nested `side.id`. Range `on_activate` can call `set_power_balance_gfx`.
+- Leader abilities live in `common/abilities/` and use `unit_modifiers`. Do not
+  emit removed `add_temporary_buff_to_units`.
+- Intelligence operations live in `common/operations/` and require at least one
+  `phases = { }` block. ROOT is the origin country and FROM is the target.
+- Custom achievements belong in `common/achievements/*.txt` with a
+  file-level `unique_id`. Do not append them to vanilla
+  `common/achievements.txt`. Icons are unregistered DDS files under
+  `gfx/achievements/`. Verify with `has_completed_custom_achievement`.
+
+## Unit-leader traits, agency upgrades, and focus inlays
+
+- Unit-leader traits live in `common/unit_leader/`. Trait icons are
+  `GFX_trait_<trait ID>`. Assignable traits that appear in the unlock tree need
+  `gui_row` and parent links. Skill ladders in `00_*_skills.txt` are full-table
+  files; do not patch one rank in isolation.
+- Intelligence-agency upgrades live in `common/intelligence_agency_upgrades/`.
+  There is no `description` field; localise `<upgrade>_desc`. Upgrade names
+  must be unique across every branch.
+- Focus inlays live in `common/focus_inlay_windows/` plus a GUI container and an
+  `inlay_window` block in the focus tree. They do not require
+  `common/scripted_guis`.
 
 ## Raids and unit modifiers
 

@@ -1,0 +1,23 @@
+# Path: common/units/equipment/modules/*.txt
+# GFX: register as GFX_EMI_<token>. Do not put oil in module resources.
+# Wrap DLC-gated modules in limit = { has_dlc = "No Step Back" } like vanilla.
+equipment_modules = {
+	limit = {
+		has_dlc = "No Step Back"
+	}
+	MOD_module = {
+		abbreviation = "mod"
+		category = tank_small_main_armament
+		sfx = sfx_ui_sd_module_turret
+		xp_cost = 1
+		add_stats = {
+			soft_attack = 1
+			build_cost_ic = 0.5
+		}
+		dismantle_cost_ic = 0.5
+		can_convert_from = {
+			module_category = tank_small_main_armament
+			convert_cost_ic = 0.5
+		}
+	}
+}

@@ -64,6 +64,9 @@ leader_traits = {
   trait. Do not reuse an existing land/navy trait ID with `type = operative`.
 - Register its icon as `GFX_trait_<trait ID>`. Localise `<trait ID>` and
   `<trait ID>_desc`.
+- Land, navy, and field-marshal trait trees use the same `leader_traits`
+  wrapper. Copy `assets/templates/unit-leader-trait.txt` for personality and
+  assignable traits with `gui_row` / `any_parent`.
 - Validate operative modifiers against current generated documentation and a
   current operative trait/skill consumer. Agency-wide modifiers are not
   automatically personal just because they mention intelligence.

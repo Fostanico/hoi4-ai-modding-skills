@@ -1,0 +1,34 @@
+# Path: common/operations/*.txt
+# ROOT is the origin country. FROM is the target country.
+# Every operation needs at least one phases = { } block.
+MOD_operation = {
+	icon = GFX_operations_infiltrate_civilian_govt
+	map_icon = GFX_operations_infiltrate_civilian_govt_map
+	name = MOD_operation
+	desc = MOD_operation_desc
+	priority = 10
+	days = 35
+	network_strength = 30
+	operatives = 1
+	visible = {
+		network_national_coverage = {
+			target = FROM
+			value > 0
+		}
+	}
+	available = {
+		always = yes
+	}
+	outcome_potential = {
+		custom_effect_tooltip = MOD_operation_outcome_tt
+	}
+	outcome_execute = {
+		FROM = {
+			add_stability = -0.02
+		}
+	}
+	phases = {
+		infiltration_border = { base = 50 }
+		infiltration_submarine = { base = 50 }
+	}
+}

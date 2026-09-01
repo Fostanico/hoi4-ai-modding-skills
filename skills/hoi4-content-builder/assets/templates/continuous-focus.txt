@@ -1,0 +1,30 @@
+# Path: common/continuous_focus/*.txt
+# The vanilla reset field is reset_on_civilwar, not Reset_on_civilwarno.
+continuous_focus_palette = {
+	id = MOD_continuous_focus
+	country = {
+		factor = 0
+		modifier = {
+			add = 10
+			tag = GER
+		}
+	}
+	default = no
+	reset_on_civilwar = no
+	position = { x = 50 y = 1000 }
+
+	focus = {
+		id = MOD_continuous_focus_item
+		icon = GFX_goal_generic_production
+		enable = {
+			always = yes
+		}
+		modifier = {
+			political_power_gain = 0.05
+		}
+		daily_cost = 1
+		ai_will_do = {
+			base = 1
+		}
+	}
+}

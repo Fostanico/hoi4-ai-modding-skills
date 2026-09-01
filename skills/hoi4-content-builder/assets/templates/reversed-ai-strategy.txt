@@ -1,0 +1,22 @@
+# Path: common/ai_strategy/*.txt
+# allowed stays on the actor when present. enable selects many targets.
+# enable_reverse usually scopes the actor. Installed AI docs omit reversed;
+# current vanilla still uses it (USA.txt, INS.txt).
+MOD_reversed_strategy = {
+	reversed = yes
+	enable_reverse = {
+		GER = {
+			has_government = democratic
+		}
+	}
+	enable = {
+		NOT = { tag = GER }
+		has_war = yes
+	}
+	abort_when_not_enabled = yes
+	ai_strategy = {
+		type = support
+		id = "GER"
+		value = 100
+	}
+}

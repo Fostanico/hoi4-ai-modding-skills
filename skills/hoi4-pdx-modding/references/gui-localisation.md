@@ -18,6 +18,12 @@ texture file -> .gfx sprite name -> .gui element -> scripted_gui callback -> eff
 
 - Match texture paths and filename case exactly.
 - Confirm dimensions, frame counts, and sprite type against the actual asset.
+  Current vanilla report/country event pictures are 210×176 (some 209×176).
+  News event pictures are 397×153. Do not use the community default 250×135
+  for report events.
+- GFX files wrap `spriteTypes`. Common types are ordinary `spriteType`,
+  `frameAnimatedSpriteType`, tiled/cornered tiles, text sprites, and
+  progress-bar sprites. Copy the type from a current consumer of the same UI.
 - Large transparent image buttons require `transparencecheck = yes` when only
   opaque pixels should be clickable.
 - Do not use a visually empty sprite as a generic button without verifying that

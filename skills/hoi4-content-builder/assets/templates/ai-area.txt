@@ -1,0 +1,10 @@
+# Path: common/ai_areas/*.txt
+# IDs are strategic-region IDs. Consume with area = in matching AI strategies.
+areas = {
+	MOD_area = {
+		strategic_regions = {
+			1
+			2
+		}
+	}
+}

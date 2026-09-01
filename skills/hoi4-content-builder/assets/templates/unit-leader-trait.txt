@@ -1,0 +1,38 @@
+# Path: common/unit_leader/*.txt
+# Trait icons resolve as GFX_trait_<trait ID>. Localise <id> and <id>_desc.
+# Skill tables (00_attack_skills.txt and siblings) are full replacement files.
+# Do not copy those tables unless the design is replacing the whole skill ladder.
+# Operative traits stay type = operative; see the named-ace-operative kit.
+
+leader_traits = {
+	MOD_personality_trait = {
+		type = land
+		trait_type = personality_trait
+		gain_xp = {
+			always = no
+		}
+		new_commander_weight = {
+			factor = 0
+		}
+		modifier = {
+			army_morale_factor = 0.05
+		}
+	}
+
+	MOD_assignable_trait = {
+		type = field_marshal
+		trait_type = assignable_trait
+		gain_xp = {
+			always = no
+		}
+		cost = 1000
+		gui_row = 0
+		any_parent = { organizer }
+		field_marshal_modifier = {
+			supply_consumption_factor = -0.05
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+}

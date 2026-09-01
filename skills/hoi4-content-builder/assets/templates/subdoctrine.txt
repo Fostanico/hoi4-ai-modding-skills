@@ -1,0 +1,36 @@
+# Path: common/doctrines/subdoctrines/<folder>/*.txt
+# Prefer implemented subdoctrine docs and live files over root TBD comments.
+# Live vanilla reward keys are named, not anonymous mastery blocks.
+# Icon tokens are GFX_doctrine_*_medium in current land consumers, not goal GFX.
+
+MOD_subdoctrine = {
+	track = infantry
+	name = MOD_subdoctrine
+	description = MOD_subdoctrine_desc
+	icon = GFX_doctrine_mobile_infantry_medium
+	xp_cost = 100
+	xp_type = army
+	available = {
+		always = yes
+	}
+	visible = {
+		always = yes
+	}
+	xor = { MOD_other_subdoctrine }
+	enable_tactic = tactic_overwhelming_fire
+	category_all_infantry = {
+		breakthrough = 0.05
+	}
+	rewards = {
+		MOD_first_reward = {
+			category_all_infantry = {
+				max_organisation = 5
+			}
+		}
+		MOD_second_reward = {
+			category_all_infantry = {
+				maximum_speed = 0.05
+			}
+		}
+	}
+}

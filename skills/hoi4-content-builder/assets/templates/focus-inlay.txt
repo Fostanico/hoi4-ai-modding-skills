@@ -1,0 +1,40 @@
+# Path: common/focus_inlay_windows/*.txt
+# Also required: interface/<window>.gui containerWindowType named window_name,
+# and inlay_window = { id = MOD_focus_inlay position = { x = 0 y = 0 } } in the
+# focus tree. An inlay does not need a common/scripted_guis object.
+# Button/image/progressbar names must be GUI subcomponents of window_name.
+# Current consumers: cze_industry, sia_khana_ratsadon, ger_inner_circle.
+
+MOD_focus_inlay = {
+	window_name = MOD_focus_inlay_window
+	internal = yes
+	visible = {
+		always = yes
+	}
+
+	scripted_images = {
+		MOD_status_icon = {
+			GFX_idea_generic_fascism_drift_bonus = {
+				has_government = fascism
+			}
+			GFX_idea_generic_democratic_drift_bonus = yes
+		}
+	}
+
+	scripted_buttons = {
+		MOD_inlay_button = {
+			available = {
+				has_political_power > 25
+			}
+			click_effect = {
+				add_political_power = -25
+			}
+		}
+	}
+
+	scripted_progressbars = {
+		MOD_inlay_progress = {
+			progress = MOD_inlay_progress_ratio
+		}
+	}
+}

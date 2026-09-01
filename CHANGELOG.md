@@ -2,6 +2,16 @@
 
 ## Unreleased
 
+## 1.4.0 - 2026-09-01
+
+- 从秋起图书馆再挖掘与编辑器插件补强 skills（commit：Expand HOI4 skills from
+  the library remine and editor plugins）：新增对照原版核验的内容模板，并明确
+  社区片段和 CWTools 警告不能当作引擎真相。
+- 新增 Clausewitz/P-language 语法参考 `pdx-language.md`，以及 CWTools、HOI4
+  Mod Utilities、HOI4 Modding Tools 的编辑器参考 `ide-extensions.md`。
+- 新增 abilities、achievements、BOP、buildings、joint focus、operations、
+  map modes、equipment modules、scripted diplomatic actions 等对照原版的模板。
+- 更新 `hoi4-review-debug` 入口说明（commit：skills update）。
 - 同步此前只保存在项目本地的本地化契约：语言头必须顶格、键必须恰好缩进一个
   ASCII 空格；基础校验器和本地化审计器现在会报告顶格键、Tab 与多余缩进。
 - 新增可见 country flag 本地化审计：区分直接显示的 requirement、潜在 visibility
@@ -32,8 +42,8 @@
   PowerShell 解析、Mod Doctor fixture、多文件套件和模板清单。
 - 新增科技到装备解锁、游戏规则到开局缓存两个多文件套件；关键字段已对照
   HOI4 1.19.2.0 (d245) 原版科技、装备、game rules 和 on_actions 消费者。
-- 新增机器可读 `template-manifest.json` 及构建/验证脚本，53 个资源条目覆盖
-  78 个模板与套件文件，并记录来源、目标 build、验证日期和必做检查。
+- 新增机器可读 `template-manifest.json` 及构建/验证脚本，现为 80 个资源条目，
+  并记录来源、目标 build、验证日期和必做检查。
 - 新增媒体空间审计与优化工作流，覆盖 DDS 头、mipmap、cubemap、格式伪装、
   显式消费者、精确重复、回滚断点、像素等价和运行时兼容性边界。
 - 中英文 README 与安装指南改为默认要求三个 Skills 同版本成套安装；单独安装

@@ -8,6 +8,14 @@ payload: `allowed` controls loading eligibility, `enable` activation, `abort`
 permanent removal, and `abort_when_not_enabled` temporary removal behavior.
 
 - Copy strategy type names only from the current vanilla documentation.
+- `reversed = yes` is used by current vanilla (`common/ai_strategy/USA.txt`,
+  `INS.txt`) even though `common/ai_strategy/_documentation.md` omits it.
+  `allowed` stays on the actor. `enable` selects many targets.
+  `enable_reverse` usually scopes the actor and runs once. Do not flip
+  `allowed` onto the target list.
+- `common/ai_areas` groups strategic-region IDs. Consume them with `area =` in
+  strategies such as `invasion_unit_request`, `front_control`, and
+  `front_unit_request`. Do not set those strategy types to `front_control`.
 - Treat values as additive weights, not universal percentages.
 - Check interaction between broad strategies and specific strategies. Avoiding
   wars can coexist with a strong target-specific conquest weight.
@@ -58,6 +66,19 @@ technology unlock -> equipment archetype/type -> module-valid variant
 
 - `type`, creator/producer, and `variant_name` must match the created variant
   and OOB reference exactly.
+- Designer modules live in `common/units/equipment/modules`. Register icons as
+  `GFX_EMI_<module token>`. Do not put oil in module `build_cost_resources`.
+- `create_equipment_variant` must DLC-branch. With BBA, aircraft use airframes
+  such as `small_plane_airframe_*`; do not present legacy `fighter_equipment_*`
+  as the default designer type.
+- Combat tactics live in `common/combat_tactics.txt` as one file, not a
+  folder. IDs that technologies unlock must start with `tactic_`. Do not
+  replace the vanilla `phases` list unless copying the current file.
+- Land OOB `location` is a province ID. Country-history `capital` is a state
+  ID. There is no current vanilla `army_history`/`history_queue` OOB block;
+  unit history uses `add_history_entry`.
+- `hardness` is a 0–1 hardness fraction. `armor_value` is armor thickness. Do
+  not swap those Chinese glosses from old tutorial tables.
 - Verify module slots, prerequisites, parent version, DLC branch, and the real
   loaded archetype or sub-unit name.
 - Distinguish stockpiles from deployed divisions, air wings, and ships.

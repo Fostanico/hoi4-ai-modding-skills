@@ -2,6 +2,8 @@ add_namespace = MOD
 
 # Triggered event skeleton. Keep is_triggered_only = yes when a focus, decision,
 # on_action, or scripted effect is the caller.
+# trigger and is_triggered_only can coexist: the trigger is a fire-time safety
+# check, not a polling mean-time. Vanilla germany_mefo_bills.1 uses both.
 country_event = {
 	id = MOD.1
 	title = MOD.1.t
@@ -9,6 +11,10 @@ country_event = {
 	picture = GFX_report_event_generic_factory
 
 	is_triggered_only = yes
+
+	trigger = {
+		always = yes
+	}
 
 	option = {
 		name = MOD.1.a

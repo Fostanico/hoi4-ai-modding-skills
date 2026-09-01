@@ -1,0 +1,33 @@
+# Path: common/intelligence_agency_upgrades/*.txt
+# There is no description field. Localise <upgrade>_desc.
+# Upgrade names must be unique across every branch.
+# picture/frame GFX below are current vanilla tokens; replace for a custom branch.
+
+branch_MOD_intelligence = {
+	upgrade_MOD_department = {
+		picture = GFX_agency_economy_department
+		frame = GFX_upgrade_frame_economy
+		sound = Spy_Agency_Intel_Upgrades_Confirm
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		modifiers_during_progress = {
+			civilian_factory_use = 5
+		}
+
+		available = {
+			has_done_agency_upgrade = upgrade_form_department
+		}
+
+		level = {
+			modifier = {
+				civilian_intel_factor = 0.10
+			}
+			complete_effect = {
+				add_political_power = 10
+			}
+		}
+	}
+}

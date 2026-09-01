@@ -1,21 +1,26 @@
 # Verified template catalog
 
 Verified against installed Hearts of Iron IV Operation Postern 1.19.2.0 (d245)
-on 2026-07-16 through 2026-08-09. Paths below are relative to the installed
+on 2026-07-16 through 2026-08-31. Paths below are relative to the installed
 game root.
 
 | Resource | Intended use | Installed documentation | Current vanilla consumer |
 | --- | --- | --- | --- |
-| `country-event.txt` | Triggered country event | `documentation/effects_documentation.md` | `events/AAT_Generic_Events.txt` |
+| `country-event.txt` | Triggered country event | `documentation/effects_documentation.md` | `events/AAT_Generic_Events.txt`, `events/WUW_Germany.txt` |
 | `decision-category.txt` | Decision category | `common/decisions/_documentation.md` | `common/decisions/categories/AFG_decision_categories.txt` |
 | `decision.txt` | Non-targeted instant decision | `common/decisions/_documentation.md` | `common/decisions/AFG.txt` |
+| `mission-decision.txt` | Caller-started mission | `common/decisions/_documentation.md` | `common/decisions/INS.txt` |
 | `national-focus-tree.txt` | One-focus country tree | effect/trigger docs plus consumer | `common/national_focus/afghanistan.txt` |
+| `joint-focus.txt` | Shared joint focus with originator/member rewards | current consumer | `common/national_focus/indonesia_joint.txt` |
+| `continuous-focus.txt` | Continuous-focus palette | current consumer | `common/continuous_focus/generic.txt` |
 | `idea.txt` | Country national spirit | modifier docs plus consumer | `common/ideas/afghanistan.txt` |
-| `character.txt` | Country leader character | `common/characters/_documentation.md` | `common/characters/AFG.txt` |
+| `law-idea.txt` | Economy/trade/manpower law | `common/idea_tags/00_idea.txt` | `common/ideas/_economic.txt` |
+| `character.txt` | Country leader plus advisor | `common/characters/_documentation.md` | `common/characters/AFG.txt`, `common/characters/AST.txt` |
 | `country-history.txt` | Start-date country setup | consumer; no adjacent schema | `history/countries/GER - Germany.txt` |
 | `state-history.txt` | Start-date state setup | consumer; no adjacent schema | `history/states/64-Brandenburg.txt` |
 | `scripted-effect.txt` | Reusable country effect | `documentation/effects_documentation.md` | `common/scripted_effects/00_scripted_effects.txt` |
 | `scripted-trigger.txt` | Reusable country trigger | `documentation/triggers_documentation.md` | `common/scripted_triggers/00_diplo_action_valid_triggers.txt` |
+| `diplomatic-enable-trigger.txt` | Diplomacy action enable gate | vanilla header comments | `common/scripted_triggers/diplomacy_scripted_triggers.txt` |
 | `on-action.txt` | Weekly hook | `common/on_actions/_documentation.md` | `common/on_actions/00_on_actions.txt` |
 | `sprite.gfx` | One DDS sprite registration | consumer; no adjacent schema | `interface/goals.gfx` |
 | `localisation_l_english.yml` | English player-facing localisation skeleton | current localisation consumers | `localisation/english/*.yml` |
@@ -27,10 +32,31 @@ game root.
 | `array-effects.txt` | Scope-array add, iterate, and cleanup effects | `documentation/effects_documentation.md` | `common/decisions/SWI.txt` |
 | `event-target-caller.txt` | Save a state target and immediately fire an event | `documentation/effects_documentation.md` | `common/decisions/POL.txt`, `WTT_border_conflicts.txt` |
 | `dynamic-modifier.txt` | Variable-backed country dynamic modifier | current dynamic-modifier header | `common/dynamic_modifiers/wuw_dynamic_modifiers.txt` |
+| `mtth-variable.txt` | Named MTTH block consumed as `mtth:` | `common/mtth/mtth_variables.txt` comments | `common/mtth/mtth_variables.txt` |
 | `scripted-localisation.txt` | Ordered conditional text with fallback | consumer; no generated schema | `common/scripted_localisation/00_scripted_localisation.txt` |
 | `state-name-effect.txt` | State and province renaming effect | effect docs | `common/national_focus/china_communist_sea.txt` |
 | `targeted-state-decision.txt` | Core-state-bounded targeted decision | `common/decisions/_documentation.md` | `common/decisions/AUS.txt` |
 | `bookmark.txt` | Label-filtered bookmark with deterministic label order | current consumer comments | `common/bookmarks/the_gathering_storm.txt` |
+| `building.txt` | Custom building definition | current building comments | `common/buildings/00_buildings.txt` |
+| `bop.txt` | Balance-of-power definition | current consumer | `common/bop/PRC.txt` |
+| `ability.txt` | Army-leader ability | current consumer | `common/abilities/generic_leader_abilities.txt` |
+| `combat-tactics.txt` | Extra combat tactics appended to the vanilla file | current file header | `common/combat_tactics.txt` |
+| `opinion-modifier.txt` | Opinion modifier | current header comments | `common/opinion_modifiers/00_opinion_modifiers.txt` |
+| `scripted-diplomatic-action.txt` | Scripted diplomatic action | vanilla commented schema | `common/scripted_diplomatic_actions/scripted_diplomatic_actions.txt` |
+| `ai-area.txt` | Strategic-region AI area | current consumer | `common/ai_areas/default.txt` |
+| `reversed-ai-strategy.txt` | Reversed AI strategy | omitted from AI docs; current consumers | `common/ai_strategy/USA.txt`, `INS.txt` |
+| `equipment-module.txt` | Designer equipment module | current module files | `common/units/equipment/modules/00_tank_modules.txt` |
+| `create-equipment-variant.txt` | DLC-branched equipment variant | current history consumers | `history/countries/SIA - Siam.txt` |
+| `map-mode.txt` | Scripted map mode | `common/map_modes/documentation.md` | installed documentation example; no live vanilla consumer |
+| `achievement.txt` | Custom achievement file | `documentation/triggers_documentation.md` | trigger `has_completed_custom_achievement`; no vanilla `common/achievements/` folder |
+| `unit-subunit.txt` | Land sub-unit | current unit files | `common/units/infantry.txt` |
+| `oob-land.txt` | Start-date land OOB | current history consumers | `history/units/CZE_1936.txt` |
+| `operation.txt` | Intelligence operation | `common/operations/_documentation.md` | `common/operations/00_operations.txt` |
+| `intelligence-agency-upgrade.txt` | Agency upgrade branch | `common/intelligence_agency_upgrades/_documentation.md` | `common/intelligence_agency_upgrades/intelligence_agency_upgrades.txt` |
+| `subdoctrine.txt` | Subdoctrine with named rewards | `common/doctrines/subdoctrines/_documentation.md` | `common/doctrines/subdoctrines/land/infantry_subdoctrines.txt` |
+| `unit-leader-trait.txt` | Land personality plus assignable trait | `common/unit_leader/00_traits.txt` header | `common/unit_leader/00_traits.txt`, `ETH_traits.txt` |
+| `focus-inlay.txt` | Focus-tree inlay definition | `common/focus_inlay_windows/documentation.md` | `common/focus_inlay_windows/sia_khana_ratsadon_inlay_window.txt` |
+| `faction-member-upgrade.txt` | Faction member upgrade plus group | `common/factions/_documentation.md` | `common/factions/member_upgrades/member_upgrades.txt`, `member_groups/member_upgrade_groups.txt` |
 | `model-animation.asset` | One animation registration | consumer; no adjacent schema | `gfx/models/animations_test.asset` |
 | `model-entity.asset` | One mesh-backed entity registration | consumer; no adjacent schema | `gfx/models/buildings/bridge_railway.asset` |
 | `descriptor.mod` | Portable launcher/mod metadata starting point | launcher format plus current mod descriptors | installed and local working descriptors |
@@ -144,3 +170,12 @@ These templates describe the mod being built rather than HOI4 database syntax:
   `has_country_flag = MOD_content_enabled`. Rework the target set for AI-only,
   country-specific, observer, or multiplayer-host semantics; do not assume a
   global startup hook already has country scope.
+- Combat tactics are one vanilla file, not a folder. Append new `tactic_*`
+  blocks. Do not replace the vanilla `phases` list unless copying the whole
+  current file.
+- Focus inlays also need a GUI `containerWindowType` named `window_name` and an
+  `inlay_window` block in the focus tree. Sprite names in the template are
+  placeholders.
+- Faction member upgrades must keep `upgrade_type` on a code-supported token
+  such as `faction_member_upgrade_manpower`. Split the copied file into the
+  upgrade and member_groups directories.
