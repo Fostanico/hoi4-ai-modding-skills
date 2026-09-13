@@ -41,10 +41,11 @@ Deliberately excluded:
 The adapted material in this skill is provided under CC BY-SA 4.0. No claim is
 made that the original Millennium Dawn team endorses this adaptation.
 
-Conceptual claims should be checked against the community-maintained
-[Hearts of Iron IV Wiki](https://hoi4.paradoxwikis.com/Modding), then verified
-against the currently installed game's files because the wiki and source
-snapshot can become outdated.
+The community-maintained [Hearts of Iron IV Wiki](https://hoi4.paradoxwikis.com/Modding)
+is optional background reference only; its pages and source snapshots may be
+long outdated. Base implementation on current installed vanilla code and
+bundled templates/kits, following [source order](pdx-script.md#source-order).
+Attribution records provenance, not proof of current engine behavior.
 
 ## Current official-source supplement
 

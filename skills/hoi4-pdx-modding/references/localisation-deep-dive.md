@@ -4,6 +4,7 @@
 
 - Evidence hierarchy
 - File and language contract
+- Player-facing copy and visible consumers
 - Colours, line breaks, flags, and text icons
 - Nested keys and internal parameters
 - Formatted variables
@@ -19,7 +20,9 @@
 Localisation is both data and executable presentation logic. Verify it in this
 order:
 
-1. Use the HOI4 Wiki to discover concepts and historical syntax.
+1. Start from current vanilla consumers of the same UI/content class and the
+   bundled localisation templates. Apply the shared
+   [source order](pdx-script.md#source-order).
 2. Use the target installation's `documentation/loc_objects_documentation.md`
    for current scope-object promotions and properties.
 3. Use `documentation/dynamic_variables_documentation.md` for current dynamic
@@ -30,9 +33,12 @@ order:
 6. Find a current vanilla consumer of the same UI/content class.
 7. Test the final string in that exact consumer and inspect fresh logs.
 
-The Wiki's function table is useful but explicitly version-stale. Installed
-generated documentation wins for current existence; a current consumer wins
-for practical context support.
+The Wiki's function table is optional historical/background reference only and
+is explicitly version-stale; do not require a lookup or let it override current
+vanilla code or verified bundled templates. Installed generated documentation
+establishes documented existence; current consumers and relevant runtime tests
+establish practical context support. Correct stale templates against that
+evidence, and mark unsupported details unverified.
 
 Verified snapshot for the examples below: Hearts of Iron IV Operation Postern
 1.19.2.0 (d245), 2026-07-17.
@@ -93,6 +99,36 @@ syntax, treat it as migration input and remove the suffix.
 To override a small number of vanilla/dependency keys deliberately, define
 only those keys in `localisation/<language>/replace/`. Do not copy a complete
 vanilla localisation file when a narrow replacement is sufficient.
+
+## Player-facing copy and visible consumers
+
+Localisation values are player-facing writing, not development documentation.
+Keep character descriptions, events, choices, and flavour text in the mod's
+established voice. Explain gameplay requirements, costs, durations, and results
+clearly when needed, but never paste prompts, authoring instructions, internal
+mod conventions, implementation contracts, or debugging notes into the text.
+Those belong in source comments, skills, technical guides, or handoff notes.
+
+For example, a decision tooltip should say "The new leader will continue the
+current political course", not describe subtype IDs, scripted-effect routing,
+or fallback registration. Translate a useful mechanical fact into player
+language; do not hide essential restrictions just to make the prose literary.
+Apply this distinction to every maintained language, not only the source text.
+
+### Country-leader descriptions are not trait descriptions
+
+The native country-leader trait tooltip displays the trait name and generated
+modifier effects; an automatically named `<trait>_desc` is not displayed there.
+Do not generate these unused keys or make validators require a name/description
+pair for every country-leader trait. Use the country leader's referenced `desc`
+for character background, without replacing an existing biography with a list
+of technical details or concatenated trait explanations.
+
+Before removing an existing key, search all its callers. If a leader's `desc`
+or a custom GUI actually uses a trait-looking key, preserve that visible text
+under a clear consumer-owned key and update the reference. The limitation is
+specific to the native country-leader trait tooltip: do not bulk-delete unit
+leader, operative, scientist, or explicitly wired custom-interface descriptions.
 
 ## Colours, line breaks, flags, and text icons
 

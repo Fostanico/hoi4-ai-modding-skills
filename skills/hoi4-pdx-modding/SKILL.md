@@ -27,14 +27,33 @@ description: Implement, explain, refactor, and validate portable Hearts of Iron 
    purpose. Build the code-to-visible-meaning map in
    [semantic-intent-audit.md](references/semantic-intent-audit.md); never infer
    proper names or gameplay intent from IDs, filenames, or variable names.
-6. Use the Wiki to understand concepts. Prove uncertain fields, scopes, tokens,
-   and file layout with the installed build's generated documentation, current
-   vanilla consumers, and exact dependency version.
+6. Base implementation on current installed vanilla code and the bundled
+   templates/kits. Verify uncertain fields, scopes, tokens, and file layout
+   with current consumers, generated documentation, and the exact dependency
+   version. The Wiki is optional background reference only and may be long
+   outdated; never require a Wiki lookup or use it to override these sources.
+   Resolve template conflicts against current vanilla/runtime evidence and
+   correct stale templates. If local evidence is missing, mark the detail
+   unverified. See [source order](references/pdx-script.md#source-order).
 
 Never require the user to know PDX syntax. Translate ordinary-language goals
 into scopes, lifecycle, content objects, files, identifiers, visible behavior,
 AI behavior, compatibility assumptions, and tests. Ask only questions whose
 answers cannot be discovered or safely defaulted.
+
+## Player-facing writing
+
+Localisation values are written for players, not developers. Write character
+prose, choices, requirements, costs, and outcomes in the mod's established
+voice. Never paste prompts, authoring instructions, internal mod conventions,
+or implementation notes into visible text; put those in comments or technical
+documentation. Translate necessary gameplay explanations into player language.
+
+Country-leader trait tooltips show the trait name and generated modifiers, not
+an automatic `<trait>_desc`. Do not create or require unused trait descriptions;
+put character background in the leader's actually referenced `desc` instead.
+Do not apply this rule blindly to other trait types or custom GUI consumers.
+See [localisation-deep-dive.md](references/localisation-deep-dive.md#player-facing-copy-and-visible-consumers).
 
 ## Select references
 
@@ -132,6 +151,29 @@ performance analysis, and runtime testing.
    handoff in the same change. Add readable comments at file/subsystem
    boundaries and around non-obvious scope, state, lifecycle, performance,
    compatibility, and engine-workaround logic.
+
+## Place generated tools by audience
+
+In a Git repository (including a worktree with a `.git` file), decide the
+intended audience and lifetime before saving a generated helper:
+
+- **Reusable by the whole team:** put it in the repository's existing shared,
+  version-controlled tool directory, such as `tools/` or `scripts/`. Keep it
+  discoverable and usable by other contributors; parameterize user-specific
+  paths and keep personal configuration/output in ignored storage.
+- **Only for the current user:** put the tool and its private support files in
+  a directory covered by the repository's `.gitignore`, reusing an existing
+  private workspace such as `.ai-private/`. Verify the actual file path with
+  `git check-ignore -v -- <path>` before staging. If no such directory exists,
+  add a narrowly scoped directory rule to `.gitignore` before creating it.
+  Do not force-add private tools. Ignore rules do not untrack existing files;
+  do not silently remove tracked files or rewrite history to hide them.
+- **One-off helpers:** use a temporary or ignored working directory; do not
+  add throwaway tools, logs, or intermediate output to Git history.
+
+"Shared/public" means part of the team's repository, not an instruction to
+create a folder literally named `public` or to publish/commit without user
+authorization. Respect the project's existing layout and avoid extra folders.
 
 ## Validate proportionally
 

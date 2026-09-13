@@ -19,6 +19,13 @@ never assume the paths or conventions from the machine that authored this
 skill. Verify version-sensitive syntax in installed documentation and current
 vanilla or dependency consumers.
 
+Use current vanilla code and this skill's bundled templates/kits as the
+implementation basis. The Wiki is optional background reference only and may
+be long outdated; do not require a lookup or let it override these sources.
+Resolve stale-template conflicts against the current target's code/runtime
+evidence. Follow the sibling skill's
+[source order](../hoi4-pdx-modding/references/pdx-script.md#source-order).
+
 When extending or repairing existing content, first read all affected visible
 localisation and scripted-localisation consumers. Follow the sibling skill's
 [semantic-intent-audit.md](../hoi4-pdx-modding/references/semantic-intent-audit.md)
@@ -74,6 +81,12 @@ If no verified resource fits, follow [verify-template.md](workflows/verify-templ
 check installed schema, at least one current working consumer, caller scopes,
 all dependent resources, and a minimal runtime test before promoting it.
 
+Before creating helper tools in a Git repository, follow
+[tool placement by audience](../hoi4-pdx-modding/SKILL.md#place-generated-tools-by-audience):
+reusable team tools belong in shared version-controlled directories; personal
+tools belong in a directory covered by `.gitignore`; one-off helpers stay out
+of Git history.
+
 ## Build the complete graph
 
 1. Establish stable IDs and file ownership.
@@ -84,6 +97,10 @@ all dependent resources, and a minimal runtime test before promoting it.
    for genuine compatibility/load-order boundaries, independent generated
    ownership, or materially different subsystems.
 3. Map IDs to visible names, descriptions, tooltips, and promised behavior.
+   Apply the base skill's **Player-facing writing** rules: localisation is for
+   players, never a copy of prompts, internal mod conventions, or technical
+   documentation. Country-leader traits need names, not unused `_desc` keys;
+   character prose belongs in the leader's referenced description.
 4. Create definitions before consumers.
 5. Wire callers, lifecycle updates, cleanup, AI, and compatibility gates.
 6. Add or update localisation and visible assets for every player-facing path.

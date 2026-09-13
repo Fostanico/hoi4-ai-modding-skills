@@ -16,13 +16,17 @@ P-language token, link, and editor-mismatch rules live in
 
 Use sources in this order:
 
-1. Project guidance and established working examples.
-2. The current [HOI4 Wiki](https://hoi4.paradoxwikis.com/Modding) for concepts.
-3. Official Steam patch notes and developer diaries to discover recent engine
-   changes.
-4. The installed game's generated `documentation/*.md`, database-specific
-   `_documentation.md`, and current vanilla files for exact syntax and tokens.
-5. Files from the exact enabled dependency version for overridden systems.
+1. Project guidance for intended behavior and repository conventions.
+2. Current installed vanilla code and these skills' bundled templates/kits as
+   the implementation basis. Check actual consumers for syntax, nesting,
+   scopes, and lifecycle; use the installed `documentation/*.md` and
+   database-specific `_documentation.md` to verify supported tokens/parameters.
+3. Files from the exact enabled dependency version for overridden systems;
+   vanilla examples alone do not establish compatibility with those overrides.
+4. Official Steam patch notes and developer diaries as discovery/version-history
+   references, with implementation claims checked against the installed build.
+5. The [HOI4 Wiki](https://hoi4.paradoxwikis.com/Modding) as optional background
+   reference only. A Wiki lookup is not a prerequisite for any workflow.
 
 Use [vanilla-documentation-map.md](vanilla-documentation-map.md) to route a
 task to the correct installed document. Query exact `## <token>` entries in the
@@ -30,10 +34,15 @@ large generated files, then read a complete current vanilla consumer. For the
 script grammar itself, read [pdx-language.md](pdx-language.md). Editor
 diagnostics from CWTools are hints; see [ide-extensions.md](ide-extensions.md).
 
-Wiki pages are community-maintained and can lag game updates. A copied example
-from another mod proves only that the author wrote it, not that the current
-engine accepts it. Patch notes can also use a descriptive or stale token name;
-the installed generated documentation and current examples decide what to emit.
+Wiki pages may be long outdated. Never use Wiki claims to override current
+vanilla code or verified bundled templates, or to declare working code invalid.
+If a bundled template conflicts with the current build, resolve it using actual
+vanilla consumers and relevant runtime evidence, then correct the template.
+Templates remain parameterized skeletons and do not waive target verification.
+When local evidence is unavailable, mark the detail unverified; neither the Wiki
+nor a copied example from another mod proves current engine support. Patch notes
+can also use descriptive or stale token names. Static sources do not by
+themselves prove runtime behavior.
 
 ## Encoding and layout
 

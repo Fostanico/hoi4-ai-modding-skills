@@ -44,6 +44,11 @@ For a broad review or applied refactor, additionally use the base
   save/reload behavior before proposing a change.
 - **Localisation or dynamic text:** read
   [localisation-deep-dive.md](../hoi4-pdx-modding/references/localisation-deep-dive.md).
+  Check visible values for leaked prompts, internal mod conventions, and
+  developer-facing explanations; rewrite only when authorized, using the
+  player's perspective. Do not flag a missing country-leader trait `_desc` as
+  a defect: the native trait tooltip does not display it. Verify the leader's
+  referenced description and preserve real custom consumers before cleanup.
   Search the localisation sections of `field-tested-pitfalls.md` only for a
   reproduced consumer-specific failure or a bulk cleanup.
 - **GUI, GFX, or artwork:** use the base
@@ -69,12 +74,26 @@ For a broad review or applied refactor, additionally use the base
   [test-mod.md](../hoi4-content-builder/workflows/test-mod.md). Isolate the
   playset, test the smallest scenario, inspect fresh logs, and restore settings.
 
+When writing diagnostic or repair helpers in a Git repository, follow
+[tool placement by audience](../hoi4-pdx-modding/SKILL.md#place-generated-tools-by-audience):
+keep reusable team tools in shared version-controlled directories, personal
+tools in a directory covered by `.gitignore`, and one-off helpers out of Git
+history. A review request still does not authorize modifying the mod.
+
 ## Establish evidence
 
 Inspect target guidance, version, dependencies, playset, `git status`, changed
 files, definitions, callers, and the newest relevant log. Use installed schema
 and current vanilla/dependency consumers for unfamiliar tokens. Distinguish
 parser errors, semantic errors, runtime behavior, and optional-media warnings.
+
+Judge implementation against current vanilla code and bundled templates/kits,
+checking the exact dependency for overridden systems. The Wiki is optional
+background reference only and may be long outdated; a Wiki disagreement alone
+does not establish a defect. Do not require a Wiki lookup. Resolve template
+conflicts against current vanilla/runtime evidence and mark unsupported details
+unverified. Follow the sibling skill's
+[source order](../hoi4-pdx-modding/references/pdx-script.md#source-order).
 
 Before judging or optimizing a feature, read its names, descriptions, options,
 tooltips, scripted-localisation branches, GUI labels, and character text. Map
