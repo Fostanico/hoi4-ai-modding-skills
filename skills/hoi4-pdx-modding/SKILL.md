@@ -91,6 +91,11 @@ See [localisation-deep-dive.md](references/localisation-deep-dive.md#player-faci
   performance work, migration, or documentation.
 - [performance-debugging.md](references/performance-debugging.md): hot paths,
   caching, log triage, debug mode, and runtime evidence.
+- [algorithm-engineering.md](references/algorithm-engineering.md): design
+  non-trivial PDX algorithms with deterministic state machines, incremental
+  work, compact data flow, bounded execution, fault isolation, and
+  consumer-aware presentation. Read it for simulations, minigames, large
+  scripted systems, procedural GUI, or performance-sensitive orchestration.
 - [version-migration.md](references/version-migration.md): game updates and
   full-file vanilla overrides.
 - [media-models-shaders.md](references/media-models-shaders.md): textures,

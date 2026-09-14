@@ -1,5 +1,11 @@
 # Use an advanced built-in pattern
 
+For custom keyboard/Pinyin input or runtime naming, first read the base skill's
+[keyboard-input design](../../hoi4-pdx-modding/references/gui-localisation.md#keyboard-driven-character-input)
+and [name-submission boundaries](../../hoi4-pdx-modding/references/localisation-deep-dive.md#runtime-name-assembly-and-submission).
+These are source-reviewed design references, not a verified input-method kit;
+establish the target consumer and a minimal runtime test before promoting a kit.
+
 1. Select the closest resource from `references/advanced-patterns.md`.
 2. Copy it into the engine directory named in its header or preserve the kit's
    relative tree.

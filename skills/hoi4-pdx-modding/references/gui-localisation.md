@@ -4,6 +4,7 @@
 
 - GUI/GFX wiring
 - Scripted GUI
+- Keyboard-driven character input
 - Scripted localisation
 - Localisation format
 - Cross-file checks
@@ -58,6 +59,91 @@ texture file -> .gfx sprite name -> .gui element -> scripted_gui callback -> eff
   document lists player, selected country/state, diplomacy target, decision
   category, diplomatic action, national focus, and country/state map-icon
   contexts; their starting scopes are not interchangeable.
+
+### Pointer input and draggable windows
+
+- `moveable = yes` is a `containerWindowType` behavior. A child `buttonType`
+  owns its hit area, so a full-size button placed over a moveable parent blocks
+  dragging through that area even though the parent remains moveable elsewhere.
+- Current 1.19.2 scripted-GUI documentation exposes button click variants,
+  visibility/enabled triggers, and image/frame/x/y properties, but not mouse
+  down/move/up, cursor coordinates, drag distance, or input-event bubbling.
+  Do not promise same-pixel “click to act, drag to move” behavior in a standard
+  mod-only GUI without a current working consumer and an in-game reproduction.
+- A mouse-transparent visual layer can leave the parent available for dragging,
+  but that same layer cannot also be the clickable/hovering control. Animated
+  sprites change rendering only; they do not add pointer events.
+- `drag_scroll` scrolls container content; it is not arbitrary window movement.
+  Current engine diagnostics also treat `moveable` and `drag_scroll` as
+  mutually exclusive container modes. A scrollbar thumb likewise is not a
+  scripted arbitrary-window drag callback.
+- The portable compromise is an animated `iconType` with a separate click
+  control or an uncovered drag handle. Describe that UX honestly rather than
+  presenting it as a faithful same-region desktop-pet interaction. Do not guess
+  undocumented input properties merely because their names occur in binaries.
+- Runtime-test every input layout: hover, left/right click, transparent pixels,
+  drag start and release, menu opening, reopening, and representative UI scales.
+  Static wiring checks cannot establish hit-testing or event propagation.
+
+## Keyboard-driven character input
+
+Use this pattern for a bounded custom naming/input GUI. It is a source-reviewed
+community design, not a runtime-certified input-method template; see
+[provenance](source-attribution.md#rename-and-pinyin-input-design-supplement).
+The observed chain is:
+
+```text
+button shortcut -> scripted_gui callback -> numeric composition buffer
+-> syllable lookup -> candidate-code array -> scripted localisation
+-> selected character codes -> explicit submit effect
+```
+
+- Bind supported keys to named `buttonType` elements and route their `_click`
+  effects to the buffer owner. The reviewed mod places tiny buttons off-screen;
+  do not assume this geometry, hidden-window hotkey behavior, or key priority
+  is portable. Gate editing by the active input session and test shortcut
+  conflicts, window close/reopen, UI scales, and keyboard layouts. Current
+  vanilla `interface/battleplantools.gui` demonstrates button `shortcut` fields,
+  but does not prove the off-screen-input technique.
+- Keep separate arrays for unfinished spelling, candidate codes, and committed
+  character codes, plus an explicit cursor/count and page index. Decode codes
+  through `defined_text` and display rows through scripted-GUI `dynamic_lists`.
+  Verify each list's value/index variables and localisation scope; do not assume
+  a loop variable still refers to the character after a nested loop.
+- Numeric character IDs are a private dictionary format, not automatic Unicode
+  or GB2312 decoding. An empty-slot sentinel must be distinct from a space.
+  Bind digit keys to candidate selection only in the candidate-input mode.
+  Reset unfinished spelling after selection and clear transient state on close.
+- The inspected dictionary computes `h = h * 11 + ASCII(letter)`, searches a
+  precomputed syllable array, then uses `1000 + syllable_index * 200` plus a
+  candidate-count table to identify character codes. A separate `+100000`
+  code range selects precomputed traditional forms. These are source-specific
+  design choices, not required engine constants, a general conversion service,
+  or intelligent phrase prediction. Array search remains a linear lookup even
+  when the array is named `hashArray`.
+- When building a dictionary, check accepted spellings, hash collisions,
+  intermediate numeric precision/range in the target engine, count/code-range
+  agreement, and a display mapping for every candidate in every supported mode.
+  Keep source data and a reusable generator together in the team's tool tree;
+  apply the skill's tool-placement rule to personal helpers and scratch output.
+  If codes persist in saves, preserve their meaning across dictionary revisions
+  or migrate them; reordering syllables changes index-derived codes.
+- Guard array accesses before modifying the cursor or writing. For an array of
+  length N, insertion must not reach index N, deletion must not write at -1,
+  and a full buffer must reject input or use an explicit replacement policy.
+  The inspected six-slot spelling buffer increments after checking index `< 6`;
+  the text buffer can keep writing its last slot when full, and deletion writes
+  before checking for an empty buffer. Treat these as source boundary concerns,
+  not examples to copy or claims about a reproduced engine error.
+- Rebuild lookup/page data on input, selection, or mode changes, not global daily
+  polling. Render the visible page and use dirty updates as appropriate. Test
+  empty/no-match input, maximum length plus one, repeated deletion, last-page
+  selection, mode switching, cancellation, and multiple human countries before
+  claiming runtime or multiplayer correctness.
+
+This script path does not provide OS IME integration, clipboard paste, or
+arbitrary text-file I/O. For committing the assembled name, use
+[runtime name assembly](localisation-deep-dive.md#runtime-name-assembly-and-submission).
 
 ## Scripted localisation
 

@@ -162,6 +162,27 @@ project was downloaded from PyPI into a temporary analysis directory and used
 solely to statically unpack one PyInstaller executable. Neither that extractor
 nor extracted third-party bytecode is distributed with these skills.
 
+## DOOM-in-HOI4 algorithm study
+
+On 2026-09-13 Steam Workshop item `3800765971` was inspected statically from
+the local Workshop cache. Its creator describes the pipeline as C to Wasm to
+script and publishes a GPL-2.0-or-later HOI4 branch of Doomgeneric at
+<https://github.com/Yard1/doomgeneric/tree/hoi4>. The Workshop package contains
+generated scripted effects, scripted GUIs, shaders, palette textures, embedded
+WAD data, and licence files, but no executable or DLL. The separate Wasm-to-PDX
+generation pipeline was not published at the time of review.
+
+The review informed the independently written design rules in
+`algorithm-engineering.md`: deterministic logical ticks, explicit lifecycle
+state, bounded continuation, narrow numeric interfaces, bulk hot-path effects,
+reactive GUI dirty updates, indexed-colour procedural presentation, graceful
+performance modes, generated-output namespacing, and clear limits on general
+virtual machines or text-encoded binary payloads. No generated PDX code, C
+implementation, WAD data, shader source, or licence text from the project was
+copied into these skills. The project is evidence that the patterns are
+possible, not portable proof of their performance or compatibility in another
+mod.
+
 ## Localisation reference supplement
 
 The 2026-07-17 localisation expansion used the community-maintained
@@ -180,6 +201,32 @@ Every promoted current token was rechecked against Operation Postern 1.19.2.0
 explicitly version-stale, so the generated installed documents take priority.
 The skill contains an independently written operational reference and small
 original templates rather than copied Wiki or Paradox prose.
+
+## Rename and Pinyin input design supplement
+
+On 2026-09-14, a local copy of Workshop item
+[2920322200, 新-改名(支持中文)](https://steamcommunity.com/sharedfiles/filedetails/?id=2920322200)
+was inspected. Its descriptor reports version `1.2`, supported version `1.18.*`.
+Evidence paths relative to that mod are:
+
+- `interface/RN_rename_pinyin.gui` and
+  `common/scripted_guis/RN_rename_pinyin.txt`: shortcuts and callback routing;
+- `common/scripted_effects/RN_rename_pinyin_effect.txt` and
+  `common/scripted_localisation/RN_getWord.txt`: lookup, codes, and display;
+- `common/scripted_effects/RN_rename_common_effect.txt`: buffers, name assembly,
+  and temporary leader-name reuse;
+- `common/scripted_guis/RN_rename_open.txt` and
+  `common/scripted_effects/RN_rename_country_effect.txt`: preset cosmetic names.
+
+Current installed effect documentation, `interface/battleplantools.gui`, and
+`common/scripted_effects/CZE_scripted_effects.txt` / `INS_scripted_effects.txt`
+were checked for the underlying primitives. The full community GUI/input/name
+chain was not run in-game, and its `readme/HOI4Rename.exe` was not executed or
+reverse-engineered. Its descriptor is not proof of current-build compatibility.
+The GUI and localisation references contain independently written design lessons
+and test boundaries. No source implementation, dictionary, GUI asset, or helper
+executable was copied into the skills; no redistribution licence was established
+by this review. This supplement does not promote a verified template or kit.
 
 ## Installed editor extension supplement
 

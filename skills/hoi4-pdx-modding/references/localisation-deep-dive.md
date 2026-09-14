@@ -10,6 +10,7 @@
 - Formatted variables
 - Scope objects and functions
 - Dynamic-consumer boundaries
+- Runtime name assembly and submission
 - Scripted, bound, and context-aware localisation
 - Localisation formatters
 - Four-language authoring workflow
@@ -449,6 +450,63 @@ High-value rules:
   tooltips and may not support the same scripted localisation.
 - A function that exists in object documentation can still be wrong when the
   current scope object is not of the required type.
+
+## Runtime name assembly and submission
+
+For custom names, distinguish the numeric character buffer, the displayed
+localisation result, and the engine field that receives the final name. Drawing
+separate decoded characters in a GUI does not establish a generic string
+variable or make every game field accept dynamic text. See
+[keyboard input](gui-localisation.md#keyboard-driven-character-input).
+
+The reviewed rename mod uses `meta_effect` to resolve decoded characters and
+the current engine name into parameters, then executes a name-setting effect.
+Conceptually it replaces the old name with the first character, then repeatedly
+writes `previous_name + next_character`; it uses the target's readable/writable
+name as the accumulator. This is an explanation of the source, not drop-in PDX.
+
+Installed `documentation/effects_documentation.md` documents `meta_effect` as
+building effects from strings and executing them; `debug = yes` exposes the
+generated effect for diagnosis. `common/scripted_effects/CZE_scripted_effects.txt`
+demonstrates runtime parameter substitution in an effect token. That vanilla
+consumer verifies the primitive, not the community mod's complete text chain.
+
+| Naming target | Effect used by the inspected mod | Required distinction |
+| --- | --- | --- |
+| Faction | `set_faction_name` | Verify faction ownership and resolved text versus localisation-key handling |
+| Country leader | `set_country_leader_name` | Verify a valid active leader and the correct country |
+| Character | `set_character_name` | Resolve the selected character; country and character scope forms differ |
+| State | `set_state_name` | Execute in the intended state scope |
+| Province/city label | `set_province_name` | Supply the province ID; this does not itself create a province or victory point |
+| Party | `set_party_name` | Verify the active dependency's ideology group and full/short name fields |
+| Country display name | `set_cosmetic_tag` | Selects a pre-authored localisation identity; it does not change the actual country TAG |
+
+Verify current scopes/parameters in installed effect documentation before use.
+`common/scripted_effects/INS_scripted_effects.txt` demonstrates province and state
+renaming with authored localisation keys. The inspected mod's country-name
+picker also uses pre-authored keys; it does not prove arbitrary Pinyin-driven
+country naming. Its optional external helper edits preset files according to
+its instructions; that is separate from the in-game input script.
+
+For party and city names, the source saves the original leader name in an outer
+`meta_effect` parameter, assembles input by temporarily renaming the leader,
+reads that result into the target effect, then restores the original name.
+Record this as a risky scratch-field workaround, not a default naming API.
+Prefer a directly readable/writable target when suitable. If the workaround is
+needed, validate target and leader first, keep assembly/copy/restore in one
+synchronous path with no delayed events, and prevent re-entry. It is not an
+automatic rollback transaction; verify restoration on every supported path and
+with leader replacement, load/save, and multiplayer before claiming safety.
+
+Before submitting any assembled text, validate the allowed character set and
+empty/max-length policy. Quotes, backslashes, brackets, dollar signs and section
+signs can interact with PDX parsing or localisation formatting. A character's
+presence in the display table does not prove it survives `meta_effect`
+interpolation safely; test escaping end to end or exclude unsupported symbols.
+Cancel must not mutate the target. Test final display, original-name restoration,
+save/reload, country/character changes and cosmetic-tag interactions separately.
+Runtime name changes do not imply writing localisation files to disk or
+persistence across fresh games. Keep all those evidence claims distinct.
 
 ## Scripted, bound, and context-aware localisation
 

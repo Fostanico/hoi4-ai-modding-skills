@@ -25,6 +25,15 @@ fields such as `effectFile = "gfx/FX/buttonstate_blendframes.lua"` belong to
 specific effects and should be copied only from a working consumer that needs
 the same blending.
 
+Animation does not change input semantics. A frame-animated sprite used by an
+`iconType` can remain a visual, mouse-transparent layer, while one used by or
+covered with a `buttonType` still has an ordinary button hit area. In current
+standard HOI4 GUI there is no proven same-region gesture split that treats a
+short press as a scripted click and pointer movement as dragging the parent
+window. For movable animated widgets, keep a separate click control or an
+uncovered drag handle; read [gui-localisation.md](gui-localisation.md) before
+designing the interaction.
+
 ## Single-sheet registration
 
 For a small animation whose complete horizontal sheet fits in one texture:
