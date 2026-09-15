@@ -41,6 +41,15 @@ into scopes, lifecycle, content objects, files, identifiers, visible behavior,
 AI behavior, compatibility assumptions, and tests. Ask only questions whose
 answers cannot be discovered or safely defaulted.
 
+When the `hoi4_local` MCP tools are available, prefer
+`detect_hoi4_environment` for the initial path/version inventory,
+`trace_hoi4_identifier` for bounded cross-root identifier evidence, and
+`validate_hoi4_changes` for the changed-path validation lane. These are local
+read-only instruments, not new source authority: still interpret their output
+through the source hierarchy and consumer checks below. If the MCP server is
+unavailable, continue with the documented `rg`, Git, PowerShell, and bundled
+script workflow; never block ordinary modding work on plugin availability.
+
 ## Player-facing writing
 
 Localisation values are written for players, not developers. Write character

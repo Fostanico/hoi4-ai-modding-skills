@@ -1,0 +1,39 @@
+{
+  "name": "hoi4-ai-modding-skills",
+  "version": "1.6.0",
+  "description": "Local-first Hearts of Iron IV modding skills with read-only environment, source, log, validation, and media tools.",
+  "author": {
+    "name": "Fostanico",
+    "url": "https://github.com/Fostanico"
+  },
+  "homepage": "https://github.com/Fostanico/hoi4-ai-modding-skills",
+  "repository": "https://github.com/Fostanico/hoi4-ai-modding-skills",
+  "license": "CC-BY-SA-4.0",
+  "keywords": [
+    "hearts-of-iron-iv",
+    "hoi4",
+    "modding",
+    "pdx-script",
+    "local-first"
+  ],
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
+  "interface": {
+    "displayName": "HOI4 Local Modding Lab",
+    "shortDescription": "Local HOI4 evidence, validation, logs, and media checks",
+    "longDescription": "Three HOI4 modding skills plus a local, read-only MCP helper that inspects the exact installed game, mods, logs, Git changes, and media files on this computer.",
+    "developerName": "Fostanico",
+    "category": "Developer Tools",
+    "capabilities": [
+      "Read",
+      "Local"
+    ],
+    "websiteURL": "https://github.com/Fostanico/hoi4-ai-modding-skills",
+    "defaultPrompt": [
+      "Inspect my local HOI4 setup and explain what evidence is available.",
+      "Trace this HOI4 identifier across my mod, vanilla, and dependencies.",
+      "Validate only the changed HOI4 files and summarize actionable errors."
+    ],
+    "brandColor": "#4D5F4A"
+  }
+}

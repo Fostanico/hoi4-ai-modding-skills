@@ -1,0 +1,31 @@
+{
+  "mcpServers": {
+    "hoi4_local": {
+      "command": "cmd.exe",
+      "args": [
+        "/d",
+        "/s",
+        "/c",
+        "call",
+        "./mcp-server/launch.cmd"
+      ],
+      "cwd": ".",
+      "enabled": true,
+      "omit_tools_from": [
+        "deferred"
+      ],
+      "env_vars": [
+        "PATH",
+        "USERPROFILE",
+        "LOCALAPPDATA",
+        "PROGRAMFILES",
+        "PROGRAMFILES(X86)",
+        "HOI4_GAME_ROOT",
+        "HOI4_USER_DATA_ROOT",
+        "HOI4_WORKSHOP_ROOT"
+      ],
+      "startup_timeout_sec": 15,
+      "tool_timeout_sec": 120
+    }
+  }
+}

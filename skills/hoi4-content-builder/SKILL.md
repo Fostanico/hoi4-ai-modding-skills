@@ -19,6 +19,12 @@ never assume the paths or conventions from the machine that authored this
 skill. Verify version-sensitive syntax in installed documentation and current
 vanilla or dependency consumers.
 
+If the plugin's local MCP tools are available, use
+`detect_hoi4_environment` to collect the first path/version inventory and
+`trace_hoi4_identifier` to map existing consumers before construction. They
+are optional read-only helpers: their absence is not a blocker, and their
+output does not replace current vanilla/dependency verification.
+
 Use current vanilla code and this skill's bundled templates/kits as the
 implementation basis. The Wiki is optional background reference only and may
 be long outdated; do not require a lookup or let it override these sources.

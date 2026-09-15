@@ -12,6 +12,14 @@ turning crash evidence into an actionable repair plan. The skills also retain a
 complete path from a plain-language idea to playable PDX script for people who
 do not already know the HOI4 scripting language.
 
+The repository can also be used as a **Codex Plugin**. The three Skills remain
+the procedure and judgment layer, while a local read-only MCP helper discovers
+the exact HOI4 installation, traces identifiers, validates Git changes, reads
+logs, and inspects media metadata. It needs neither a cloud-hosted HOI4 corpus
+nor an OpenAI API key, and it cannot launch the game or modify a mod. See
+[Local plugin and MCP helper](docs/LOCAL_MCP_PLUGIN.md) for the tool and safety
+contract.
+
 ## Included Skills
 
 | Skill | Main job |
@@ -29,6 +37,28 @@ package's full workflow.
 
 ## Install in Codex
 
+### Recommended: Skills plus local tools
+
+On Windows, clone or extract this repository and run the following command from
+its root:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\install-codex-plugin.ps1
+```
+
+The script installs the complete plugin under the current user's local
+application-data directory and registers it through the Codex CLI. It does not
+modify HOI4, launch the game, or upload local files. Start a new Codex task when
+installation finishes. Rerun the same command after updating the repository to
+refresh the plugin.
+
+Requirements: Windows, Python 3, and the Codex CLI. `ffprobe` is optional and
+only adds audio/video stream metadata. See
+[Local plugin and MCP helper](docs/LOCAL_MCP_PLUGIN.md) for tools, safety
+boundaries, and troubleshooting.
+
+### Skills only
+
 Download a complete package from
 [Releases](https://github.com/Fostanico/hoi4-ai-modding-skills/releases), or
 clone this repository. Copy the three directories under `skills/` into either:
@@ -39,6 +69,9 @@ clone this repository. Copy the three directories under `skills/` into either:
 Keep each skill's `SKILL.md`, `references/`, `workflows/`, `assets/`, `scripts/`,
 and `agents/` directories together. Codex normally detects changes automatically;
 restart it if an installed skill does not appear.
+
+Clients without plugin support can continue to install the three Skills this
+way. This does not install the local MCP tools.
 
 In Codex CLI or the IDE extension, use `/skills` to inspect available skills and
 type a name such as `$hoi4-review-debug` to invoke one explicitly. In the

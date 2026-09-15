@@ -104,6 +104,12 @@ ignore the localisation.
 
 Select only the cheapest matching read-only tool:
 
+- When the plugin's `hoi4_local` MCP server is available, use
+  `read_hoi4_logs` for bounded current-log tails, `trace_hoi4_identifier` for
+  cross-root source links, and `inspect_hoi4_media` for targeted metadata.
+  MCP output is evidence collection, not diagnosis by itself. Fall back to the
+  scripts below and ordinary local inspection when the server is unavailable.
+
 - `scripts/audit-hoi4-mod.ps1`: build a cross-file health baseline covering
   event and scripted-object graphs, strong localisation/GFX/resource links,
   duplicate/orphan definitions, periodic hot-path heuristics, and comment

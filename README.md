@@ -10,6 +10,12 @@ Agent Skills。它们现在更侧重于维护、诊断和完善已有 MOD，同�
 让它沿着固定的证据链检查代码；熟悉 MOD 开发的用户也可以指定文件、约束和审批
 边界，把 skills 当作代码审查、兼容性迁移和故障诊断流程使用。
 
+仓库现在也可以作为一个 **Codex Plugin** 使用：三个 Skills 仍是“怎么判断和怎么做”的
+教材，本地只读 MCP 助手则负责发现当前电脑上的 HOI4、追踪标识符、校验 Git 变更、
+读取日志和检查媒体元数据。它不需要云端 HOI4 文件库或 OpenAI API Key，也不会启动
+游戏或修改 MOD。设计、工具清单和安全边界见
+[本地插件与 MCP 助手](docs/LOCAL_MCP_PLUGIN.md)。
+
 ## 三套 Skills
 
 | Skill | 主要用途 |
@@ -25,6 +31,23 @@ Agent Skills。它们现在更侧重于维护、诊断和完善已有 MOD，同�
 
 ## 在 Codex 中安装
 
+### 推荐：Skills + 本地工具
+
+在 Windows 上克隆或解压本仓库后，在仓库根目录运行：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\install-codex-plugin.ps1
+```
+
+脚本会把完整插件安装到当前用户的本地应用数据目录，并通过 Codex CLI 注册；它不会
+修改 HOI4、启动游戏或上传本地文件。安装完成后新建一个 Codex 任务，即可同时使用
+三套 Skills 和五个只读本地工具。更新仓库后重新运行同一命令即可刷新插件。
+
+要求：Windows、Python 3、Codex CLI；`ffprobe` 只用于补充音视频流信息，不是必需项。
+详细工具、安全边界和排错见[本地插件与 MCP 助手](docs/LOCAL_MCP_PLUGIN.md)。
+
+### 仅安装 Skills
+
 从 [Releases](https://github.com/Fostanico/hoi4-ai-modding-skills/releases)
 下载完整包，或者克隆本仓库。把 `skills/` 下的三个目录复制到以下任一位置：
 
@@ -34,6 +57,8 @@ Agent Skills。它们现在更侧重于维护、诊断和完善已有 MOD，同�
 项目目录适合随 MOD 一起维护，用户目录适合在多个 MOD 中共用。每个 skill 目录内的
 `SKILL.md`、`references/`、`workflows/`、`assets/`、`scripts/` 和
 `agents/` 应保持原有相对位置。
+
+不支持插件的客户端继续使用这种方式。它不会安装本地 MCP 工具。
 
 Codex 通常会自动发现更新；没有出现时重启 Codex。在 Codex CLI 或 IDE 扩展中可用
 `/skills` 查看 skills，并用 `$hoi4-review-debug` 这样的名字显式调用。ChatGPT

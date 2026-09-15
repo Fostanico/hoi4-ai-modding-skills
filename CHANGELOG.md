@@ -2,6 +2,17 @@
 
 ## Unreleased
 
+- 将仓库扩展为可安装的 Codex Plugin，同时保留三个独立 Skills 及其原有安装方式；
+  仓库根目录引用唯一一份 `skills/`，避免为插件维护重复副本。
+- 新增零第三方 Python 依赖、仅使用本地 stdio 的只读 MCP 助手，提供 HOI4 环境
+  发现、跨 MOD/原版/依赖标识符追踪、Git 变更路径校验、有界日志读取和媒体元数据
+  检查；明确不启动游戏、不切换 playset、不修改或删除 MOD 文件。
+- 为 MCP 增加 UTF-8 Windows 协议通道、路径越界防护、文件类型/大小/返回量限制、
+  固定日志白名单及端到端模拟客户端测试；Skills 在 MCP 不可用时继续使用原有
+  PowerShell、Python、Git 和 `rg` 工作流。
+- 增加 Windows 一键安装/刷新脚本，并重写中英文 README 的 Codex 安装入口；脚本
+  使用独立本地 marketplace 和 cachebuster，不要求普通用户手工编辑插件 JSON。
+
 ## 1.5.0 - 2026-09-14
 
 - 明确 Git 仓库中的工具归属：工作组共用的长期工具进入公开版本目录；个人工具

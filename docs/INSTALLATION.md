@@ -49,6 +49,16 @@ Skills 页面分享给 workspace 成员或生成共享链接。Personal Skills �
 重新打开任务或刷新 skills 后，用自然语言提出 HOI4 MOD 需求即可。项目根的
 `AGENTS.md` 只保存该项目长期有效的规则和交接入口。
 
+### 带本地工具的 Codex Plugin
+
+仓库根目录同时是一个插件源，包含三套 Skills 和一个只读的本地 MCP 助手。它适合
+需要读取当前 HOI4 安装、Workshop 依赖、Git 变更、日志和媒体元数据的 Codex 桌面版
+或 CLI 用户；不支持插件的客户端仍按前文复制 Skills。完整说明见
+[本地插件与 MCP 助手](LOCAL_MCP_PLUGIN.md)。
+
+本地开发安装后必须新建任务。旧任务已经固定了启动时可用的 Skills 和 MCP 工具，
+不能用一次重新安装可靠地热替换当前对话的工具清单。
+
 ## Claude
 
 Claude Code 的个人目录是 `~/.claude/skills/<skill-name>/`，项目目录是
