@@ -1,19 +1,19 @@
 # HOI4 本地插件与 MCP 助手
 
-## 用一句话理解
+## 架构与职责
 
-原来的三个 Skills 是“实验教材”，新增的 MCP 是“本机检测仪器”，Codex Plugin
-把二者装进同一个工具箱。它不把游戏文件上传到一台假装拥有 HOI4 的云服务器，
-而是在用户自己的电脑上读取当前安装、MOD、日志和媒体元数据，再把有界结果交给
-Codex 判断。
+本插件由三套 Agent Skills 和一个本地只读 MCP 服务器组成。Skills 定义 HOI4 MOD
+开发、审查、证据分级、版本核验、修改授权和验证流程；MCP 服务器将常用的本地取证
+操作暴露为有界、结构化的工具接口。Codex Plugin 清单负责将二者作为单一组件发现和
+安装。
 
-MCP 工具不代替 Skills。Skills 仍决定证据顺序、改动边界、验证分档和运行时测试
-条件；MCP 只把重复的本地取证步骤变成稳定、结构化的调用。MCP 不可用时，Skills
-中的 PowerShell、Python、`rg` 和 Git 工作流仍然有效。
+MCP 工具只负责收集本地证据，不构成新的语法或运行时权威。工具输出仍须按照 Skills
+规定的来源层级，与目标版本原版消费者、实际依赖和运行时证据交叉核验。MCP 不可用
+时，PowerShell、Python、`rg`、Git 及仓库内置脚本仍是完整的备用执行路径。
 
-## 第一版提供什么
+## 工具接口
 
-| 工具 | 用途 | 首版边界 |
+| 工具 | 用途 | 限制 |
 | --- | --- | --- |
 | `detect_hoi4_environment` | 查找 MOD 工作区、HOI4 安装、用户数据、日志和 Workshop | 不判断当前 playset 一定启用了什么 |
 | `trace_hoi4_identifier` | 在 MOD、原版和指定依赖中追踪 ID、flag、本地化键、GFX 名称 | 精确文本搜索，不把命中自动等同为有效消费者 |
@@ -22,14 +22,14 @@ MCP 工具不代替 Skills。Skills 仍决定证据顺序、改动边界、验�
 | `inspect_hoi4_media` | 查看 DDS/PNG/JPEG/GIF 元数据及 ffprobe 音视频流 | 元数据不证明 HOI4 消费者一定支持该格式 |
 
 五个工具全部只读。它们不会启动 Steam 或 HOI4，不会切换 playset，不会删除、
-覆盖或创建 MOD 文件，也不会结束游戏进程。今后即使加入写入或实机测试能力，也
-应该使用不同工具名并保留明确授权边界，不能悄悄扩大本工具的权限。
+覆盖或创建 MOD 文件，也不会结束游戏进程。未来若加入写入或实机测试能力，应使用
+独立工具接口、显式声明更高风险等级，并保留相应的用户授权边界。
 
-## 为什么使用本地 stdio MCP
+## 传输与运行模型
 
-Codex 在需要工具时启动本机子进程，通过标准输入/输出交换 MCP JSON-RPC 消息。
-因此不需要公网服务器、OpenAI API Key、端口映射或云端 HOI4 文件库。服务进程与
-当前 Codex 会话同寿命，退出后不会常驻监听网络端口。
+MCP 服务器使用本地 stdio 传输。Codex 按需启动子进程，并通过标准输入/输出交换
+MCP JSON-RPC 消息。该实现不需要公网服务、OpenAI API Key、端口映射或云端 HOI4
+文件库；服务进程由客户端管理生命周期，不监听网络端口。
 
 服务器只依赖 Python 3 标准库。媒体工具如果在 PATH 找到 `ffprobe`，会额外读取
 音视频流信息；没有 `ffprobe` 时会明确报告缺失，而不是自动下载软件。
@@ -44,16 +44,16 @@ python scripts/test-mcp-server.py
 python <plugin-creator>/scripts/validate_plugin.py <repository-root>
 ```
 
-普通用户在仓库根目录运行一条命令即可安装或刷新：
+Windows 用户可在仓库根目录运行以下命令安装或刷新：
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\scripts\install-codex-plugin.ps1
 ```
 
 脚本在当前用户的本地应用数据目录建立独立的 `hoi4-local-modding` marketplace，
-为版本添加一次 cachebuster，并通过 Codex CLI 安装；用户不需要手改 JSON。安装或
-更新后新建 Codex 任务，让新会话重新加载 Skills 和 MCP 工具。发布包应增加
-一个完整插件 ZIP，同时保留原有三个单独 Skill ZIP，方便不支持插件的客户端。
+为开发版本添加 cachebuster，并通过 Codex CLI 完成安装，无需手动维护 marketplace
+JSON。安装或更新后应新建 Codex 任务，使新会话重新加载 Skills 和 MCP 工具。发布
+包应包含完整插件 ZIP，同时保留三个独立 Skill ZIP，以支持不具备插件能力的客户端。
 
 ## 安全与排错
 
@@ -68,6 +68,6 @@ powershell -ExecutionPolicy Bypass -File .\scripts\install-codex-plugin.ps1
 
 ## 后续阶段
 
-第二阶段可以加入当前 playset 解析、descriptor/load-order 图和更细的日志归因；第三
-阶段再考虑需要写入的脚手架和经用户明确同意的最小实机测试。写工具必须采用预览、
-限定目标、可恢复改动和变更后验证，不能沿用首版只读工具名冒充同一种风险级别。
+后续版本可增加当前 playset 解析、descriptor/load-order 关系图和更细粒度的日志
+归因。写入型脚手架与自动化运行时测试应作为独立阶段设计，并强制采用变更预览、
+目标路径限制、可恢复修改、结果验证和显式授权，不与现有只读接口混用。

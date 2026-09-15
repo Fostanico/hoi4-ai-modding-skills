@@ -11,7 +11,7 @@
   固定日志白名单及端到端模拟客户端测试；Skills 在 MCP 不可用时继续使用原有
   PowerShell、Python、Git 和 `rg` 工作流。
 - 增加 Windows 一键安装/刷新脚本，并重写中英文 README 的 Codex 安装入口；脚本
-  使用独立本地 marketplace 和 cachebuster，不要求普通用户手工编辑插件 JSON。
+  使用独立本地 marketplace 和 cachebuster，无需手动维护插件 JSON。
 
 ## 1.5.0 - 2026-09-14
 

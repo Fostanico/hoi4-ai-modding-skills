@@ -12,13 +12,15 @@ turning crash evidence into an actionable repair plan. The skills also retain a
 complete path from a plain-language idea to playable PDX script for people who
 do not already know the HOI4 scripting language.
 
-The repository can also be used as a **Codex Plugin**. The three Skills remain
-the procedure and judgment layer, while a local read-only MCP helper discovers
-the exact HOI4 installation, traces identifiers, validates Git changes, reads
-logs, and inspects media metadata. It needs neither a cloud-hosted HOI4 corpus
-nor an OpenAI API key, and it cannot launch the game or modify a mod. See
-[Local plugin and MCP helper](docs/LOCAL_MCP_PLUGIN.md) for the tool and safety
-contract.
+The repository also provides an optional **Codex Plugin** integration. The
+plugin distributes the three Skills together with a local read-only MCP server:
+the Skills define development, review, and validation workflows, while the MCP
+server provides structured access to installation discovery, identifier
+tracing, Git-change validation, log reading, and media metadata. All MCP
+operations execute locally, require neither a cloud-hosted HOI4 corpus nor an
+OpenAI API key, and expose no game-launch or mod-write capability. See
+[Local plugin and MCP helper](docs/LOCAL_MCP_PLUGIN.md) for the architecture,
+tool interfaces, and security boundaries.
 
 ## Included Skills
 
