@@ -3,8 +3,8 @@
 [简体中文](README.md) | English
 
 This repository contains three Agent Skills for maintaining, diagnosing,
-improving, and building Hearts of Iron IV mods with Codex, ChatGPT, Claude
-Code, and Gemini CLI.
+improving, and building Hearts of Iron IV mods with Codex, ChatGPT, Cursor,
+Claude Code, and Gemini CLI.
 
 The current emphasis is existing-mod work: understanding an unfamiliar codebase,
 finding cross-file failures, reviewing performance and compatibility, and
@@ -37,9 +37,9 @@ content, `pdx-modding` supplies language and version verification, and
 skill can still load, but it loses sibling references and cannot provide the
 package's full workflow.
 
-## Install in Codex
+## Installation
 
-### Recommended: Skills plus local tools
+### Recommended for Codex: Skills plus local tools
 
 On Windows, clone or extract this repository and run the following command from
 its root:
@@ -85,7 +85,23 @@ Codex discovery paths and invocation behavior.
 See [Installation and sharing](docs/INSTALLATION.md) for other clients and
 release-package details.
 
-## Use in Codex
+### Cursor Agent
+
+Cursor discovers project skills from `.agents/skills/` or `.cursor/skills/`
+and user skills from `~/.agents/skills/` or `~/.cursor/skills/`. Copy all three
+directories under `skills/` to one of those locations, then reopen or refresh
+the Agent. You can also type `/` in Agent chat, search for a skill by name, and
+invoke it explicitly.
+
+Cursor Agent supplies the skills to the currently selected model, so this
+package is not tied to one model. Project-level skills can be versioned with a
+mod. To use personal `~/.cursor/skills/` in Cloud Agents, enable Skills sync in
+Cursor settings. Copying the skills does not install the Codex-only local MCP
+helper. See the current
+[Cursor Agent Skills documentation](https://cursor.com/docs/skills) for paths,
+invocation, and remote-agent boundaries.
+
+## Usage examples
 
 Start an existing-mod review without changing files:
 
@@ -107,9 +123,9 @@ For new content, describe the intended gameplay and constraints:
 > weights and English, Simplified Chinese, Russian, and Japanese localisation.
 > Verify the current vanilla syntax before implementation and run static checks.
 
-Explicit invocation is optional. Codex can select a skill when the request
-matches its `SKILL.md` description; naming the skill is useful when you want a
-specific review or diagnosis workflow.
+Explicit invocation is optional. Compatible agents can select a skill when the
+request matches its `SKILL.md` description; naming the skill is useful when you
+want a specific review or diagnosis workflow.
 
 ## Core Workflows
 
@@ -182,6 +198,8 @@ requires a clear explanation of purpose and scope plus the user's consent.
 
 ## Other Clients
 
+- Cursor: `~/.cursor/skills/`, `~/.agents/skills/`, or a project's
+  `.cursor/skills/` or `.agents/skills/`; type `/` to search for and invoke one.
 - Claude Code: `~/.claude/skills/` or a project's `.claude/skills/`.
 - Gemini CLI: `~/.gemini/skills/`, `~/.agents/skills/`, or a supported workspace path.
 - Clients that accept uploaded custom skills: install all three skill ZIP files

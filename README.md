@@ -2,7 +2,7 @@
 
 简体中文 | [English](README_EN.md)
 
-这是三套供 Codex、ChatGPT、Claude Code 和 Gemini CLI 使用的《钢铁雄心 IV》
+这是三套供 Codex、ChatGPT、Cursor、Claude Code 和 Gemini CLI 使用的《钢铁雄心 IV》
 Agent Skills。它们现在更侧重于维护、诊断和完善已有 MOD，同时保留从自然语言需求
 开始制作新内容和完整 MOD 的能力。
 
@@ -30,9 +30,9 @@ Agent Skills。它们现在更侧重于维护、诊断和完善已有 MOD，同�
 `review-debug` 负责维护、回归和运行时证据。单独安装可以读取该 skill 的入口说明，
 但会缺少兄弟 skill 的参考资料、验证步骤和完整交接流程，无法发挥这套包的最大作用。
 
-## 在 Codex 中安装
+## 安装
 
-### 推荐：Skills + 本地工具
+### Codex 推荐：Skills + 本地工具
 
 在 Windows 上克隆或解压本仓库后，在仓库根目录运行：
 
@@ -68,7 +68,20 @@ Codex 通常会自动发现更新；没有出现时重启 Codex。在 Codex CLI 
 
 更完整的平台说明见 [安装与共享指南](docs/INSTALLATION.md)。
 
-## 在 Codex 中使用
+### Cursor Agent
+
+Cursor 可以直接发现项目级 `.agents/skills/` 或 `.cursor/skills/`，以及用户级
+`~/.agents/skills/` 或 `~/.cursor/skills/`。将 `skills/` 下的三个目录一起复制到
+其中一个位置，重新打开或刷新 Agent 后即可自动匹配；也可以在 Agent 对话中输入
+`/`，搜索 skill 名称并显式调用。
+
+Skills 由 Cursor Agent 提供给当前选定的模型使用，不绑定特定模型。项目级目录适合
+随 MOD 一起纳入版本控制；用户级 `~/.cursor/skills/` 若要在 Cloud Agents 中使用，
+需要在 Cursor 设置中启用 Skills 同步。复制 Skills 不会安装 Codex 专用的本地 MCP
+助手。路径、调用方式和远程 Agent 边界见
+[Cursor Agent Skills 官方文档](https://cursor.com/docs/skills)。
+
+## 使用示例
 
 维护已有 MOD 时，可以从一次只读审查开始：
 
@@ -87,8 +100,8 @@ Codex 通常会自动发现更新；没有出现时重启 Codex。在 Codex CLI 
 > `$hoi4-content-builder` 为 HOI4 1.19 制作一组可重复决议，包含 AI 权重、英文、
 > 简体中文、俄文和日文本地化。先核对当前原版语法，完成后运行静态校验。
 
-不必每次显式写 skill 名称。任务与 `SKILL.md` 中的描述匹配时，Codex 也可以自动
-选择对应 skill；显式调用更适合需要固定工作流的审计和诊断任务。
+不必每次显式写 skill 名称。任务与 `SKILL.md` 中的描述匹配时，兼容的 Agent 也可以
+自动选择对应 skill；显式调用更适合需要固定工作流的审计和诊断任务。
 
 ## 主要工作流
 
@@ -152,6 +165,8 @@ Steam、控制游戏、安装诊断工具、逆向分析、附加进程或采集
 
 ## 其他平台
 
+- Cursor：放入 `~/.cursor/skills/`、`~/.agents/skills/`，或项目的
+  `.cursor/skills/`、`.agents/skills/`；输入 `/` 可搜索并显式调用。
 - Claude Code：放入 `~/.claude/skills/` 或项目的 `.claude/skills/`。
 - Gemini CLI：放入 `~/.gemini/skills/`、`~/.agents/skills/` 或工作区支持的目录。
 - 支持上传自定义 Skill 的客户端：一次安装同一 release 中的三个 skill ZIP；只有

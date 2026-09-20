@@ -59,6 +59,23 @@ Skills 页面分享给 workspace 成员或生成共享链接。Personal Skills �
 本地开发安装后必须新建任务。旧任务已经固定了启动时可用的 Skills 和 MCP 工具，
 不能用一次重新安装可靠地热替换当前对话的工具清单。
 
+## Cursor
+
+Cursor Agent 会自动发现项目级 `.agents/skills/<skill-name>/` 或
+`.cursor/skills/<skill-name>/`，以及用户级 `~/.agents/skills/<skill-name>/` 或
+`~/.cursor/skills/<skill-name>/`。把同一 release 的三个 skill 目录一起复制到任一
+受支持位置；项目目录适合跟随 MOD 版本控制，用户目录适合多个 MOD 共用。
+
+刷新或重新打开 Agent 后，Cursor 可按任务自动选择 skill，也可以在 Agent 对话中
+输入 `/` 搜索名称并显式调用。Skills 由 Cursor Agent 提供给当前选定的模型，因而
+不绑定特定模型。用户级 `~/.cursor/skills/` 若要提供给 Cloud Agents，需要在 Cursor
+设置中启用 Skills 同步；项目级或其他本地 skill 不会自动复制到远程或自托管 worker。
+
+Cursor 在这里使用的是同一套 Skills 内容。复制 Skills 不会安装 Codex Plugin 中的
+本地 MCP 助手；需要本地 MCP 工具的 Codex 用户仍按上一节安装插件。当前发现路径、
+显式调用与远程 Agent 规则以
+[Cursor Agent Skills 官方文档](https://cursor.com/docs/skills)为准。
+
 ## Claude
 
 Claude Code 的个人目录是 `~/.claude/skills/<skill-name>/`，项目目录是

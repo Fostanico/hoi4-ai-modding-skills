@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 1.6.0 - 2026-09-20
+
 - 将当前版本基线更新到 Operation Postern 1.19.3.0 (5632)，审计官方 1.19.3
   Modding 变更、本机引擎注册 token、原版消费者和 50 份随游戏 Markdown 文档。
 - 新增海军将领胜负战斗 on_action 的真实 scope 链、combatant 战略区判定、
@@ -20,6 +22,8 @@
   PowerShell、Python、Git 和 `rg` 工作流。
 - 增加 Windows 一键安装/刷新脚本，并重写中英文 README 的 Codex 安装入口；脚本
   使用独立本地 marketplace 和 cachebuster，无需手动维护插件 JSON。
+- 增加 Cursor Agent 的中英文安装与调用说明，覆盖 `.agents/skills/`、
+  `.cursor/skills/`、用户级目录、显式调用、模型中立性和 Cloud Agents 同步边界。
 
 ## 1.5.0 - 2026-09-14
 
