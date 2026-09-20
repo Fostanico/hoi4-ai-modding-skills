@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+- 将当前版本基线更新到 Operation Postern 1.19.3.0 (5632)，审计官方 1.19.3
+  Modding 变更、本机引擎注册 token、原版消费者和 50 份随游戏 Markdown 文档。
+- 新增海军将领胜负战斗 on_action 的真实 scope 链、combatant 战略区判定、
+  `set_autonomy.keep_subjects`，并补充 1.19.3 单位 `essential`、营级调整器按装备/人力
+  状态缩放、设施成本与基建互动变化的迁移检查。
+- 记录 1.19.3 文档生成缺口：Army HQ 的 `is_deployed` / `state_deployed` /
+  `province_deployed` 与核心领土 collection operators 已被引擎注册，但缺少完整生成
+  文档或原版文本消费者，因此保持为需定向实机验证的能力，不提供臆造模板。
 - 将仓库扩展为可安装的 Codex Plugin，同时保留三个独立 Skills 及其原有安装方式；
   仓库根目录引用唯一一份 `skills/`，避免为插件维护重复副本。
 - 新增零第三方 Python 依赖、仅使用本地 stdio 的只读 MCP 助手，提供 HOI4 环境

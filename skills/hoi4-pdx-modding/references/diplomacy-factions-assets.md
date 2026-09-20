@@ -8,7 +8,17 @@ Prefer `if` plus `custom_trigger_tooltip` inside the enable trigger.
 
 Military access is gateable. Current vanilla ships
 `DIPLOMACY_MILACC_ENABLE_TRIGGER` and `DIPLOMACY_OFFER_MILACC_ENABLE_TRIGGER`.
-A community claim that military access cannot be blocked is false for 1.19.2.
+A community claim that military access cannot be blocked is false in current
+1.19.3 vanilla.
+
+## Autonomy transitions
+
+In 1.19.3, `set_autonomy` accepts `keep_subjects = yes`. Use it when the target
+country must retain its existing subjects during the autonomy transition.
+Current vanilla places the effect in the overlord country scope and supplies
+the changed country through `target = <country>`. Verify the caller, target,
+new autonomy state, freedom level, war-ending flags, subject ownership, and
+save/reload together; do not assume subject preservation is the default.
 
 `DIPLOMACY_WAR_ENABLE_TRIGGER` appears in the vanilla comment example but is not
 a live shipped trigger. A mod may define it to add a war lock. Same-name

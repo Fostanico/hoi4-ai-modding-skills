@@ -35,6 +35,12 @@
 - Use event-level `after = { ... }` for shared work that must run after the
   selected option. Keep pre-option setup in `immediate`, and test every option
   because moving option-specific work into `after` changes lifecycle semantics.
+- In 1.19.3, `on_navy_leader_won_combat` and
+  `on_navy_leader_lost_combat` expose `THIS = admiral`, `FROM = owner country`,
+  and `FROM.FROM = combatant`. The combatant accepts
+  `is_fighting_in_strategic_region = <strategic region ID>`. Keep consumers in
+  this immediate scope chain and do not confuse strategic-region IDs with AI
+  areas.
 
 Minimal pattern:
 

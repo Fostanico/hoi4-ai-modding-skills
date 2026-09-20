@@ -50,15 +50,16 @@ Attribution records provenance, not proof of current engine behavior.
 ## Current official-source supplement
 
 The 2026-07-13 update added a separate, original summary of Paradox's official
-Steam news for Hearts of Iron IV from 2024-03-06 through 2026-07-07. See
+Steam news for Hearts of Iron IV; it was extended through patch 1.19.3 on
+2026-09-20. See
 `recent-official-modding-changes.md` for the entry-by-entry links and the
 current-version verification status.
 
 - Official feed: [Hearts of Iron IV Steam news](https://store.steampowered.com/news/app/394360)
-- Local vanilla snapshot verified: Operation Postern 1.19.2.0 (d245)
+- Local vanilla snapshot verified: Operation Postern 1.19.3.0 (5632)
 - Local generated sources: installed `documentation/*.md` and
   `common/**/_documentation.md`
-- Verification date: 2026-07-13
+- Verification date: 2026-09-20
 
 Steam news is used to discover additions, removals, deprecations, engine fixes,
 and changed semantics. The installed generated documentation and working
@@ -81,6 +82,15 @@ limitations, and a special-project design document containing explicit
 TODO/TBD material. The installed files are Paradox source material; this skill
 contains an original reduced map and paraphrased operational guidance, not a
 copy of those manuals.
+
+The 2026-09-20 refresh found the same 50-path Markdown inventory in 1.19.3,
+then checked the new patch-note claims against the installed executable token
+registry and current vanilla consumers. `on_navy_leader_won_combat`,
+`on_navy_leader_lost_combat`, `is_fighting_in_strategic_region`, and
+`set_autonomy.keep_subjects` have current vanilla consumers. The HQ deployment
+tokens and core-state collection operators are registered by the engine but
+missing from generated Markdown and complete vanilla text examples, so the
+skills preserve that evidence gap rather than inventing templates.
 
 ## Community skill review supplement
 

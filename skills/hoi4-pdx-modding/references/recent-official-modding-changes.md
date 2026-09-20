@@ -1,9 +1,10 @@
-# Recent official HOI4 modding changes (1.14.1-1.19.2)
+# Recent official HOI4 modding changes (1.14.1-1.19.3)
 
 ## Contents
 
 - Purpose and evidence policy
-- Current 1.19.2 source map
+- Current 1.19.3 source map
+- Verified 1.19.3 additions
 - Verified current patterns
 - Migration and compatibility gates
 - Official news audit
@@ -12,8 +13,8 @@
 
 Use this reference when a task concerns a feature added, changed, deprecated, or
 fixed since 1.14, or when the Wiki may lag the installed game. The audit covers
-official Steam news from 2024-03-06 through 2026-07-07. The last article in that
-window with a dedicated modding section is patch 1.19.2 on 2026-06-30.
+official Steam news from 2024-03-06 through 2026-09-17. The last article in that
+window with a dedicated modding section is patch 1.19.3 on 2026-09-17.
 
 Official news is a change-discovery source, not a complete schema. Apply a
 reported token only after finding it in the installed version's generated
@@ -23,15 +24,15 @@ intent with a name that differs from the shipped documentation.
 For the current local installation, `launcher-settings.json` reports:
 
 ```text
-Operation Postern v1.19.2.0.a729 (d245)
+Operation Postern v1.19.3.0.c01a (5632)
 ```
 
 Do not treat this snapshot as permanent. Re-read `launcher-settings.json` and
 the newest Steam patch notes after an update.
 
-## Current 1.19.2 source map
+## Current 1.19.3 source map
 
-Prefer the generated 1.19.2 documentation under the installed game:
+Prefer the generated 1.19.3 documentation under the installed game:
 
 ```text
 documentation/script_concept_documentation.md
@@ -60,16 +61,104 @@ Generated documents establish supported scopes and parameter shapes. Current
 vanilla definitions establish the exact nesting and caller context. Check both
 when either source is incomplete.
 
+The 1.19.3 Markdown inventory is still 50 files (11 under `documentation`, 39
+under `common`), but it does not yet describe every 1.19.3 addition. The engine
+registers `is_deployed`, `state_deployed`, `province_deployed`, `is_core_of`,
+`is_not_core_of`, and `is_fighting_in_strategic_region`; generated trigger,
+dynamic-variable, and collection-operator documents omit some or all of those
+entries. In that situation, combine the official patch note, current executable
+token registration, and a current vanilla consumer. If no consumer exists,
+mark the parameter shape as provisional and require a focused runtime test.
+
 See `vanilla-documentation-map.md` for the complete 50-file inventory, source
 limitations, exact lookup workflow, and the current high-value findings that
 are broader than the Steam change log.
+
+## Verified 1.19.3 additions
+
+### Admiral combat callbacks and combatant-region trigger
+
+Current vanilla registers both callbacks in `common/on_actions/00_on_actions.txt`
+and consumes them in `14_sea_on_actions.txt`:
+
+```pdx
+on_navy_leader_won_combat = { }
+on_navy_leader_lost_combat = { }
+```
+
+For both callbacks, `THIS` is the admiral, `FROM` is the admiral's owner
+country, and `FROM.FROM` is the combatant. The combatant scope accepts:
+
+```pdx
+FROM.FROM = {
+	is_fighting_in_strategic_region = 95
+}
+```
+
+The strategic-region value is an ID, not an AI-area key. Keep combatant work
+inside the callback's immediate scope chain; do not assume that a saved target
+will remain meaningful after combat ends.
+
+### Preserving subjects during autonomy changes
+
+`set_autonomy` now accepts `keep_subjects = yes`. Current Australia content
+uses it while changing AST's autonomy relationship:
+
+```pdx
+OVERLORD = {
+	set_autonomy = {
+		target = AST
+		autonomy_state = autonomy_associated_dominion
+		freedom_level = 0.5
+		end_wars = no
+		end_civil_wars = no
+		keep_subjects = yes
+	}
+}
+```
+
+Use it when the target country must retain its existing subject hierarchy.
+Audit subject ownership before and after the transition; omitting the flag can
+release subjects in paths that previously relied on implicit behavior.
+
+### Core-state collection filters and deployed Army HQ data
+
+Patch 1.19.3 adds the collection-operator forms
+`is_core_of = ScopedVariable` and `is_not_core_of = ScopedVariable`. Prefer
+them over applying the equivalent trigger once per state when filtering a
+large state collection. The current executable registers both operator names,
+but shipped collection documentation and vanilla text contain no complete
+consumer. Do not invent a reusable block from the patch-note shorthand: prove
+the exact scoped-variable form in a focused test before production use.
+
+The engine also registers the unit-leader trigger `is_deployed` and dynamic
+variables `state_deployed` and `province_deployed` for Army HQ leaders. These
+are absent from the current generated trigger and dynamic-variable documents
+and have no current vanilla text consumer. Treat them as 1.19.3 engine
+capabilities with an unresolved authoring example, not as a copy-ready
+template. Test undeployed, deployed, moving, withdrawing, save/reload, and
+non-HQ leaders before relying on them.
+
+### Crash and balance implications
+
+- 1.19.3 fixes a native crash caused by undersized text buffers in modded
+  content. This does not remove layout limits: continue testing wrapping,
+  clipping, localisation expansion, and very long bound text.
+- Battalion adjusters now scale with a sub-unit's equipment and manpower
+  status. Rebalance custom adjusters with understrength as well as fully
+  equipped units; older results can overstate their real effect.
+- Current vanilla adds or changes `essential = { ... }` blocks on several HQ,
+  staff, flame-tank, and support units. Full-file unit overrides must be
+  re-merged so they do not discard the new readiness contract.
+- Facility construction costs and infrastructure interaction changed. Never
+  preserve copied 1.19.2 facility numbers as engine defaults.
 
 ## Verified current patterns
 
 ### Bindable and contextual localisation
 
 1.15 introduced bound localisation objects and localisation formatters. In
-1.19.2, a bindable consumer accepts a plain key, formatted localisation, or a
+1.19.3, a bindable consumer accepts a plain key, formatted localisation, or a
 recursive object:
 
 ```pdx
@@ -111,7 +200,7 @@ one.
 
 ### Math expressions
 
-Current generated 1.19.2 documentation lists these operations:
+Current generated 1.19.3 documentation lists these operations:
 
 ```text
 add and atan atan2 clamp cos divide equals every_collection
@@ -124,7 +213,7 @@ or `0.0`; any non-zero input is true. A parse failure becomes runtime `0.0`.
 Approximate functions can have rounding error; follow with `round = yes` only
 when an integer result is intended.
 
-Patch 1.19.1 said `sqrt` and `exp` were added, but the installed 1.19.2
+Patch 1.19.1 said `sqrt` and `exp` were added, but the installed 1.19.3
 `script_math_functions.md` lists neither. Use the documented square-root form
 `root = 2`, and do not emit `exp` or `sqrt` until a later installed build
 documents or demonstrates those exact tokens.
@@ -132,7 +221,7 @@ documents or demonstrates those exact tokens.
 ### Quantified any-object checks and collections
 
 Patch 1.16 announced `count` for all `any_*` object triggers, including scoped
-variables. Current generated 1.19.2 trigger documentation explicitly shows the
+variables. Current generated 1.19.3 trigger documentation explicitly shows the
 shape on `any_collection_element`: the result is true when at least `count`
 elements match. For other `any_*` triggers, the generated descriptions are not
 uniformly updated, so require a current exact example or a focused runtime test
@@ -183,7 +272,7 @@ Search for these before declaring a 1.19 migration complete:
 on_ruling_party_change_immediate  # deprecated unsafe compatibility hook
 add_temporary_buff_to_units       # removed; use current unit_modifiers schema
 cl_tech                           # removed in 1.17; migrated to ca_tech
-sqrt / exp                        # announced, but absent from local 1.19.2 math docs
+sqrt / exp                        # announced, but absent from local 1.19.3 math docs
 ```
 
 Also audit:
@@ -230,5 +319,6 @@ they report the same change.
 | 2026-04-21 | [1.18 Peace for Our Time](https://store.steampowered.com/news/app/394360/view/1830163047268442) | Advisor-targeted `pp_spend_priority`; normalized stability error checking. |
 | 2026-06-04 | [HOI IV-X update](https://store.steampowered.com/news/app/394360/view/1834602721187475) | `naval_invasion_support_priority`; blocked naval regions respected by AI objectives; equipment-role raw-score debug. |
 | 2026-06-10 | [1.19.0 Thunder at our Gates](https://store.steampowered.com/news/app/394360/view/1835236783557496) | Multi-track subdoctrines and `xor`; scoped decision war hooks; `unlock_subunit`; medal/HQ changes; removal of temporary unit buff effect; raid/leader/entrenchment additions; AI-template debug weights. |
-| 2026-06-17 | [1.19.1](https://store.steampowered.com/news/app/394360/view/1835871199300348) | `impassable_ignored_links`; announced additional math functions, subject to the 1.19.2 documentation caveat above. |
+| 2026-06-17 | [1.19.1](https://store.steampowered.com/news/app/394360/view/1835871199300348) | `impassable_ignored_links`; announced additional math functions, subject to the current documentation caveat above. |
 | 2026-06-30 | [1.19.2](https://store.steampowered.com/news/app/394360/view/1836506165562428) | Updated math docs; logical math operations, `lerp`, `atan`, `atan2`; advisor `always_show_on_actions_tooltip`; raid `unit_animations`. |
+| 2026-09-17 | [1.19.3](https://steamcommunity.com/games/394360/announcements/detail/712286322480383531) | Admiral combat on_actions; combatant strategic-region trigger; `set_autonomy.keep_subjects`; core-state collection operators; Army HQ deployment trigger and variables; safer modded text buffers. |

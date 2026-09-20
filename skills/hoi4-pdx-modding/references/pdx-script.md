@@ -222,11 +222,11 @@ Do not silently translate it using ordinary strict-comparison semantics.
 
 - A malformed math/script-value expression can resolve to zero and cause
   downstream behavior rather than a clear hard failure. Inspect math errors.
-- Current 1.19.2 math expressions use fixed-point arithmetic. Boolean operators
+- Current 1.19.3 math expressions use fixed-point arithmetic. Boolean operators
   return `1.0` or `0.0`, and every non-zero input is true.
 - Use only functions listed by the installed
   `documentation/script_math_functions.md`; do not assume every normal trigger
-  is legal inside a math expression. In local 1.19.2 use `root = 2` for a
+  is legal inside a math expression. In local 1.19.3 use `root = 2` for a
   square root; do not copy the announced but undocumented `sqrt` or `exp` names.
 - Current documented math-only comparisons include
   `greater_than_or_equals` and `less_than_or_equals`. This does not make `>=`
@@ -251,7 +251,7 @@ is the scope from the collection consumer, `ROOT = PREV.ROOT`, and
 another scope transition.
 
 Patch 1.16 announced `count` for all `any_*` object triggers, including a
-scoped-variable count. Current generated 1.19.2 documentation explicitly shows
+scoped-variable count. Current generated 1.19.3 documentation explicitly shows
 it on `any_collection_element`, where it means at least that many children must
 match. For another `any_*`, require generated documentation, a current exact
 example, or a focused runtime test before relying on `count`.

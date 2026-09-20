@@ -2,8 +2,8 @@
     "schemaVersion":  1,
     "target":  {
                    "game":  "Hearts of Iron IV",
-                   "version":  "1.19.2.0",
-                   "build":  "d245"
+                   "version":  "1.19.3.0",
+                   "build":  "5632"
                },
     "generatedFrom":  "references/template-catalog.md and assets/templates|kits",
     "checkDefinitions":  [
@@ -58,9 +58,9 @@
                                                  "currentConsumers":  "`common/abilities/generic_leader_abilities.txt`"
                                              },
                           "verification":  {
-                                               "targetGameVersion":  "1.19.2.0",
-                                               "targetBuild":  "d245",
-                                               "verifiedOn":  "2026-08-31",
+                                               "targetGameVersion":  "1.19.3.0",
+                                               "targetBuild":  "5632",
+                                               "verifiedOn":  "2026-09-20",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -85,9 +85,9 @@
                                                  "currentConsumers":  "trigger `has_completed_custom_achievement`; no vanilla `common/achievements/` folder"
                                              },
                           "verification":  {
-                                               "targetGameVersion":  "1.19.2.0",
-                                               "targetBuild":  "d245",
-                                               "verifiedOn":  "2026-08-31",
+                                               "targetGameVersion":  "1.19.3.0",
+                                               "targetBuild":  "5632",
+                                               "verifiedOn":  "2026-09-20",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -112,9 +112,9 @@
                                                  "currentConsumers":  "`common/ai_areas/default.txt`"
                                              },
                           "verification":  {
-                                               "targetGameVersion":  "1.19.2.0",
-                                               "targetBuild":  "d245",
-                                               "verifiedOn":  "2026-08-31",
+                                               "targetGameVersion":  "1.19.3.0",
+                                               "targetBuild":  "5632",
+                                               "verifiedOn":  "2026-09-20",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -139,9 +139,9 @@
                                                  "currentConsumers":  "`common/ai_templates/templates_INS.txt`, `generic.txt`"
                                              },
                           "verification":  {
-                                               "targetGameVersion":  "1.19.2.0",
-                                               "targetBuild":  "d245",
-                                               "verifiedOn":  "2026-07-17",
+                                               "targetGameVersion":  "1.19.3.0",
+                                               "targetBuild":  "5632",
+                                               "verifiedOn":  "2026-09-20",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -166,9 +166,9 @@
                                                  "currentConsumers":  "`common/ai_equipment/SOV_planes.txt`"
                                              },
                           "verification":  {
-                                               "targetGameVersion":  "1.19.2.0",
-                                               "targetBuild":  "d245",
-                                               "verifiedOn":  "2026-07-17",
+                                               "targetGameVersion":  "1.19.3.0",
+                                               "targetBuild":  "5632",
+                                               "verifiedOn":  "2026-09-20",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -193,9 +193,9 @@
                                                  "currentConsumers":  "`common/ai_strategy/ARG.txt`"
                                              },
                           "verification":  {
-                                               "targetGameVersion":  "1.19.2.0",
-                                               "targetBuild":  "d245",
-                                               "verifiedOn":  "2026-07-17",
+                                               "targetGameVersion":  "1.19.3.0",
+                                               "targetBuild":  "5632",
+                                               "verifiedOn":  "2026-09-20",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -220,9 +220,9 @@
                                                  "currentConsumers":  "`common/decisions/SWI.txt`"
                                              },
                           "verification":  {
-                                               "targetGameVersion":  "1.19.2.0",
-                                               "targetBuild":  "d245",
-                                               "verifiedOn":  "2026-07-17",
+                                               "targetGameVersion":  "1.19.3.0",
+                                               "targetBuild":  "5632",
+                                               "verifiedOn":  "2026-09-20",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -247,9 +247,9 @@
                                                  "currentConsumers":  "`common/bookmarks/the_gathering_storm.txt`"
                                              },
                           "verification":  {
-                                               "targetGameVersion":  "1.19.2.0",
-                                               "targetBuild":  "d245",
-                                               "verifiedOn":  "2026-07-17",
+                                               "targetGameVersion":  "1.19.3.0",
+                                               "targetBuild":  "5632",
+                                               "verifiedOn":  "2026-09-20",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -274,9 +274,9 @@
                                                  "currentConsumers":  "`common/bop/PRC.txt`"
                                              },
                           "verification":  {
-                                               "targetGameVersion":  "1.19.2.0",
-                                               "targetBuild":  "d245",
-                                               "verifiedOn":  "2026-08-31",
+                                               "targetGameVersion":  "1.19.3.0",
+                                               "targetBuild":  "5632",
+                                               "verifiedOn":  "2026-09-20",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -301,9 +301,9 @@
                                                  "currentConsumers":  "`common/buildings/00_buildings.txt`"
                                              },
                           "verification":  {
-                                               "targetGameVersion":  "1.19.2.0",
-                                               "targetBuild":  "d245",
-                                               "verifiedOn":  "2026-08-31",
+                                               "targetGameVersion":  "1.19.3.0",
+                                               "targetBuild":  "5632",
+                                               "verifiedOn":  "2026-09-20",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -328,9 +328,9 @@
                                                  "currentConsumers":  "`common/characters/AFG.txt`, `common/characters/AST.txt`"
                                              },
                           "verification":  {
-                                               "targetGameVersion":  "1.19.2.0",
-                                               "targetBuild":  "d245",
-                                               "verifiedOn":  "2026-07-17",
+                                               "targetGameVersion":  "1.19.3.0",
+                                               "targetBuild":  "5632",
+                                               "verifiedOn":  "2026-09-20",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -355,9 +355,9 @@
                                                  "currentConsumers":  "`common/factions/goals/faction_goals_short_term.txt`"
                                              },
                           "verification":  {
-                                               "targetGameVersion":  "1.19.2.0",
-                                               "targetBuild":  "d245",
-                                               "verifiedOn":  "2026-07-17",
+                                               "targetGameVersion":  "1.19.3.0",
+                                               "targetBuild":  "5632",
+                                               "verifiedOn":  "2026-09-20",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -382,9 +382,9 @@
                                                  "currentConsumers":  "`common/combat_tactics.txt`"
                                              },
                           "verification":  {
-                                               "targetGameVersion":  "1.19.2.0",
-                                               "targetBuild":  "d245",
-                                               "verifiedOn":  "2026-08-31",
+                                               "targetGameVersion":  "1.19.3.0",
+                                               "targetBuild":  "5632",
+                                               "verifiedOn":  "2026-09-20",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -409,9 +409,9 @@
                                                  "currentConsumers":  "`common/continuous_focus/generic.txt`"
                                              },
                           "verification":  {
-                                               "targetGameVersion":  "1.19.2.0",
-                                               "targetBuild":  "d245",
-                                               "verifiedOn":  "2026-08-31",
+                                               "targetGameVersion":  "1.19.3.0",
+                                               "targetBuild":  "5632",
+                                               "verifiedOn":  "2026-09-20",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -436,9 +436,9 @@
                                                  "currentConsumers":  "`common/countries/Germany.txt`"
                                              },
                           "verification":  {
-                                               "targetGameVersion":  "1.19.2.0",
-                                               "targetBuild":  "d245",
-                                               "verifiedOn":  "2026-07-17",
+                                               "targetGameVersion":  "1.19.3.0",
+                                               "targetBuild":  "5632",
+                                               "verifiedOn":  "2026-09-20",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -463,9 +463,9 @@
                                                  "currentConsumers":  "`events/AAT_Generic_Events.txt`, `events/WUW_Germany.txt`"
                                              },
                           "verification":  {
-                                               "targetGameVersion":  "1.19.2.0",
-                                               "targetBuild":  "d245",
-                                               "verifiedOn":  "2026-07-17",
+                                               "targetGameVersion":  "1.19.3.0",
+                                               "targetBuild":  "5632",
+                                               "verifiedOn":  "2026-09-20",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -490,9 +490,9 @@
                                                  "currentConsumers":  "`history/countries/GER - Germany.txt`"
                                              },
                           "verification":  {
-                                               "targetGameVersion":  "1.19.2.0",
-                                               "targetBuild":  "d245",
-                                               "verifiedOn":  "2026-07-17",
+                                               "targetGameVersion":  "1.19.3.0",
+                                               "targetBuild":  "5632",
+                                               "verifiedOn":  "2026-09-20",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -517,9 +517,9 @@
                                                  "currentConsumers":  "`common/country_tags/00_countries.txt`"
                                              },
                           "verification":  {
-                                               "targetGameVersion":  "1.19.2.0",
-                                               "targetBuild":  "d245",
-                                               "verifiedOn":  "2026-07-17",
+                                               "targetGameVersion":  "1.19.3.0",
+                                               "targetBuild":  "5632",
+                                               "verifiedOn":  "2026-09-20",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -544,9 +544,9 @@
                                                  "currentConsumers":  "`history/countries/SIA - Siam.txt`"
                                              },
                           "verification":  {
-                                               "targetGameVersion":  "1.19.2.0",
-                                               "targetBuild":  "d245",
-                                               "verifiedOn":  "2026-08-31",
+                                               "targetGameVersion":  "1.19.3.0",
+                                               "targetBuild":  "5632",
+                                               "verifiedOn":  "2026-09-20",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -571,9 +571,9 @@
                                                  "currentConsumers":  "`common/decisions/AFG.txt`"
                                              },
                           "verification":  {
-                                               "targetGameVersion":  "1.19.2.0",
-                                               "targetBuild":  "d245",
-                                               "verifiedOn":  "2026-07-17",
+                                               "targetGameVersion":  "1.19.3.0",
+                                               "targetBuild":  "5632",
+                                               "verifiedOn":  "2026-09-20",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -598,9 +598,9 @@
                                                  "currentConsumers":  "`common/decisions/categories/AFG_decision_categories.txt`"
                                              },
                           "verification":  {
-                                               "targetGameVersion":  "1.19.2.0",
-                                               "targetBuild":  "d245",
-                                               "verifiedOn":  "2026-07-17",
+                                               "targetGameVersion":  "1.19.3.0",
+                                               "targetBuild":  "5632",
+                                               "verifiedOn":  "2026-09-20",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -625,9 +625,9 @@
                                                  "currentConsumers":  "installed and local working descriptors"
                                              },
                           "verification":  {
-                                               "targetGameVersion":  "1.19.2.0",
-                                               "targetBuild":  "d245",
-                                               "verifiedOn":  "2026-07-17",
+                                               "targetGameVersion":  "1.19.3.0",
+                                               "targetBuild":  "5632",
+                                               "verifiedOn":  "2026-09-20",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -652,9 +652,9 @@
                                                  "currentConsumers":  "project guidance and handoff"
                                              },
                           "verification":  {
-                                               "targetGameVersion":  "1.19.2.0",
-                                               "targetBuild":  "d245",
-                                               "verifiedOn":  "2026-07-17",
+                                               "targetGameVersion":  "1.19.3.0",
+                                               "targetBuild":  "5632",
+                                               "verifiedOn":  "2026-09-20",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -679,9 +679,9 @@
                                                  "currentConsumers":  "`common/scripted_triggers/diplomacy_scripted_triggers.txt`"
                                              },
                           "verification":  {
-                                               "targetGameVersion":  "1.19.2.0",
-                                               "targetBuild":  "d245",
-                                               "verifiedOn":  "2026-08-31",
+                                               "targetGameVersion":  "1.19.3.0",
+                                               "targetBuild":  "5632",
+                                               "verifiedOn":  "2026-09-20",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -706,9 +706,9 @@
                                                  "currentConsumers":  "`common/dynamic_modifiers/wuw_dynamic_modifiers.txt`"
                                              },
                           "verification":  {
-                                               "targetGameVersion":  "1.19.2.0",
-                                               "targetBuild":  "d245",
-                                               "verifiedOn":  "2026-07-17",
+                                               "targetGameVersion":  "1.19.3.0",
+                                               "targetBuild":  "5632",
+                                               "verifiedOn":  "2026-09-20",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -733,9 +733,9 @@
                                                  "currentConsumers":  "`common/units/equipment/modules/00_tank_modules.txt`"
                                              },
                           "verification":  {
-                                               "targetGameVersion":  "1.19.2.0",
-                                               "targetBuild":  "d245",
-                                               "verifiedOn":  "2026-08-31",
+                                               "targetGameVersion":  "1.19.3.0",
+                                               "targetBuild":  "5632",
+                                               "verifiedOn":  "2026-09-20",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -760,9 +760,9 @@
                                                  "currentConsumers":  "`common/decisions/POL.txt`, `WTT_border_conflicts.txt`"
                                              },
                           "verification":  {
-                                               "targetGameVersion":  "1.19.2.0",
-                                               "targetBuild":  "d245",
-                                               "verifiedOn":  "2026-07-17",
+                                               "targetGameVersion":  "1.19.3.0",
+                                               "targetBuild":  "5632",
+                                               "verifiedOn":  "2026-09-20",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -787,9 +787,9 @@
                                                  "currentConsumers":  "`common/factions/goals/faction_goals_short_term.txt`"
                                              },
                           "verification":  {
-                                               "targetGameVersion":  "1.19.2.0",
-                                               "targetBuild":  "d245",
-                                               "verifiedOn":  "2026-07-17",
+                                               "targetGameVersion":  "1.19.3.0",
+                                               "targetBuild":  "5632",
+                                               "verifiedOn":  "2026-09-20",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -814,9 +814,9 @@
                                                  "currentConsumers":  "`common/factions/member_upgrades/member_upgrades.txt`, `member_groups/member_upgrade_groups.txt`"
                                              },
                           "verification":  {
-                                               "targetGameVersion":  "1.19.2.0",
-                                               "targetBuild":  "d245",
-                                               "verifiedOn":  "2026-08-31",
+                                               "targetGameVersion":  "1.19.3.0",
+                                               "targetBuild":  "5632",
+                                               "verifiedOn":  "2026-09-20",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -841,9 +841,9 @@
                                                  "currentConsumers":  "`common/factions/rules/faction_set_goal_rules.txt`"
                                              },
                           "verification":  {
-                                               "targetGameVersion":  "1.19.2.0",
-                                               "targetBuild":  "d245",
-                                               "verifiedOn":  "2026-07-17",
+                                               "targetGameVersion":  "1.19.3.0",
+                                               "targetBuild":  "5632",
+                                               "verifiedOn":  "2026-09-20",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -868,9 +868,9 @@
                                                  "currentConsumers":  "`common/factions/templates/government_of_national_defense.txt`"
                                              },
                           "verification":  {
-                                               "targetGameVersion":  "1.19.2.0",
-                                               "targetBuild":  "d245",
-                                               "verifiedOn":  "2026-07-17",
+                                               "targetGameVersion":  "1.19.3.0",
+                                               "targetBuild":  "5632",
+                                               "verifiedOn":  "2026-09-20",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -895,9 +895,9 @@
                                                  "currentConsumers":  "`common/focus_inlay_windows/sia_khana_ratsadon_inlay_window.txt`"
                                              },
                           "verification":  {
-                                               "targetGameVersion":  "1.19.2.0",
-                                               "targetBuild":  "d245",
-                                               "verifiedOn":  "2026-08-31",
+                                               "targetGameVersion":  "1.19.3.0",
+                                               "targetBuild":  "5632",
+                                               "verifiedOn":  "2026-09-20",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -922,9 +922,9 @@
                                                  "currentConsumers":  "`common/ideas/afghanistan.txt`"
                                              },
                           "verification":  {
-                                               "targetGameVersion":  "1.19.2.0",
-                                               "targetBuild":  "d245",
-                                               "verifiedOn":  "2026-07-17",
+                                               "targetGameVersion":  "1.19.3.0",
+                                               "targetBuild":  "5632",
+                                               "verifiedOn":  "2026-09-20",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -949,9 +949,9 @@
                                                  "currentConsumers":  "`common/intelligence_agency_upgrades/intelligence_agency_upgrades.txt`"
                                              },
                           "verification":  {
-                                               "targetGameVersion":  "1.19.2.0",
-                                               "targetBuild":  "d245",
-                                               "verifiedOn":  "2026-08-31",
+                                               "targetGameVersion":  "1.19.3.0",
+                                               "targetBuild":  "5632",
+                                               "verifiedOn":  "2026-09-20",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -976,9 +976,9 @@
                                                  "currentConsumers":  "`common/national_focus/indonesia_joint.txt`"
                                              },
                           "verification":  {
-                                               "targetGameVersion":  "1.19.2.0",
-                                               "targetBuild":  "d245",
-                                               "verifiedOn":  "2026-08-31",
+                                               "targetGameVersion":  "1.19.3.0",
+                                               "targetBuild":  "5632",
+                                               "verifiedOn":  "2026-09-20",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -1003,9 +1003,9 @@
                                                  "currentConsumers":  "`common/ideas/_economic.txt`"
                                              },
                           "verification":  {
-                                               "targetGameVersion":  "1.19.2.0",
-                                               "targetBuild":  "d245",
-                                               "verifiedOn":  "2026-08-31",
+                                               "targetGameVersion":  "1.19.3.0",
+                                               "targetBuild":  "5632",
+                                               "verifiedOn":  "2026-09-20",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -1030,9 +1030,9 @@
                                                  "currentConsumers":  "`localisation/english/*.yml`"
                                              },
                           "verification":  {
-                                               "targetGameVersion":  "1.19.2.0",
-                                               "targetBuild":  "d245",
-                                               "verifiedOn":  "2026-07-17",
+                                               "targetGameVersion":  "1.19.3.0",
+                                               "targetBuild":  "5632",
+                                               "verifiedOn":  "2026-09-20",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -1058,9 +1058,9 @@
                                                  "currentConsumers":  "`localisation/japanese/*.yml`"
                                              },
                           "verification":  {
-                                               "targetGameVersion":  "1.19.2.0",
-                                               "targetBuild":  "d245",
-                                               "verifiedOn":  "2026-07-17",
+                                               "targetGameVersion":  "1.19.3.0",
+                                               "targetBuild":  "5632",
+                                               "verifiedOn":  "2026-09-20",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -1086,9 +1086,9 @@
                                                  "currentConsumers":  "`localisation/russian/*.yml`"
                                              },
                           "verification":  {
-                                               "targetGameVersion":  "1.19.2.0",
-                                               "targetBuild":  "d245",
-                                               "verifiedOn":  "2026-07-17",
+                                               "targetGameVersion":  "1.19.3.0",
+                                               "targetBuild":  "5632",
+                                               "verifiedOn":  "2026-09-20",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -1114,9 +1114,9 @@
                                                  "currentConsumers":  "`localisation/simp_chinese/*.yml`"
                                              },
                           "verification":  {
-                                               "targetGameVersion":  "1.19.2.0",
-                                               "targetBuild":  "d245",
-                                               "verifiedOn":  "2026-07-17",
+                                               "targetGameVersion":  "1.19.3.0",
+                                               "targetBuild":  "5632",
+                                               "verifiedOn":  "2026-09-20",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -1142,9 +1142,9 @@
                                                  "currentConsumers":  "installed documentation example; no live vanilla consumer"
                                              },
                           "verification":  {
-                                               "targetGameVersion":  "1.19.2.0",
-                                               "targetBuild":  "d245",
-                                               "verifiedOn":  "2026-08-31",
+                                               "targetGameVersion":  "1.19.3.0",
+                                               "targetBuild":  "5632",
+                                               "verifiedOn":  "2026-09-20",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -1169,9 +1169,9 @@
                                                  "currentConsumers":  "`common/military_industrial_organization/organizations/SLO_organization.txt`"
                                              },
                           "verification":  {
-                                               "targetGameVersion":  "1.19.2.0",
-                                               "targetBuild":  "d245",
-                                               "verifiedOn":  "2026-07-17",
+                                               "targetGameVersion":  "1.19.3.0",
+                                               "targetBuild":  "5632",
+                                               "verifiedOn":  "2026-09-20",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -1196,9 +1196,9 @@
                                                  "currentConsumers":  "`common/decisions/INS.txt`"
                                              },
                           "verification":  {
-                                               "targetGameVersion":  "1.19.2.0",
-                                               "targetBuild":  "d245",
-                                               "verifiedOn":  "2026-08-31",
+                                               "targetGameVersion":  "1.19.3.0",
+                                               "targetBuild":  "5632",
+                                               "verifiedOn":  "2026-09-20",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -1223,9 +1223,9 @@
                                                  "currentConsumers":  "`gfx/models/animations_test.asset`"
                                              },
                           "verification":  {
-                                               "targetGameVersion":  "1.19.2.0",
-                                               "targetBuild":  "d245",
-                                               "verifiedOn":  "2026-07-17",
+                                               "targetGameVersion":  "1.19.3.0",
+                                               "targetBuild":  "5632",
+                                               "verifiedOn":  "2026-09-20",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -1251,9 +1251,9 @@
                                                  "currentConsumers":  "`gfx/models/buildings/bridge_railway.asset`"
                                              },
                           "verification":  {
-                                               "targetGameVersion":  "1.19.2.0",
-                                               "targetBuild":  "d245",
-                                               "verifiedOn":  "2026-07-17",
+                                               "targetGameVersion":  "1.19.3.0",
+                                               "targetBuild":  "5632",
+                                               "verifiedOn":  "2026-09-20",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -1279,9 +1279,9 @@
                                                  "currentConsumers":  "project guidance and handoff"
                                              },
                           "verification":  {
-                                               "targetGameVersion":  "1.19.2.0",
-                                               "targetBuild":  "d245",
-                                               "verifiedOn":  "2026-07-17",
+                                               "targetGameVersion":  "1.19.3.0",
+                                               "targetBuild":  "5632",
+                                               "verifiedOn":  "2026-09-20",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -1306,9 +1306,9 @@
                                                  "currentConsumers":  "`common/mtth/mtth_variables.txt`"
                                              },
                           "verification":  {
-                                               "targetGameVersion":  "1.19.2.0",
-                                               "targetBuild":  "d245",
-                                               "verifiedOn":  "2026-08-31",
+                                               "targetGameVersion":  "1.19.3.0",
+                                               "targetBuild":  "5632",
+                                               "verifiedOn":  "2026-09-20",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -1333,9 +1333,9 @@
                                                  "currentConsumers":  "`common/national_focus/afghanistan.txt`"
                                              },
                           "verification":  {
-                                               "targetGameVersion":  "1.19.2.0",
-                                               "targetBuild":  "d245",
-                                               "verifiedOn":  "2026-07-17",
+                                               "targetGameVersion":  "1.19.3.0",
+                                               "targetBuild":  "5632",
+                                               "verifiedOn":  "2026-09-20",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -1360,9 +1360,9 @@
                                                  "currentConsumers":  "`common/on_actions/00_on_actions.txt`"
                                              },
                           "verification":  {
-                                               "targetGameVersion":  "1.19.2.0",
-                                               "targetBuild":  "d245",
-                                               "verifiedOn":  "2026-07-17",
+                                               "targetGameVersion":  "1.19.3.0",
+                                               "targetBuild":  "5632",
+                                               "verifiedOn":  "2026-09-20",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -1387,9 +1387,9 @@
                                                  "currentConsumers":  "`history/units/AFG_1939_air_legacy.txt`"
                                              },
                           "verification":  {
-                                               "targetGameVersion":  "1.19.2.0",
-                                               "targetBuild":  "d245",
-                                               "verifiedOn":  "2026-07-17",
+                                               "targetGameVersion":  "1.19.3.0",
+                                               "targetBuild":  "5632",
+                                               "verifiedOn":  "2026-09-20",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -1414,9 +1414,9 @@
                                                  "currentConsumers":  "`history/units/CZE_1936.txt`"
                                              },
                           "verification":  {
-                                               "targetGameVersion":  "1.19.2.0",
-                                               "targetBuild":  "d245",
-                                               "verifiedOn":  "2026-08-31",
+                                               "targetGameVersion":  "1.19.3.0",
+                                               "targetBuild":  "5632",
+                                               "verifiedOn":  "2026-09-20",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -1441,9 +1441,9 @@
                                                  "currentConsumers":  "`common/operations/00_operations.txt`"
                                              },
                           "verification":  {
-                                               "targetGameVersion":  "1.19.2.0",
-                                               "targetBuild":  "d245",
-                                               "verifiedOn":  "2026-08-31",
+                                               "targetGameVersion":  "1.19.3.0",
+                                               "targetBuild":  "5632",
+                                               "verifiedOn":  "2026-09-20",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -1468,9 +1468,9 @@
                                                  "currentConsumers":  "`common/opinion_modifiers/00_opinion_modifiers.txt`"
                                              },
                           "verification":  {
-                                               "targetGameVersion":  "1.19.2.0",
-                                               "targetBuild":  "d245",
-                                               "verifiedOn":  "2026-08-31",
+                                               "targetGameVersion":  "1.19.3.0",
+                                               "targetBuild":  "5632",
+                                               "verifiedOn":  "2026-09-20",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -1495,9 +1495,9 @@
                                                  "currentConsumers":  "`common/raids/categories/raid_categories.txt`"
                                              },
                           "verification":  {
-                                               "targetGameVersion":  "1.19.2.0",
-                                               "targetBuild":  "d245",
-                                               "verifiedOn":  "2026-07-17",
+                                               "targetGameVersion":  "1.19.3.0",
+                                               "targetBuild":  "5632",
+                                               "verifiedOn":  "2026-09-20",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -1522,9 +1522,9 @@
                                                  "currentConsumers":  "`common/raids/land_infiltration_raids.txt`"
                                              },
                           "verification":  {
-                                               "targetGameVersion":  "1.19.2.0",
-                                               "targetBuild":  "d245",
-                                               "verifiedOn":  "2026-07-17",
+                                               "targetGameVersion":  "1.19.3.0",
+                                               "targetBuild":  "5632",
+                                               "verifiedOn":  "2026-09-20",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -1549,9 +1549,9 @@
                                                  "currentConsumers":  "`common/ai_strategy/USA.txt`, `INS.txt`"
                                              },
                           "verification":  {
-                                               "targetGameVersion":  "1.19.2.0",
-                                               "targetBuild":  "d245",
-                                               "verifiedOn":  "2026-08-31",
+                                               "targetGameVersion":  "1.19.3.0",
+                                               "targetBuild":  "5632",
+                                               "verifiedOn":  "2026-09-20",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -1576,9 +1576,9 @@
                                                  "currentConsumers":  "`common/characters/CAN.txt`"
                                              },
                           "verification":  {
-                                               "targetGameVersion":  "1.19.2.0",
-                                               "targetBuild":  "d245",
-                                               "verifiedOn":  "2026-07-17",
+                                               "targetGameVersion":  "1.19.3.0",
+                                               "targetBuild":  "5632",
+                                               "verifiedOn":  "2026-09-20",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -1603,9 +1603,9 @@
                                                  "currentConsumers":  "`common/scripted_diplomatic_actions/scripted_diplomatic_actions.txt`"
                                              },
                           "verification":  {
-                                               "targetGameVersion":  "1.19.2.0",
-                                               "targetBuild":  "d245",
-                                               "verifiedOn":  "2026-08-31",
+                                               "targetGameVersion":  "1.19.3.0",
+                                               "targetBuild":  "5632",
+                                               "verifiedOn":  "2026-09-20",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -1630,9 +1630,9 @@
                                                  "currentConsumers":  "`common/scripted_effects/00_scripted_effects.txt`"
                                              },
                           "verification":  {
-                                               "targetGameVersion":  "1.19.2.0",
-                                               "targetBuild":  "d245",
-                                               "verifiedOn":  "2026-07-17",
+                                               "targetGameVersion":  "1.19.3.0",
+                                               "targetBuild":  "5632",
+                                               "verifiedOn":  "2026-09-20",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -1657,9 +1657,9 @@
                                                  "currentConsumers":  "`common/scripted_localisation/00_scripted_localisation.txt`"
                                              },
                           "verification":  {
-                                               "targetGameVersion":  "1.19.2.0",
-                                               "targetBuild":  "d245",
-                                               "verifiedOn":  "2026-07-17",
+                                               "targetGameVersion":  "1.19.3.0",
+                                               "targetBuild":  "5632",
+                                               "verifiedOn":  "2026-09-20",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -1684,9 +1684,9 @@
                                                  "currentConsumers":  "`common/scripted_triggers/00_diplo_action_valid_triggers.txt`"
                                              },
                           "verification":  {
-                                               "targetGameVersion":  "1.19.2.0",
-                                               "targetBuild":  "d245",
-                                               "verifiedOn":  "2026-07-17",
+                                               "targetGameVersion":  "1.19.3.0",
+                                               "targetBuild":  "5632",
+                                               "verifiedOn":  "2026-09-20",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -1711,9 +1711,9 @@
                                                  "currentConsumers":  "`common/special_projects/projects/radar_projects.txt`"
                                              },
                           "verification":  {
-                                               "targetGameVersion":  "1.19.2.0",
-                                               "targetBuild":  "d245",
-                                               "verifiedOn":  "2026-07-17",
+                                               "targetGameVersion":  "1.19.3.0",
+                                               "targetBuild":  "5632",
+                                               "verifiedOn":  "2026-09-20",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -1738,9 +1738,9 @@
                                                  "currentConsumers":  "`interface/goals.gfx`"
                                              },
                           "verification":  {
-                                               "targetGameVersion":  "1.19.2.0",
-                                               "targetBuild":  "d245",
-                                               "verifiedOn":  "2026-07-17",
+                                               "targetGameVersion":  "1.19.3.0",
+                                               "targetBuild":  "5632",
+                                               "verifiedOn":  "2026-09-20",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -1766,9 +1766,9 @@
                                                  "currentConsumers":  "`history/states/64-Brandenburg.txt`"
                                              },
                           "verification":  {
-                                               "targetGameVersion":  "1.19.2.0",
-                                               "targetBuild":  "d245",
-                                               "verifiedOn":  "2026-07-17",
+                                               "targetGameVersion":  "1.19.3.0",
+                                               "targetBuild":  "5632",
+                                               "verifiedOn":  "2026-09-20",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -1793,9 +1793,9 @@
                                                  "currentConsumers":  "`common/national_focus/china_communist_sea.txt`"
                                              },
                           "verification":  {
-                                               "targetGameVersion":  "1.19.2.0",
-                                               "targetBuild":  "d245",
-                                               "verifiedOn":  "2026-07-17",
+                                               "targetGameVersion":  "1.19.3.0",
+                                               "targetBuild":  "5632",
+                                               "verifiedOn":  "2026-09-20",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -1820,9 +1820,9 @@
                                                  "currentConsumers":  "`common/doctrines/subdoctrines/land/infantry_subdoctrines.txt`"
                                              },
                           "verification":  {
-                                               "targetGameVersion":  "1.19.2.0",
-                                               "targetBuild":  "d245",
-                                               "verifiedOn":  "2026-08-31",
+                                               "targetGameVersion":  "1.19.3.0",
+                                               "targetBuild":  "5632",
+                                               "verifiedOn":  "2026-09-20",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -1847,9 +1847,9 @@
                                                  "currentConsumers":  "`common/decisions/AUS.txt`"
                                              },
                           "verification":  {
-                                               "targetGameVersion":  "1.19.2.0",
-                                               "targetBuild":  "d245",
-                                               "verifiedOn":  "2026-07-17",
+                                               "targetGameVersion":  "1.19.3.0",
+                                               "targetBuild":  "5632",
+                                               "verifiedOn":  "2026-09-20",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -1874,9 +1874,9 @@
                                                  "currentConsumers":  "`common/unit_leader/00_traits.txt`, `ETH_traits.txt`"
                                              },
                           "verification":  {
-                                               "targetGameVersion":  "1.19.2.0",
-                                               "targetBuild":  "d245",
-                                               "verifiedOn":  "2026-08-31",
+                                               "targetGameVersion":  "1.19.3.0",
+                                               "targetBuild":  "5632",
+                                               "verifiedOn":  "2026-09-20",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -1901,9 +1901,9 @@
                                                  "currentConsumers":  "`common/units/names/00_FRA_names.txt`"
                                              },
                           "verification":  {
-                                               "targetGameVersion":  "1.19.2.0",
-                                               "targetBuild":  "d245",
-                                               "verifiedOn":  "2026-07-17",
+                                               "targetGameVersion":  "1.19.3.0",
+                                               "targetBuild":  "5632",
+                                               "verifiedOn":  "2026-09-20",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -1928,9 +1928,9 @@
                                                  "currentConsumers":  "`common/units/infantry.txt`"
                                              },
                           "verification":  {
-                                               "targetGameVersion":  "1.19.2.0",
-                                               "targetBuild":  "d245",
-                                               "verifiedOn":  "2026-08-31",
+                                               "targetGameVersion":  "1.19.3.0",
+                                               "targetBuild":  "5632",
+                                               "verifiedOn":  "2026-09-20",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -1958,9 +1958,9 @@
                                                  "currentConsumers":  "`interface/core.gfx`, current `localisation/*/*.yml`, current bound/context-aware GUI consumers"
                                              },
                           "verification":  {
-                                               "targetGameVersion":  "1.19.2.0",
-                                               "targetBuild":  "d245",
-                                               "verifiedOn":  "2026-07-17",
+                                               "targetGameVersion":  "1.19.3.0",
+                                               "targetBuild":  "5632",
+                                               "verifiedOn":  "2026-09-20",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -1994,9 +1994,9 @@
                                                  "currentConsumers":  "current vanilla decision-category scripted-GUI consumers; field-tested `500x220` cover layout"
                                              },
                           "verification":  {
-                                               "targetGameVersion":  "1.19.2.0",
-                                               "targetBuild":  "d245",
-                                               "verifiedOn":  "2026-08-14",
+                                               "targetGameVersion":  "1.19.3.0",
+                                               "targetBuild":  "5632",
+                                               "verifiedOn":  "2026-09-20",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -2028,9 +2028,9 @@
                                                  "currentConsumers":  "rows above"
                                              },
                           "verification":  {
-                                               "targetGameVersion":  "1.19.2.0",
-                                               "targetBuild":  "d245",
-                                               "verifiedOn":  "2026-07-17",
+                                               "targetGameVersion":  "1.19.3.0",
+                                               "targetBuild":  "5632",
+                                               "verifiedOn":  "2026-09-20",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -2059,9 +2059,9 @@
                                                  "currentConsumers":  "`common/frontend/backgrounds/base_backgrounds.txt`, `interface/small_background.gfx`"
                                              },
                           "verification":  {
-                                               "targetGameVersion":  "1.19.2.0",
-                                               "targetBuild":  "d245",
-                                               "verifiedOn":  "2026-07-17",
+                                               "targetGameVersion":  "1.19.3.0",
+                                               "targetBuild":  "5632",
+                                               "verifiedOn":  "2026-09-20",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -2092,9 +2092,9 @@
                                                  "currentConsumers":  "`common/game_rules/00_game_rules.txt`, `common/on_actions/00_on_actions.txt`, `events/AAT_Sweden.txt`"
                                              },
                           "verification":  {
-                                               "targetGameVersion":  "1.19.2.0",
-                                               "targetBuild":  "d245",
-                                               "verifiedOn":  "2026-08-09",
+                                               "targetGameVersion":  "1.19.3.0",
+                                               "targetBuild":  "5632",
+                                               "verifiedOn":  "2026-09-20",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -2124,9 +2124,9 @@
                                                  "currentConsumers":  "`music/music.asset`, `music/_songs.txt`"
                                              },
                           "verification":  {
-                                               "targetGameVersion":  "1.19.2.0",
-                                               "targetBuild":  "d245",
-                                               "verifiedOn":  "2026-07-17",
+                                               "targetGameVersion":  "1.19.3.0",
+                                               "targetBuild":  "5632",
+                                               "verifiedOn":  "2026-09-20",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -2159,9 +2159,9 @@
                                                  "currentConsumers":  "`events/USA.txt`, `events/AAT_Denmark.txt`, `common/unit_leader/00_traits.txt`, ace/operative GFX consumers"
                                              },
                           "verification":  {
-                                               "targetGameVersion":  "1.19.2.0",
-                                               "targetBuild":  "d245",
-                                               "verifiedOn":  "2026-07-17",
+                                               "targetGameVersion":  "1.19.3.0",
+                                               "targetBuild":  "5632",
+                                               "verifiedOn":  "2026-09-20",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -2193,9 +2193,9 @@
                                                  "currentConsumers":  "vanilla scripted-GUI and sprite consumers"
                                              },
                           "verification":  {
-                                               "targetGameVersion":  "1.19.2.0",
-                                               "targetBuild":  "d245",
-                                               "verifiedOn":  "2026-07-17",
+                                               "targetGameVersion":  "1.19.3.0",
+                                               "targetBuild":  "5632",
+                                               "verifiedOn":  "2026-09-20",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -2226,9 +2226,9 @@
                                                  "currentConsumers":  "`common/decisions/AUS.txt`, `POL.txt`, current event consumers"
                                              },
                           "verification":  {
-                                               "targetGameVersion":  "1.19.2.0",
-                                               "targetBuild":  "d245",
-                                               "verifiedOn":  "2026-07-17",
+                                               "targetGameVersion":  "1.19.3.0",
+                                               "targetBuild":  "5632",
+                                               "verifiedOn":  "2026-09-20",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },
@@ -2259,9 +2259,9 @@
                                                  "currentConsumers":  "`common/technologies/infantry.txt`, `common/units/equipment/infantry.txt`, `interface/Technologies.gfx`"
                                              },
                           "verification":  {
-                                               "targetGameVersion":  "1.19.2.0",
-                                               "targetBuild":  "d245",
-                                               "verifiedOn":  "2026-08-09",
+                                               "targetGameVersion":  "1.19.3.0",
+                                               "targetBuild":  "5632",
+                                               "verifiedOn":  "2026-09-20",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },

@@ -9,7 +9,7 @@ $manifestPath = Join-Path $SkillRoot 'assets\template-manifest.json'
 $manifest = [IO.File]::ReadAllText($manifestPath, [Text.Encoding]::UTF8) | ConvertFrom-Json
 $errors = [Collections.Generic.List[string]]::new()
 if ($manifest.schemaVersion -ne 1) { $errors.Add('schemaVersion must be 1.') }
-if ($manifest.target.version -ne '1.19.2.0' -or $manifest.target.build -ne 'd245') { $errors.Add('Target version/build must be explicit and current for this catalog.') }
+if ($manifest.target.version -ne '1.19.3.0' -or $manifest.target.build -ne '5632') { $errors.Add('Target version/build must be explicit and current for this catalog.') }
 $checkIds = [Collections.Generic.HashSet[string]]::new([StringComparer]::Ordinal)
 foreach ($check in @($manifest.checkDefinitions)) {
     if ([string]::IsNullOrWhiteSpace([string]$check.id) -or [string]::IsNullOrWhiteSpace([string]$check.meaning)) { $errors.Add('Every check definition requires id and meaning.'); continue }

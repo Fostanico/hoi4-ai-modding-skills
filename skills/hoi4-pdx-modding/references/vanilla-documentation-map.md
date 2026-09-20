@@ -1,4 +1,4 @@
-# Installed vanilla documentation map (1.19.2)
+# Installed vanilla documentation map (1.19.3)
 
 ## Contents
 
@@ -11,8 +11,8 @@
 
 ## Authority and limitations
 
-This snapshot covers all 50 Markdown files found on 2026-07-13 in an installed
-`Operation Postern v1.19.2.0.a729 (d245)` build. Discover the user's current
+This snapshot covers all 50 Markdown files found on 2026-09-20 in an installed
+`Operation Postern v1.19.3.0.c01a (5632)` build. Discover the user's current
 game root and version before relying on the inventory.
 
 Use an installed Markdown document as the exact token, supported-scope, and
@@ -35,6 +35,16 @@ reliable:
   by the game but not necessarily consumed in every context. A listed modifier
   is not proof that a specific idea, trait, MIO, doctrine, or dynamic modifier
   accepts it.
+
+Patch 1.19.3 exposes a concrete generator lag. The executable registers
+`is_fighting_in_strategic_region`, `is_deployed`, `state_deployed`,
+`province_deployed`, `is_core_of`, and `is_not_core_of`, while the generated
+trigger, dynamic-variable, and collection-operator documents omit some or all
+of them. Current vanilla proves the strategic-region trigger and the two
+admiral callbacks; it does not provide text consumers for the HQ deployment
+tokens or core-state operators. For undocumented additions, require all
+available layers of evidence and label missing parameter/lifecycle details
+instead of silently treating the generated index as exhaustive.
 
 Never turn a comment containing `TODO`, `TBD`, “syntax just for reference”, or
 an unresolved question into a reusable production template without a current
@@ -79,6 +89,11 @@ object proves the consumer, nesting, lifecycle, and surrounding scope.
 - `count_in_collection` is country-scoped and its `unit`, `buildings`, and
   `manpower` modes are mutually exclusive. Current 1.19 also documents
   `equipment_ratio`, `unit_category`, and `stockpile` filters.
+- 1.19.3 registers `is_core_of = ScopedVariable` and
+  `is_not_core_of = ScopedVariable` as collection operators. They are intended
+  to avoid per-element trigger filtering, but the shipped operator document
+  has no entry or example. Do not invent the scoped-variable spelling or
+  nesting without a focused runtime test.
 
 ### Variables, constants, and scope existence
 
@@ -94,6 +109,19 @@ object proves the consumer, nesting, lifecycle, and surrounding scope.
 - Hot reload requires reloading the constants database and then every database
   that consumed the constants; reloading constants alone does not reinject
   values into already loaded objects.
+- 1.19.3 registers unit-leader `state_deployed` and `province_deployed`, plus
+  the `is_deployed` trigger for Army HQ. Generated documents and current
+  vanilla text do not yet explain undeployed sentinel values, movement, or
+  non-HQ behavior, so test those states before using them in production.
+
+### Combat callbacks and ephemeral scopes
+
+- `on_navy_leader_won_combat` and `on_navy_leader_lost_combat` use
+  `THIS = admiral`, `FROM = owner country`, and `FROM.FROM = combatant` in
+  current 1.19.3 vanilla.
+- `is_fighting_in_strategic_region = <ID>` is a combatant-scope trigger. The
+  value is a strategic-region ID. Use it inside the callback scope chain and
+  do not assume the combatant remains valid after combat ends.
 
 ### Decisions and frequently evaluated UI
 

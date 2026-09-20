@@ -85,6 +85,23 @@ technology unlock -> equipment archetype/type -> module-valid variant
 - Use explicit DLC/fallback branches where required. Another mod's number of
   airframes, equipment groups, or module taxonomy is not an engine invariant.
 
+## Army HQ deployment data and sub-unit readiness
+
+- HOI4 1.19.3 registers the unit-leader trigger `is_deployed` and dynamic
+  variables `state_deployed` and `province_deployed` for Army HQ leaders.
+  They are not present in the shipped generated trigger/dynamic-variable
+  Markdown and have no current vanilla text consumer. Treat their exact value
+  behavior as provisional and test undeployed, deployed, moving, withdrawing,
+  save/reload, and non-HQ leaders before use.
+- Battalion adjusters now scale with the equipment and manpower status of the
+  affected sub-unit. Test custom adjusters at full strength and at realistic
+  shortages; a fully equipped tooltip or old 1.19.2 result is not enough.
+- `essential = { ... }` determines equipment without which a sub-unit should
+  not contribute its intended capability. Current 1.19.3 adds or changes these
+  blocks for multiple HQ, staff, flame-tank, and support definitions. Re-merge
+  full unit-file overrides and trace `essential`, `need`, manpower, unlock, AI,
+  and template consumers together.
+
 ## Goal-based naval AI and faction theatres
 
 - Naval goals define an objective type, country allow/block lists, and a
@@ -121,4 +138,4 @@ Check current installed copies of `common/ai_strategy/_documentation.md`,
 
 The Wiki explains the systems, but installed documentation and working vanilla
 files decide exact current-version tokens. Re-read `launcher-settings.json`
-before retaining the `1.19.2` assumptions in this reference.
+before retaining the `1.19.3` assumptions in this reference.

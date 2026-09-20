@@ -1,7 +1,7 @@
 # Verified template catalog
 
-Verified against installed Hearts of Iron IV Operation Postern 1.19.2.0 (d245)
-on 2026-07-16 through 2026-08-31. Paths below are relative to the installed
+Verified against installed Hearts of Iron IV Operation Postern 1.19.3.0 (5632)
+on 2026-09-20. Paths below are relative to the installed
 game root.
 
 | Resource | Intended use | Installed documentation | Current vanilla consumer |

@@ -168,7 +168,7 @@ any_collection_element = {
 ```
 
 `count` means at least this many matches and can be a scoped variable. Patch
-1.16 announced it for all `any_*` object triggers, but current generated 1.19.2
+1.16 announced it for all `any_*` object triggers, but current generated 1.19.3
 documentation explicitly demonstrates this collection form. Require an exact
 current example or focused runtime test before changing the consumer.
 
@@ -198,7 +198,7 @@ set_temp_variable = {
 ```
 
 Use only functions listed in the installed `script_math_functions.md`. In the
-local 1.19.2 build, square root is `root = 2`; `sqrt` and `exp` are not
+local 1.19.3 build, square root is `root = 2`; `sqrt` and `exp` are not
 documented tokens.
 
 ## Collection size with inclusive comparisons

@@ -1,7 +1,7 @@
 # Verified advanced patterns
 
 These resources absorb reusable parts of the Workshop tutorial library into
-the skill itself. They target installed HOI4 1.19.2.0 (d245); copy the file,
+the skill itself. They target installed HOI4 1.19.3.0 (5632); copy the file,
 replace every `MOD` marker, and re-run the verification workflow after a
 game update.
 

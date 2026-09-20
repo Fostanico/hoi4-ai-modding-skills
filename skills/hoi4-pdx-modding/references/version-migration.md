@@ -1,7 +1,7 @@
 # Version migration
 
-Verified against installed Hearts of Iron IV Operation Postern 1.19.2.0
-(d245) on 2026-07-17. Community adaptation guides are discovery material;
+Verified against installed Hearts of Iron IV Operation Postern 1.19.3.0
+(5632) on 2026-09-20. Community adaptation guides are discovery material;
 installed documentation and current vanilla consumers decide the emitted code.
 
 ## Migration order
@@ -22,6 +22,34 @@ installed documentation and current vanilla consumers decide the emitted code.
    audio playback, shader compilation, or save migration.
 
 ## Current high-risk gates
+
+### Operation Postern 1.19.3
+
+For a 1.19.2-to-1.19.3 migration, audit these paths before broad testing:
+
+- Full overrides of `common/on_actions/00_on_actions.txt` must retain
+  `on_navy_leader_won_combat` and `on_navy_leader_lost_combat`. Both use
+  `THIS = admiral`, `FROM = owner country`, and `FROM.FROM = combatant`.
+- Naval-combat content can use
+  `is_fighting_in_strategic_region = <strategic region ID>` only from a
+  combatant scope. Do not substitute an AI-area token.
+- `set_autonomy` paths that should preserve a target country's existing
+  subjects need `keep_subjects = yes`; test both subject ownership and war
+  state after the transition.
+- New collection operators `is_core_of` and `is_not_core_of`, and Army HQ
+  tokens `is_deployed`, `state_deployed`, and `province_deployed`, are present
+  in the 1.19.3 engine but missing from the shipped generated Markdown. With no
+  complete current vanilla consumer, require a focused runtime test before
+  promoting their exact block shape into a template.
+- Full unit-file overrides must be compared against current `essential`
+  blocks. Rebalance battalion adjusters at partial equipment/manpower,
+  because 1.19.3 scales their effect with sub-unit readiness.
+- Recheck custom facility construction costs and infrastructure interaction;
+  do not carry 1.19.2 numeric defaults forward by memory.
+
+Patch 1.19.3 also fixes one native crash path for undersized modded text
+buffers. It does not prove that long localisation fits: keep multilingual
+wrap, clipping, and overflow tests.
 
 ### Selectable frontend backgrounds
 
