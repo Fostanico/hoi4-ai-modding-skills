@@ -1,21 +1,35 @@
 # Test a mod in HOI4
 
-Static validation comes first. Then establish both authorization and the user's
-quota preference before using computer-use:
+Static validation comes first. Before using computer-use, establish capability,
+authorization, and billing impact in that order:
 
+- If computer-use is unavailable, do not ask about the user's subscription.
+  Use the detailed manual-test handoff below.
+- When the runtime exposes read-only account or usage-limit metadata, inspect it
+  before asking the user. In Codex this may include `planType`, whether ordinary
+  usage is allowed, usage windows, credits, and spend-control state. Use only
+  what is needed for this decision; do not repeat account identifiers, balances,
+  or unrelated usage data to the user.
+- Do not ask a user to identify a plan that reliable runtime metadata already
+  identifies. Conversely, absence of account metadata alone does not prove API
+  billing because portable skills may run in clients that do not expose it.
+  Treat a session as API-billed only when the runtime or authentication mode
+  explicitly establishes API-key billing.
 - A general request to edit or validate a mod is not consent to open Steam,
   change launch options, alter a playset, or start the game. Ask: **Do you want
   the AI to control Steam and test this mod in-game?**
-- If the user uses API billing, ChatGPT Plus, Claude Pro, another token-billed
-  service, or any plan with a tight usage window, explicitly ask whether they
-  accept the likely quota or cost consumption. Do this even when they already
-  requested an autonomous computer-use test. A yes/no cost check is enough;
-  do not require disclosure of account details.
-- If the user has stated they use ChatGPT Pro, Claude Max, or another high-quota
-  plan, an explicit request for autonomous in-game testing needs no separate
-  quota question.
-- If the plan or quota tolerance is unknown, use the cost check before starting
-  computer-use.
+- For API-billed sessions and limited personal plans such as Free, Go, or Plus,
+  explicitly ask whether the user accepts the likely cost or quota consumption.
+  Do this even when they already requested an autonomous computer-use test. A
+  yes/no cost check is enough; do not ask for account details.
+- For ChatGPT Pro, Claude Max, or another runtime-confirmed or user-stated
+  high-quota plan, an explicit request for autonomous testing needs no redundant
+  quota question. If runtime metadata says usage is unavailable or a spend
+  control has been reached, stop and use the manual-test handoff.
+- If billing mode and quota class remain unknown, ask only whether the user
+  accepts the likely quota or cost consumption. Do not require them to name the
+  plan. When neither authorization nor cost tolerance is known, combine both in
+  one concise question.
 
 ## When the user agrees
 
