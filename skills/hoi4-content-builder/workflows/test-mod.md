@@ -26,18 +26,46 @@ authorization, and billing impact in that order:
 - A general request to edit or validate a mod is not consent to open Steam,
   change launch options, alter a playset, or start the game. Ask: **Do you want
   the AI to control Steam and test this mod in-game?**
-- For API-billed sessions and limited personal plans such as Free, Go, or Plus,
-  explicitly ask whether the user accepts the likely cost or quota consumption.
-  Do this even when they already requested an autonomous computer-use test. A
-  yes/no cost check is enough; do not ask for account details.
-- For ChatGPT Pro, Claude Max, or another runtime-confirmed or user-stated
-  high-quota plan, an explicit request for autonomous testing needs no redundant
-  quota question. If runtime metadata says usage is unavailable or a spend
-  control has been reached, stop and use the manual-test handoff.
+- Treat the plan name as one signal rather than the decision itself. Combine the
+  actual tool capability, expected test cost, available quota or spend headroom,
+  and the user's existing authorization or budget preference.
 - If billing mode and quota class remain unknown, ask only whether the user
   accepts the likely quota or cost consumption. Do not require them to name the
   plan. When neither authorization nor cost tolerance is known, combine both in
   one concise question.
+
+## Resource-aware autonomy
+
+Estimate the computer-use scope before deciding whether to ask about cost. Do
+not invent an exact token, credit, or currency estimate when the runtime does
+not provide one.
+
+- **Negligible:** inspect one already-open screen or perform a few bounded UI
+  actions without launching or restarting the game. When the user explicitly
+  requested autonomous testing and usable quota remains, proceed without a
+  separate cost question, including on a limited plan.
+- **Bounded:** launch or restart once and verify one narrow path with a clear
+  stopping condition. For API billing or a limited plan, ask once if this could
+  make a noticeable difference to cost or remaining quota. A confirmed
+  high-quota plan plus an explicit autonomous-test request normally needs no
+  redundant cost question.
+- **Expensive:** repeated launches, multiple gameplay routes, resolutions,
+  compatibility combinations, long observation periods, or broad visual
+  regression passes. State the proposed coverage and stopping condition, then
+  obtain a cost/quota confirmation unless an existing user-set budget clearly
+  covers it, regardless of the plan label.
+
+Honor an explicit standing preference such as a maximum number of launches,
+maximum elapsed test time, monetary ceiling, quota percentage, or "ask only
+above this scope" for the session or project where the user set it. Do not ask
+again while the requested work stays inside that boundary. Do not create a
+persistent preference outside the current context unless the user asks to save
+one.
+
+If reliable metadata shows insufficient quota, disabled usage, or a reached
+spend control, stop before launching and use the manual-test handoff. During an
+approved test, stop at the agreed scope instead of silently expanding coverage;
+report the next highest-value test separately.
 
 ## When the user agrees
 
