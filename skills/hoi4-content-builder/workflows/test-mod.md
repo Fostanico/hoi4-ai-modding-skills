@@ -3,18 +3,26 @@
 Static validation comes first. Before using computer-use, establish capability,
 authorization, and billing impact in that order:
 
-- If computer-use is unavailable, do not ask about the user's subscription.
-  Use the detailed manual-test handoff below.
-- When the runtime exposes read-only account or usage-limit metadata, inspect it
-  before asking the user. In Codex this may include `planType`, whether ordinary
-  usage is allowed, usage windows, credits, and spend-control state. Use only
-  what is needed for this decision; do not repeat account identifiers, balances,
-  or unrelated usage data to the user.
+- Inspect the tools actually exposed in the current session. For an HOI4 test,
+  browser automation alone is insufficient: the tool must be able to operate
+  native Steam, launcher, and game windows on the target computer. Do not infer
+  this capability from the agent's brand. Codex can expose native computer-use,
+  while other clients or API integrations may expose browser or desktop control.
+- If suitable computer-use is unavailable, do not inspect or ask about the
+  user's subscription. Use the detailed manual-test handoff below.
+- In Codex, prefer its read-only usage-limit metadata when available. Inspect
+  only the fields needed for this decision, such as `planType`, whether ordinary
+  usage is allowed, usage windows, credits, and spend-control state. If the
+  runtime or authentication status explicitly shows an API key, treat the
+  session as API-billed. A missing `planType` or unavailable usage tool alone
+  does not prove API billing.
+- In another runtime that exposes suitable computer-use, use its trusted
+  read-only plan, quota, or authentication metadata when available. Otherwise
+  ask only whether the user accepts the likely quota or monetary cost; do not
+  ask them to identify a plan whose name is not needed for the decision.
 - Do not ask a user to identify a plan that reliable runtime metadata already
-  identifies. Conversely, absence of account metadata alone does not prove API
-  billing because portable skills may run in clients that do not expose it.
-  Treat a session as API-billed only when the runtime or authentication mode
-  explicitly establishes API-key billing.
+  identifies. Use only what is needed for this gate; do not repeat account
+  identifiers, balances, or unrelated usage data to the user.
 - A general request to edit or validate a mod is not consent to open Steam,
   change launch options, alter a playset, or start the game. Ask: **Do you want
   the AI to control Steam and test this mod in-game?**
