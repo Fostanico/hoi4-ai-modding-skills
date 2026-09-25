@@ -151,11 +151,11 @@ Inspect-only diffs are complete after a careful read.
 
 When scripts are warranted, run the cheapest matching check on the edited
 paths. Broader audits and log comparison belong to whole-mod, rename,
-GUI/map, compatibility, release, or migration work. Non-trivial static
-work ends with a consent question: does the user want AI-assisted in-game
-testing? Never open Steam, change launch options, alter a playset, or
-start HOI4 without that consent. Do not offer a Steam prompt after
-inspect-only work unless the user asked.
+GUI/map, compatibility, release, or migration work. For non-trivial static
+work, follow the builder's `workflows/test-mod.md` for consent and the
+subscription/quota cost check. Never open Steam, change launch options,
+alter a playset, or start HOI4 without the required consent. Do not offer a
+Steam prompt after inspect-only work unless the user asked.
 
 For every applied fix or refactor, update the canonical mod technical document,
 current development handoff, and readable comments for affected contracts.

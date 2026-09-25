@@ -1,9 +1,21 @@
 # Test a mod in HOI4
 
-Static validation comes first. Then explicitly ask: **Do you want the AI to
-control Steam and test this mod in-game?** A general request to edit or validate
-a mod is not consent to open Steam, change launch options, alter a playset, or
-start the game.
+Static validation comes first. Then establish both authorization and the user's
+quota preference before using computer-use:
+
+- A general request to edit or validate a mod is not consent to open Steam,
+  change launch options, alter a playset, or start the game. Ask: **Do you want
+  the AI to control Steam and test this mod in-game?**
+- If the user uses API billing, ChatGPT Plus, Claude Pro, another token-billed
+  service, or any plan with a tight usage window, explicitly ask whether they
+  accept the likely quota or cost consumption. Do this even when they already
+  requested an autonomous computer-use test. A yes/no cost check is enough;
+  do not require disclosure of account details.
+- If the user has stated they use ChatGPT Pro, Claude Max, or another high-quota
+  plan, an explicit request for autonomous in-game testing needs no separate
+  quota question.
+- If the plan or quota tolerance is unknown, use the cost check before starting
+  computer-use.
 
 ## When the user agrees
 
@@ -35,9 +47,12 @@ start the game.
 
 ## When the user declines or automation is unavailable
 
-Do not open Steam. Provide a minimal checklist containing the exact isolated
-playset, `-debug`, earliest bookmark, country, actions, expected results, and
-logs to return. Clearly mark runtime behavior as unverified.
+Do not open Steam. Provide a detailed, feature-specific checklist containing
+the exact isolated playset, `-debug`, earliest bookmark, country, every entry
+path and material branch, expected result after each action, save/reload and
+reopen coverage, reward/state checks, and the exact logs or screenshots to
+return. Clearly mark runtime behavior as unverified. This detailed handoff is
+mandatory when the user declines because of quota or cost.
 
 ## Handoff
 

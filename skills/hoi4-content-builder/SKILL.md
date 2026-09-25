@@ -132,8 +132,8 @@ inspectable diff. User AI quota is not free.
 
 When the change needs scripts, run the sibling validator on the edited
 paths, inspect only the links those paths can break, and separate static
-proof from runtime proof. After a non-trivial static pass, ask whether the
-user wants AI-assisted in-game testing. If they agree and computer-use is
-available, follow `workflows/test-mod.md` exactly. If they decline, provide
-the smallest manual test plan and do not open Steam. Inspect-only work
-does not require a Steam prompt.
+proof from runtime proof. After a non-trivial static pass, follow
+`workflows/test-mod.md` for consent, subscription/quota handling, and the
+runtime procedure. If the user declines, provide its detailed manual test
+handoff and do not open Steam. Inspect-only work does not require a Steam
+prompt.
