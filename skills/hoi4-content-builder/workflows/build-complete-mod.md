@@ -18,7 +18,8 @@
    repository checks; inspect a fresh or baseline log if available.
 7. Exercise boundary cases statically: unavailable DLC, missing dependency,
    invalid scope, cancellation, expiry, reload, AI, and old-save initialization.
-8. Ask whether the user wants AI-assisted in-game testing. If yes, follow
+8. Apply the user-willingness, capability, and quota decision in
+   `test-mod.md` before any AI-assisted in-game testing. When authorized, follow
    `test-mod.md`; if no, provide the smallest manual test plan without opening
    Steam or changing the playset.
 9. Incorporate test evidence; reconcile code comments; update durable technical

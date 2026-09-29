@@ -256,6 +256,7 @@ from loading at all.
    changed.
 7. Run stale-ID searches, encoding checks, and `git diff --check` only
    where the chosen lane requires them.
-8. Ask before launching Steam or HOI4 after non-trivial static work; skip
-   the Steam prompt for inspect-only diffs unless the user asked. Report
-   static and runtime evidence separately.
+8. Before launching Steam or HOI4, apply the builder's `test-mod.md`
+   willingness, capability, authorization, and quota decision. Ask at most
+   once when needed; inspect-only diffs need no prompt. Report static and
+   runtime evidence separately.

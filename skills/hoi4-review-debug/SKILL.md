@@ -70,9 +70,11 @@ For a broad review or applied refactor, additionally use the base
   before native analysis. Never infer jurisdiction from language or broaden
   one authorization into tool installation, static decompilation, or live
   debugging.
-- **Runtime test:** only after explicit consent, follow the builder's
-  [test-mod.md](../hoi4-content-builder/workflows/test-mod.md). Isolate the
-  playset, test the smallest scenario, inspect fresh logs, and restore settings.
+- **Runtime test:** follow the builder's
+  [test-mod.md](../hoi4-content-builder/workflows/test-mod.md) for native-tool
+  capability, user-willingness summary, one-request limit, authorization, and
+  quota. Isolate the playset, test the smallest scenario, inspect fresh logs,
+  and restore settings when testing is authorized.
 
 When writing diagnostic or repair helpers in a Git repository, follow
 [tool placement by audience](../hoi4-pdx-modding/SKILL.md#place-generated-tools-by-audience):
@@ -152,10 +154,11 @@ Inspect-only diffs are complete after a careful read.
 When scripts are warranted, run the cheapest matching check on the edited
 paths. Broader audits and log comparison belong to whole-mod, rename,
 GUI/map, compatibility, release, or migration work. For non-trivial static
-work, follow the builder's `workflows/test-mod.md` for consent and the
-subscription/quota cost check. Never open Steam, change launch options,
-alter a playset, or start HOI4 without the required consent. Do not offer a
-Steam prompt after inspect-only work unless the user asked.
+work, follow the builder's `workflows/test-mod.md` for its willingness,
+capability, and quota decision. Never open Steam, change launch options,
+alter a playset, or start HOI4 without current or still-applicable standing
+authorization. Ask at most once per task and do not ask when native computer-use
+is unavailable or the user already declined. Inspect-only work needs no prompt.
 
 For every applied fix or refactor, update the canonical mod technical document,
 current development handoff, and readable comments for affected contracts.

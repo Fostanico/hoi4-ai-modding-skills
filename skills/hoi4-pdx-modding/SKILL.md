@@ -226,8 +226,10 @@ Choose the cheapest sufficient lane before any script:
 
 Static checks cannot prove scope, timing, GUI interaction, AI choice,
 history loading, or asset rendering. After lanes 2–3, use the sibling
-runtime test workflow, which must ask the user before controlling Steam
-or launching the game. Report static and in-game evidence separately.
+runtime test workflow, which checks native capability, current or standing
+authorization, user willingness, and quota before controlling Steam or
+launching the game. Ask at most once when needed; silence alone grants no
+permission. Report static and in-game evidence separately.
 Inspect-only work may record "scripts skipped; diff read" as completion
 evidence.
 

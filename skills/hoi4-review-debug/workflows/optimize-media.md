@@ -102,7 +102,7 @@ is known. Shared texture paths save space but can create cross-feature coupling.
 - run the base HOI4 validator and `git diff --check`;
 - inspect changed GFX/GUI/music/model registrations;
 - compare before/after manifest totals;
-- ask whether the user wants an isolated in-game test;
+- apply the builder's `test-mod.md` decision before an isolated in-game test;
 - exercise menus, loading screens, ideas, decisions, portraits, map icons,
   models, and audio categories touched by the batch;
 - for audio, test frontend/main-theme playback and an in-campaign music station

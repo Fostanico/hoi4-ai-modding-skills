@@ -71,8 +71,9 @@ paths proportionally. For GUI work include disabled reasons, stale data,
 multiple resolutions, localisation expansion, close/reopen, and a full restart
 after any hot refresh.
 
-After static validation, separately ask for consent before controlling Steam or
-launching HOI4. Follow the builder's `test-mod.md`; use only the target mod and
+After static validation, apply the builder's `test-mod.md` willingness,
+capability, authorization, and quota decision before controlling Steam or
+launching HOI4. When authorized, use only the target mod and
 exact dependencies, `-debug`, a new game at the earliest bookmark, fresh logs,
 and restoration of changed launcher settings.
 

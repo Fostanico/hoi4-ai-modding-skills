@@ -22,8 +22,8 @@
    use the changed-path validator, not inspect-only and not `-All`. Search
    stale placeholders and compare a fresh log only when the lane is broader
    than a small inspectable diff.
-9. Ask for AI-assisted runtime-test consent after non-trivial static work
-   and follow `test-mod.md` only after approval. Inspect-only work does not
-   need a Steam prompt. Update the current development handoff with the
+9. After non-trivial static work, use `test-mod.md` to decide whether an
+   AI-run runtime test is authorized and worth its cost. Ask at most once when
+   needed. Inspect-only work does not need a Steam prompt. Update the current development handoff with the
    validation lane used, static/runtime evidence, and remaining manual
    interactions.

@@ -23,7 +23,8 @@ special projects, factions, compatibility layers, or save migrations.
 8. Rebuild the semantic map and reconcile all visible names, dates, costs,
    cooldowns, units, and failure handling with the final implementation.
 9. Run static checks and the smallest matrix that covers distinct behavior.
-10. Ask for runtime-test consent, follow `test-mod.md`, compare fresh logs, and
-   iterate until acceptance tests pass or a concrete engine blocker is proven.
+10. Apply `test-mod.md` to decide whether AI-run runtime testing is authorized;
+   when it is, compare fresh logs and iterate until acceptance tests pass or a
+   concrete engine blocker is proven.
    Reconcile contract comments and record the final evidence, risks, and next
    actions in the development handoff.

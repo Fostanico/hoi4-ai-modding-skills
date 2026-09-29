@@ -9,7 +9,8 @@ authorization, and billing impact in that order:
   this capability from the agent's brand. Codex can expose native computer-use,
   while other clients or API integrations may expose browser or desktop control.
 - If suitable computer-use is unavailable, do not inspect or ask about the
-  user's subscription. Use the detailed manual-test handoff below.
+  user's subscription. Mark runtime unverified and offer a manual-test handoff
+  only when useful; do not press a user who already declined testing.
 - In Codex, prefer its read-only usage-limit metadata when available. Inspect
   only the fields needed for this decision, such as `planType`, whether ordinary
   usage is allowed, usage windows, credits, and spend-control state. If the
@@ -23,9 +24,9 @@ authorization, and billing impact in that order:
 - Do not ask a user to identify a plan that reliable runtime metadata already
   identifies. Use only what is needed for this gate; do not repeat account
   identifiers, balances, or unrelated usage data to the user.
-- A general request to edit or validate a mod is not consent to open Steam,
-  change launch options, alter a playset, or start the game. Ask: **Do you want
-  the AI to control Steam and test this mod in-game?**
+- A general request to edit or validate a mod is not by itself authorization
+  to open Steam, change launch options, alter a playset, or start the game.
+  Apply the user-intent decision below before asking or acting.
 - Treat the plan name as one signal rather than the decision itself. Combine the
   actual tool capability, expected test cost, available quota or spend headroom,
   and the user's existing authorization or budget preference.
@@ -33,6 +34,28 @@ authorization, and billing impact in that order:
   accepts the likely quota or cost consumption. Do not require them to name the
   plan. When neither authorization nor cost tolerance is known, combine both in
   one concise question.
+
+## Summarize testing willingness and decide once
+
+Before an AI-run game test, privately summarize the evidence in a few lines:
+latest direct choice for this task, earlier comparable test choices, any still
+applicable standing authorization or budget, the intended test scope, available
+native-control capability, and reliable remaining quota or spend headroom.
+Label unknowns as unknown. The latest direct choice wins: a current "do not
+test" ends the AI-run test path even when earlier conversations favored it.
+Do not treat old approvals for a different scenario as blanket permission.
+
+If a decision is still needed, send at most one concise request for the whole
+task, covering both native control and meaningful cost. Do not send reminders,
+rephrase the same question in another channel, or poll for an answer. Continue
+independent static work. If the user remains silent for a sustained period
+(e.g. ten minutes during ongoing work), make one decision from the summary and
+fresh quota metadata; do not idle merely to reach that interval. Silence is no
+new authorization. Run a bounded test only when the current request or a clear,
+still-applicable standing authorization already permits native testing and the
+available quota covers the estimated scope. Otherwise finish with runtime
+unverified and a concise manual-test handoff. If there is no suitable native
+computer-use tool, skip the request, mark runtime unverified, and offer manual steps only when useful.
 
 ## Resource-aware autonomy
 
@@ -67,7 +90,7 @@ spend control, stop before launching and use the manual-test handoff. During an
 approved test, stop at the agreed scope instead of silently expanding coverage;
 report the next highest-value test separately.
 
-## When the user agrees
+## When testing is authorized
 
 1. Confirm computer-use capability is available and read its runtime guidance
    and confirmation rules. If unavailable, give the manual procedure instead.
@@ -95,14 +118,15 @@ report the next highest-value test separately.
    playset, enabled-mod list, and load order changed for the test unless the user
    explicitly asks to keep them.
 
-## When the user declines or automation is unavailable
+## When the user declines, remains unresponsive without applicable authorization, or automation is unavailable
 
-Do not open Steam. Provide a detailed, feature-specific checklist containing
-the exact isolated playset, `-debug`, earliest bookmark, country, every entry
-path and material branch, expected result after each action, save/reload and
-reopen coverage, reward/state checks, and the exact logs or screenshots to
-return. Clearly mark runtime behavior as unverified. This detailed handoff is
-mandatory when the user declines because of quota or cost.
+Do not open Steam. Clearly mark runtime behavior as unverified. If the user
+explicitly says not to test, acknowledge that choice once and do not send an
+unsolicited long checklist. When a manual test is useful, give a concise path;
+expand it into a feature-specific checklist with the isolated playset, `-debug`,
+earliest bookmark, country, entry and branch actions, expected results,
+save/reload, state checks, and logs/screenshots when the user requests it or
+declines AI testing because of quota or cost.
 
 ## Handoff
 
