@@ -295,6 +295,18 @@
       "required_behaviors": ["提供决议组到 scripted GUI、GUI、GFX、素材和本地化的完整引用链", "保持 500x200 容器、500x220 背景和 x=5 y=-18 的已验证几何关系", "把原生分类描述设为单个空格并在 GUI 文本框显示正文", "提供不绑定目标 MOD 的替换标识符和四语言本地化", "验证素材尺寸、路径大小写、跨文件标识符和游戏内视觉效果"],
       "forbidden_behaviors": ["把 500x200 容器扩大成背景图尺寸", "遗漏 scripted_gui 挂载或 GFX 注册", "把项目专有角色和变量带进公共模板", "声称静态校验能够证明文字位置和背景覆盖效果"],
       "runtime_evidence": "field_tested_geometry_then_runtime_after_asset_replacement"
+    },
+    {
+      "id": "RD-025",
+      "title": "Ability parser cascade and safe append policy",
+      "source_kind": "anonymized_real_dialogue",
+      "source_fingerprint_sha256": "c4e65b1e1f378d4b2c3acfefa4a61081f6a419252ae22d627d6eba3f194ad685",
+      "primary_skill": "hoi4-pdx-modding",
+      "supporting_skills": ["hoi4-content-builder", "hoi4-review-debug"],
+      "prompt": "在 HOI4 modding skills 里记录重要经验：一条将领技能写错可能导致同一文件后续技能读取不到。要求 AI 加强技能验证，新技能优先追加到最后，避免影响已有技能。完成后验证、提交并推送公共技能仓库。",
+      "required_behaviors": ["将解析中断经验写入可发现的技能入口和参考资料", "将新技能追加位置明确为现有 ability 根块内部、闭合括号之前", "保留已有技能的 ID 和顺序且说明追加不能代替验证", "核对当前原版消费者中的效果层级、modifier 和解锁引用，先排查第一个解析错误", "区分通用括号检查与引擎加载证明", "对公开经验脱敏并验证修改后提交和推送目标技能仓库"],
+      "forbidden_behaviors": ["把将领技能问题误写为 SKILL.md 的发现顺序问题", "为了追加把定义放到 ability 根块之外", "批量重排已有技能或随意修改特质和平衡", "声称追加末尾或括号检查能保证实机加载", "公布项目专有角色、标识符或本地绝对路径"],
+      "runtime_evidence": "supplied_parser_failure_then_current_consumer_and_repository_validation"
     }
   ]
 }

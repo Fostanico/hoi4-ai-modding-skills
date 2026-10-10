@@ -1,5 +1,9 @@
 # Path: common/abilities/*.txt
 # Do not use removed add_temporary_buff_to_units. Use unit_modifiers.
+# In an existing owner file, append this definition inside the ability block,
+# after stable abilities and before the root closing brace. Preserve their order.
+# Activation effects belong in one_time_effect, not among ability data fields.
+# See the base skill's references/leader-abilities.md; brace checks are not schema checks.
 ability = {
 	MOD_leader_ability = {
 		name = MOD_leader_ability

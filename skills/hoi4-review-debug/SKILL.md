@@ -30,6 +30,12 @@ For a broad review or applied refactor, additionally use the base
   evidence identifies a matching failure class. CWTools squiggles are not
   evidence by themselves; see
   [pdx-language.md](../hoi4-pdx-modding/references/pdx-language.md).
+- **Several leader abilities disappear together:** read
+  [leader-abilities.md](../hoi4-pdx-modding/references/leader-abilities.md).
+  Find the first parser failure in their owning file before changing traits
+  or each missing ability. Verify all affected later definitions and preserve
+  stable IDs/order; append new abilities at the end of the owner block,
+  before its closing brace.
 - **Existing-feature review, refactor, or fix:** trace its caller, scope,
   player-visible promise, state lifecycle, AI path, and dependencies. Enter the
   edit loop only when the request authorizes a change.

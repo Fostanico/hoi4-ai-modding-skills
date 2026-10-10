@@ -79,6 +79,8 @@ See [localisation-deep-dive.md](references/localisation-deep-dive.md#player-faci
 - [content-objects.md](references/content-objects.md): events, decisions,
   focuses, ideas, MIOs, on_actions, buildings, BOP, operations, achievements,
   and dynamic modifiers.
+- [leader-abilities.md](references/leader-abilities.md): ability parser
+  cascades, safe placement, activation effects, and validation of unlocks.
 - [ai-and-military-content.md](references/ai-and-military-content.md): AI
   strategies, reversed strategies, equipment designs, division templates,
   OOBs, modules, variants, tactics, and names.
@@ -156,6 +158,12 @@ performance analysis, and runtime testing.
    parses these files at startup rather than rereading them every animation
    frame, so fewer tiny files mainly reduce file-open/metadata work and project
    clutter; do not overstate this as continuous runtime disk I/O.
+   For leader abilities, append new definitions after the existing abilities,
+   inside the owning `ability = { ... }` block before its closing brace.
+   A malformed ability can prevent later definitions in that file from loading.
+   Keep stable IDs and order; appending limits exposure but does not replace
+   field, effect-scope, modifier, unlock, and resource validation. Read
+   [leader-abilities.md](references/leader-abilities.md) for any ability change.
 7. Preserve unrelated changes and stable flags/variables unless an explicit
    migration plan covers old saves. Prefer event-driven or batched updates to
    global daily scans when behavior permits.

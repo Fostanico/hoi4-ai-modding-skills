@@ -102,6 +102,12 @@ of Git history.
    directory, load conditions, lifecycle, and consumers; keep separate files
    for genuine compatibility/load-order boundaries, independent generated
    ownership, or materially different subsystems.
+   For leader abilities, place new definitions at the end of the owner's
+   existing `ability = { ... }` block, before its closing brace, and preserve
+   the order of stable abilities. One malformed definition can stop later
+   abilities in the same file from loading. Follow the base skill's
+   [ability validation](../hoi4-pdx-modding/references/leader-abilities.md);
+   brace balance and an existing trait unlock do not prove the ability loads.
 3. Map IDs to visible names, descriptions, tooltips, and promised behavior.
    Apply the base skill's **Player-facing writing** rules: localisation is for
    players, never a copy of prompts, internal mod conventions, or technical

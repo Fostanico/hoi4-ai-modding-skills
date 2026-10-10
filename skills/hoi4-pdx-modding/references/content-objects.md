@@ -189,7 +189,9 @@ country_event = {
 - Balance of power lives in `common/bop/`. `left_side`/`right_side` must match
   nested `side.id`. Range `on_activate` can call `set_power_balance_gfx`.
 - Leader abilities live in `common/abilities/` and use `unit_modifiers`. Do not
-  emit removed `add_temporary_buff_to_units`.
+  emit removed `add_temporary_buff_to_units`. Append new definitions at the end
+  of the existing `ability` root block, before its closing brace; validate
+  effect nesting and downstream loading with [leader-abilities.md](leader-abilities.md).
 - Intelligence operations live in `common/operations/` and require at least one
   `phases = { }` block. ROOT is the origin country and FROM is the target.
 - Custom achievements belong in `common/achievements/*.txt` with a

@@ -45,6 +45,10 @@
 - Collection-size comparison semantics are preserved despite its documented
   inclusive `<`/`>` operators.
 - Modifier recognition and support by the actual consumer are both proven.
+- For leader abilities, new definitions are appended inside the owner block;
+  activation effects, unit modifiers, unlocks, and affected later definitions
+  are checked using [leader-abilities.md](leader-abilities.md). Brace balance
+  alone cannot close an ability parser failure.
 
 ## Cross-file wiring
 
