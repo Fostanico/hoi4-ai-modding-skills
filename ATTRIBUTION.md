@@ -22,6 +22,12 @@ source, version, license, security-review, and adoption details are in
 `hoi4-pdx-modding/references/source-attribution.md` and the community audit
 references.
 
+The Globe Mod study (Steam Workshop item `3816496697`, version `0.2.0`)
+contributes independently written map-rendering design lessons. Its shader
+source and artwork are not distributed here. The detailed provenance and
+source/numerical/user-reported runtime evidence are recorded in the skills'
+`source-attribution.md` under "Globe map rendering design study".
+
 ## Verification sources
 
 Hearts of Iron IV generated documentation and installed vanilla files were used

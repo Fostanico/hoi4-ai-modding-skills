@@ -193,6 +193,39 @@ copied into these skills. The project is evidence that the patterns are
 possible, not portable proof of their performance or compatibility in another
 mod.
 
+## Globe map rendering design study
+
+On 2026-10-10, the local package of
+[Globe Mod, Workshop item 3816496697](https://steamcommunity.com/sharedfiles/filedetails/?id=3816496697)
+was compared with installed Operation Postern `1.19.3.0.c01a (5632)`. The mod's
+descriptor reports version `0.2.0` and supported version `1.19.3.0`. Evidence
+consists of `gfx/FX/globe.fxh`, 13 same-path shader overrides (including
+`gfx/models/supply/railroad.shader`), and `common/defines/zz_globe_camera.lua`.
+The reviewed `globe.fxh` has SHA-256
+`d15b1f86fba12422904730e68e8d855f6f5d51d9cfbc0fa6cba5654cbea9d3c4`.
+
+Source comparison and numerical reconstruction established the position warp,
+focus invariance, full-curvature radius, and horizontal periodicity. The user's
+latest in-game test reports good compatibility and mouse-picking error that
+grows with camera height and distance from the view centre. This is
+user-reported runtime evidence, not a new assistant-operated game run. No
+named playset matrix or measured performance baseline was supplied.
+
+The study informed the independently written `shader-map-projection.md` and
+execution-layer guidance in `algorithm-engineering.md`: separate original and
+display coordinates, share transforms across render consumers, transition
+continuously, distinguish background completion from playable geometry, and
+evaluate picking/compatibility using actual runtime evidence. The picking
+limitation is supported by the user's targeted test, not merely by the absence
+of mod-side input code. An unchanged engine picking path remains a causal
+inference rather than a directly inspected implementation.
+
+No shader source, thumbnail, or other asset was copied into the skills. A
+redistribution licence for that package was not established by this review;
+the addition consists of original explanation and general mathematical design
+principles, not a repackaged shader/template kit. Case-specific constants remain
+labelled as such and do not replace current-target verification.
+
 ## Localisation reference supplement
 
 The 2026-07-17 localisation expansion used the community-maintained

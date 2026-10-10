@@ -100,6 +100,11 @@ prove that a mesh renders or an animation rig matches.
 
 ## Shaders
 
+For curved maps, globe views, camera-driven deformation, or projection review,
+read [shader-map-projection.md](shader-map-projection.md). It covers coordinate
+spaces, shared render-layer transforms, visual coverage, interaction evidence,
+and a user-tested Globe Mod case; ordinary material edits can stay here.
+
 Current `gfx/FX/*.shader` files are complete programs with includes, sampler
 bindings, vertex structures, constant buffers, vertex/pixel shader code,
 blend/depth/rasterizer state, and engine-specific compile declarations. There

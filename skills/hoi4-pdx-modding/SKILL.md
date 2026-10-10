@@ -1,6 +1,6 @@
 ---
 name: hoi4-pdx-modding
-description: Implement, explain, refactor, and validate portable Hearts of Iron IV mods written in Paradox/PDX script. Use for descriptors, scopes, variables, arrays, events, decisions, focuses, ideas, characters, history, on_actions, GUI/GFX, localisation, AI, performance, compatibility, version migration, logs, encoding, or cross-file identifiers. Works from natural-language requests and verifies version-sensitive syntax against the target installation.
+description: Implement, explain, refactor, and validate portable Hearts of Iron IV mods written in Paradox/PDX script. Use for descriptors, scopes, variables, arrays, events, decisions, focuses, ideas, characters, history, on_actions, GUI/GFX, shaders and map rendering, localisation, AI, performance, compatibility, version migration, logs, encoding, or cross-file identifiers. Works from natural-language requests and verifies version-sensitive syntax against the target installation.
 ---
 
 # HOI4 PDX modding
@@ -111,6 +111,10 @@ See [localisation-deep-dive.md](references/localisation-deep-dive.md#player-faci
   full-file vanilla overrides.
 - [media-models-shaders.md](references/media-models-shaders.md): textures,
   entities, animations, models, audio, and shaders.
+- [shader-map-projection.md](references/shader-map-projection.md): GPU map
+  deformation, globe views, camera-driven transitions, coordinate contracts,
+  attached render layers, picking evidence, and graphics-mod compatibility.
+  Read for rendering changes, not ordinary province/history edits.
 - [media-optimization.md](references/media-optimization.md): consumer-aware
   format conversion, deduplication, rollback, and size verification.
 - [vanilla-documentation-map.md](references/vanilla-documentation-map.md):

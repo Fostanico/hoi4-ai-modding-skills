@@ -61,6 +61,11 @@ For a broad review or applied refactor, additionally use the base
   [GUI/localisation reference](../hoi4-pdx-modding/references/gui-localisation.md).
   Read [icon-audit.md](references/icon-audit.md) only for missing, default,
   mismatched, or dependency-bound artwork.
+- **Shaders or map projection:** read the base
+  [map projection reference](../hoi4-pdx-modding/references/shader-map-projection.md).
+  Trace coordinate spaces and affected render passes, and distinguish source
+  observations from observed/user-reported interaction results. Missing
+  mod-side inverse-picking code alone does not establish broken clicking.
 - **Map/history or version update:** use the matching section of
   `review-workflows.md`; for a game-version migration follow
   [version-migration.md](workflows/version-migration.md).

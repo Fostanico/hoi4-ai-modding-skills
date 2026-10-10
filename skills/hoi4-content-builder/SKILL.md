@@ -56,6 +56,10 @@ user-visible; do not paste CWTools or Modding Tools generator output.
   [frame-animated texture reference](../hoi4-pdx-modding/references/animated-textures.md)
   and then use the workflow matching the owning GUI consumer.
 - Country/state/map history: [build-map-history.md](workflows/build-map-history.md)
+- Globe views, curved maps, or camera-dependent shader rendering: read the
+  sibling [map projection reference](../hoi4-pdx-modding/references/shader-map-projection.md),
+  then build the affected render graph with the feature workflow. Keep this
+  separate from province/history changes unless the request includes them.
 - Collections, arrays, event targets, dynamic modifiers, or dynamic text:
   [use-advanced-patterns.md](workflows/use-advanced-patterns.md)
 - Static-to-runtime validation: [test-mod.md](workflows/test-mod.md)

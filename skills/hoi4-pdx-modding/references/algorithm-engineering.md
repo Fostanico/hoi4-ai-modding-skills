@@ -7,6 +7,17 @@ patterns are engineering choices, not proof that every token is accepted by
 every consumer. Verify syntax and scope against the installed game and test the
 actual lifecycle.
 
+## Choose the execution layer first
+
+Keep campaign rules and persistent state in native gameplay systems/PDX.
+For purely visual geometry, colour, or camera-dependent effects, first check
+whether the existing shader consumer exposes the required inputs. A per-frame
+vertex/pixel transform can avoid PDX polling, save-backed arrays, and GUI-cell
+orchestration. Keep visual frame/camera time separate from deterministic
+gameplay time. Shader rendering has its own GPU cost and does not establish
+input hit-testing or compatibility without evidence. For map deformation, read
+[shader-map-projection.md](shader-map-projection.md).
+
 ## Choose the smallest computational model
 
 Start with the least powerful model that preserves the requested behavior:
