@@ -5,6 +5,13 @@ description: Review, diagnose, and test existing Hearts of Iron IV mods using so
 
 # HOI4 review and debug
 
+## User guide delivery
+
+For capability/use questions, serve the
+[Chinese user guide](../hoi4-pdx-modding/assets/user-guides/hoi4-modding-guide.zh-CN.md)
+as a resolved file/link. Do not preload or summarise its body during reviews;
+read only when explicitly asked to edit, translate or discuss that guide.
+
 ## Set scope and choose one evidence lane
 
 A request to review, explain, or diagnose authorizes read-only investigation,
@@ -62,6 +69,9 @@ For a broad review or applied refactor, additionally use the base
   Read [icon-audit.md](references/icon-audit.md) only for missing, default,
   mismatched, or dependency-bound artwork.
 - **Shaders or map projection:** read the base
+  [GUI shader contract](../hoi4-pdx-modding/references/gui-shader-effects.md)
+  for state binding, masks, clocks and fixed hit regions; for world geometry
+  read the
   [map projection reference](../hoi4-pdx-modding/references/shader-map-projection.md).
   Trace coordinate spaces and affected render passes, and distinguish source
   observations from observed/user-reported interaction results. Missing

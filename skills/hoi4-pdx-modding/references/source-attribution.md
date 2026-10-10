@@ -226,6 +226,28 @@ the addition consists of original explanation and general mathematical design
 principles, not a repackaged shader/template kit. Case-specific constants remain
 labelled as such and do not replace current-target verification.
 
+## GUI shader design study
+
+On 2026-10-10, an isolated HOI4 1.19.3 test mod was reviewed with the owner's
+permission: the `yzs_` gallery and user-provided Claude-authored `yzc_`
+workshop, `yzl_` startup screen and `yzcr_` hover-text extension. Evidence:
+their owned `.fxh` helpers, state wrappers, GUI/GFX, asset generators,
+localisation, saved previews and standalone HLSL check records. Installed
+`buttonstate.fxh`, `buttonstate.shader` and HLSL/DX11/GLSL defines supplied the
+engine-side contract. No game session was launched for this study.
+
+The workshop's handoff records user use; the user directly confirmed current
+startup-UI native acceptance on the same date. These are separately attributed
+runtime reports, not a rewrite of automated checks marked non-native. They
+do not certify every animation reset, backend or subsequent variation.
+
+The two GUI shader references are independently written contracts/algorithms.
+The small `skillfx_demo` rendering component is original example code, not a
+copy of complete project shaders. No project art, source directories, personal
+paths, third-party shader sources or preview dependencies are distributed.
+The Chinese guide in `assets/user-guides` is an on-request user artifact;
+skill entrypoints direct agents to deliver it without routinely loading it.
+
 ## Localisation reference supplement
 
 The 2026-07-17 localisation expansion used the community-maintained

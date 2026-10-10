@@ -5,6 +5,14 @@ description: Implement, explain, refactor, and validate portable Hearts of Iron 
 
 # HOI4 PDX modding
 
+## User guide delivery
+
+The [Chinese user guide](assets/user-guides/hoi4-modding-guide.zh-CN.md) is a
+serve-only artifact. Do not preload its body into implementation context.
+When asked what these skills/visual effects can do or how a user can request
+them, give the user the resolved file/link without reading or summarising it.
+Read it only for an explicit request to edit, translate or discuss its contents.
+
 ## Establish the target
 
 1. Locate the actual mod root, launcher-side `.mod` file, `descriptor.mod`, and
@@ -111,6 +119,10 @@ See [localisation-deep-dive.md](references/localisation-deep-dive.md#player-faci
   full-file vanilla overrides.
 - [media-models-shaders.md](references/media-models-shaders.md): textures,
   entities, animations, models, audio, and shaders.
+- [gui-shader-effects.md](references/gui-shader-effects.md): procedural GUI
+  art, button-state binding, atlas/mask inputs, clocks, fixed hit regions,
+  a minimal rendering component, and backend evidence; load its recipes only
+  for the selected effects.
 - [shader-map-projection.md](references/shader-map-projection.md): GPU map
   deformation, globe views, camera-driven transitions, coordinate contracts,
   attached render layers, picking evidence, and graphics-mod compatibility.

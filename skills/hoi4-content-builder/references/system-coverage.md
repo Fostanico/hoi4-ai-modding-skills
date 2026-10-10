@@ -12,6 +12,7 @@ Use this map to turn any requested feature into the right workflow and proof.
 | AI | strategy plans, reversed strategies, ai_areas, equipment designs, division templates | AI reference and templates | observer/debug evidence of selection |
 | Diplomacy/factions | actions, enable triggers, opinion modifiers, rules, goals, templates, member upgrades, peace logic | diplomacy reference and templates | sender/recipient/war/peace branches |
 | UI and map modes | GUI/GFX, scripted GUI, focus inlays, map modes | GUI reference, modal kit, focus-inlay template, advanced workflow | callbacks, refresh, reload, resolutions |
+| Procedural GUI visuals | portraits, light/scan/particles, perspective cards, button states, startup screens | [GUI shader contract](../../hoi4-pdx-modding/references/gui-shader-effects.md), selected recipes and rendering component | sampler/state/atlas/time contracts, fixed hit regions, backend and native evidence |
 | Localisation/media | text, sprites, textures, models, music, sound | GUI/media references and asset templates | no missing links; visible/audible result |
 | Compatibility | dependency gates, exact overrides, `replace_path` | advanced engineering, version migration | isolated target dependency matrix |
 | Quality/release | logs, performance, encoding, packaging | review skill, test and release workflows | clean targeted test and reproducible archive |

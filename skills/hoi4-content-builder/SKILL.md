@@ -5,6 +5,13 @@ description: Turn plain-language ideas into complete, playable Hearts of Iron IV
 
 # HOI4 content builder
 
+## User guide delivery
+
+For capability/use questions, serve the
+[Chinese user guide](../hoi4-pdx-modding/assets/user-guides/hoi4-modding-guide.zh-CN.md)
+as a resolved file/link. Do not preload or summarise its body during building;
+read only when explicitly asked to edit, translate or discuss that guide.
+
 ## Start from the user's idea
 
 The user may describe only the desired fantasy or gameplay result. Do not ask
@@ -56,6 +63,10 @@ user-visible; do not paste CWTools or Modding Tools generator output.
   [frame-animated texture reference](../hoi4-pdx-modding/references/animated-textures.md)
   and then use the workflow matching the owning GUI consumer.
 - Country/state/map history: [build-map-history.md](workflows/build-map-history.md)
+- Procedural GUI light, portraits, cards, hover or startup/event screens:
+  read the sibling [GUI shader contract](../hoi4-pdx-modding/references/gui-shader-effects.md)
+  and selected recipes, then wire the owning feature. Establish required inputs
+  instead of assuming cursor/PDX uniforms or a fresh animation stamp.
 - Globe views, curved maps, or camera-dependent shader rendering: read the
   sibling [map projection reference](../hoi4-pdx-modding/references/shader-map-projection.md),
   then build the affected render graph with the feature workflow. Keep this

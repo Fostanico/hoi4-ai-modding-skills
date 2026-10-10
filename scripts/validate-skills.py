@@ -41,7 +41,7 @@ def main() -> int:
                 errors.append(f"{entry.relative_to(ROOT)}: description is missing or too short")
 
         for file in skill_dir.rglob("*"):
-            if not file.is_file() or file.suffix.lower() not in {".md", ".txt", ".gui", ".gfx", ".asset", ".yml", ".ps1", ".json"}:
+            if not file.is_file() or file.suffix.lower() not in {".md", ".txt", ".gui", ".gfx", ".shader", ".fxh", ".asset", ".yml", ".ps1", ".json"}:
                 continue
             content = file.read_text(encoding="utf-8-sig")
             if CONFLICT_MARKER.search(content):

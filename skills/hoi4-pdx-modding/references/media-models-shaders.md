@@ -100,6 +100,10 @@ prove that a mesh renders or an animation rig matches.
 
 ## Shaders
 
+For procedural GUI artwork, button-state effects, cards or startup/event
+screens, read [gui-shader-effects.md](gui-shader-effects.md). It provides a
+consumer-specific rendering component and selective algorithm recipes.
+
 For curved maps, globe views, camera-driven deformation, or projection review,
 read [shader-map-projection.md](shader-map-projection.md). It covers coordinate
 spaces, shared render-layer transforms, visual coverage, interaction evidence,

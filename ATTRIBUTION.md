@@ -30,6 +30,12 @@ source/numerical/user-reported runtime evidence are recorded in the skills'
 
 ## Verification sources
 
+The 2026-10-10 GUI shader study distils an owner-authorised local test mod,
+including user-provided Claude-authored examples, into independent technical
+contracts and recipes. It adds a small original rendering component and an
+on-request user guide. No project artwork or full project shader files are
+included; source and runtime-report boundaries are in `source-attribution.md`.
+
 Hearts of Iron IV generated documentation and installed vanilla files were used
 to verify syntax and templates. They are not included in the distribution and
 remain the property of their respective rightsholders. No endorsement by

@@ -1,0 +1,30 @@
+{
+  "target_contract": "Installed HOI4 1.19.3 buttonstate",
+  "method": "Independent D3DCompiler extraction with installed HLSL/DX11 defines, common constants and adapted samplers",
+  "profiles": [
+    "vs_3_0",
+    "ps_3_0",
+    "vs_4_0",
+    "ps_4_0"
+  ],
+  "programs_checked": 10,
+  "compile_failures": 0,
+  "compiler_diagnostics": [],
+  "native_game_tested": false,
+  "not_established": [
+    "Clausewitz wrapper parsing",
+    "runtime resource binding",
+    "GLSL backend behaviour",
+    "native UI input and clocks"
+  ],
+  "external_inputs": [
+    "Installed gfx/FX/buttonstate.fxh and backend defines",
+    "User-supplied gfx/interface/skillfx_demo.png",
+    "Owning GUI, callbacks and localisation"
+  ],
+  "source_sha256": {
+    "gfx/FX/skillfx_demo.shader": "c17dea26db8d56f4605bbc37b5ac68688607de4abf13249a28ad962e9e031839",
+    "gfx/FX/skillfx_demo.fxh": "9b94be9f529c56942f1c8445e3f0f3b2988cae85323e9b1d2fbc0ed921245029",
+    "interface/skillfx_demo.gfx": "494e44d5ba487afba25519724911d5af779ec4214f1190ba4d939fa9e81c4209"
+  }
+}

@@ -1,5 +1,9 @@
 # Shader-driven map projection
 
+For a decorative globe/card inside an unchanged GUI quad, use
+[GUI shader effects](gui-shader-effects.md) and its surface-sampling recipes.
+That path does not deform the playable map or repair world picking.
+
 Read this for globe views, curved terrain, camera-dependent geometry, or a
 review of map-rendering shaders. Ordinary province/history edits and scripted
 map-mode colours do not need this workflow. Start with the current consumer

@@ -17,6 +17,10 @@ Trace the full chain:
 texture file -> .gfx sprite name -> .gui element -> scripted_gui callback -> effect/trigger
 ```
 
+Procedural GUI visuals add `effectFile -> .shader -> .fxh`; read
+[gui-shader-effects.md](gui-shader-effects.md) for binding, state/clock, atlas,
+alpha, fixed hit-region and complete-feature contracts.
+
 - Match texture paths and filename case exactly.
 - Confirm dimensions, frame counts, and sprite type against the actual asset.
   Current vanilla report/country event pictures are 210×176 (some 209×176).
