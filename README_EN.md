@@ -12,6 +12,11 @@ turning crash evidence into an actionable repair plan. The skills also retain a
 complete path from a plain-language idea to playable PDX script for people who
 do not already know the HOI4 scripting language.
 
+For capabilities, examples, and ways to describe a request, see the
+[user guide (Simplified Chinese)](skills/hoi4-pdx-modding/assets/user-guides/hoi4-modding-guide.zh-CN.md).
+It is a file to deliver to users on demand. Skill entrypoints contain the
+delivery rule; agents are instructed not to read the guide body by default.
+
 The repository also provides an optional **Codex Plugin** integration. The
 plugin distributes the three Skills together with a local read-only MCP server:
 the Skills define development, review, and validation workflows, while the MCP

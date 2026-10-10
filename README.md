@@ -10,6 +10,10 @@ Agent Skills。它们现在更侧重于维护、诊断和完善已有 MOD，同�
 让它沿着固定的证据链检查代码；熟悉 MOD 开发的用户也可以指定文件、约束和审批
 边界，把 skills 当作代码审查、兼容性迁移和故障诊断流程使用。
 
+想了解它能做什么、怎样向 AI 提需求，可直接阅读
+[用户指南](skills/hoi4-pdx-modding/assets/user-guides/hoi4-modding-guide.zh-CN.md)。
+指南作为按需交付给用户的文件保存；技能默认只加载交付规则，不读取指南正文。
+
 仓库同时提供可选的 **Codex Plugin** 集成。插件将三套 Skills 与本地只读 MCP
 服务器作为同一套件分发：Skills 定义开发、审查和验证流程，MCP 服务器提供 HOI4
 安装发现、标识符追踪、Git 变更校验、日志读取和媒体元数据检查。所有 MCP 操作均在
