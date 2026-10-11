@@ -7,10 +7,12 @@ description: Turn plain-language ideas into complete, playable Hearts of Iron IV
 
 ## User guide delivery
 
-For capability/use questions, serve the
-[Chinese user guide](../hoi4-pdx-modding/assets/user-guides/hoi4-modding-guide.zh-CN.md)
-as a resolved file/link. Do not preload or summarise its body during building;
-read only when explicitly asked to edit, translate or discuss that guide.
+Serve-only artifacts: [English](../hoi4-pdx-modding/assets/user-guides/hoi4-modding-guide.en.md) |
+[简体中文](../hoi4-pdx-modding/assets/user-guides/hoi4-modding-guide.zh-CN.md).
+For capability/use questions, deliver the resolved file/link in the requested
+language; otherwise match the user's language, falling back to English.
+Do not preload or summarise guide bodies. Read a guide only when explicitly
+asked to edit, translate or discuss its contents.
 
 ## Start from the user's idea
 

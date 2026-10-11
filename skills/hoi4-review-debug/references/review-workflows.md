@@ -74,8 +74,10 @@ Before disassembling native callers, inspecting vtables/RTTI, or otherwise
 reverse-engineering a program, obtain the user's explicit consent. Proceed only
 when the user lawfully controls the supplied dump and installed binary and the
 work is permitted by applicable law. Keep it to the minimum needed for crash
-and compatibility diagnosis: preserve hashes and original evidence, work
-read-only, and stop once the affected class, call path, or mod-facing contract
+and compatibility diagnosis. Follow the native-analysis reference's live
+legal/terms lookup for this jurisdiction and operation; do not rely on stored
+legal links or an earlier country's conclusion. Preserve hashes and original
+evidence, work read-only, and stop once the affected class, call path, or mod-facing contract
 is identified. Do not bypass DRM or access controls, seek unrelated proprietary
 logic or secrets, patch or redistribute the executable, claim access to private
 symbols, or reproduce substantial decompiled code. If authority or legality is

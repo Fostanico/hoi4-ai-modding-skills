@@ -245,8 +245,9 @@ The two GUI shader references are independently written contracts/algorithms.
 The small `skillfx_demo` rendering component is original example code, not a
 copy of complete project shaders. No project art, source directories, personal
 paths, third-party shader sources or preview dependencies are distributed.
-The Chinese guide in `assets/user-guides` is an on-request user artifact;
-skill entrypoints direct agents to deliver it without routinely loading it.
+The Chinese guide and its English translation in `assets/user-guides` are
+on-request user artifacts; skill entrypoints select a language and deliver
+the file/link without routinely loading either guide.
 
 ## Localisation reference supplement
 

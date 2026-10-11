@@ -7,10 +7,12 @@ description: Review, diagnose, and test existing Hearts of Iron IV mods using so
 
 ## User guide delivery
 
-For capability/use questions, serve the
-[Chinese user guide](../hoi4-pdx-modding/assets/user-guides/hoi4-modding-guide.zh-CN.md)
-as a resolved file/link. Do not preload or summarise its body during reviews;
-read only when explicitly asked to edit, translate or discuss that guide.
+Serve-only artifacts: [English](../hoi4-pdx-modding/assets/user-guides/hoi4-modding-guide.en.md) |
+[简体中文](../hoi4-pdx-modding/assets/user-guides/hoi4-modding-guide.zh-CN.md).
+For capability/use questions, deliver the resolved file/link in the requested
+language; otherwise match the user's language, falling back to English.
+Do not preload or summarise guide bodies. Read a guide only when explicitly
+asked to edit, translate or discuss its contents.
 
 ## Set scope and choose one evidence lane
 
@@ -88,8 +90,9 @@ For a broad review or applied refactor, additionally use the base
 - **Native crash:** ask for the exact pre-crash action timeline and governing
   jurisdiction, then read
   [native-crash-reverse-engineering.md](references/native-crash-reverse-engineering.md)
-  before native analysis. Never infer jurisdiction from language or broaden
-  one authorization into tool installation, static decompilation, or live
+  before native analysis, and perform its live legal/terms lookup for the
+  actual jurisdiction and operation. Never infer jurisdiction from language or
+  broaden one authorization into tool installation, static decompilation, or live
   debugging.
 - **Runtime test:** follow the builder's
   [test-mod.md](../hoi4-content-builder/workflows/test-mod.md) for native-tool

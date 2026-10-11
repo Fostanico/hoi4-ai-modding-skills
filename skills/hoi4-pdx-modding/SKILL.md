@@ -7,11 +7,12 @@ description: Implement, explain, refactor, and validate portable Hearts of Iron 
 
 ## User guide delivery
 
-The [Chinese user guide](assets/user-guides/hoi4-modding-guide.zh-CN.md) is a
-serve-only artifact. Do not preload its body into implementation context.
-When asked what these skills/visual effects can do or how a user can request
-them, give the user the resolved file/link without reading or summarising it.
-Read it only for an explicit request to edit, translate or discuss its contents.
+Serve-only artifacts: [English](assets/user-guides/hoi4-modding-guide.en.md) |
+[简体中文](assets/user-guides/hoi4-modding-guide.zh-CN.md).
+For capability/use questions, deliver the resolved file/link in the requested
+language; otherwise match the user's language, falling back to English.
+Do not preload or summarise guide bodies. Read a guide only when explicitly
+asked to edit, translate or discuss its contents.
 
 ## Establish the target
 

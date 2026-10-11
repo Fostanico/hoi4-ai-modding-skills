@@ -11,7 +11,8 @@ Agent Skills。它们现在更侧重于维护、诊断和完善已有 MOD，同�
 边界，把 skills 当作代码审查、兼容性迁移和故障诊断流程使用。
 
 想了解它能做什么、怎样向 AI 提需求，可直接阅读
-[用户指南](skills/hoi4-pdx-modding/assets/user-guides/hoi4-modding-guide.zh-CN.md)。
+[中文用户指南](skills/hoi4-pdx-modding/assets/user-guides/hoi4-modding-guide.zh-CN.md)
+或 [English user guide](skills/hoi4-pdx-modding/assets/user-guides/hoi4-modding-guide.en.md)。
 指南作为按需交付给用户的文件保存；技能默认只加载交付规则，不读取指南正文。
 
 仓库同时提供可选的 **Codex Plugin** 集成。插件将三套 Skills 与本地只读 MCP

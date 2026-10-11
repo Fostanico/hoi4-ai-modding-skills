@@ -170,45 +170,46 @@ Reusable questions:
 
 Also confirm lawful possession or licence, private/noncommercial crash or
 interoperability purpose, applicable workplace/school policy, current platform
-and game terms, and whether technical protection measures are involved. If the
-jurisdiction is missing below, conflicts with another relevant jurisdiction,
-or the answer is uncertain, perform a fresh official-source check before
-native reverse engineering.
+and game terms, and whether technical protection measures are involved. Use
+facts already established in the session; ask only for missing or changed facts.
 
-### Conservative operational table
+### Live legal and terms check
 
-| Jurisdiction | Default diagnostic boundary | Official starting points |
-| --- | --- | --- |
-| United States | A lawful owner/licensee may have narrow essential-use, archival, and interoperability routes. Section 1201(f) is purpose- and necessity-limited. Ask the state; contract and trade-secret rules vary. No TPM circumvention unless the exact statutory exception is verified. | [17 USC 117](https://uscode.house.gov/view.xhtml?req=(title:17%20section:117%20edition:prelim)); [17 USC 1201(f)](https://uscode.house.gov/view.xhtml?edition=prelim&f=treesort&jumpTo=true++&num=0&req=(title:17+section:1201+edition:prelim)) |
-| Canada | Interoperability reproduction and TPM circumvention have narrow statutory exceptions for lawful users, necessity, and limited use/disclosure. Verify the facts before going beyond read-only diagnosis. | [Copyright Act 30.61](https://laws-lois.justice.gc.ca/eng/acts/c-42/page-9.html); [Copyright Act 41.12](https://laws-lois.justice.gc.ca/eng/acts/C-42/section-41.12.html) |
-| United Kingdom | Lawful-use observation, study, testing, error correction, and necessary interoperability decompilation have distinct conditions. Keep acquired information to the permitted purpose and check TPM rules. | [CDPA 50B](https://www.legislation.gov.uk/ukpga/1988/48/section/50B); [CDPA 50BA](https://www.legislation.gov.uk/ukpga/1988/48/section/50BA); [CDPA 296A](https://www.legislation.gov.uk/ukpga/1988/48/section/296A) |
-| European Union / EEA | Ask the member state. Directive 2009/24/EC permits lawful-use observation/testing and tightly conditioned interoperability decompilation, but national implementation and other laws control the actual act. Do not repurpose or broadly disclose the information. | [Directive 2009/24/EC, Arts. 5, 6, 8](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32009L0024); [Directive 2001/29/EC, Art. 6](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32001L0029) |
-| Australia | Current law contains conditioned computer-program exceptions for interoperability, error correction, and security testing. Verify the current compilation and exact section before using one. | [Copyright Act 1968, Division 4A](https://www.legislation.gov.au/C1968A00063/latest/text) |
-| New Zealand | Lawful users have conditioned routes for decompilation for interoperability, lawful-use copying/adaptation, and observation/study/testing. Check TPM provisions separately. | [Copyright Act 1994, ss. 80A-80D](https://www.legislation.govt.nz/act/public/1994/0143/latest/DLM346259.html); [TPM provisions](https://www.legislation.govt.nz/act/public/1994/0143/latest/DLM1701444.html) |
-| Japan | Article 30-4 and the Agency for Cultural Affairs guidance can cover program investigation/analysis not aimed at enjoying the work, within necessity and without unreasonable prejudice. Check contracts, TPM, trade-secret, and unauthorized-access constraints. | [Agency for Cultural Affairs 2018 amendment guidance](https://www.bunka.go.jp/seisaku/chosakuken/hokaisei/h30_hokaisei/); [Copyright Act](https://www.japaneselawtranslation.go.jp/en/laws/view/4207/en) |
-| Mainland China | Regulations expressly address study/research of design ideas and principles by lawful use and necessary modification by a lawful copy holder, while prohibiting intentional bypass/destruction of technical protection measures. Keep work private and diagnostic; obtain a current legal check before broad decompilation. | [计算机软件保护条例, arts. 16, 17, 24](https://www.cac.gov.cn/2013-02/08/c_12648744.htm) |
-| Taiwan | A lawful copy owner may make necessary adaptations for machine use, and specified TPM exceptions include security testing, encryption research, and reverse engineering under conditions. Necessity, authorization, and non-infringing use remain essential. | [Copyright Act, art. 59](https://www.tipo.gov.tw/tw/copyright/694-17678.html); [art. 80-2](https://www.tipo.gov.tw/tw/copyright/694-17503.html); [TIPO reverse-engineering guidance](https://www.tipo.gov.tw/tw/tipo1/209-21679.html) |
-| Hong Kong | Sections 60-61 address lawful-user backup and copying/adaptation necessary for lawful use, including error correction. Do not assume a broad decompilation right; use a current official legal check before analysis beyond necessary diagnosis, especially where TPMs are involved. | [Copyright Ordinance, Cap. 528](https://www.elegislation.gov.hk/hk/cap528); [IPD amendment resources](https://www.ipd.gov.hk/en/archive/copyright/legislative-proposals-and-amendments/amendments-to-the-copyright-ordinance-2001-2004/index.html) |
-| Russia | A lawful possessor may study, research, or test program ideas/principles; decompilation for an independently developed interoperable program is conditioned on necessity, unavailable information, limited scope, and restricted use/disclosure. | [Civil Code Part IV, art. 1280](https://rospatent.gov.ru/en/documents/grazhdanskiy-kodeks-rossiyskoy-federacii-chast-chetvertaya/download) |
+Before native disassembly, decompilation, or live debugging, perform a fresh
+web search for the actual jurisdiction and intended operation. This reference
+does not maintain legal URLs, domain allowlists, country-by-country legal
+conclusions, or a period during which an old check is presumed current.
 
-For Steam copies, review the current
-[Steam Subscriber Agreement](https://store.steampowered.com/subscriber_agreement/)
-because it restricts reverse engineering and automated interaction except where
-applicable law permits otherwise. Also review the current
-[Paradox EULA](https://legal.paradoxplaza.com/eula). A statutory exception,
-contract term, platform rule, and permission from the user are separate gates;
-one does not automatically satisfy the others.
+1. Search in the relevant jurisdiction's language for current primary law and
+   official guidance on the particular act: program observation/testing,
+   error correction, interoperability, decompilation, or debugger attachment.
+   Discover the responsible legislature, official legislation database, or
+   competent authority at execution time; verify the publisher and applicable
+   territory rather than relying on a domain suffix or a search snippet.
+2. Read the current consolidated text and relevant conditions. Check effective
+   dates, amendments, local implementation, and any applicable copyright,
+   technical-protection, contract, trade-secret, or access restrictions. Do not
+   treat a remembered article number, old translation, or archived page as
+   confirmation of the current rule.
+3. Discover and read the current game publisher's EULA and the distribution
+   platform's terms, including Steam's terms when the copy uses Steam. Check
+   the requested diagnosis and any proposed automated interaction separately.
+   A statutory exception, contract term, platform rule, and user authorization
+   are separate considerations; one does not automatically settle the others.
+4. In the task's report, record jurisdiction, intended act, sources actually
+   consulted, source revision/effective date when available, access date, and
+   the narrow conclusion or unresolved issue. Cite the URLs found in this
+   lookup there; do not copy them into the skill, plugin manifest, or a fixed
+   list of required websites. A research citation is not a standing network
+   dependency or an endorsement of this community-maintained skill.
+5. If browsing is unavailable or current applicability cannot be established,
+   state the missing evidence and pause the dependent native analysis. Continue
+   authorized Stage 0 log/source inspection where it does not depend on that
+   conclusion; do not invent permission or substitute model memory for a check.
 
-This table was last verified on 2026-07-24. Refresh the relevant official
-sources when:
-
-- twelve months have passed;
-- the law, platform terms, game build, or tool release changed;
-- TPMs, network services, anti-cheat, distribution, publication, commercial
-  work, confidential material, or cross-border transfer is involved;
-- the user identifies a state, province, member state, or territory whose local
-  implementation matters; or
-- the requested act falls outside private crash and interoperability diagnosis.
+Recheck when the jurisdiction, scope, relevant law/terms, or facts change during
+the task. Keep all findings specific to the proposed operation; this workflow
+does not provide a blanket legal clearance for reverse engineering.
 
 ## Field-tested native-analysis lesson
 

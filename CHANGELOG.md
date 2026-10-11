@@ -4,7 +4,19 @@
 
 ## 1.7.0 - 2026-10-11
 
-- 发布说明汇总自 v1.6.0 以来的全部提交，提供[完整中英双语说明](docs/releases/v1.7.0.md)。
+- 同日更新发布包：新增英文用户指南，三套技能按用户语言提供指南，默认不加载正文；
+  最新 Release 改为简短中英双语说明，并同步源码、四个下载包和 SHA-256 校验文件。
+  Refreshed the release with an English user guide, language-aware delivery, concise bilingual notes,
+  synchronized source archives, and regenerated SHA-256 checksums.
+- 逆向分析不再内置法律网址、各地区静态法律结论或年度刷新期限；实际进行原生分析时，
+  按法域与具体操作实时检索现行法律、官方解释及游戏／平台条款，核对时效并在当次报告引用。
+  法律研究来源不写入插件的固定网站依赖；无法核实时暂停依赖该结论的原生分析，仍可继续
+  已授权且不依赖该结论的日志与源码检查。
+- Replace bundled legal URLs and jurisdiction tables with a fresh, task-specific lookup of current
+  primary law and publisher/platform terms before native analysis. Record dated sources in the task
+  report, not a permanent plugin website list; unresolved applicability blocks only the dependent work.
+
+- 发布说明汇总自 v1.6.0 以来的全部提交，提供[简短中英双语说明](docs/releases/v1.7.0.md)。
   更新插件版本，并在中英文 README 提供按需用户指南入口；固定 shader/include 的 LF
   换行，使 Windows 签出及发布包与编译记录的源码哈希一致，打包排除本地缓存。
 - 新增 GUI 着色器接入契约、按需算法配方和不含美术的最小渲染组件，吸收测试工程的
