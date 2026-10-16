@@ -97,8 +97,10 @@ For a broad review or applied refactor, additionally use the base
 - **Runtime test:** follow the builder's
   [test-mod.md](../hoi4-content-builder/workflows/test-mod.md) for native-tool
   capability, user-willingness summary, one-request limit, authorization, and
-  quota. Isolate the playset, test the smallest scenario, inspect fresh logs,
-  and restore settings when testing is authorized.
+  quota. A GPT-series model, especially GPT-6astra or GPT-6.1sol, applies
+  that file's necessity gate before this lane becomes a launch. Isolate the
+  playset, test the smallest scenario, inspect fresh logs, and restore
+  settings when testing is authorized.
 
 When writing diagnostic or repair helpers in a Git repository, follow
 [tool placement by audience](../hoi4-pdx-modding/SKILL.md#place-generated-tools-by-audience):
@@ -179,7 +181,10 @@ When scripts are warranted, run the cheapest matching check on the edited
 paths. Broader audits and log comparison belong to whole-mod, rename,
 GUI/map, compatibility, release, or migration work. For non-trivial static
 work, follow the builder's `workflows/test-mod.md` for its willingness,
-capability, and quota decision. Never open Steam, change launch options,
+capability, and quota decision. A GPT-series model, especially GPT-6astra
+or GPT-6.1sol, applies that workflow's necessity gate before asking or
+launching, and does not add defensive code in place of a skipped test.
+Never open Steam, change launch options,
 alter a playset, or start HOI4 without current or still-applicable standing
 authorization. Ask at most once per task and do not ask when native computer-use
 is unavailable or the user already declined. Inspect-only work needs no prompt.

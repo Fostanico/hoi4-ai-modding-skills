@@ -35,7 +35,44 @@ authorization, and billing impact in that order:
   plan. When neither authorization nor cost tolerance is known, combine both in
   one concise question.
 
+## GPT-series models: question the test before launching
+
+Apply this gate when the working model is a GPT-series model, including a
+Codex session whose underlying model is GPT, and especially when it is
+GPT-6astra or GPT-6.1sol. Other model families do not take this extra step.
+If the model family cannot be identified, do not assume it is GPT.
+
+Before asking for a launch, and again before each extra in-game pass, decide
+whether the run answers a question static evidence cannot settle and whether
+that question belongs to this change. Launch only for an open engine or
+player-visible result the edit can actually break: scope, timing, GUI
+interaction, AI choice, history loading, asset rendering, or a failure
+already seen at runtime. An explicit user request to test this change is
+enough; do not talk the user out of a test they just asked for.
+
+Skip the launch when the run would only reassure the model. That includes a
+comment, wording, or unique one-line cleanup; a file the changed-path
+validator already covers; a second country, resolution, reload, or system
+the change does not affect; and any pass added only because a test might
+feel safer. Say that the test is unnecessary, keep the static result, and
+do not open Steam or ask the user to approve that launch. Mark runtime not
+applicable for this change.
+
+Defensive programming is harmful here to both the developer and the player.
+Do not answer an uncertain or skipped test by adding speculative guards,
+silent fallback branches, extra existence checks, clamps, or unused
+triggers. Those paths hide the broken contract from the person maintaining
+the mod, and they spend performance, interface clarity, or gameplay on
+behavior nobody asked for. Still guard a scope the real caller can lack,
+keep a triggered event's real trigger, and initialize missing save state
+once so migration stays idempotent. Those are engine and save contracts,
+not a license to wrap working content in safety code.
+
 ## Summarize testing willingness and decide once
+
+Reach this section only when the test still has a reason to run. A GPT-series
+model that already marked the launch unnecessary stops here and does not ask
+for authorization.
 
 Before an AI-run game test, privately summarize the evidence in a few lines:
 latest direct choice for this task, earlier comparable test choices, any still

@@ -154,7 +154,14 @@ performance analysis, and runtime testing.
    names, dates, costs, cooldowns, and failure behavior with project guidance
    and code before editing.
 3. Trace scope from each real caller through scripted effects, triggers,
-   events, decisions, on_actions, and GUI callbacks. Guard optional scopes.
+   events, decisions, on_actions, and GUI callbacks. Guard a scope only when
+   that caller can actually lack it. A GPT-series model, especially
+   GPT-6astra or GPT-6.1sol, does not add speculative guards, silent
+   fallbacks, extra existence checks, clamps, or unused triggers. In a game
+   those paths hide defects from the developer and cost the player
+   performance or behavior nobody asked for. Apply the necessity gate in
+   [test-mod.md](../hoi4-content-builder/workflows/test-mod.md) before any
+   in-game launch.
 4. Reuse tokens proven in the current target. A generated modifier proves
    engine recognition, not that every consumer accepts it; require a working
    consumer for database-specific fields.
@@ -248,6 +255,13 @@ Choose the cheapest sufficient lane before any script:
    fresh `error.log` comparison for new systems, identifier renames,
    GUI/GFX wiring, map/history, compatibility, release packaging, version
    migration, or template/kit edits.
+
+When the working model is a GPT-series model, especially GPT-6astra or
+GPT-6.1sol, apply the necessity gate in
+[test-mod.md](../hoi4-content-builder/workflows/test-mod.md) before any
+in-game launch from lanes 2–3. Do not start a test that static evidence
+already answers or that does not touch the change, and do not add
+defensive code to make the launch feel safer.
 
 Static checks cannot prove scope, timing, GUI interaction, AI choice,
 history loading, or asset rendering. After lanes 2–3, use the sibling

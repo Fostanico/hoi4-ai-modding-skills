@@ -2,6 +2,16 @@
 
 ## Unreleased
 
+- GPT 系列模型，尤其是 GPT-6astra 与 GPT-6.1sol，在实机测试前先判断这次启动是否回答
+  静态证据解决不了、且属于本次改动的问题。只为安心的测试不启动，也不为此添加推测性守卫、
+  静默回退或无关分支。调用者可能缺失的范围守卫、触发事件自身的 trigger，以及存档迁移的
+  一次性缺省初始化保持不变。用户明确要求测试时仍照常执行。
+  GPT-series models, especially GPT-6astra and GPT-6.1sol, justify an in-game launch
+  before asking or starting the game. Skip reassurance tests and do not add speculative
+  guards or silent fallbacks in their place. Required scope guards, a triggered event's
+  own trigger, and one-time save-migration initialization stay. An explicit user request
+  to test still runs.
+
 ## 1.7.0 - 2026-10-11
 
 - 同日更新发布包：新增英文用户指南，三套技能按用户语言提供指南，默认不加载正文；

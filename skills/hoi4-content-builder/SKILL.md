@@ -157,6 +157,9 @@ When the change needs scripts, run the sibling validator on the edited
 paths, inspect only the links those paths can break, and separate static
 proof from runtime proof. After a non-trivial static pass, follow
 `workflows/test-mod.md` for consent, subscription/quota handling, and the
-runtime procedure. If the user declines, provide its detailed manual test
-handoff and do not open Steam. Inspect-only work does not require a Steam
-prompt.
+runtime procedure. A GPT-series model, especially GPT-6astra or GPT-6.1sol,
+applies that workflow's necessity gate first: skip an in-game test that
+does not answer an open question about this change, and do not add
+defensive code to justify the launch. If the user declines, provide its
+detailed manual test handoff and do not open Steam. Inspect-only work does
+not require a Steam prompt.
