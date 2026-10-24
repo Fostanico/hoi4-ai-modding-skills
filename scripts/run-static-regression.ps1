@@ -66,7 +66,7 @@ try {
     if ($LASTEXITCODE -ne 0) { throw 'New multi-file kit validation failed.' }
 
     $baselinePath = Join-Path $tempRoot 'baseline.json'
-    & $doctor -ModRoot $fixture -AuditMedia -Format Json -OutputPath $baselinePath
+    & $doctor -ModRoot $fixture -AuditMedia -FindDuplicates -Format Json -OutputPath $baselinePath
     $baseline = [IO.File]::ReadAllText($baselinePath, [Text.Encoding]::UTF8) | ConvertFrom-Json
     Assert-True ($baseline.schemaVersion -eq 2) 'Doctor JSON schema must be 2.'
     Assert-True (@($baseline.findings | Where-Object { $_.code -eq 'MISSING_EVENT_TARGET_UNVERIFIED' }).Count -eq 1) 'Fixture must expose one missing event target.'
@@ -113,7 +113,7 @@ try {
     Assert-True ($sarif.version -eq '2.1.0') 'SARIF version must be 2.1.0.'
     Assert-True ($sarif.runs[0].results.Count -gt 0) 'SARIF must contain results.'
 
-    $media = (& $mediaDoctor -ModRoot $fixture -Format Json | ConvertFrom-Json)
+    $media = (& $mediaDoctor -ModRoot $fixture -FindDuplicates -Format Json | ConvertFrom-Json)
     Assert-True ($media.summary.exactDuplicateGroups -eq 1) 'Media audit must find the duplicate fixture files.'
     Assert-True ($media.summary.signatureMismatches -eq 2) 'Fixture pseudo-PNG files must be reported as signature mismatches.'
 
