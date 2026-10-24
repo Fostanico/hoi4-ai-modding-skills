@@ -59,6 +59,23 @@ through the source hierarchy and consumer checks below. If the MCP server is
 unavailable, continue with the documented `rg`, Git, PowerShell, and bundled
 script workflow; never block ordinary modding work on plugin availability.
 
+## File comparison and hashes
+
+Do not calculate SHA-256 or other file hashes by default for ordinary HOI4
+scripts, localisation, GUI, assets, copies, skill synchronization, test evidence,
+or releases. Use Git diffs, paths, versions, byte sizes, and the relevant
+content/format evidence. Do not create a checksum manifest merely to make a
+routine change appear safer or more rigorous.
+
+Use a hash only when it answers a concrete question: an explicitly requested
+exact-duplicate/content comparison, an official downloaded-tool checksum, an
+identified corruption/transfer issue, or a user-required artifact identity.
+Limit it to those files and reuse existing evidence. A locally computed digest
+without a trusted reference does not establish safety. Compare decoded pixels
+directly for lossless conversion; do not add a second hash pass. Git object IDs,
+small diagnostic fingerprints, and engine/shader hash algorithms are functional
+identifiers, not instructions to hash the mod tree.
+
 ## Player-facing writing
 
 Localisation values are written for players, not developers. Write character

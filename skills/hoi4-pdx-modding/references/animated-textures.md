@@ -195,7 +195,7 @@ For a controlled PNG experiment, transcode the decoded BC1/BC3 pixels rather
 than re-decoding the original source when the requirement is exact visual
 equivalence with the current texture. Call this lossless relative to the
 decoded block-compressed texture, not lossless relative to the pre-BC source.
-Compare every candidate's dimensions and decoded RGBA hash, optimize only
+Compare candidate dimensions and decoded RGBA pixels directly, optimize only
 losslessly, and record both total file bytes and estimated decoded RGB/RGBA
 bytes. PNG can be smaller on disk when large areas are repetitive while still
 using six to eight times the GPU memory of BC1. Treat engine acceptance,
@@ -242,7 +242,7 @@ an image preview does not prove that DX11 resource creation is safe.
 ## Build and validation handoff
 
 Generate into staging and publish the GFX/GUI only after every texture passes
-its contract. Record the source hash, the frame-accurate interval actually
+its contract. Record the source path/version, the frame-accurate interval actually
 encoded, output dimensions, FPS, frame count, strip geometry, compression,
 and expected footprint in a manifest. New GFX registrations require a full
 game restart; do not judge a new sprite from hot-reload behavior.

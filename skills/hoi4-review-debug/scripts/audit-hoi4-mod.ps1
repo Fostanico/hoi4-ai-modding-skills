@@ -26,6 +26,8 @@ param(
 
     [switch]$AuditMedia,
 
+    [switch]$FindDuplicates,
+
     [string]$OutputPath,
 
     [switch]$Force,
@@ -404,6 +406,7 @@ function Get-GitChangedFiles {
 function Get-FindingFingerprint {
     param([object]$Finding)
 
+    # Stable short diagnostic identity for saved baselines; no file content is hashed.
     $file = if ($null -ne $Finding.location) { ([string]$Finding.location.file).Replace('/', '\').ToLowerInvariant() } else { '' }
     $payload = "$($Finding.code)|$file|$($Finding.message)"
     $bytes = [Text.Encoding]::UTF8.GetBytes($payload)
@@ -440,7 +443,7 @@ function Test-AutoDiscoveredMedia {
 }
 
 function Get-MediaInventory {
-    param([string]$Root, [object[]]$IndexedFiles, [hashtable]$ReferenceMap, [string[]]$SearchRoots)
+    param([string]$Root, [object[]]$IndexedFiles, [hashtable]$ReferenceMap, [string[]]$SearchRoots, [switch]$FindDuplicates)
 
     $extensions = @('.dds', '.png', '.tga', '.jpg', '.jpeg', '.wav', '.ogg', '.mp3')
     $files = @(Get-ChildItem -LiteralPath $Root -Recurse -File -ErrorAction SilentlyContinue | Where-Object {
@@ -461,11 +464,18 @@ function Get-MediaInventory {
 
     $records = [Collections.Generic.List[object]]::new()
     $hashGroups = @{}
+    $sizeCounts = @{}
+    if ($FindDuplicates) {
+        foreach ($file in $files) { $sizeCounts[$file.Length] = 1 + $sizeCounts[$file.Length] }
+    }
     foreach ($file in $files) {
         $relative = Get-RelativePath -Root $Root -Path $file.FullName
-        $hash = (Get-FileHash -LiteralPath $file.FullName -Algorithm SHA256).Hash.ToLowerInvariant()
-        if (-not $hashGroups.ContainsKey($hash)) { $hashGroups[$hash] = [Collections.Generic.List[object]]::new() }
-        $hashGroups[$hash].Add($file)
+        $hash = $null
+        if ($FindDuplicates -and $sizeCounts[$file.Length] -gt 1) {
+            $hash = (Get-FileHash -LiteralPath $file.FullName -Algorithm SHA256).Hash.ToLowerInvariant()
+            if (-not $hashGroups.ContainsKey($hash)) { $hashGroups[$hash] = [Collections.Generic.List[object]]::new() }
+            $hashGroups[$hash].Add($file)
+        }
         $records.Add([pscustomobject]@{
             path = $relative
             extension = $file.Extension.ToLowerInvariant()
@@ -504,6 +514,7 @@ function Get-MediaInventory {
     } | Sort-Object bytes -Descending)
 
     return [pscustomobject]@{
+        duplicatesScanned = [bool]$FindDuplicates
         files = $records.Count
         bytes = $totalBytes
         byExtension = $byExtension
@@ -957,8 +968,8 @@ if ($orphanGfxKeys.Count -gt 0) {
 }
 
 $mediaInventory = $null
-if ($AuditMedia) {
-    $mediaInventory = Get-MediaInventory -Root $ModRoot -IndexedFiles $primaryFiles -ReferenceMap $assetReferences -SearchRoots @($assetSearchRoots)
+if ($AuditMedia -or $FindDuplicates) {
+    $mediaInventory = Get-MediaInventory -Root $ModRoot -IndexedFiles $primaryFiles -ReferenceMap $assetReferences -SearchRoots @($assetSearchRoots) -FindDuplicates:$FindDuplicates
     if ($mediaInventory.exactDuplicateGroups.Count -gt 0) {
         Add-Finding -Severity Info -Code 'DUPLICATE_MEDIA_SUMMARY' -Message "$($mediaInventory.exactDuplicateGroups.Count) groups of byte-identical media were found." -Location $null -Evidence "Potential deduplication savings: $($mediaInventory.potentialDuplicateSavingsBytes) bytes. Review consumer paths before removing copies."
     }
@@ -1054,7 +1065,8 @@ $result = [pscustomobject]@{
         gitBase = if ($ChangedOnly) { $GitBase } else { $null }
         baseline = $BaselinePath
         suppressionPolicy = $SuppressionsPath
-        mediaAudit = [bool]$AuditMedia
+        mediaAudit = [bool]($AuditMedia -or $FindDuplicates)
+        findDuplicates = [bool]$FindDuplicates
     }
     roots = [pscustomobject]@{
         mod = $ModRoot
@@ -1147,8 +1159,11 @@ switch ($Format) {
             $lines.Add('')
             $lines.Add("- Files: $($mediaInventory.files)")
             $lines.Add("- Bytes: $($mediaInventory.bytes)")
-            $lines.Add("- Exact duplicate groups: $($mediaInventory.exactDuplicateGroups.Count)")
-            $lines.Add("- Potential duplicate savings: $($mediaInventory.potentialDuplicateSavingsBytes) bytes")
+            if ($FindDuplicates) {
+                $lines.Add("- Exact duplicate groups: $($mediaInventory.exactDuplicateGroups.Count)")
+                $lines.Add("- Potential duplicate savings: $($mediaInventory.potentialDuplicateSavingsBytes) bytes")
+            }
+            else { $lines.Add('- Exact duplicates: not scanned (opt in with -FindDuplicates).') }
             $lines.Add("- Unreferenced candidates: $($mediaInventory.unreferencedCandidates) ($($mediaInventory.unreferencedCandidateBytes) bytes)")
         }
         $lines.Add('')
@@ -1210,7 +1225,8 @@ switch ($Format) {
         }
         if ($null -ne $mediaInventory) {
             $lines.Add('')
-            $lines.Add("Media: $($mediaInventory.files) files / $($mediaInventory.bytes) bytes; $($mediaInventory.exactDuplicateGroups.Count) exact duplicate groups; $($mediaInventory.unreferencedCandidates) unreferenced candidates")
+            $duplicateStatus = if ($FindDuplicates) { "$($mediaInventory.exactDuplicateGroups.Count) exact duplicate groups" } else { 'duplicates not scanned' }
+            $lines.Add("Media: $($mediaInventory.files) files / $($mediaInventory.bytes) bytes; $duplicateStatus; $($mediaInventory.unreferencedCandidates) unreferenced candidates")
         }
         $lines.Add('')
         $lines.Add('Static findings are a baseline, not runtime proof or permission to make subjective design changes.')

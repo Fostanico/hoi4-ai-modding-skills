@@ -5,6 +5,7 @@ param(
     [Parameter(Mandatory = $true)]
     [string]$VanillaRoot,
     [switch]$AsJson,
+    [switch]$CompareContent,
     [ValidateRange(0, 100000)]
     [int]$Limit = 0
 )
@@ -78,14 +79,24 @@ foreach ($file in Get-ChildItem -LiteralPath $mod -File -Recurse) {
         }
     }
 
-    $modHash = (Get-FileHash -LiteralPath $file.FullName -Algorithm SHA256).Hash.ToLowerInvariant()
-    $vanillaHash = (Get-FileHash -LiteralPath $vanillaPath -Algorithm SHA256).Hash.ToLowerInvariant()
+    $vanillaBytes = (Get-Item -LiteralPath $vanillaPath).Length
+    $modHash = $null
+    $vanillaHash = $null
+    $identical = $null
+    if ($CompareContent) {
+        $identical = $false
+        if ($file.Length -eq $vanillaBytes) {
+            $modHash = (Get-FileHash -LiteralPath $file.FullName -Algorithm SHA256).Hash.ToLowerInvariant()
+            $vanillaHash = (Get-FileHash -LiteralPath $vanillaPath -Algorithm SHA256).Hash.ToLowerInvariant()
+            $identical = $modHash -eq $vanillaHash
+        }
+    }
     $overrides.Add([pscustomobject]@{
         path = $relative
         risk = Get-Risk $relative
         mod_bytes = $file.Length
-        vanilla_bytes = (Get-Item -LiteralPath $vanillaPath).Length
-        identical = $modHash -eq $vanillaHash
+        vanilla_bytes = $vanillaBytes
+        identical = $identical
         mod_sha256 = $modHash
         vanilla_sha256 = $vanillaHash
         missing_migration_tokens = @($missingTokens)
@@ -101,7 +112,8 @@ $result = [ordered]@{
     descriptor_files = @($descriptorFiles | ForEach-Object { Get-RelativePath $mod $_.FullName })
     replace_paths = @($replacePaths)
     exact_override_count = $ordered.Count
-    identical_override_count = @($ordered | Where-Object identical).Count
+    content_compared = [bool]$CompareContent
+    identical_override_count = if ($CompareContent) { @($ordered | Where-Object identical).Count } else { $null }
     high_risk_override_count = @($ordered | Where-Object risk -eq 'high').Count
     missing_migration_gate_count = $missingGateCount
     overrides = $ordered
@@ -112,7 +124,9 @@ if ($AsJson) { $result | ConvertTo-Json -Depth 6; return }
 "Vanilla root: $vanilla"
 "replace_path entries: $($replacePaths.Count)"
 if ($replacePaths.Count -gt 0) { $replacePaths | Format-Table descriptor, path -AutoSize }
-"Exact overrides: $($ordered.Count); high risk: $($result.high_risk_override_count); identical: $($result.identical_override_count)"
+"Exact overrides: $($ordered.Count); high risk: $($result.high_risk_override_count)"
+if ($CompareContent) { "Identical overrides: $($result.identical_override_count)" }
+else { 'Content equality: not compared (opt in with -CompareContent).' }
 "Known migration gates missing: $missingGateCount"
 $shown = if ($Limit -gt 0) { @($ordered | Select-Object -First $Limit) } else { $ordered }
 if ($shown.Count -gt 0) {

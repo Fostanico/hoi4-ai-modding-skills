@@ -98,9 +98,10 @@ For a broad review or applied refactor, additionally use the base
   [test-mod.md](../hoi4-content-builder/workflows/test-mod.md) for native-tool
   capability, user-willingness summary, one-request limit, authorization, and
   quota. A GPT-series model, especially GPT-6astra or GPT-6.1sol, applies
-  that file's necessity gate before this lane becomes a launch. Isolate the
-  playset, test the smallest scenario, inspect fresh logs, and restore
-  settings when testing is authorized.
+  that file's necessity gate before this lane becomes a launch. Prefer an
+  existing playset with only the required mods enabled. For short/simple
+  tests, use console preparation and only the agreed observations; follow
+  that workflow's elapsed-time and restoration limits.
 
 When writing diagnostic or repair helpers in a Git repository, follow
 [tool placement by audience](../hoi4-pdx-modding/SKILL.md#place-generated-tools-by-audience):
@@ -155,7 +156,12 @@ Select only the cheapest matching read-only tool:
   potential visibility paths, and `hidden_trigger` exclusions.
 - `scripts/audit-hoi4-map.ps1`: check map IDs/colors and history membership.
 - `scripts/audit-vanilla-overrides.ps1`: inventory overrides, `replace_path`,
-  hashes, and migration gates.
+  sizes, and migration gates; `-CompareContent` opts into exact comparison.
+
+Follow the base skill's **File comparison and hashes** rule. Ordinary review,
+media inventory, copying, and delivery do not require file digests. Media tools
+hash same-size candidates only with `-FindDuplicates`; diagnostic fingerprints
+remain stable for existing baselines without reading or hashing file contents.
 
 Native crash tools and authorization stages are defined only in the native
 crash reference. Do not import that workflow into ordinary script or log
@@ -198,9 +204,8 @@ For a whole-mod improvement, fill the bundled
 approved scope, evidence, deferred design choices, and remaining risks. Never
 silently turn a balance preference or narrative taste into a defect.
 
-For an approved test, use computer-use when available and follow the builder's
-runtime workflow. Enable only the target mod, plus exact required dependencies
-for a submod; use `-debug`; start a new game from the earliest available
-bookmark; exercise the changed content; read the logs; improve and retest; then
-restore any launch and playset settings changed for the test. Report confirmed
-results, reasoned risks, and any interactions still requiring the user.
+For an approved test, follow the builder's runtime workflow, including existing
+playset reuse, console shortcuts, and the bounded short-test path. Do not turn
+one session into a full playthrough or an automatic fix-and-relaunch loop.
+Report confirmed results, actual restoration status, reasoned risks, and any
+interactions still requiring the user.

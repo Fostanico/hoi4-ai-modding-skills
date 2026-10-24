@@ -76,8 +76,8 @@ when the user lawfully controls the supplied dump and installed binary and the
 work is permitted by applicable law. Keep it to the minimum needed for crash
 and compatibility diagnosis. Follow the native-analysis reference's live
 legal/terms lookup for this jurisdiction and operation; do not rely on stored
-legal links or an earlier country's conclusion. Preserve hashes and original
-evidence, work read-only, and stop once the affected class, call path, or mod-facing contract
+legal links or an earlier country's conclusion. Preserve original evidence and
+its build/path metadata, work read-only, and stop once the affected class, call path, or mod-facing contract
 is identified. Do not bypass DRM or access controls, seek unrelated proprietary
 logic or secrets, patch or redistribute the executable, claim access to private
 symbols, or reproduce substantial decompiled code. If authority or legality is
@@ -88,7 +88,7 @@ using the native-analysis reference. If it is not high-confidence, do not
 guess. Explain the exact missing evidence and ask whether to proceed to maximum
 lawful static diagnosis. When approved, detect existing tools first; otherwise
 download the current official stable Ghidra release and its currently required
-Eclipse Temurin LTS JDK only after checksum, signature where applicable,
+Eclipse Temurin LTS JDK only after official-source and published checksum/signature checks where available,
 archive-path, and antivirus checks. Ask again before running the game,
 attaching a debugger, taking a full user-mode dump, or setting a hardware data
 breakpoint on a suspicious field.

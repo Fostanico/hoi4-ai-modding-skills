@@ -5,11 +5,12 @@ consumer and measured result, not by file extension alone.
 
 ## 1. Establish the inventory
 
-Run Mod Doctor with `-AuditMedia`, then run
-`scripts/audit-media-footprint.ps1`. Record total bytes by extension, exact
-duplicates, explicit references, DDS metadata, and the largest unreferenced
-candidates. Read GFX, GUI, asset, music, database, and code consumers before
-classifying a file as unused.
+Use `scripts/audit-media-footprint.ps1`, or reuse Mod Doctor's `-AuditMedia`
+inventory when it already answers the question; do not run both by default.
+Record total bytes by extension, explicit references, DDS metadata, and the
+largest unreferenced candidates. Exact duplicate search is opt-in with
+`-FindDuplicates`; use it only for a deduplication task, with size filtering
+before content hashing. Read consumers before classifying a file as unused.
 
 For audio, also record the container, actual codec, duration, sample rate,
 channel layout, bitrate, stream count, metadata size, chapters, and any attached
@@ -24,8 +25,9 @@ An absent text reference is a lead, never deletion authority.
 
 Before conversion or deletion, make a dedicated Git commit or tag containing
 only the media baseline. Confirm `git status` and preserve unrelated work. Keep
-a manifest containing original path, hash, size, dimensions, format, mip count,
-consumer, replacement path, replacement hash, and measured savings. For audio,
+a manifest containing original path, size, dimensions, format, mip count,
+consumer, replacement path, and measured savings. Git records the baseline;
+do not hash every source and replacement. For audio,
 replace image-only fields with source mapping, codec, sample rate, channel
 layout, duration, stream inventory, encoder settings, and full-decode result.
 Store temporary conversions and rollback originals outside the release mod.
@@ -62,8 +64,8 @@ Never overwrite the source during the experiment. For each candidate:
 1. decode the original with a trusted local library;
 2. preserve width, height, alpha, and visible pixels;
 3. write the candidate with deterministic settings;
-4. decode both files and compare dimensions, color mode, alpha coverage, and a
-   pixel-buffer hash;
+4. decode both files and directly compare dimensions, color mode, alpha coverage,
+   and pixel buffers; no additional hash pass is needed;
 5. compare actual byte sizes;
 6. keep the candidate only when it is smaller and the consumer contract permits
    the format.
@@ -98,7 +100,7 @@ is known. Shared texture paths save space but can create cross-feature coupling.
 
 ## 6. Verify
 
-- rerun Mod Doctor with `-AuditMedia`;
+- reuse the existing inventory and inspect only changes needed to report savings;
 - run the base HOI4 validator and `git diff --check`;
 - inspect changed GFX/GUI/music/model registrations;
 - compare before/after manifest totals;

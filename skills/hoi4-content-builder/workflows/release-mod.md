@@ -13,6 +13,8 @@
 5. Verify the canonical technical guide, current development handoff, and code
    comments match the released implementation. Record runtime gaps honestly.
 6. Package from a clean manifest with relative paths and inspect the archive
-   listing before publishing. Hash the final archive and record the version.
+   listing before publishing. Record the version, source revision, and package
+   size. Add an archive checksum only when the recipient or release channel
+   requires it, or when diagnosing a specific transfer/corruption problem.
 7. Publish source and tagged releases from a repository when possible so users
    can review history and install only the intended skill/mod directories.

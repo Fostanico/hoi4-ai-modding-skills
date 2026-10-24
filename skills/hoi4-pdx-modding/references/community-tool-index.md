@@ -10,7 +10,9 @@ library; current vanilla remains the authority for engine code.
 During the initial audit, target executables were inspected without launching
 them and archives were extracted only after path-traversal checks. Tools may be
 run in later tasks when they materially help, after the specific executable and
-its inputs/outputs receive the normal source/hash, Defender, and behavior check.
+its source and write/launch behavior are understood and the executable has
+received applicable download checks. Do not hash ordinary inputs/outputs or
+repeat acquisition checks for an unchanged installed tool on every use.
 
 The temporary extractor was
 [`pyinstxtractor-ng`](https://github.com/pyinstxtractor/pyinstxtractor-ng)
@@ -109,8 +111,9 @@ in `pdx-language.md`.
 
 ## Operating rule
 
-Use community tools when they save real work. For every newly downloaded
-artifact, record source and SHA-256, check archive paths and signatures where
-applicable, scan it, identify its write/launch behavior, and run it against a
+Use community tools when they save real work. For a newly downloaded executable
+tool, record source and version; compare a publisher-provided checksum when
+available, check archive paths and signatures where applicable, scan it,
+identify its write/launch behavior, and run it against a
 staging copy first. Diff generated output, validate PDX/encoding/resource
 links, and cross-check engine code against current vanilla before absorbing it.

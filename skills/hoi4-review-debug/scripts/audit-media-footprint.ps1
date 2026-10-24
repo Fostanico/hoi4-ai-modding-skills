@@ -3,6 +3,7 @@ param(
     [Parameter(Position = 0)][string]$ModRoot,
     [ValidateSet('Text', 'Json', 'Markdown')][string]$Format = 'Text',
     [string]$OutputPath,
+    [switch]$FindDuplicates,
     [switch]$Force
 )
 
@@ -84,6 +85,10 @@ $mediaFiles = @(Get-ChildItem -LiteralPath $ModRoot -Recurse -File -ErrorAction 
 })
 $records = [Collections.Generic.List[object]]::new()
 $hashGroups = @{}
+$sizeCounts = @{}
+if ($FindDuplicates) {
+    foreach ($file in $mediaFiles) { $sizeCounts[$file.Length] = 1 + $sizeCounts[$file.Length] }
+}
 foreach ($file in $mediaFiles) {
     $relative = Get-RelativePath -Root $ModRoot -Path $file.FullName
     $path = $relative.Replace('\', '/').ToLowerInvariant()
@@ -98,9 +103,12 @@ foreach ($file in $mediaFiles) {
     elseif ($null -ne $dds -and $dds.mipmaps -gt 1) { $preserveReason = 'DDS contains mipmaps' }
     $classification = if ($null -ne $preserveReason) { 'retain_dds' } elseif ($extension -eq '.dds' -and $literalReferences.Contains($file.FullName)) { 'png_comparison_candidate' } elseif (-not $literalReferences.Contains($file.FullName) -and -not $engineDiscovered) { 'investigate_consumer' } else { 'retain_current' }
     $expectedSignatures = switch ($extension) { '.dds' { @('dds') } '.png' { @('png') } '.jpg' { @('jpeg') } '.jpeg' { @('jpeg') } '.ogg' { @('ogg') } '.wav' { @('riff') } default { @('unknown') } }
-    $hash = (Get-FileHash -LiteralPath $file.FullName -Algorithm SHA256).Hash.ToLowerInvariant()
-    if (-not $hashGroups.ContainsKey($hash)) { $hashGroups[$hash] = [Collections.Generic.List[string]]::new() }
-    $hashGroups[$hash].Add($relative)
+    $hash = $null
+    if ($FindDuplicates -and $sizeCounts[$file.Length] -gt 1) {
+        $hash = (Get-FileHash -LiteralPath $file.FullName -Algorithm SHA256).Hash.ToLowerInvariant()
+        if (-not $hashGroups.ContainsKey($hash)) { $hashGroups[$hash] = [Collections.Generic.List[string]]::new() }
+        $hashGroups[$hash].Add($relative)
+    }
     $records.Add([pscustomobject]@{
         path = $relative; bytes = [long]$file.Length; extension = $extension
         actualSignature = $signature.kind; extensionMatchesSignature = ($expectedSignatures -contains $signature.kind)
@@ -119,6 +127,7 @@ $savingMeasure = $duplicates | Measure-Object potentialSavingsBytes -Sum
 $result = [pscustomobject]@{
     tool = 'HOI4 Media Footprint Audit'; schemaVersion = 1; generatedAt = (Get-Date).ToString('o'); root = $ModRoot
     summary = [pscustomobject]@{
+        duplicatesScanned = [bool]$FindDuplicates
         files = $records.Count; bytes = if ($null -ne $totalMeasure) { [long]$totalMeasure.Sum } else { [long]0 }
         exactDuplicateGroups = $duplicates.Count; potentialDuplicateSavingsBytes = if ($null -ne $savingMeasure) { [long]$savingMeasure.Sum } else { [long]0 }
         pngComparisonCandidates = @($records | Where-Object { $_.classification -eq 'png_comparison_candidate' }).Count
@@ -136,7 +145,8 @@ else {
     if ($Format -eq 'Markdown') { $lines.Add('# HOI4 Media Footprint Audit'); $lines.Add('') } else { $lines.Add('HOI4 Media Footprint Audit') }
     $lines.Add("Root: $ModRoot")
     $lines.Add("Files: $($result.summary.files); bytes: $($result.summary.bytes)")
-    $lines.Add("Exact duplicate groups: $($result.summary.exactDuplicateGroups); potential savings: $($result.summary.potentialDuplicateSavingsBytes) bytes")
+    if ($FindDuplicates) { $lines.Add("Exact duplicate groups: $($result.summary.exactDuplicateGroups); potential savings: $($result.summary.potentialDuplicateSavingsBytes) bytes") }
+    else { $lines.Add('Exact duplicates: not scanned (opt in with -FindDuplicates).') }
     $lines.Add("PNG comparison candidates: $($result.summary.pngComparisonCandidates); consumer investigations: $($result.summary.consumerInvestigationCandidates)")
     $lines.Add("Signature mismatches: $($result.summary.signatureMismatches)")
     $lines.Add(''); $lines.Add('Largest candidates:')

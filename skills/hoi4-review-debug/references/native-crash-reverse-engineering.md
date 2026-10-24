@@ -14,8 +14,10 @@ consent at each gate.
 ### Stage 0: logs and supplied evidence
 
 Read the crash package, fresh logs, metadata, mod source, enabled dependency
-source, and the user's exact pre-crash actions. Hash original dumps and binaries
-before analysis. This stage does not authorize launching the game, installing
+source, and the user's exact pre-crash actions. Preserve original dumps and
+record build, module, path, size, and timestamp metadata. Hash only the specific
+artifact when exact identity or suspected corruption is an open question;
+routine local analysis does not require a digest. This stage does not authorize launching the game, installing
 tools, attaching a debugger, or reverse engineering native code.
 
 ### Stage 1: minimum necessary WinDbg analysis
@@ -101,7 +103,7 @@ Choose the least invasive probe that can answer the open question:
   ownership, old/new field values, and the script object active at each hit.
 
 Do not patch instructions or data to force a result. Reproduce the smallest
-scenario, stop when the cause is established, hash the new evidence, and
+scenario, stop when the cause is established, record the relevant evidence, and
 restore any settings changed for the test.
 
 ## Tool acquisition and safety
@@ -131,15 +133,18 @@ For every download:
 2. Resolve the final URL under the official publisher's domain or official
    GitHub release, and reject mirrors, ads, nightly builds, and early-access
    builds unless the user specifically requested one.
-3. Record version, URL, byte size, UTC time, and SHA-256.
-4. Verify the published checksum. For a Windows installer, also require a valid
-   Authenticode signature from the expected publisher.
+3. Record version, official URL, and byte size. Avoid a separate digest when
+   no published reference or specific integrity question exists.
+4. When the publisher provides a checksum, verify that downloaded executable
+   or archive against it once. For a Windows installer, require a valid
+   Authenticode signature from the expected publisher. These checks concern
+   externally acquired executable tools, not ordinary mod data files.
 5. Scan the file with the installed antivirus. Inspect archive entries for
    absolute paths, `..` traversal, links escaping the destination, and
    unexpected launchable files before extraction.
 6. Extract into a new isolated directory. Do not overwrite an existing tool
    installation and do not load third-party Ghidra extensions.
-7. Stop on a missing/mismatched checksum, invalid signature, unexpected
+7. Stop on a mismatched published checksum, invalid signature, unexpected
    redirect, or antivirus finding. Report it instead of executing.
 
 Keep the analyzed binary, Ghidra project, dumps, and reports local. Do not
