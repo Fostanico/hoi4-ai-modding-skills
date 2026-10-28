@@ -1,6 +1,6 @@
 # HOI4 AI Modding Skills
 
-[简体中文](README.md) | English
+[简体中文](README.md) | English | [日本語](README_JA.md) | [Русский](README_RU.md)
 
 This repository contains three Agent Skills for maintaining, diagnosing,
 improving, and building Hearts of Iron IV mods with Codex, ChatGPT, Cursor,
@@ -135,6 +135,12 @@ want a specific review or diagnosis workflow.
 
 ## Core Workflows
 
+All three skills follow [shared workflow boundaries](skills/hoi4-pdx-modding/references/workflow-boundaries.md):
+reuse valid evidence, recheck only affected paths after local changes, and update
+documentation when its contract changes. Short-test budgets include preparation
+and cleanup; choose a relevant session, test save, or new game. A user stop
+instruction ends further work with a concise handoff.
+
 ### Improve an Existing Mod
 
 1. Read the project's technical guide, handoff notes, and relevant player-facing localisation.
@@ -142,9 +148,9 @@ want a specific review or diagnosis workflow.
 3. Separate confirmed defects, compatibility risks, performance problems, and design choices that require author approval.
 4. Present evidence and a staged plan before editing when approval is required.
 5. Apply only the approved scope. Scale static checks to the diff: inspect-only
-   for tiny edits, changed-path scripts for ordinary files, and the full suite
-   only for large or cross-file work. Do not spend AI quota on validation
-   theater. State what still requires an in-game test.
+   for tiny edits, changed-path scripts for ordinary files, and relevant broader
+   checks for large or cross-file work. Avoid unnecessary validation runs and
+   state any remaining need for in-game evidence.
 
 ### Diagnose Logs and Crashes
 
@@ -158,7 +164,7 @@ want a specific review or diagnosis workflow.
 1. Convert plain-language requirements into scope, state, resources, AI behavior, compatibility rules, and acceptance criteria.
 2. Verify syntax and tokens against the target installation, current vanilla consumers, and exact enabled dependencies.
 3. Build script, GFX, assets, and localisation from verified templates without leaving orphaned definitions.
-4. Check encoding, cross-file references, comments, technical documentation, logs, and the runtime test plan.
+4. Check encoding, cross-file references, and affected comments/documentation in proportion to the change; follow authorization and budget limits when runtime evidence is needed.
 
 ## Coverage
 
@@ -186,9 +192,10 @@ want a specific review or diagnosis workflow.
 - `assets/template-manifest.json` records the target build, source consumers,
   verification dates, and required checks. Its validator ensures every template
   and kit file is registered exactly once.
-- The media workflow inventories DDS metadata, literal consumers, exact
-  duplicates, and measured conversion candidates without treating every DDS as
-  a PNG opportunity.
+- The media workflow inventories DDS metadata, explicit references, and measured
+  conversion candidates. Hashing is opt-in for a specific duplicate or content
+  comparison; loading screens, mipmaps, cubemaps, and model materials retain
+  their consumer-specific requirements.
 
 ## Boundaries
 
