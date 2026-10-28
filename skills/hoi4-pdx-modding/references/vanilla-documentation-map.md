@@ -1,4 +1,4 @@
-# Installed vanilla documentation map (1.19.3)
+# Installed vanilla documentation map (1.19.4)
 
 ## Contents
 
@@ -11,8 +11,9 @@
 
 ## Authority and limitations
 
-This snapshot covers all 50 Markdown files found on 2026-09-20 in an installed
-`Operation Postern v1.19.3.0.c01a (5632)` build. Discover the user's current
+This inventory was refreshed for all 50 Markdown files on 2026-10-28 in an installed
+`Operation Postern v1.19.4.0.48d6 (a783)` build (11 generated, 39 database-adjacent).
+Discover the user's current
 game root and version before relying on the inventory.
 
 Use an installed Markdown document as the exact token, supported-scope, and
@@ -36,7 +37,7 @@ reliable:
   is not proof that a specific idea, trait, MIO, doctrine, or dynamic modifier
   accepts it.
 
-Patch 1.19.3 exposes a concrete generator lag. The executable registers
+The earlier 1.19.3 audit exposed a concrete generator lag. It found registrations for
 `is_fighting_in_strategic_region`, `is_deployed`, `state_deployed`,
 `province_deployed`, `is_core_of`, and `is_not_core_of`, while the generated
 trigger, dynamic-variable, and collection-operator documents omit some or all
@@ -45,6 +46,14 @@ admiral callbacks; it does not provide text consumers for the HQ deployment
 tokens or core-state operators. For undocumented additions, require all
 available layers of evidence and label missing parameter/lifecycle details
 instead of silently treating the generated index as exhaustive.
+
+The 1.19.4 text refresh finds another concrete gap: `stockpile_fuel` has a
+detailed database-adjacent AI document, while the equipment schema omits
+`module_add_stats_multiplier`, `module_multiply_stats_multiplier`, and
+`scaled_by_reliability`. Current `tank_chassis.txt` proves the first and third
+blocks. `set_major` still documents only a scalar and `start_border_war` omits
+the newly announced argument. See [the 1.19.4 evidence table](recent-official-modding-changes.md#1194-additions-and-evidence-gaps).
+These are text-source findings, not native behavioral validation.
 
 Never turn a comment containing `TODO`, `TBD`, “syntax just for reference”, or
 an unresolved question into a reusable production template without a current

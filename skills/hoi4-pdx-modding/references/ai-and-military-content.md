@@ -16,7 +16,8 @@ permanent removal, and `abort_when_not_enabled` temporary removal behavior.
 - `common/ai_areas` groups strategic-region IDs. Consume them with `area =` in
   strategies such as `invasion_unit_request`, `front_control`, and
   `front_unit_request`. Do not set those strategy types to `front_control`.
-- Treat values as additive weights, not universal percentages.
+- Treat ordinary strategy values as additive weights; respect explicit unit
+  exceptions such as the percentage thresholds of `stockpile_fuel` below.
 - Check interaction between broad strategies and specific strategies. Avoiding
   wars can coexist with a strong target-specific conquest weight.
 - Keep expensive values cached if recalculated frequently.
@@ -27,6 +28,35 @@ permanent removal, and `abort_when_not_enabled` temporary removal behavior.
   ID. Do not interchange those ID spaces without a matching current example.
 - AI objectives now respect blocked naval regions; test whether a strategy is
   ineffective because the region is blocked before increasing its weight.
+
+### Fuel conservation in 1.19.4
+
+The installed `common/ai_strategy/_documentation.md` documents this payload
+inside an otherwise normal strategy plan:
+
+```pdx
+ai_strategy = {
+	type = stockpile_fuel
+	start_below = 30
+	stop_above = 80
+}
+```
+
+This is a documentation-backed example, not an observed active vanilla plan
+or a native test. There is no `id`, `target` or `value` in the documented payload.
+The thresholds are percentages of **wanted maximum fuel**, not fixed amounts
+or universally percentages of tank capacity. The wanted target depends on
+`WANTED_MAX_FUEL_BUFFER_IN_DAYS_FOR_*`, can be adjusted by `fuel_buffer`, and is
+capped by actual capacity.
+
+`stop_above` alone changes the recovery target without forcing a new pause.
+When `start_below` is supplied, `stop_above` must also be supplied and be
+greater; an empty payload is invalid. Follow these specific validation rules,
+despite the document's contradictory sentence that either threshold works alone.
+Multiple active blocks choose the strictest threshold rather than adding values.
+Forced `front_control` execution and desperate fronts can override conservation;
+faction pings do not. Existing movements, exercises and battles still consume
+army fuel, so do not promise a total fuel-use freeze.
 
 ## AI equipment and division templates
 
@@ -85,6 +115,27 @@ technology unlock -> equipment archetype/type -> module-valid variant
 - Use explicit DLC/fallback branches where required. Another mod's number of
   airframes, equipment groups, or module taxonomy is not an engine invariant.
 
+## Equipment stat blocks in 1.19.4
+
+Current `common/units/equipment/tank_chassis.txt` places
+`module_add_stats_multiplier` inside individual equipment definitions; it is
+not an equipment-module `add_stats` replacement. Early light chassis use
+`soft_attack = -0.05` (likewise hard/air attack), while later chassis use
+positive `0.05` and `0.1`. Preserve the signed adjustment convention and the
+archetype/parent hierarchy. Do not rewrite these as `0.95` or `1.05`.
+
+The chassis archetypes use `scaled_by_reliability = { max_strength = 0.5 }`.
+This is an equipment-level contribution tied to reliability, not a direct
+battalion HP replacement. The official exclusion list is reliability itself,
+reliability factor, carrier deck size and IC cost. Exact behavior outside the
+observed stat should be established when needed, not inferred from a patch-note
+HP example. Read battalions, technologies, modules and doctrines together.
+
+`module_multiply_stats_multiplier` is also announced, but this audit found no
+current definition or schema example. Do not teach a validated sign/stacking
+formula for it. The shipped equipment schema omits all three names; for the
+two observed blocks, the current chassis definitions are the stronger evidence.
+
 ## Army HQ deployment data and sub-unit readiness
 
 - HOI4 1.19.3 registers the unit-leader trigger `is_deployed` and dynamic
@@ -138,4 +189,6 @@ Check current installed copies of `common/ai_strategy/_documentation.md`,
 
 The Wiki explains the systems, but installed documentation and working vanilla
 files decide exact current-version tokens. Re-read `launcher-settings.json`
-before retaining the `1.19.3` assumptions in this reference.
+before retaining the version-specific assumptions in this reference. The fuel
+and equipment additions were source-checked in 1.19.4 (a783) on 2026-10-28;
+the explicitly dated 1.19.3 sections retain their earlier evidence.

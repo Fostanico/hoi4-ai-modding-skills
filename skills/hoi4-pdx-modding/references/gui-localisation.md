@@ -36,6 +36,11 @@ alpha, fixed hit-region and complete-feature contracts.
 - Keep scripted GUI element names identical to `.gui` names. A button can render
   while a mismatched callback silently does nothing.
 - Check parent window names and context types against an existing working GUI.
+- On 1.19.4, full vanilla-window replacements can hide the new focus minimap,
+  auto-import controls, repair priority, agency queue, diplomatic automation,
+  volunteer recall and advisor filters. Use the exact paths/names in the
+  [migration map](version-migration.md#operation-postern-1194); native controls
+  do not establish equivalent scripted-GUI APIs.
 - Current GUI types accept `bound_tooltip`; use `context_aware_tooltip` or
   `context_aware_text` only where the owning window supplies a localisation
   context. Copy from the same GUI class, not merely another visible window.

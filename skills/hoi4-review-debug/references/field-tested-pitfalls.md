@@ -125,6 +125,15 @@ trigger, GUI, or localisation errors. Fix the earliest parser error in each
 file, relaunch, and compare a fresh log before treating downstream lines as
 independent defects.
 
+### GUI shader compilation can bypass a broken native wrapper
+
+`Unexpected token: VertexStruct` plus `Failed finding main code` can mean the
+generator collapsed line-sensitive wrapper declarations, even with passing
+standalone HLSL and WebGL checks. A user-confirmed 1.19.3 case crashed when a
+decision GUI first revealed those materials and worked after multiline layout
+was restored. Follow the [wrapper guards and regression procedure](../../hoi4-pdx-modding/references/gui-shader-effects.md#wrapper-parsing-precedes-hlsl-compilation)
+before escalating. A D3D11 stack alone is not a driver diagnosis.
+
 ### Old logs are baseline evidence, not post-fix proof
 
 Record log modification time and game build. Static validation can prove

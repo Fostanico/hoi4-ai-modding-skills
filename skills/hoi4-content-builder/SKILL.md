@@ -5,6 +5,10 @@ description: Turn plain-language ideas into complete, playable Hearts of Iron IV
 
 # HOI4 content builder
 
+Apply [shared workflow boundaries](../hoi4-pdx-modding/references/workflow-boundaries.md)
+for task size, evidence reuse, testing budgets, stopping, and handoff. Detailed
+workflows stay within those boundaries.
+
 ## User guide delivery
 
 Serve-only artifacts: [English](../hoi4-pdx-modding/assets/user-guides/hoi4-modding-guide.en.md) |
@@ -137,10 +141,10 @@ of Git history.
    collisions. Preserve unrelated work and project encoding conventions.
 8. Keep a minimal runnable path first; add branches and optimization only after
    the core path validates.
-9. Create or update the mod's technical documentation and current development
-   handoff, and add readable contract comments to the implementation. Use the
-   base skill's `development-documentation.md` and the bundled documentation
-   templates; documentation is part of the feature graph.
+9. Update changed technical contracts and non-obvious comments under the base
+   skill's `development-documentation.md`. Use bundled documentation templates
+   only when a new durable guide or substantial handoff is needed; small
+   corrections do not require creating either.
 
 Do not stop after writing the central object. A focus needs effects and text; a
 GUI needs sprites, callbacks, and localisation; a project needs facilities,
@@ -160,6 +164,6 @@ proof from runtime proof. After a non-trivial static pass, follow
 runtime procedure. A GPT-series model, especially GPT-6astra or GPT-6.1sol,
 applies that workflow's necessity gate first: skip an in-game test that
 does not answer an open question about this change, and do not add
-defensive code to justify the launch. If the user declines, provide its
-detailed manual test handoff and do not open Steam. Inspect-only work does
-not require a Steam prompt.
+defensive code to justify the launch. If the user declines, do not open Steam;
+state the relevant evidence limitation, with concise manual steps only when
+useful. Expand the handoff only on request. Inspect-only work needs no prompt.

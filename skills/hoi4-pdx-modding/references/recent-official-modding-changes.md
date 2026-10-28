@@ -1,9 +1,10 @@
-# Recent official HOI4 modding changes (1.14.1-1.19.3)
+# Recent official HOI4 modding changes (1.14.1-1.19.4)
 
 ## Contents
 
 - Purpose and evidence policy
-- Current 1.19.3 source map
+- Current 1.19.4 source map
+- 1.19.4 additions and evidence gaps
 - Verified 1.19.3 additions
 - Verified current patterns
 - Migration and compatibility gates
@@ -13,8 +14,9 @@
 
 Use this reference when a task concerns a feature added, changed, deprecated, or
 fixed since 1.14, or when the Wiki may lag the installed game. The audit covers
-official Steam news from 2024-03-06 through 2026-09-17. The last article in that
-window with a dedicated modding section is patch 1.19.3 on 2026-09-17.
+official Steam news from 2024-03-06 through the 1.19.4 QoL patch on 2026-10-27.
+The 1.19.4 additions below were checked against installed text on 2026-10-28;
+earlier sections retain their original version-specific evidence.
 
 Official news is a change-discovery source, not a complete schema. Apply a
 reported token only after finding it in the installed version's generated
@@ -24,15 +26,15 @@ intent with a name that differs from the shipped documentation.
 For the current local installation, `launcher-settings.json` reports:
 
 ```text
-Operation Postern v1.19.3.0.c01a (5632)
+Operation Postern v1.19.4.0.48d6 (a783)
 ```
 
 Do not treat this snapshot as permanent. Re-read `launcher-settings.json` and
 the newest Steam patch notes after an update.
 
-## Current 1.19.3 source map
+## Current 1.19.4 source map
 
-Prefer the generated 1.19.3 documentation under the installed game:
+Prefer the generated and database-adjacent documentation under the installed game:
 
 ```text
 documentation/script_concept_documentation.md
@@ -61,18 +63,52 @@ Generated documents establish supported scopes and parameter shapes. Current
 vanilla definitions establish the exact nesting and caller context. Check both
 when either source is incomplete.
 
-The 1.19.3 Markdown inventory is still 50 files (11 under `documentation`, 39
-under `common`), but it does not yet describe every 1.19.3 addition. The engine
-registers `is_deployed`, `state_deployed`, `province_deployed`, `is_core_of`,
+The 1.19.4 Markdown inventory remains 50 files (11 under `documentation`, 39
+under `common`); an unchanged file count does not imply unchanged contents.
+The earlier 1.19.3 audit found engine registrations for
+`is_deployed`, `state_deployed`, `province_deployed`, `is_core_of`,
 `is_not_core_of`, and `is_fighting_in_strategic_region`; generated trigger,
 dynamic-variable, and collection-operator documents omit some or all of those
 entries. In that situation, combine the official patch note, current executable
 token registration, and a current vanilla consumer. If no consumer exists,
-mark the parameter shape as provisional and require a focused runtime test.
+mark the parameter shape as provisional. Resolve it only when a task actually
+needs that feature, using the shared runtime-test necessity gate.
 
 See `vanilla-documentation-map.md` for the complete 50-file inventory, source
 limitations, exact lookup workflow, and the current high-value findings that
 are broader than the Steam change log.
+
+## 1.19.4 additions and evidence gaps
+
+Official discovery source: [QoL patch 1.19.4, 2026-10-27](https://steamcommunity.com/ogg/394360/announcements/detail/684142629662760620),
+also readable in the [official Steam announcement feed](https://store.steampowered.com/news/posts/?appids=394360&feed=steam_community_announcements).
+The local build matches the announced checksum `a783`. No game was launched
+for this documentation refresh, and no complete old vanilla tree was available
+for a three-way diff; the comparisons below are against the prior skill snapshot.
+
+| Change | Installed 1.19.4 evidence | Authoring decision |
+| --- | --- | --- |
+| Fuel conservation AI | `common/ai_strategy/_documentation.md`, `stockpile_fuel` section | Use percentage thresholds `start_below` / `stop_above`, not `value`. See the [fuel strategy contract](ai-and-military-content.md#fuel-conservation-in-1194). This is a documented example; no active vanilla strategy block was found. |
+| Module-derived additive stats | `common/units/equipment/tank_chassis.txt`, `light_tank_chassis_0`, `_2`, `_3` | `module_add_stats_multiplier` belongs inside the equipment definition. Current values are signed adjustments such as `soft_attack = -0.05` and `0.05`, not literal `0.95` / `1.05` multipliers. |
+| Reliability-scaled stats | `tank_chassis.txt`, `light_tank_chassis` and other chassis | `scaled_by_reliability = { max_strength = 0.5 }` is a current consumer. Keep reliability, reliability factor, carrier deck size and IC cost out of this block, as the release notes specify. Do not infer its entire numerical formula from the block alone. |
+| Multiplicative module stats | `module_multiply_stats_multiplier` is announced, but absent from the searched `common`, `events`, `history` text and generated docs | Record the capability; do not publish a validated block or numeric convention without further evidence. |
+| Subject border wars | Announced `overlord_fights`; shipped `start_border_war` entry still lacks it, with no current text consumer found | Intended opt-out of overlord substitution is known; exact nesting is unresolved. Do not invent whether it belongs at the root, attacker or defender level. |
+| Immediate major-list update | Announced `set_major` argument `immediate_status_update = yes`; shipped entry only shows scalar `set_major = yes` | Keep the existing scalar form for ordinary use. The extended block's main value key is unverified; do not invent `value` or `major`. |
+| State-variable math | Official fix for state-scoped variables being parsed as numbers | Preserve scoped-variable meaning; inspect old workarounds before carrying them forward. No new math function or alternate state syntax is implied. |
+| Advisor tooltip visibility | Official `hidden_modifier` fix; current `common/country_leader/00_traits.txt` has trait-level consumers | Hidden display does not remove modifier effects. Do not duplicate the same bonus in a visible block to compensate for the old tooltip bug. Native rendering was not retested. |
+| Exiled-leader trait diagnostics | Official logging fix | Treat old log evidence as version-bound; it does not introduce a new trait schema. |
+
+The installed equipment schema document still omits the three new equipment
+block names. Prefer the chassis consumer where one exists instead of rejecting
+it solely because the schema index is stale. Preserve historical evidence dates
+for other examples; do not relabel the whole template catalog as retested.
+
+For full GUI replacements, use the [1.19.4 migration map](version-migration.md#operation-postern-1194).
+The new native controls are not evidence of new scripted-GUI effects. For balance
+work, re-read current chassis/modules, sub-units, technologies and doctrines
+together. Current `common/defines/00_defines.lua` also sets
+`NMilitary.MAX_CASUALTY_TRICKLEBACK = 0.95`; displayed modifier totals alone do
+not establish the applied casualty recovery beyond that cap.
 
 ## Verified 1.19.3 additions
 
@@ -322,3 +358,4 @@ they report the same change.
 | 2026-06-17 | [1.19.1](https://store.steampowered.com/news/app/394360/view/1835871199300348) | `impassable_ignored_links`; announced additional math functions, subject to the current documentation caveat above. |
 | 2026-06-30 | [1.19.2](https://store.steampowered.com/news/app/394360/view/1836506165562428) | Updated math docs; logical math operations, `lerp`, `atan`, `atan2`; advisor `always_show_on_actions_tooltip`; raid `unit_animations`. |
 | 2026-09-17 | [1.19.3](https://steamcommunity.com/games/394360/announcements/detail/712286322480383531) | Admiral combat on_actions; combatant strategic-region trigger; `set_autonomy.keep_subjects`; core-state collection operators; Army HQ deployment trigger and variables; safer modded text buffers. |
+| 2026-10-27 | [1.19.4 QoL](https://steamcommunity.com/ogg/394360/announcements/detail/684142629662760620) | Fuel-saving thresholds; equipment stat scaling; state-variable math and advisor tooltip fixes; border-war/major-list options with incomplete local schema; native GUI controls requiring override review. |

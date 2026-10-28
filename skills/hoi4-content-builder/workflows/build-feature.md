@@ -24,6 +24,6 @@
    than a small inspectable diff.
 9. After non-trivial static work, use `test-mod.md` to decide whether an
    AI-run runtime test is authorized and worth its cost. Ask at most once when
-   needed. Inspect-only work does not need a Steam prompt. Update the current development handoff with the
-   validation lane used, static/runtime evidence, and remaining manual
-   interactions.
+   needed. Inspect-only work does not need a Steam prompt. Report the validation
+   lane, static/runtime evidence, and relevant gaps; update an existing handoff
+   when needed to resume substantial work. A small correction needs no new file.

@@ -1,7 +1,9 @@
 # Test a mod in HOI4
 
-Static validation comes first. Before using computer-use, establish capability,
-authorization, and billing impact in that order:
+Apply the [shared workflow boundaries](../../hoi4-pdx-modding/references/workflow-boundaries.md)
+first, including evidence reuse, session/time limits, and immediate stopping.
+Choose proportionate static evidence before considering a native run. For a
+needed run, establish capability, authorization, and billing impact:
 
 - Inspect the tools actually exposed in the current session. For an HOI4 test,
   browser automation alone is insufficient: the tool must be able to operate
@@ -129,10 +131,8 @@ report the next highest-value test separately.
 
 ## Short or simple tests
 
-Treat "short test" or "simple test" as a limit on elapsed time and coverage,
-not merely permission for one launch. Choose a small time budget covering
-launcher preparation, verification, and cleanup; honor any user-specified
-limit. Keep only 1-3 observations directly tied to the changed content.
+Use the shared small-task observation, session, and time limits. State the
+elapsed-time budget before launcher preparation; setup and cleanup count.
 
 Use the console early and flexibly to reach the required state: verified
 event/effect IDs, resources, flags, variables, or existing debug fixtures can
@@ -153,18 +153,25 @@ extra launches, or repeated complete flows to a short test.
 
 1. Confirm computer-use capability is available and read its runtime guidance
    and confirmation rules. If unavailable, give the manual procedure instead.
-2. Snapshot the current Steam HOI4 launch options, launcher playset, enabled
-   mods, load order, and any settings that the test will change.
-3. Set HOI4 launch options to include `-debug` while preserving unrelated user
+2. Select the shortest relevant starting state: a suitable already-running
+   session, an existing test save, or a new game at the relevant bookmark/date.
+   Use the affected save for a save-specific regression without overwriting
+   the user's original. Require a cold launch when the question concerns
+   startup, parsing, or assets that need it; a hot refresh is not that evidence.
+3. For a launch or configuration change, snapshot the launch options, playset,
+   enabled mods, load order, and settings that will change. Include `-debug`
+   when fresh debug diagnostics are needed, preserving unrelated user
    options. Prefer the user's existing playset, including the current playset
    when suitable. Do not create a new playset unless a concrete test need
    requires it; testing alone is not a reason to create one.
-4. In that existing playset, enable only the target mod and disable unrelated
-   mods. For a submod or compatibility mod, also enable its exact required
+4. When configuring a launch, enable only the target mod in that playset and
+   disable unrelated mods. For a submod or compatibility mod, also enable its exact required
    dependencies in the documented order. Preserve the original enabled list
    and load order for restoration.
-5. Start HOI4 through Steam and the launcher. Start a **new game** using the
-   earliest available bookmark/date in that target setup.
+5. When a launch is needed, start HOI4 through Steam and the launcher and use
+   the starting state chosen above. An existing session must already have the
+   required build, mod files, and dependencies loaded; changing the launcher
+   selection does not change a running session.
 6. Select a country and the shortest route that exercises the agreed
    observations. Use console/debug preparation from the outset, especially
    for a short or simple test. Exercise only the relevant real interaction;
@@ -177,22 +184,24 @@ extra launches, or repeated complete flows to a short test.
    cause when correction is within scope. Any retest must stay within the
    authorized time and launch limits; one authorized session does not permit
    an extra launch. Otherwise report the failure and stop.
-9. Close the game/launcher when testing is complete. Restore launch options,
+9. At normal completion, close only a game/launcher session opened for this
+   test unless the user wants it left open. Restore launch options,
    playset, enabled-mod list, and load order changed for the test unless the user
    explicitly asks to keep them or takes over restoration. If the user says
    they will restore the playset, stop operating it and report its actual
-   restoration status.
+   restoration status. Plan this restoration inside the time budget. If the
+   budget expires or the user stops, follow the shared stop procedure and
+   report what remains unrestored.
 
 ## When the user declines, remains unresponsive without applicable authorization, or automation is unavailable
 
 Do not open Steam. Clearly mark runtime behavior as unverified. If the user
 explicitly says not to test, acknowledge that choice once and do not send an
-unsolicited long checklist. When a manual test is useful, give a concise path;
-expand it into a feature-specific checklist using an existing playset with only
-the needed mods enabled, `-debug`,
-earliest bookmark, country, entry and branch actions, expected results,
-save/reload, state checks, and logs/screenshots when the user requests it or
-declines AI testing because of quota or cost.
+unsolicited long checklist. When a manual test is useful, give a concise path
+from a relevant session/save/bookmark to the real action and expected result.
+Expand only on request, selecting the setup, state checks, reload, and evidence
+that the question actually needs. Declining because of cost does not itself
+request a detailed checklist.
 
 ## Handoff
 

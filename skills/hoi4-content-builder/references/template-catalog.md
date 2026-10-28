@@ -4,6 +4,16 @@ Verified against installed Hearts of Iron IV Operation Postern 1.19.3.0 (5632)
 on 2026-09-20. Paths below are relative to the installed
 game root.
 
+The 2026-10-28 refresh checked the 1.19.4 (a783) delta, not every historical
+template again. Before building fuel AI, use the new
+[threshold contract](../../hoi4-pdx-modding/references/ai-and-military-content.md#fuel-conservation-in-1194)
+instead of copying `ai-strategy-plan.txt`'s generic `id`/`value` payload.
+Equipment-level stat blocks and current GUI override targets are routed in the
+[1.19.4 evidence map](../../hoi4-pdx-modding/references/recent-official-modding-changes.md#1194-additions-and-evidence-gaps).
+The module template remains a module definition; do not insert equipment-only
+blocks into it. Parameters without complete local evidence are not new verified
+templates, and the manifest retains each resource's existing verification build.
+
 | Resource | Intended use | Installed documentation | Current vanilla consumer |
 | --- | --- | --- | --- |
 | `country-event.txt` | Triggered country event | `documentation/effects_documentation.md` | `events/AAT_Generic_Events.txt`, `events/WUW_Germany.txt` |

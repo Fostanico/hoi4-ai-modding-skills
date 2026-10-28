@@ -50,16 +50,16 @@ Attribution records provenance, not proof of current engine behavior.
 ## Current official-source supplement
 
 The 2026-07-13 update added a separate, original summary of Paradox's official
-Steam news for Hearts of Iron IV; it was extended through patch 1.19.3 on
-2026-09-20. See
+Steam news for Hearts of Iron IV; it was extended through patch 1.19.4 on
+2026-10-28. See
 `recent-official-modding-changes.md` for the entry-by-entry links and the
 current-version verification status.
 
 - Official feed: [Hearts of Iron IV Steam news](https://store.steampowered.com/news/app/394360)
-- Local vanilla snapshot verified: Operation Postern 1.19.3.0 (5632)
+- Local vanilla text snapshot: Operation Postern 1.19.4.0.48d6 (a783)
 - Local generated sources: installed `documentation/*.md` and
   `common/**/_documentation.md`
-- Verification date: 2026-09-20
+- Verification date: 2026-10-28; source-only refresh, no game launch
 
 Steam news is used to discover additions, removals, deprecations, engine fixes,
 and changed semantics. The installed generated documentation and working

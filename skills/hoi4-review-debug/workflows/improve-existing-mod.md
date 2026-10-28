@@ -59,9 +59,11 @@ changing design choices or broadening the requested gameplay direction.
 3. Keep a batch focused on one contract: correctness, lifecycle/save,
    performance, compatibility, or approved gameplay/UX behavior.
 4. Preserve stable IDs and state unless an idempotent migration is included.
-5. Add/update localisation, AI, assets, comments, technical documentation, and
-   handoff content in the same batch.
-6. Rerun the exact baseline checks after every batch and compare before/after.
+5. Update affected localisation, AI, assets, and documented contracts in the
+   same batch. Keep comments and handoff proportional to the actual change.
+6. Reuse the baseline and rerun only checks the batch can affect. Repeat a full
+   baseline only for a new cross-system concern or an explicitly requested
+   audit, following the [shared evidence policy](../../hoi4-pdx-modding/references/workflow-boundaries.md).
 
 ## 5. Validate the player experience
 
@@ -73,9 +75,10 @@ after any hot refresh.
 
 After static validation, apply the builder's `test-mod.md` willingness,
 capability, authorization, and quota decision before controlling Steam or
-launching HOI4. When authorized, use only the target mod and
-exact dependencies, `-debug`, a new game at the earliest bookmark, fresh logs,
-and restoration of changed launcher settings.
+launching HOI4. Follow that workflow's choice of an existing session, relevant
+test save, or new game, with the target mod and exact dependencies, relevant
+fresh logs, and normal restoration. Its time budget and user-stop rules also
+apply; a new game at the earliest bookmark is not a universal requirement.
 
 ## 6. Prove improvement and hand off
 

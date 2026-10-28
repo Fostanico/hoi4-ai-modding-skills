@@ -1,7 +1,8 @@
 # Version migration
 
-Verified against installed Hearts of Iron IV Operation Postern 1.19.3.0
-(5632) on 2026-09-20. Community adaptation guides are discovery material;
+Current migration targets were checked against installed Operation Postern
+1.19.4.0.48d6 (a783) and official patch notes on 2026-10-28. Earlier sections
+retain their historical evidence. Community adaptation guides are discovery material;
 installed documentation and current vanilla consumers decide the emitted code.
 
 ## Migration order
@@ -17,11 +18,47 @@ installed documentation and current vanilla consumers decide the emitted code.
 4. Merge new vanilla containers, callbacks, defaults, fallbacks, and DLC gates
    into retained overrides. Remove an override when an additive file can express
    the same mod behavior.
-5. Validate, inspect a fresh log, then test the smallest runtime path for each
-   affected class. A clean parser does not prove GUI callbacks, AI selection,
-   audio playback, shader compilation, or save migration.
+5. Validate only the affected paths. Use the shared
+   [runtime-test necessity gate](../../hoi4-content-builder/workflows/test-mod.md)
+   before a launch; a source-only skill refresh does not require one. When a
+   native test is warranted and authorized, inspect its fresh log and the
+   smallest affected path. A clean parser does not prove runtime behavior.
 
 ## Current high-risk gates
+
+### Operation Postern 1.19.4
+
+Start from the [evidence-qualified change map](recent-official-modding-changes.md#1194-additions-and-evidence-gaps).
+For 1.19.3-to-1.19.4 migrations, prioritize full GUI overrides containing these
+current native names (paths are relative to the game root):
+
+| Vanilla file | Controls that an old override can omit |
+| --- | --- |
+| `interface/nationalfocusview.gui` | `mini_map_clip`, `mini_map`, `minimap_border`; the inset is read by native code |
+| `interface/countrytradeview.gui` | `auto_import_checkbox`, budget/slider controls, `auto_import_priority_window` |
+| `interface/countryconstructionsview.gui` | `repair_order_window`, `repair_order_reset_queue_button` |
+| `interface/countryintelligenceagencyview.gui` | queued-upgrade `queue_badge`, `queue_badge_text` |
+| `interface/countrydiplomacyview.gui` | `edit_auto_response`, `recall_volunteers` |
+| `interface/command_character_view.gui` | `command_character_view_filter_button`, advisor category sprite |
+
+Merge the owning containers and referenced GFX from current vanilla, preserving
+the mod's intended layout. A copied button name alone does not reproduce native
+behavior. Do not infer a generic PDX API for automatic trade, volunteer recall,
+or queueing from the presence of a GUI control.
+
+For equipment, compare `tank_chassis.txt`, modules, affected battalions,
+technologies and doctrine rewards together. Preserve equipment-level
+`module_add_stats_multiplier` and `scaled_by_reliability` when merging a full
+override. The new maximum casualty trickleback is defined in
+`common/defines/00_defines.lua`; a large displayed bonus need not bypass it.
+Do not retune a mod by copying selected patch-note numbers without its consumers.
+
+Audit state-variable math workarounds and hidden advisor modifier text against
+the corresponding engine fixes. Newly announced `overlord_fights`,
+`set_major.immediate_status_update` and `module_multiply_stats_multiplier` lack
+complete current text consumers in this audit; keep their unresolved shape
+explicit rather than teaching an invented template. Descriptor version changes
+alone do not establish compatibility.
 
 ### Operation Postern 1.19.3
 

@@ -307,6 +307,30 @@
       "required_behaviors": ["将解析中断经验写入可发现的技能入口和参考资料", "将新技能追加位置明确为现有 ability 根块内部、闭合括号之前", "保留已有技能的 ID 和顺序且说明追加不能代替验证", "核对当前原版消费者中的效果层级、modifier 和解锁引用，先排查第一个解析错误", "区分通用括号检查与引擎加载证明", "对公开经验脱敏并验证修改后提交和推送目标技能仓库"],
       "forbidden_behaviors": ["把将领技能问题误写为 SKILL.md 的发现顺序问题", "为了追加把定义放到 ability 根块之外", "批量重排已有技能或随意修改特质和平衡", "声称追加末尾或括号检查能保证实机加载", "公布项目专有角色、标识符或本地绝对路径"],
       "runtime_evidence": "supplied_parser_failure_then_current_consumer_and_repository_validation"
+    },
+    {
+      "id": "RD-026",
+      "title": "GUI shader wrapper parsing bypassed by standalone HLSL checks",
+      "source_kind": "anonymized_real_dialogue",
+      "source_fingerprint_sha256": "407678baaeba7eb97a99fe1510f84c85afb6ad1606f25f66be5a2e1c73295231",
+      "primary_skill": "hoi4-review-debug",
+      "supporting_skills": [
+        "hoi4-pdx-modding"
+      ],
+      "prompt": "新增决议 GUI 一显示就崩溃，独立 HLSL 编译与浏览器预览都通过；原始日志却记录 VertexStruct 解析失败和 MainCode 缺失。修复分行格式后用户确认正常。请提炼预防检查。",
+      "required_behaviors": [
+        "检查原始外层声明而非只重新构造 HLSL",
+        "保留已证实的多行结构并同步生成器与产物",
+        "用失败版本或压行负例验证格式守卫",
+        "分开记录编译、原生解析和用户实测证据"
+      ],
+      "forbidden_behaviors": [
+        "把独立 HLSL 通过当作游戏加载成功",
+        "把 D3D11 栈直接归咎于显卡驱动",
+        "将本例扩展为所有 PDX 块禁止内联",
+        "覆盖旧失败证据或声称后续改版也已验收"
+      ],
+      "runtime_evidence": "static_then_user_test"
     }
   ]
 }

@@ -5,6 +5,10 @@ description: Review, diagnose, and test existing Hearts of Iron IV mods using so
 
 # HOI4 review and debug
 
+Apply [shared workflow boundaries](../hoi4-pdx-modding/references/workflow-boundaries.md)
+for task size, evidence reuse, testing budgets, stopping, and handoff. Review
+checklists and fix loops stay within those boundaries.
+
 ## User guide delivery
 
 Serve-only artifacts: [English](../hoi4-pdx-modding/assets/user-guides/hoi4-modding-guide.en.md) |
@@ -195,9 +199,10 @@ alter a playset, or start HOI4 without current or still-applicable standing
 authorization. Ask at most once per task and do not ask when native computer-use
 is unavailable or the user already declined. Inspect-only work needs no prompt.
 
-For every applied fix or refactor, update the canonical mod technical document,
-current development handoff, and readable comments for affected contracts.
-Review their accuracy alongside code and localisation before completion.
+When a fix or refactor changes a documented contract, update its canonical
+documentation and relevant comments under the sibling
+[documentation policy](../hoi4-pdx-modding/references/development-documentation.md).
+Keep handoff proportional; a small correction does not require new documents.
 
 For a whole-mod improvement, fill the bundled
 `assets/templates/mod-improvement-report.md` with the before/after baseline,

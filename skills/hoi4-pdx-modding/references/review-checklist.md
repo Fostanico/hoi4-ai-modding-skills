@@ -92,11 +92,10 @@ doubled replacements.
 
 ## Documentation and readability
 
-- The canonical mod technical document was created or updated in the same
-  change and records the affected architecture, entry points, IDs, state
-  ownership, lifecycle, dependencies, compatibility, and test procedure.
-- The current development handoff records changed files, design decisions,
-  validation evidence, runtime status, remaining risks, and next actions.
+- Changed documented contracts are reflected in the canonical technical guide;
+  untouched architecture, state, dependencies, and procedures need no rewrite.
+- Substantial or unfinished work has enough handoff evidence to resume. A small
+  correction may use its completion message or the existing development log.
 - Durable technical truth and change-specific handoff are kept distinct, even
   when the project stores them as two sections in one file.
 - New or changed code has readable comments for file/subsystem purpose and

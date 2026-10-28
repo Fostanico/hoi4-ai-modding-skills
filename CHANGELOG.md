@@ -2,6 +2,37 @@
 
 ## Unreleased
 
+## 1.8.0 - 2026-10-28
+
+- 汇总自 v1.7.0 以来的更新，发布说明见 [v1.8.0](docs/releases/v1.8.0.md)。
+  三套技能共用工作流边界，集中维护任务分级、证据复用、测试预算、立即停工和简短交接；
+  局部修复只复验受影响部分，不再逐批重跑整个基线。文档随实际合同变化更新。
+  Share workflow boundaries across all three skills; reuse valid evidence, bound
+  testing and stop immediately when requested, with documentation proportional
+  to the changed contract instead of mandatory full baseline reruns.
+- 实机测试按问题选择当前会话、测试存档或相关剧本新局，保留必要冷启动及实机证据边界；
+  拒绝测试后只说明必要限制，详细手测清单仅在用户要求时提供。
+  Choose a relevant session/save/bookmark and retain cold starts where required;
+  declined testing receives a concise limitation, with detailed manual steps on request.
+- 纳入 v1.7.0 后的按需哈希和短测改进：普通文件不默认计算 SHA-256，显式查重与内容比较
+  仍可按需使用；修复 CI 查重夹具的开关调用。优先复用用户播放集、仅启用所需 Mod，
+  用控制台缩短准备与验收路径，短测预算包含准备和清理。
+  Include opt-in hashing and the duplicate-fixture CI fix, existing-playset reuse,
+  console shortcuts, and elapsed-time limits covering preparation and cleanup.
+- 将 GUI shader 格式检查器及其已知失败负例接入发布所用静态回归；安装指南同步按需校验和规则。
+  Wire the shader wrapper checker and known-bad cases into static CI and align
+  installation guidance with optional release checksums.
+
+- 按2026-10-27官方日志与本机1.19.4（a783）更新版本迁移和原版文档索引：补充燃油AI
+  阈值、装备属性缩放、状态变量与顾问隐藏修正；列出新版GUI覆盖文件与控件名。
+  区分已见原版语法、文档示例及仅公告的新参数，保留旧模板的实证版本；本轮未启动游戏。
+  Refresh the skills against installed 1.19.4 (a783) and the official QoL notes:
+  fuel thresholds, equipment stat blocks, engine fixes and native GUI migration
+  targets, with explicit gaps where the shipped schema or consumer is missing.
+- 固化已实测修复的 GUI shader 外层解析问题，新增只读格式检查及压行负例，明确独立 HLSL
+  编译不能替代游戏解析与冷启动验收。
+  Document a user-verified GUI shader wrapper fix; add read-only format guards and negative regressions,
+  separating standalone HLSL compilation from native parsing and cold-start validation.
 - GPT 系列模型，尤其是 GPT-6astra 与 GPT-6.1sol，在实机测试前先判断这次启动是否回答
   静态证据解决不了、且属于本次改动的问题。只为安心的测试不启动，也不为此添加推测性守卫、
   静默回退或无关分支。调用者可能缺失的范围守卫、触发事件自身的 trigger，以及存档迁移的

@@ -134,6 +134,52 @@ one script is not proof of portability.
 
 ## Backend and validation contract
 
+### Wrapper parsing precedes HLSL compilation
+
+HOI4 1.19.3 field case, 2026-10-11: all 11 newly generated GUI shaders logged
+`Unexpected token: VertexStruct`, followed by `Failed finding main code`
+and failed vertex/pixel shader creation. Revealing their decision-category
+GUI caused a D3D11 access violation. Extracted HLSL still compiled 110/110;
+the browser preview also bypassed the native wrapper parser.
+
+Restoring the installed/accepted multiline wrapper layout fixed loading;
+the user confirmed the same load/reset action then worked. The revision
+changed only whitespace in those shader files. This verifies that fix for
+that consumer/build, not a general whitespace grammar or the exact native
+faulting object. Do not diagnose a graphics driver from that stack alone.
+
+Generator rules for this GUI family:
+
+- Keep `VertexStruct` members on separate lines, below the opening brace;
+  put `};` on its own line. Do not minify the declaration into one line.
+- Start `MainCode` on its own line inside the stage; keep the closing `]]`
+  separate from HLSL statements and the enclosing stage brace.
+- Retain installed sampler/constant layout. Patch the generator and generated
+  files together. Inline ordinary PDX `Effect` blocks are not prohibited by
+  this observation; do not rewrite unrelated PDX files as a blanket rule.
+
+Run the bundled read-only guard **before** extracting HLSL:
+
+```powershell
+python <skill>/scripts/check-gui-shader-format.py --root <mod-root> --files "gfx/FX/my_ui_*.shader" "gfx/FX/my_ui.fxh"
+python <skill>/scripts/check-gui-shader-format.py --self-test
+```
+
+[Checker](../scripts/check-gui-shader-format.py): stdlib only, explicit paths/globs,
+nonzero exit on suspect format, JSON optional. Its negative cases reproduce
+single-line structs, merged members, merged stage/MainCode, and merged `]]`.
+It enforces a conservative proven layout; it is not the native parser and
+does not validate the complete grammar or replace backend compilation.
+
+On load/display crashes, inspect the **crash package's** startup log, not only
+its final line. Repair the first wrapper error before chasing missing-stage
+cascades. Compare old/new tokens, preserve raw evidence, then cold-restart
+and open/hover/press/disable/reopen the affected GUI. Record the user's runtime
+confirmation separately from automated `native_game_test: false` results.
+Escalate to native analysis only if an unresolved crash question remains.
+
+### Backend checks
+
 Inspect installed `defines_hlsl.fxh`, `defines_hlsl_dx11.fxh` and relevant
 `defines_glsl.fxh`. In the inspected GLSL helper, `atan2(y,x)` calls
 `atan(x,y)`: verify quadrant/order semantics for angular effects. A browser
@@ -147,6 +193,7 @@ Evidence lanes:
 | Check | Establishes | Does not establish |
 |---|---|---|
 | Paths, wrappers, states, GUI callbacks, dimensions, localisation | Resource/structural consistency | HLSL compilation or runtime |
+| Wrapper line-format guard with known-bad regression cases | Rejects the observed generator failure pattern | Full Clausewitz grammar, shader creation or runtime |
 | Extracted stage code + backend defines + sampler adaptation | That HLSL extraction compiles | Clausewitz parser/binding/permutations |
 | WebGL translation and browser interaction | Translated math/preview model | Native clocks, input, font, sound |
 | User/native test tied to revision and scenario | Observed consumer behaviour | Other variants/backends automatically |

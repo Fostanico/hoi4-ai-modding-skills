@@ -222,6 +222,11 @@ Do not silently translate it using ordinary strict-comparison semantics.
 
 - A malformed math/script-value expression can resolve to zero and cause
   downstream behavior rather than a clear hard failure. Inspect math errors.
+- The 1.19.4 release fixes state-scoped variables being mistaken for numeric
+  literals in math expressions. Preserve their scoped-variable meaning and
+  inspect any workaround introduced for the old behavior before removing it.
+  This is an engine fix, not evidence for a new function or invented state
+  reference syntax; see [the version evidence](recent-official-modding-changes.md#1194-additions-and-evidence-gaps).
 - Current 1.19.3 math expressions use fixed-point arithmetic. Boolean operators
   return `1.0` or `0.0`, and every non-zero input is true.
 - Use only functions listed by the installed

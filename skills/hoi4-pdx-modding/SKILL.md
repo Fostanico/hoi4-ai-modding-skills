@@ -5,6 +5,10 @@ description: Implement, explain, refactor, and validate portable Hearts of Iron 
 
 # HOI4 PDX modding
 
+Apply [shared workflow boundaries](references/workflow-boundaries.md) for
+task size, evidence reuse, testing budgets, stopping, and handoff. Subsystem
+instructions do not expand those boundaries.
+
 ## User guide delivery
 
 Serve-only artifacts: [English](assets/user-guides/hoi4-modding-guide.en.md) |
@@ -135,6 +139,8 @@ See [localisation-deep-dive.md](references/localisation-deep-dive.md#player-faci
   scripted systems, procedural GUI, or performance-sensitive orchestration.
 - [version-migration.md](references/version-migration.md): game updates and
   full-file vanilla overrides.
+- [recent-official-modding-changes.md](references/recent-official-modding-changes.md):
+  dated engine changes, current 1.19.4 source evidence and unresolved schemas.
 - [media-models-shaders.md](references/media-models-shaders.md): textures,
   entities, animations, models, audio, and shaders.
 - [gui-shader-effects.md](references/gui-shader-effects.md): procedural GUI
@@ -152,8 +158,8 @@ See [localisation-deep-dive.md](references/localisation-deep-dive.md#player-faci
 - [review-checklist.md](references/review-checklist.md): reviews, renames,
   regression checks, encoding, and handoff.
 - [development-documentation.md](references/development-documentation.md):
-  mandatory technical documentation, change handoff, and readable code-comment
-  contracts for every implementation or repair.
+  technical documentation and comments when a documented contract changes,
+  with concise handoff proportional to the work.
 - [source-attribution.md](references/source-attribution.md): provenance and
   licensing when maintaining or redistributing these skills.
 
@@ -210,10 +216,10 @@ performance analysis, and runtime testing.
    global daily scans when behavior permits.
 8. Treat copied templates as parameterized skeletons. Replace every placeholder
    and revalidate against the target build and dependencies.
-9. Update the mod's canonical technical documentation and current development
-   handoff in the same change. Add readable comments at file/subsystem
-   boundaries and around non-obvious scope, state, lifecycle, performance,
-   compatibility, and engine-workaround logic.
+9. Update affected documented contracts under
+   [development-documentation.md](references/development-documentation.md).
+   Keep handoff proportional and comment non-obvious scope, state, lifecycle,
+   performance, compatibility, or engine-workaround logic.
 
 ## Place generated tools by audience
 
@@ -240,54 +246,11 @@ authorization. Respect the project's existing layout and avoid extra folders.
 
 ## Validate proportionally
 
-Match checking cost to the change. User AI quota, tool rounds, and log
-scrapes are not free. A small edit is not permission to run the full
-validator, Mod Doctor, localisation/map/override/media audits, `-All`, or
-a fresh `error.log` pass.
-
-Choose the cheapest sufficient lane before any script:
-
-1. **Inspect-only.** Skip every validation script when a careful read of
-   the diff can catch the failure mode. Typical cases: prose-only
-   localisation where keys, tokens, colours, icons, and encoding are
-   unchanged; comments; documentation wording; or a one-line cleanup
-   already confirmed unique. Read the diff. Stop. Do not offer Steam or
-   in-game testing unless the user asked.
-
-2. **Changed-path scripts.** For ordinary PDX or localisation edits that
-   can break encoding, braces, key style, or in-file references, run the
-   bundled validator on the edited files only:
-
-   ```powershell
-   & <SKILL_ROOT>/scripts/validate-hoi4.ps1 -ModRoot <MOD_ROOT> -Paths <changed files>
-   ```
-
-   Add `git diff --check` on those paths when the repository uses it.
-   Search stale IDs, missing links, or conflict markers only where this
-   diff can create them. Do not launch sibling audits unless the change
-   is in that audit's domain.
-
-3. **Broader static suite.** Reserve `-All`, Mod Doctor, map/override/media
-   audits, template-manifest validation, whole-mod stale-ID sweeps, and a
-   fresh `error.log` comparison for new systems, identifier renames,
-   GUI/GFX wiring, map/history, compatibility, release packaging, version
-   migration, or template/kit edits.
-
-When the working model is a GPT-series model, especially GPT-6astra or
-GPT-6.1sol, apply the necessity gate in
-[test-mod.md](../hoi4-content-builder/workflows/test-mod.md) before any
-in-game launch from lanes 2–3. Do not start a test that static evidence
-already answers or that does not touch the change, and do not add
-defensive code to make the launch feel safer.
-
-Static checks cannot prove scope, timing, GUI interaction, AI choice,
-history loading, or asset rendering. After lanes 2–3, use the sibling
-runtime test workflow, which checks native capability, current or standing
-authorization, user willingness, and quota before controlling Steam or
-launching the game. Ask at most once when needed; silence alone grants no
-permission. Report static and in-game evidence separately.
-Inspect-only work may record "scripts skipped; diff read" as completion
-evidence.
+Choose the inspect-only, changed-path, or broader lane in
+[shared workflow boundaries](references/workflow-boundaries.md#choose-the-cheapest-sufficient-evidence).
+That reference owns validation budgets and evidence reuse for all three skills.
+Report static and in-game evidence separately; inspect-only completion may say
+"scripts skipped; diff read".
 
 After a game update, rebuild the installed documentation inventory with an
 explicit game root:

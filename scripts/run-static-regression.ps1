@@ -21,6 +21,8 @@ try {
     if ($LASTEXITCODE -ne 0) { throw 'Eval dataset validation failed.' }
     & python (Join-Path $repo 'scripts\validate-skills.py')
     if ($LASTEXITCODE -ne 0) { throw 'Skill tree validation failed.' }
+    & python (Join-Path $repo 'skills\hoi4-pdx-modding\scripts\check-gui-shader-format.py') --self-test --root $repo --files 'skills/hoi4-pdx-modding/assets/gui-shader-example/gfx/FX/*.shader' 'skills/hoi4-pdx-modding/assets/gui-shader-example/gfx/FX/*.fxh'
+    if ($LASTEXITCODE -ne 0) { throw 'GUI shader wrapper format regression failed.' }
     & (Join-Path $repo 'skills\hoi4-content-builder\scripts\validate-template-manifest.ps1')
     if ($LASTEXITCODE -ne 0) { throw 'Template manifest validation failed.' }
 

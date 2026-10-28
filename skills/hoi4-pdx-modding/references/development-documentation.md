@@ -1,16 +1,19 @@
 # Development documentation and comments
 
-Technical documentation, development handoff, and readable code comments are
-required deliverables whenever an agent creates, extends, repairs, refactors,
-or migrates a mod. Update them with the code, not as optional release cleanup.
+Update documentation when architecture, entry points, state/lifecycle, save
+compatibility, usage, or a documented test procedure changes. Keep affected
+contracts accurate in the same change. A wording fix or known template
+correction does not require a new guide, handoff file, or obvious comments;
+follow the [shared workflow boundaries](workflow-boundaries.md).
 
 ## Discover the canonical files
 
 Read repository guidance first. Reuse the project's established technical
 guide, handoff, architecture notes, and changelog rather than creating parallel
-documents. If none exist, create a stable technical guide and a current
-development handoff from the builder templates. A small project may keep both
-as clearly separated sections in one file.
+documents. If substantial work introduces a durable contract and none exists,
+create only the needed sections, using the builder templates as a starting
+point. Add a persistent handoff when unfinished or complex work needs it; a
+completion message or existing development log is sufficient for a small change.
 
 Do not put reusable PDX language tutorials or copied vanilla documentation into
 the mod's technical guide. Link to authoritative references and record only the
@@ -18,7 +21,8 @@ project-specific contract needed by the next maintainer.
 
 ## Technical documentation: durable truth
 
-Keep these sections current for every affected system:
+Update the relevant sections when their contract changes; this is a menu,
+not a requirement to write every section for every edit:
 
 - player-facing purpose and acceptance behavior;
 - supported game build, DLCs, dependencies, load order, and overrides;
@@ -35,7 +39,7 @@ describes an old implementation is a defect, not harmless history.
 
 ## Development handoff: current change state
 
-Record enough evidence for a different developer or AI to resume safely:
+For substantial or unfinished work, record the evidence needed to resume:
 
 - goal, status, affected systems, and changed files;
 - design decisions, rejected alternatives when material, and assumptions;
@@ -69,6 +73,7 @@ are re-read.
 
 ## Completion gate
 
-A change is not complete until code, visible localisation, technical
-documentation, handoff, and comments agree. Review the documentation diff and
-comment accuracy before reporting completion or preparing a release.
+Keep code, visible localisation, and any affected documentation/comments in
+agreement. Review the documentation diff when one is needed; do not create
+documentation changes solely to satisfy a completion checklist. User stopping
+and bounded handoff take precedence over completion work.
