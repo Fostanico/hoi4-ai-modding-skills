@@ -13,9 +13,12 @@ Claude Code и Gemini CLI.
 контента на PDX — в том числе для пользователей, которые ещё не знают язык
 сценариев HOI4.
 
-Возможности, примеры запросов и рекомендации по постановке задачи описаны в
-[руководстве пользователя на английском](skills/hoi4-pdx-modding/assets/user-guides/hoi4-modding-guide.en.md)
-и [версии на упрощённом китайском](skills/hoi4-pdx-modding/assets/user-guides/hoi4-modding-guide.zh-CN.md).
+Полное универсальное руководство охватывает постановку задач, скрипты и сохранения,
+интерфейсы, ресурсы, локализацию, диагностику и передачу результата:
+[Русский](skills/hoi4-pdx-modding/assets/user-guides/hoi4-modding-guide.ru.md) |
+[简体中文](skills/hoi4-pdx-modding/assets/user-guides/hoi4-modding-guide.zh-CN.md) |
+[English](skills/hoi4-pdx-modding/assets/user-guides/hoi4-modding-guide.en.md) |
+[日本語](skills/hoi4-pdx-modding/assets/user-guides/hoi4-modding-guide.ja.md).
 Эти файлы предоставляются пользователю по запросу. Входные файлы навыков содержат
 правило выдачи руководства; агенту предписано не загружать его полный текст по умолчанию.
 

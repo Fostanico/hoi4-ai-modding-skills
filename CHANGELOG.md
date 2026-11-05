@@ -2,6 +2,15 @@
 
 ## Unreleased
 
+- 将项目专属的视觉效果用户指南改写为通用 HOI4 Mod 开发指南，覆盖需求、证据来源、
+  功能接线、状态与存档、GUI 与素材、多语言、性能、文件整合、排错、验收和 Git 交付。
+  重写中英文全文，新增完整日文与俄文版本，同步四语 README 和三套 skill 的指南入口。
+  Replace the project-specific visual-effects guide with a general HOI4 mod
+  development guide covering requirements, sources, feature wiring, state and
+  saves, GUI/media, localisation, performance, consolidation, diagnosis,
+  validation, and Git delivery. Rewrite Chinese and English, add complete
+  Japanese and Russian editions, and update all README and skill entry links.
+
 ## 1.8.0 - 2026-10-28
 
 - 汇总自 v1.7.0 以来的更新，发布说明见 [v1.8.0](docs/releases/v1.8.0.md)。

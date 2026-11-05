@@ -12,9 +12,12 @@ turning crash evidence into an actionable repair plan. The skills also retain a
 complete path from a plain-language idea to playable PDX script for people who
 do not already know the HOI4 scripting language.
 
-For capabilities, examples, and ways to describe a request, see the
-[English user guide](skills/hoi4-pdx-modding/assets/user-guides/hoi4-modding-guide.en.md)
-or the [Simplified Chinese version](skills/hoi4-pdx-modding/assets/user-guides/hoi4-modding-guide.zh-CN.md).
+For the complete development workflow, from requests, scripts, and saves to
+interfaces, media, localisation, diagnosis, and delivery, read the general guide:
+[English](skills/hoi4-pdx-modding/assets/user-guides/hoi4-modding-guide.en.md) |
+[简体中文](skills/hoi4-pdx-modding/assets/user-guides/hoi4-modding-guide.zh-CN.md) |
+[日本語](skills/hoi4-pdx-modding/assets/user-guides/hoi4-modding-guide.ja.md) |
+[Русский](skills/hoi4-pdx-modding/assets/user-guides/hoi4-modding-guide.ru.md).
 It is a file to deliver to users on demand. Skill entrypoints contain the
 delivery rule; agents are instructed not to read the guide body by default.
 

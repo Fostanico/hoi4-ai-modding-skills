@@ -1,86 +1,170 @@
-# User Guide: HOI4 Mod Development and Visual Effects
+# General Guide to HOI4 Mod Development
 
-[简体中文](hoi4-modding-guide.zh-CN.md) | English
+[简体中文](hoi4-modding-guide.zh-CN.md) | English | [日本語](hoi4-modding-guide.ja.md) | [Русский](hoi4-modding-guide.ru.md)
 
-These skills help an AI turn your ideas into a Hearts of Iron IV mod. Describe what players should see, what should happen when they click, and what existing content must stay. You do not need to learn PDX scripting or shader programming first.
+This guide is for authors and maintainers developing Hearts of Iron IV mods with AI. Describe gameplay in ordinary language or specify scripts, interfaces, and defects directly. The workflow applies to historical, alternate-history, character-focused, gameplay, and overhaul mods without depending on one fictional setting, country, or author's computer paths.
 
-## What can you make?
+These are reusable development methods. Examples describe requests; they do not certify behavior in your game build, dependency combination, or save. Internal technical references for the three skills are mostly in English. This user guide has complete editions in four languages.
 
-| Your idea | Work you can ask the AI to do |
-|---|---|
-| Countries and stories | Countries, characters, events, decisions, focuses, national spirits, and the conditions and effects connecting them |
-| Character systems | Recruitment, route choices, affection rules, character profiles, leaders, and generals |
-| Gameplay systems | Minigames with defined rules, collections and unlocks, multistage tasks, resource tracking, and persistent state |
-| Custom interfaces | Startup screens, character cards, recruitment windows, guides, buttons, dynamic text, and multilingual layouts |
-| Visual effects | Animated portraits, light beams and petals, scans and signal interference, holographic cards, decorative globes, and button feedback |
-| Asset integration | Registering and adapting images, frame animations, models, sound effects, and music |
-| Existing-mod maintenance | Investigating errors, tracing connections between files, diagnosing compatibility problems, maintaining documentation, and preparing releases |
+## 1. Getting started
 
-The implementation depends on your game version, project, and the interfaces the engine exposes. The AI should check those first and choose an approach that can actually be integrated.
+Install all three skills together and preserve their relative directories. See the [installation and sharing instructions](../../../../docs/INSTALLATION.md) for client setup. Open the target mod and let the AI read project guidance and relevant code. A small change does not require scanning the entire project.
 
-## What do shaders add?
-
-A shader can make a static image change over time in the game. It calculates the appearance from time, image data, and interface state, so you do not need to produce a video for every moving light or particle.
-
-| Effect | What players see | Suitable uses |
+| Task | Primary skill | Expected result |
 |---|---|---|
-| Soft beams and light particles | Light passes across the image while small particles drift slowly | Recruitment reveals, weddings, birthdays, and anniversary events |
-| Window light and petals | Light enters through a window pattern while petals fall across the picture | Story illustrations and animated super events |
-| Memory scans | Scan bands, subtle color separation, data fragments, and signal distortion | PARQUET themes, memory transfers, and communication terminals |
-| Holographic character cards | A card tilts in perspective, with iridescence and glitter that change with its angle | Character collections, recruitment presentations, and achievement cards |
-| Animated startup screens | Subtle portrait motion, lighting on titles and buttons, and reading pages that give text room | Welcome screens and update pages that fit the mod's style |
-| Hover feedback | Text changes color, a border lights up, or a small character jumps when hovered | Choice buttons, navigation, and small interactive decorations |
-| Decorative globes | A flat map appears as a rotating sphere inside a window | War rooms, story briefings, and worldbuilding displays |
+| Turn an idea into new content or a complete system | `hoi4-content-builder` | An accessible, usable feature with scripts, assets, and text |
+| Edit scripts, localisation, interfaces, or compatibility logic | `hoi4-pdx-modding` | An implementation consistent with the target build and project |
+| Diagnose defects, review performance, or investigate migration issues | `hoi4-review-debug` | Evidence-based findings and repairs within the agreed scope |
 
-**A startup-UI build in the test project passed user testing in the game on October 10, 2026.** Existing handoff records also report successful user trials of the animated super-event and holographic-card examples. Changing assets, layout, or game version calls for checks appropriate to those changes. One accepted example does not establish that every effect or later revision works.
+Compatible clients may select a skill automatically; you can also name it explicitly. Skills supply methods and references. File access, commands, network access, and game control depend on the client. The optional local MCP tools provide read-only evidence; they do not launch the game or modify the mod.
 
-## Ideas for the Yuzusoft Generals Pack
+A first request might be:
 
-- Give each character an appropriate entrance: warm shrine light, a technological scan, or an archival ink-and-paper reveal.
-- Add restrained motion to relationship stories and commemorative super events, using light, petals, or particles over existing illustrations.
-- Present a character collection as a holographic card album. Hovering gives feedback; clicking opens a profile or recruitment interface.
-- Use a startup screen with separate pages for updates, gameplay guidance, and credits, keeping the reading area quiet and legible.
-- Build a multistage memory-restoration interface for PARQUET. Scripts manage the rules and outcomes while the visuals reflect each stage.
+> Add an “Industrial Assistance” decision to the current mod. The player pays 50 political power for a production bonus lasting 30 days. It cannot be bought again while active, but becomes available after expiry. The AI should consider it only during war. Preserve existing dependencies and cover the project's supported languages. Read relevant project guidance and vanilla examples, implement the feature, and perform necessary static checks. Do not launch the game or commit yet.
 
-A card that looks like a gacha reveal does not automatically implement probabilities, a pity system, or recruitment. Describe the presentation and the actual rules together so the AI can connect the button to the intended behavior.
+The numbers and restrictions are examples. Replace them with your design; the AI should determine the appropriate implementation.
 
-## Which ideas need further checks?
+## 2. Describe behavior that can be checked
 
-**A spherical world map and a globe inside a window are different features.** A window globe is suitable for display. Reshaping the playable world map also affects province selection and command input. In the Globe Mod studied here, user testing found click inaccuracies that increased with camera height and distance from the screen center. The visual transformation alone does not fix that mismatch.
+A short request is usually sufficient. For larger work, add the information below where it is not already discoverable in the project.
 
-**A tilted card may still have a fixed clickable area.** If you need its angle to follow the exact pointer position, or clicks outside its visible outline to be rejected, state those interaction requirements explicitly so the AI can verify engine support.
+| Information | What to establish |
+|---|---|
+| Goal | New mod, existing feature change, feasibility study, or read-only review |
+| Environment | Project location, target game build, relevant DLCs, dependencies, and actual load order |
+| Player path | Entry point, visible content, actions and outcomes, and exit path |
+| Rules | Costs, conditions, effects, duration, failure, cancellation, and repeated actions |
+| State scope | Owning country or object; behavior on closing, loading a save, and starting a campaign |
+| AI and compatibility | Whether and when AI uses it; requirements for existing saves or multiplayer |
+| Assets and languages | Available originals, permission to use them, visual requirements, and supported languages |
+| Work boundaries | Files that may change, game-testing permission, and commit or publication scope |
 
-**A looping animation does not necessarily restart when the window opens.** Mention any need for a one-time reveal, precise audio synchronization, or replay. Those require timing behavior beyond a continuously drifting background.
+State boundaries directly: “analyze first, do not implement,” “fix only this issue,” or “do not add more tests.” When asked to stop, the AI should stop starting checks and repairs and report the current state. “Finish the current step” means the one bounded operation already in progress.
 
-**Frosted glass may use an image that was blurred in advance.** This works for a fixed backdrop. Blurring the live game map behind a window requires a separate check of engine support.
+## 3. Establish the project and sources
 
-Effects also have a performance cost. For a gentle atmosphere, ask for fewer particles, low intensity, and a static fallback or an option to turn the effect off.
+For existing work, read technical guidance, affected player-facing text, and callers first. Variable names do not explain gameplay, and filenames do not establish a feature's actual purpose.
 
-## How to describe your request
+Verify syntax and interfaces against the target installation: current vanilla files and shipped documentation, skill templates and kits, and the dependencies actually enabled. Correct a template when it conflicts with current consumer evidence. Wikis and community material can provide leads, but old examples must not override the target build's behavior.
 
-These details are usually enough:
+Inspect relevant `descriptor.mod` settings, `replace_path`, load order, and competing definitions. A compatibility patch needs the exact dependency version and its real identifiers. State what remains unverified when installation files or runtime evidence are unavailable.
 
-1. **Project and game version:** which mod to edit, and whether it is a test project or a production release.
-2. **Player experience:** how to open it, what appears, and what each click does.
-3. **Available assets and boundaries:** which images may be used, which directories are off limits, and which originals must be preserved.
-4. **Style and intensity:** gentle, technological, vintage, or another direction; subtle atmosphere or a prominent reveal.
-5. **Actual rules:** recruitment, costs, unlocks, saved progress, or presentation only.
-6. **Testing:** whether you will test in the game yourself, or an authorized AI with native application control should do it.
+## 4. Complete one working feature chain
 
-Adapt these examples to your own assets and content:
+Build the smallest feature that works from entry to outcome, then expand its content. A decision might require:
 
-> Make a character introduction window in my test mod using an existing portrait, soft warm light, and a few drifting particles. Keep button positions fixed. Include an original-image comparison and a close button. Confirm should only close the window; it must not recruit anyone or charge anything. Preserve the source assets.
+```text
+Category and entry → visibility/availability → cost and effect → state/modifier → feedback
+                                         ↘ localisation, icon, AI usage rules
+```
 
-> Give the startup interface a home page and reading pages. Emphasize the character on the home page and the text on reading pages. Add subtle light effects on button hover. Keep decorations clear of the face and body text, and preserve the existing three languages and functions.
+Events, focuses, technologies, equipment, MIOs, characters, GUI, and music each have their own consumers and resource chains. A definition file alone is incomplete if its entry point, icon, text, or actual effect is missing.
 
-> Design three memory-repair interface concepts for PARQUET, choose one, and implement it in the test mod. Specify the choice rules, success and failure conditions, and what happens when the interface is reopened. Use scanning and reconstruction effects to show stage changes. Deliver the working interface, not just shader code.
+When changing existing behavior, trace the real call chain through `ROOT`, `FROM`, country, state, character, and other scopes. Identify whose state each effect reads or writes. Add guards where a caller can actually be absent or the save lifecycle requires them; silent fallbacks can hide broken connections.
 
-> Add a red-text hover effect to the existing recruitment choices while keeping the background and border as they are. Check the longest Chinese, Japanese, and English options, and preserve the existing route logic.
+Complex systems can start with an offline rules model and a small native example, but the example must retain the mechanisms the design needs. A multi-entity system should model creation, lookup, deletion, and slot reuse; one hardcoded object cannot establish the full design. For feasibility-only requests, deliver limits, options, and a validation path, then wait for implementation instructions.
 
-## What should you receive?
+## 5. Design state, saves, and time
 
-A complete example should have an accessible entry point, all required files, valid asset references, buttons and text, a way to close it, and brief usage instructions. The AI should explain what changed, how to try it, and which checks it completed.
+Every persistent variable, flag, array, or event target needs an owner, purpose, and lifetime. Answer practical questions before selecting a data structure:
 
-Distinguish three kinds of evidence: code checks passed, a browser or other offline preview looked correct, and the feature actually worked in the game. The first two can catch problems but cannot replace the third. An in-game check can be brief: open the interface, inspect the effect, use the buttons, close and reopen it, and check the behavior affected by the change.
+- When does initialization occur? Can new content initialize in an existing save? Can repeated initialization grant rewards again?
+- Does reopening a window continue progress, reset it, or only refresh the display? Are failure, cancellation, and restart separate paths?
+- What survives loading a save, switching countries, or losing the host? Which multiplayer state is shared, and which belongs to individual players?
+- What defines “first completion”? “Once per game and difficulty in each save” requires separate game and difficulty records, rather than one global first-win flag.
 
-If you only want to understand the possibilities, share this guide with other developers. When you are ready to build, ask the AI to use the technical guides and examples inside the skills. You do not need to read or organize those implementation details yourself.
+Preserve persistent IDs and existing save state. Renaming them or changing their meaning needs a migration design. Renaming a file usually does not migrate identifiers stored in saves.
+
+Separate animation time from gameplay time. Days, hours, clicks, and explicit logical steps have different semantics; account for pause and game speed. Use state machines, event-driven updates, or bounded batches for the complexity actually needed. Ordinary features rarely need a general-purpose interpreter.
+
+## 6. GUI, visual effects, and assets
+
+Specify layout, clickable areas, refresh conditions, closing behavior, and rule feedback together. Inspect affected long text, target resolution, scaling, occlusion, layer order, and reopening behavior.
+
+A shader does not automatically receive script state, exact pointer coordinates, or a clock that resets whenever a window opens. Verify tilted visuals and their hitboxes, decorative globes and playable maps, and loops and one-time reveals as separate interface questions. Browser previews and standalone shader compilation do not establish native parsing or interaction.
+
+Process media from original sources and retain provenance and usage permissions. Confirm dimensions, format, alpha, mipmaps, cropping, and padding against the actual consumer; one image's settings are not universal. Lossy DDS re-encoding can damage line art. A smaller file is not necessarily better for image quality or GPU memory.
+
+For frame animations, specify frame count, playback rate, looping, and atlas layout; consider texture limits and memory for large images. For music, distinguish main-menu and in-game-player registration, formats, and triggers. When renaming or renumbering assets, inspect explicit references and engine naming conventions while preserving other assets' contents.
+
+Keep originals, extracted frames, previews, and temporary conversions in the project's agreed asset or build locations. Release packages should contain runtime requirements. Preserving originals does not mean committing every intermediate file.
+
+## 7. Plan localisation with the feature
+
+Every supported language should cover the same features and keys. Establish terminology, names, and gameplay concepts before translating. Preserve identifiers, variables, icon markers, color codes, and dynamic placeholders. Keep authoring instructions out of player-facing prose.
+
+Check language filenames, headers, encoding, and indentation, following project conventions and skill templates for key syntax. Text existing in a file does not prove that the intended interface consumes it: names, descriptions, generated modifier text, and custom tooltips can work differently.
+
+Check wrapping, button width, and glyph rendering for new or changed long strings. Translations must communicate the same costs, conditions, failures, and rewards. Update language selectors, user guides, and public descriptions together so no language is left with headings only or outdated instructions.
+
+## 8. Performance and file consolidation
+
+Find actual costs before choosing an optimization. Examine frequent `on_actions`, global scans, nested loops, repeatedly evaluated display conditions, and large animated textures. Event-driven updates or caching may help when results change only with state; define cache invalidation explicitly.
+
+Do not silently turn a daily mechanic into a weekly one to reduce execution frequency. Batched work needs progress tracking and limits while preserving intended outcomes and feedback.
+
+Consolidate fragments by feature ownership when they share parser directories, loading rules, and lifecycles. Retain splits justified by load order, compatibility, generated ownership, or maintenance boundaries. Fewer files primarily improve maintenance and startup file access; they do not establish sustained FPS gains.
+
+During merges, compare definitions, namespaces, order, duplicate keys, and resource references. Identical keys with different values require a semantic decision. Update generators so the next build does not recreate old paths. Outputs should be reproducible, and manual corrections should reach their authoritative sources.
+
+## 9. Diagnose from reproduction and evidence
+
+Record the build, enabled mods, action taken, expected behavior, and actual result. Read logs for the relevant time window, group repeated messages by cause, and prioritize parse or reference errors that can prevent later content from loading. The last log entry, stale logs after exit, and a single guess do not establish a crash cause.
+
+Trace cross-file problems through definitions and consumers, then examine scopes, state, dependencies, and assets. Separate definite defects, heuristic leads, design preferences, and unverified hypotheses. Keep repairs focused on the identified cause.
+
+Use native debugging or dump analysis when the problem needs it, tools are available, and authorization covers the operation; protect private data. Routine log investigation should not automatically escalate to process attachment, tool installation, or full-memory capture.
+
+## 10. Validate with sufficient evidence
+
+| Change or evidence | Appropriate check | What it does not establish |
+|---|---|---|
+| Small prose, comment, or known-template edit | Read the diff and preserve formatting and placeholders | That all gameplay was tested |
+| Scripts, references, encoding, or asset wiring | Affected-file static checks and reference tracing | Correct native scope, timing, or interface behavior |
+| Offline model, web, or image preview | Rules, layout, pixels, or media-format checks | Native input, rendering, or save behavior |
+| In-game operation | Observation in a specified build, playset, and scenario | Coverage of other versions, saves, multiplayer, and every branch |
+
+Choose the smallest sufficient check for the failure risk and reuse evidence that still applies. A small task usually needs 0–3 relevant observations. If native testing is necessary, use the shortest authorized route through an existing session, test save, or new campaign, including preparation and cleanup in the time budget. After a repair, rerun only the necessary targeted check.
+
+A game launch should answer something static checks cannot. If native control is unavailable or testing is declined, report “runtime unverified” and provide a useful manual entry point when needed. Old testing records do not prove new changes.
+
+## 11. Documentation, Git, and delivery
+
+Technical guidance records current structure, entry points, state, compatibility, and build contracts. A development log records changes and evidence. Small edits can update existing documentation without creating another document set.
+
+Inspect the worktree and staged diff before committing, preserving other contributors' unfinished changes. Deliver asset renames, generators, and references together. Committing, pushing, creating a release, and uploading to Workshop are separate actions; follow the user's request and existing authorization, using the configured remote and branch.
+
+Report what is complete, the validation scope, unverified behavior, and Git status. Public documentation should use generic examples and placeholder paths, without private directories, project characters, bespoke rules, or unverifiable individual acceptance claims. Keep provenance and licenses in appropriate locations.
+
+## 12. Requests you can adapt
+
+**Feasibility only**
+
+> Assess whether this mod can support a management panel with saved progress. Explain input interfaces, state ownership, loading and pause behavior, performance limits, and the smallest validation plan. Do not edit files or launch the game yet.
+
+**Repair existing behavior**
+
+> This event grants its reward again when opened a second time. Trace the entry point, player-facing text, and state lifecycle. Fix repeat claims while preserving progress in existing saves. Check only related branches and leave other reward values unchanged.
+
+**Consolidate files**
+
+> Consolidate recently added fragments by feature, preserving IDs, load order, and compatibility boundaries. Update generators and references. Provide a before/after path mapping and necessary content-equivalence checks without changing gameplay.
+
+**Replace media and translate**
+
+> Replace this interface background with the supplied original. Fit it proportionally to the existing consumer's dimensions, use the design's padding method, and preserve the original. Update instructions in all four languages and check the longest text and new asset paths. Report the output format and checks.
+
+**Prepare delivery**
+
+> Summarize the completed fixes in release notes, distinguishing tested behavior from unverified areas. Inspect the staged scope, then commit and push to this project's configured target branch while preserving unrelated local changes. Do not publish a release or upload to Workshop in this task.
+
+## 13. Technical references on demand
+
+These references are for implementation. Select those relevant to the current problem instead of loading all of them.
+
+- [Build a feature](../../../hoi4-content-builder/workflows/build-feature.md) and [template catalog](../../../hoi4-content-builder/references/template-catalog.md)
+- [Player-facing meaning and existing code](../../references/semantic-intent-audit.md), [state and algorithms](../../references/algorithm-engineering.md)
+- [GUI and localisation](../../references/gui-localisation.md), [localisation details](../../references/localisation-deep-dive.md)
+- [Frame animation](../../references/animated-textures.md), [GUI shaders](../../references/gui-shader-effects.md), [media processing](../../references/media-optimization.md)
+- [Performance diagnosis](../../references/performance-debugging.md) and [version migration](../../references/version-migration.md)
+- [Proportionate checks and stopping](../../references/workflow-boundaries.md), [native testing](../../../hoi4-content-builder/workflows/test-mod.md), [technical documentation](../../references/development-documentation.md)

@@ -10,10 +10,13 @@ Codex、ChatGPT、Cursor、Claude Code、Gemini CLI で『Hearts of Iron IV』�
 PDX スクリプトを知らない方でも、自然言語でアイデアを伝え、新しいコンテンツや
 MOD 全体を制作するための手順を利用できます。
 
-機能や依頼の書き方、具体例については、
-[英語のユーザーガイド](skills/hoi4-pdx-modding/assets/user-guides/hoi4-modding-guide.en.md)
-または[簡体字中国語版](skills/hoi4-pdx-modding/assets/user-guides/hoi4-modding-guide.zh-CN.md)
-をご覧ください。ガイドは必要なときにユーザーへ提供する資料です。各 Skill の
+依頼の書き方、スクリプトとセーブの設計、画面、素材、多言語、診断、引き渡しまでを
+扱う汎用開発ガイドを全文で提供しています：
+[日本語](skills/hoi4-pdx-modding/assets/user-guides/hoi4-modding-guide.ja.md) |
+[简体中文](skills/hoi4-pdx-modding/assets/user-guides/hoi4-modding-guide.zh-CN.md) |
+[English](skills/hoi4-pdx-modding/assets/user-guides/hoi4-modding-guide.en.md) |
+[Русский](skills/hoi4-pdx-modding/assets/user-guides/hoi4-modding-guide.ru.md)。
+ガイドは必要なときにユーザーへ提供する資料です。各 Skill の
 入口には提供方法だけを記載し、通常はガイド本文を読み込まない構成にしています。
 
 このリポジトリは、任意で利用できる **Codex Plugin** にも対応しています。
