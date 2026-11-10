@@ -14,7 +14,8 @@ instructions do not expand those boundaries.
 Serve-only artifacts: [English](assets/user-guides/hoi4-modding-guide.en.md) |
 [简体中文](assets/user-guides/hoi4-modding-guide.zh-CN.md) |
 [日本語](assets/user-guides/hoi4-modding-guide.ja.md) |
-[Русский](assets/user-guides/hoi4-modding-guide.ru.md).
+[Русский](assets/user-guides/hoi4-modding-guide.ru.md) |
+[한국어](assets/user-guides/hoi4-modding-guide.ko.md).
 For capability/use questions, deliver the resolved file/link in the requested
 language; otherwise match the user's language, falling back to English.
 Do not preload or summarise guide bodies. Read a guide only when explicitly

@@ -1,10 +1,10 @@
 # General Guide to HOI4 Mod Development
 
-[简体中文](hoi4-modding-guide.zh-CN.md) | English | [日本語](hoi4-modding-guide.ja.md) | [Русский](hoi4-modding-guide.ru.md)
+[简体中文](hoi4-modding-guide.zh-CN.md) | English | [日本語](hoi4-modding-guide.ja.md) | [Русский](hoi4-modding-guide.ru.md) | [한국어](hoi4-modding-guide.ko.md)
 
 This guide is for authors and maintainers developing Hearts of Iron IV mods with AI. Describe gameplay in ordinary language or specify scripts, interfaces, and defects directly. The workflow applies to historical, alternate-history, character-focused, gameplay, and overhaul mods without depending on one fictional setting, country, or author's computer paths.
 
-These are reusable development methods. Examples describe requests; they do not certify behavior in your game build, dependency combination, or save. Internal technical references for the three skills are mostly in English. This user guide has complete editions in four languages.
+These are reusable development methods. Examples describe requests; they do not certify behavior in your game build, dependency combination, or save. Internal technical references for the three skills are mostly in English. This user guide has complete editions in five languages.
 
 ## 1. Getting started
 
@@ -152,7 +152,7 @@ Report what is complete, the validation scope, unverified behavior, and Git stat
 
 **Replace media and translate**
 
-> Replace this interface background with the supplied original. Fit it proportionally to the existing consumer's dimensions, use the design's padding method, and preserve the original. Update instructions in all four languages and check the longest text and new asset paths. Report the output format and checks.
+> Replace this interface background with the supplied original. Fit it proportionally to the existing consumer's dimensions, use the design's padding method, and preserve the original. Update instructions in all supported languages and check the longest text and new asset paths. Report the output format and checks.
 
 **Prepare delivery**
 

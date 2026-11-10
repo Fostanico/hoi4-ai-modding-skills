@@ -1,6 +1,6 @@
 # HOI4 AI Modding Skills
 
-[简体中文](README.md) | [English](README_EN.md) | 日本語 | [Русский](README_RU.md)
+[简体中文](README.md) | [English](README_EN.md) | 日本語 | [Русский](README_RU.md) | [한국어](README_KO.md)
 
 Codex、ChatGPT、Cursor、Claude Code、Gemini CLI で『Hearts of Iron IV』の MOD を
 保守・診断・改善・制作するための、3 つの Agent Skills を収録しています。
@@ -15,7 +15,8 @@ MOD 全体を制作するための手順を利用できます。
 [日本語](skills/hoi4-pdx-modding/assets/user-guides/hoi4-modding-guide.ja.md) |
 [简体中文](skills/hoi4-pdx-modding/assets/user-guides/hoi4-modding-guide.zh-CN.md) |
 [English](skills/hoi4-pdx-modding/assets/user-guides/hoi4-modding-guide.en.md) |
-[Русский](skills/hoi4-pdx-modding/assets/user-guides/hoi4-modding-guide.ru.md)。
+[Русский](skills/hoi4-pdx-modding/assets/user-guides/hoi4-modding-guide.ru.md) |
+[한국어](skills/hoi4-pdx-modding/assets/user-guides/hoi4-modding-guide.ko.md)。
 ガイドは必要なときにユーザーへ提供する資料です。各 Skill の
 入口には提供方法だけを記載し、通常はガイド本文を読み込まない構成にしています。
 

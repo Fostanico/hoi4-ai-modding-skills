@@ -1,6 +1,6 @@
 # HOI4 AI Modding Skills
 
-[简体中文](README.md) | English | [日本語](README_JA.md) | [Русский](README_RU.md)
+[简体中文](README.md) | English | [日本語](README_JA.md) | [Русский](README_RU.md) | [한국어](README_KO.md)
 
 This repository contains three Agent Skills for maintaining, diagnosing,
 improving, and building Hearts of Iron IV mods with Codex, ChatGPT, Cursor,
@@ -17,7 +17,8 @@ interfaces, media, localisation, diagnosis, and delivery, read the general guide
 [English](skills/hoi4-pdx-modding/assets/user-guides/hoi4-modding-guide.en.md) |
 [简体中文](skills/hoi4-pdx-modding/assets/user-guides/hoi4-modding-guide.zh-CN.md) |
 [日本語](skills/hoi4-pdx-modding/assets/user-guides/hoi4-modding-guide.ja.md) |
-[Русский](skills/hoi4-pdx-modding/assets/user-guides/hoi4-modding-guide.ru.md).
+[Русский](skills/hoi4-pdx-modding/assets/user-guides/hoi4-modding-guide.ru.md) |
+[한국어](skills/hoi4-pdx-modding/assets/user-guides/hoi4-modding-guide.ko.md).
 It is a file to deliver to users on demand. Skill entrypoints contain the
 delivery rule; agents are instructed not to read the guide body by default.
 

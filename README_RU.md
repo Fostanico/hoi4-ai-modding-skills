@@ -1,6 +1,6 @@
 # HOI4 AI Modding Skills
 
-[简体中文](README.md) | [English](README_EN.md) | [日本語](README_JA.md) | Русский
+[简体中文](README.md) | [English](README_EN.md) | [日本語](README_JA.md) | Русский | [한국어](README_KO.md)
 
 Этот репозиторий содержит три навыка (Agent Skills) для поддержки, диагностики,
 улучшения и создания модов Hearts of Iron IV с помощью Codex, ChatGPT, Cursor,
@@ -18,7 +18,8 @@ Claude Code и Gemini CLI.
 [Русский](skills/hoi4-pdx-modding/assets/user-guides/hoi4-modding-guide.ru.md) |
 [简体中文](skills/hoi4-pdx-modding/assets/user-guides/hoi4-modding-guide.zh-CN.md) |
 [English](skills/hoi4-pdx-modding/assets/user-guides/hoi4-modding-guide.en.md) |
-[日本語](skills/hoi4-pdx-modding/assets/user-guides/hoi4-modding-guide.ja.md).
+[日本語](skills/hoi4-pdx-modding/assets/user-guides/hoi4-modding-guide.ja.md) |
+[한국어](skills/hoi4-pdx-modding/assets/user-guides/hoi4-modding-guide.ko.md).
 Эти файлы предоставляются пользователю по запросу. Входные файлы навыков содержат
 правило выдачи руководства; агенту предписано не загружать его полный текст по умолчанию.
 

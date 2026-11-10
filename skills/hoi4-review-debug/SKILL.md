@@ -14,7 +14,8 @@ checklists and fix loops stay within those boundaries.
 Serve-only artifacts: [English](../hoi4-pdx-modding/assets/user-guides/hoi4-modding-guide.en.md) |
 [简体中文](../hoi4-pdx-modding/assets/user-guides/hoi4-modding-guide.zh-CN.md) |
 [日本語](../hoi4-pdx-modding/assets/user-guides/hoi4-modding-guide.ja.md) |
-[Русский](../hoi4-pdx-modding/assets/user-guides/hoi4-modding-guide.ru.md).
+[Русский](../hoi4-pdx-modding/assets/user-guides/hoi4-modding-guide.ru.md) |
+[한국어](../hoi4-pdx-modding/assets/user-guides/hoi4-modding-guide.ko.md).
 For capability/use questions, deliver the resolved file/link in the requested
 language; otherwise match the user's language, falling back to English.
 Do not preload or summarise guide bodies. Read a guide only when explicitly

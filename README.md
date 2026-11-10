@@ -1,6 +1,6 @@
 # HOI4 AI Modding Skills
 
-简体中文 | [English](README_EN.md) | [日本語](README_JA.md) | [Русский](README_RU.md)
+简体中文 | [English](README_EN.md) | [日本語](README_JA.md) | [Русский](README_RU.md) | [한국어](README_KO.md)
 
 这是三套供 Codex、ChatGPT、Cursor、Claude Code 和 Gemini CLI 使用的《钢铁雄心 IV》
 Agent Skills。它们现在更侧重于维护、诊断和完善已有 MOD，同时保留从自然语言需求
@@ -14,7 +14,8 @@ Agent Skills。它们现在更侧重于维护、诊断和完善已有 MOD，同�
 [简体中文](skills/hoi4-pdx-modding/assets/user-guides/hoi4-modding-guide.zh-CN.md) |
 [English](skills/hoi4-pdx-modding/assets/user-guides/hoi4-modding-guide.en.md) |
 [日本語](skills/hoi4-pdx-modding/assets/user-guides/hoi4-modding-guide.ja.md) |
-[Русский](skills/hoi4-pdx-modding/assets/user-guides/hoi4-modding-guide.ru.md)。
+[Русский](skills/hoi4-pdx-modding/assets/user-guides/hoi4-modding-guide.ru.md) |
+[한국어](skills/hoi4-pdx-modding/assets/user-guides/hoi4-modding-guide.ko.md)。
 指南作为按需交付给用户的文件保存；技能默认只加载交付规则，不读取指南正文。
 
 仓库同时提供可选的 **Codex Plugin** 集成。插件将三套 Skills 与本地只读 MCP
