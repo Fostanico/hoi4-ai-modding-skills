@@ -1,0 +1,12 @@
+﻿l_korean:
+ MOD_first_focus: "국가중점 예시"
+ MOD_first_focus_desc: "이 국가중점에 맞는 설명을 입력하세요."
+ MOD_national_spirit: "국민정신 예시"
+ MOD_national_spirit_desc: "이 국민정신에 맞는 설명을 입력하세요."
+ MOD_character: "인물 예시"
+ MOD_decision_category: "결정 목록 예시"
+ MOD_take_decision: "결정 예시"
+ MOD_take_decision_desc: "이 결정에 맞는 설명을 입력하세요."
+ MOD.1.t: "이벤트 예시"
+ MOD.1.desc: "이 이벤트에 맞는 본문을 입력하세요."
+ MOD.1.a: "확인"

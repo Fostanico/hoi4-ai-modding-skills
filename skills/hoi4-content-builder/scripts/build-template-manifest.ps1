@@ -28,14 +28,22 @@ function Get-Entry {
     if (@($Files | Where-Object { $_.Extension -eq '.yml' }).Count -gt 0) { $checks.Add('localisation_header_and_key_style') }
     if (@($Files | Where-Object { $_.Extension -in @('.gfx', '.asset') }).Count -gt 0) { $checks.Add('asset_registration_and_path_case') }
     if ($Kind -eq 'kit') { $checks.Add('whole_kit_static_validation'); $checks.Add('smallest_runtime_test') }
+    $targetGameVersion = '1.19.3.0'
+    $targetBuild = '5632'
+    $verifiedOn = '2026-09-20'
+    if ($CatalogKey -in @('localisation_l_korean.yml', 'localisation-advanced/*')) {
+        $targetGameVersion = '1.19.4.2'
+        $targetBuild = '0bdb'
+        $verifiedOn = '2026-11-10'
+    }
     return [pscustomobject]@{
         id = ($CatalogKey.ToLowerInvariant() -replace '[^a-z0-9]+', '-').Trim('-'); kind = $Kind; catalogKey = $CatalogKey
         paths = @($Files | ForEach-Object { $_.FullName.Substring($SkillRoot.Length + 1).Replace('\', '/') } | Sort-Object)
         intendedUse = $record.intendedUse
         sourceEvidence = [pscustomobject]@{ installedDocumentation = $record.documentation; currentConsumers = $record.consumers }
         verification = [pscustomobject]@{
-            targetGameVersion = '1.19.3.0'; targetBuild = '5632'
-            verifiedOn = '2026-09-20'
+            targetGameVersion = $targetGameVersion; targetBuild = $targetBuild
+            verifiedOn = $verifiedOn
             staticStatus = 'verified_against_catalogued_sources'; runtimeStatus = 'required_after_placeholder_replacement'
         }
         requiredChecks = @($checks)

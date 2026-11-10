@@ -13,7 +13,7 @@
 - Runtime name assembly and submission
 - Scripted, bound, and context-aware localisation
 - Localisation formatters
-- Four-language authoring workflow
+- Multilingual authoring workflow
 - Validation and diagnostics
 
 ## Evidence hierarchy
@@ -82,6 +82,7 @@ and translated values. Common examples:
 | Simplified Chinese | `simp_chinese` |
 | Russian | `russian` |
 | Japanese | `japanese` |
+| Korean | `korean` |
 
 Each entry must have exactly one ASCII space before the key and a quoted
 value. The language header stays flush left. Tabs, two-or-more spaces, and
@@ -604,14 +605,17 @@ Current installed 1.19.2 documentation lists:
 Do not invent formatters or parameters. Re-read the target installation's
 formatter document after every game update and find a current consumer.
 
-## Four-language authoring workflow
+## Multilingual authoring workflow
 
 1. Define a stable key set before translation.
-2. Create English, Simplified Chinese, Russian, and Japanese files with matching
-   keys and language identity.
+2. Create files for each supported language with matching keys. The builder
+   provides English, Simplified Chinese, Russian, Japanese, and Korean templates.
 3. Translate prose only. Preserve identifiers and every dynamic token exactly.
 4. Check fonts and layout for CJK and Cyrillic text; a semantically correct
-   value can still clip in a narrow GUI.
+   value can still clip in a narrow GUI. For Korean, check the font used by
+   the actual GUI element and the `l_korean` overrides in the target installation's
+   `interface/core_korean.gfx`. Check Hangul and punctuation coverage in custom
+   bitmap fonts and inspect a long string in the intended control.
 5. Scan missing/extra keys by language and same-language collisions across all
    loaded mods.
 6. Test values with negative, zero, positive, fractional, and large numbers;

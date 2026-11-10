@@ -1,0 +1,11 @@
+﻿l_korean:
+ # 사용하기 전에 MOD와 MOD_example_modifier를 바꾸세요. 번역할 때는 서식 토큰을 그대로 유지하세요.
+ MOD_advanced_title: "§C고급 현지화§!"
+ MOD_advanced_variable: "수정치: [?modifier@MOD_example_modifier|.1%%+]"
+ MOD_advanced_party: "민주주의 지지도: [?party_popularity@democratic|%Y0]"
+ MOD_advanced_election: "지난 선거: [ROOT.GetLastElection]"
+ MOD_advanced_country: "국가: [ROOT.GetNameWithFlag]"
+ MOD_advanced_date: "날짜: [?global.date.GetDateStringNoHourLong]"
+ MOD_advanced_cost: "£pol_power §Y50§!"
+ MOD_advanced_nested: "현재 항목: $MOD_advanced_title$"
+ MOD_advanced_bound_row: "§Y$LABEL$§!: $VALUE$"

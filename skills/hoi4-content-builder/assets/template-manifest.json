@@ -1074,6 +1074,34 @@
                                              ]
                       },
                       {
+                          "id":  "localisation-l-korean-yml",
+                          "kind":  "template",
+                          "catalogKey":  "localisation_l_korean.yml",
+                          "paths":  [
+                                        "assets/templates/localisation_l_korean.yml"
+                                    ],
+                          "intendedUse":  "Korean player-facing localisation skeleton",
+                          "sourceEvidence":  {
+                                                 "installedDocumentation":  "current localisation consumers",
+                                                 "currentConsumers":  "`localisation/korean/*.yml`"
+                                             },
+                          "verification":  {
+                                               "targetGameVersion":  "1.19.4.2",
+                                               "targetBuild":  "0bdb",
+                                               "verifiedOn":  "2026-11-10",
+                                               "staticStatus":  "verified_against_catalogued_sources",
+                                               "runtimeStatus":  "required_after_placeholder_replacement"
+                                           },
+                          "requiredChecks":  [
+                                                 "path_exists",
+                                                 "placeholder_scan",
+                                                 "encoding",
+                                                 "cross_file_identifiers",
+                                                 "current_consumer",
+                                                 "localisation_header_and_key_style"
+                                             ]
+                      },
+                      {
                           "id":  "localisation-l-russian-yml",
                           "kind":  "template",
                           "catalogKey":  "localisation_l_russian.yml",
@@ -1949,18 +1977,19 @@
                           "paths":  [
                                         "assets/templates/localisation-advanced/localisation_advanced_l_english.yml",
                                         "assets/templates/localisation-advanced/localisation_advanced_l_japanese.yml",
+                                        "assets/templates/localisation-advanced/localisation_advanced_l_korean.yml",
                                         "assets/templates/localisation-advanced/localisation_advanced_l_russian.yml",
                                         "assets/templates/localisation-advanced/localisation_advanced_l_simp_chinese.yml"
                                     ],
-                          "intendedUse":  "Four-language colours, icons, formatted variables, scope functions, nested text, and bound-localisation examples",
+                          "intendedUse":  "Five-language colours, icons, formatted variables, scope functions, nested text, and bound-localisation examples",
                           "sourceEvidence":  {
                                                  "installedDocumentation":  "`documentation/loc_objects_documentation.md`, `documentation/dynamic_variables_documentation.md`",
                                                  "currentConsumers":  "`interface/core.gfx`, current `localisation/*/*.yml`, current bound/context-aware GUI consumers"
                                              },
                           "verification":  {
-                                               "targetGameVersion":  "1.19.3.0",
-                                               "targetBuild":  "5632",
-                                               "verifiedOn":  "2026-09-20",
+                                               "targetGameVersion":  "1.19.4.2",
+                                               "targetBuild":  "0bdb",
+                                               "verifiedOn":  "2026-11-10",
                                                "staticStatus":  "verified_against_catalogued_sources",
                                                "runtimeStatus":  "required_after_placeholder_replacement"
                                            },

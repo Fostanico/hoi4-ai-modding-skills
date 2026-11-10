@@ -12,7 +12,12 @@ Equipment-level stat blocks and current GUI override targets are routed in the
 [1.19.4 evidence map](../../hoi4-pdx-modding/references/recent-official-modding-changes.md#1194-additions-and-evidence-gaps).
 The module template remains a module definition; do not insert equipment-only
 blocks into it. Parameters without complete local evidence are not new verified
-templates, and the manifest retains each resource's existing verification build.
+templates, and the manifest retains the verification build for unchanged resources.
+
+The Korean skeleton and the expanded advanced localisation set were source-checked
+on 2026-11-10 against Operation Postern 1.19.4.2 (0bdb), using
+localisation/korean/ and the installed localisation documentation below.
+The examples still require verification in their intended in-game consumers.
 
 | Resource | Intended use | Installed documentation | Current vanilla consumer |
 | --- | --- | --- | --- |
@@ -37,7 +42,8 @@ templates, and the manifest retains each resource's existing verification build.
 | `localisation_l_simp_chinese.yml` | Simplified Chinese player-facing localisation skeleton | current localisation consumers | `localisation/simp_chinese/*.yml` |
 | `localisation_l_russian.yml` | Russian player-facing localisation skeleton | current localisation consumers | `localisation/russian/*.yml` |
 | `localisation_l_japanese.yml` | Japanese player-facing localisation skeleton | current localisation consumers | `localisation/japanese/*.yml` |
-| `localisation-advanced/*` | Four-language colours, icons, formatted variables, scope functions, nested text, and bound-localisation examples | `documentation/loc_objects_documentation.md`, `documentation/dynamic_variables_documentation.md` | `interface/core.gfx`, current `localisation/*/*.yml`, current bound/context-aware GUI consumers |
+| `localisation_l_korean.yml` | Korean player-facing localisation skeleton | current localisation consumers | `localisation/korean/*.yml` |
+| `localisation-advanced/*` | Five-language colours, icons, formatted variables, scope functions, nested text, and bound-localisation examples | `documentation/loc_objects_documentation.md`, `documentation/dynamic_variables_documentation.md` | `interface/core.gfx`, current `localisation/*/*.yml`, current bound/context-aware GUI consumers |
 | `collection-effect.txt` | Filtered collection iteration in a scripted effect | `common/collections/_documentation.md` | `common/factions/goals/faction_goals_short_term.txt` |
 | `array-effects.txt` | Scope-array add, iterate, and cleanup effects | `documentation/effects_documentation.md` | `common/decisions/SWI.txt` |
 | `event-target-caller.txt` | Save a state target and immediately fire an event | `documentation/effects_documentation.md` | `common/decisions/POL.txt`, `WTT_border_conflicts.txt` |
@@ -114,7 +120,7 @@ These templates describe the mod being built rather than HOI4 database syntax:
 - These are structural skeletons, not globally correct gameplay defaults.
 - Reuse an established project guide or handoff instead of creating duplicate
   documentation. The engineering templates are starting points only.
-- The four localisation templates intentionally share the same keys. Copy each
+- The basic localisation templates intentionally share the same keys. Copy each
   requested language into its matching `localisation/<language>/` directory,
   translate values only, and preserve scripted tokens, variables, icons, and
   color codes exactly. The skill instructions remain English; these files are
