@@ -1,4 +1,4 @@
-# Installed vanilla documentation map (1.19.4)
+# Installed vanilla documentation map (1.20.0)
 
 ## Contents
 
@@ -11,10 +11,10 @@
 
 ## Authority and limitations
 
-This inventory was refreshed for all 50 Markdown files on 2026-10-28 in an installed
-`Operation Postern v1.19.4.0.48d6 (a783)` build (11 generated, 39 database-adjacent).
-Discover the user's current
-game root and version before relying on the inventory.
+This inventory was refreshed on 2026-11-21 against installed
+`Operation Postern v1.20.0.0.8873 (0c4f)`. It contains the same 50 Markdown
+paths as 1.19.4 (11 generated, 39 database-adjacent). Discover the user's game
+root and build before relying on the inventory.
 
 Use an installed Markdown document as the exact token, supported-scope, and
 parameter-shape authority for that build, then verify nesting and caller
@@ -37,23 +37,12 @@ reliable:
   is not proof that a specific idea, trait, MIO, doctrine, or dynamic modifier
   accepts it.
 
-The earlier 1.19.3 audit exposed a concrete generator lag. It found registrations for
-`is_fighting_in_strategic_region`, `is_deployed`, `state_deployed`,
-`province_deployed`, `is_core_of`, and `is_not_core_of`, while the generated
-trigger, dynamic-variable, and collection-operator documents omit some or all
-of them. Current vanilla proves the strategic-region trigger and the two
-admiral callbacks; it does not provide text consumers for the HQ deployment
-tokens or core-state operators. For undocumented additions, require all
-available layers of evidence and label missing parameter/lifecycle details
-instead of silently treating the generated index as exhaustive.
-
-The 1.19.4 text refresh finds another concrete gap: `stockpile_fuel` has a
-detailed database-adjacent AI document, while the equipment schema omits
-`module_add_stats_multiplier`, `module_multiply_stats_multiplier`, and
-`scaled_by_reliability`. Current `tank_chassis.txt` proves the first and third
-blocks. `set_major` still documents only a scalar and `start_border_war` omits
-the newly announced argument. See [the 1.19.4 evidence table](recent-official-modding-changes.md#1194-additions-and-evidence-gaps).
-These are text-source findings, not native behavioral validation.
+The 1.20.0 generated files document the core-state collection operators, Army
+HQ deployment data, the combatant strategic-region trigger and the
+`start_border_war` attacker option for subject participation. They also add
+`any_war_participation`. See the [1.20.0 evidence map](recent-official-modding-changes.md#1200-additions-and-documentation-catch-up)
+for sources and unresolved options. Use current vanilla consumers to check
+context and behavior relevant to the mod.
 
 Never turn a comment containing `TODO`, `TBD`, “syntax just for reference”, or
 an unresolved question into a reusable production template without a current
@@ -98,11 +87,10 @@ object proves the consumer, nesting, lifecycle, and surrounding scope.
 - `count_in_collection` is country-scoped and its `unit`, `buildings`, and
   `manpower` modes are mutually exclusive. Current 1.19 also documents
   `equipment_ratio`, `unit_category`, and `stockpile` filters.
-- 1.19.3 registers `is_core_of = ScopedVariable` and
-  `is_not_core_of = ScopedVariable` as collection operators. They are intended
-  to avoid per-element trigger filtering, but the shipped operator document
-  has no entry or example. Do not invent the scoped-variable spelling or
-  nesting without a focused runtime test.
+- In 1.20.0, `script_collection_operator.md` documents
+  `operators = { is_core_of = ROOT }` and the `is_not_core_of` counterpart.
+  Both operate on state collections and take a scoped country payload. Ensure
+  `ROOT`, `FROM`, `PREV` or the supplied variable resolves to a country.
 
 ### Variables, constants, and scope existence
 
@@ -118,10 +106,14 @@ object proves the consumer, nesting, lifecycle, and surrounding scope.
 - Hot reload requires reloading the constants database and then every database
   that consumed the constants; reloading constants alone does not reinject
   values into already loaded objects.
-- 1.19.3 registers unit-leader `state_deployed` and `province_deployed`, plus
-  the `is_deployed` trigger for Army HQ. Generated documents and current
-  vanilla text do not yet explain undeployed sentinel values, movement, or
-  non-HQ behavior, so test those states before using them in production.
+- For Army HQ deployment, see the [character-scope trigger and ID values](ai-and-military-content.md#army-hq-deployment-data-and-sub-unit-readiness).
+  Find `is_deployed` in the trigger document and the deployed state/province IDs
+  in the dynamic-variable document.
+
+### Country war participation
+
+- `any_war_participation` uses country scope and compares shares on a 0–1
+  scale. See [the trigger and callers](diplomacy-factions-assets.md#war-participation).
 
 ### Combat callbacks and ephemeral scopes
 

@@ -143,7 +143,7 @@ See [localisation-deep-dive.md](references/localisation-deep-dive.md#player-faci
 - [version-migration.md](references/version-migration.md): game updates and
   full-file vanilla overrides.
 - [recent-official-modding-changes.md](references/recent-official-modding-changes.md):
-  dated engine changes, current 1.19.4 source evidence and unresolved schemas.
+  dated engine changes, current 1.20.0 source evidence and unresolved schemas.
 - [media-models-shaders.md](references/media-models-shaders.md): textures,
   entities, animations, models, audio, and shaders.
 - [gui-shader-effects.md](references/gui-shader-effects.md): procedural GUI

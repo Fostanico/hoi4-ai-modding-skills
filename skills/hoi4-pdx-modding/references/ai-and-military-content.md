@@ -138,12 +138,17 @@ two observed blocks, the current chassis definitions are the stronger evidence.
 
 ## Army HQ deployment data and sub-unit readiness
 
-- HOI4 1.19.3 registers the unit-leader trigger `is_deployed` and dynamic
-  variables `state_deployed` and `province_deployed` for Army HQ leaders.
-  They are not present in the shipped generated trigger/dynamic-variable
-  Markdown and have no current vanilla text consumer. Treat their exact value
-  behavior as provisional and test undeployed, deployed, moving, withdrawing,
-  save/reload, and non-HQ leaders before use.
+- HOI4 1.20.0 documents `is_deployed = yes` in the general's character scope.
+  The unit-leader variables `state_deployed` and `province_deployed` return
+  numeric IDs. Both return `0` for an undeployed general. `state_deployed` also
+  returns `0` when the deployed HQ is outside a state, such as at sea. Check
+  the ID before using it as a state or province target. These values come from
+  the shipped documentation. Check any movement or withdrawal behavior that
+  the consuming feature relies on.
+- The official 1.20.0 fix lets `division_has_battalion_in_template` match before
+  the final battalion or support slot. Use the division context and a subunit ID,
+  as in the trait's `unit_trigger` in `common/unit_leader/00_traits.txt`.
+  Revisit compensating slot order or duplicate checks when migrating.
 - Battalion adjusters now scale with the equipment and manpower status of the
   affected sub-unit. Test custom adjusters at full strength and at realistic
   shortages; a fully equipped tooltip or old 1.19.2 result is not enough.
@@ -190,5 +195,6 @@ Check current installed copies of `common/ai_strategy/_documentation.md`,
 The Wiki explains the systems, but installed documentation and working vanilla
 files decide exact current-version tokens. Re-read `launcher-settings.json`
 before retaining the version-specific assumptions in this reference. The fuel
-and equipment additions were source-checked in 1.19.4 (a783) on 2026-10-28;
-the explicitly dated 1.19.3 sections retain their earlier evidence.
+and equipment additions were source-checked in 1.19.4 (a783) on 2026-10-28.
+The HQ definitions and battalion-membership guidance use the 1.20.0 (0c4f)
+documentation and consumers reviewed on 2026-11-21.

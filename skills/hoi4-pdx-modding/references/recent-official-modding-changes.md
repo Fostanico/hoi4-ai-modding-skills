@@ -1,9 +1,10 @@
-# Recent official HOI4 modding changes (1.14.1-1.19.4)
+# Recent official HOI4 modding changes (1.14.1-1.20.0)
 
 ## Contents
 
 - Purpose and evidence policy
-- Current 1.19.4 source map
+- Current 1.20.0 source map
+- 1.20.0 additions and documentation catch-up
 - 1.19.4 additions and evidence gaps
 - Verified 1.19.3 additions
 - Verified current patterns
@@ -14,9 +15,9 @@
 
 Use this reference when a task concerns a feature added, changed, deprecated, or
 fixed since 1.14, or when the Wiki may lag the installed game. The audit covers
-official Steam news from 2024-03-06 through the 1.19.4 QoL patch on 2026-10-27.
-The 1.19.4 additions below were checked against installed text on 2026-10-28;
-earlier sections retain their original version-specific evidence.
+official Steam news from 2024-03-06 through the 2026-11-19 To the Bitter End
+release. The 1.20.0 findings were checked against installed text on 2026-11-21.
+Earlier sections retain their version-specific evidence.
 
 Official news is a change-discovery source, not a complete schema. Apply a
 reported token only after finding it in the installed version's generated
@@ -26,13 +27,13 @@ intent with a name that differs from the shipped documentation.
 For the current local installation, `launcher-settings.json` reports:
 
 ```text
-Operation Postern v1.19.4.0.48d6 (a783)
+Operation Postern v1.20.0.0.8873 (0c4f)
 ```
 
 Do not treat this snapshot as permanent. Re-read `launcher-settings.json` and
 the newest Steam patch notes after an update.
 
-## Current 1.19.4 source map
+## Current 1.20.0 source map
 
 Prefer the generated and database-adjacent documentation under the installed game:
 
@@ -63,20 +64,34 @@ Generated documents establish supported scopes and parameter shapes. Current
 vanilla definitions establish the exact nesting and caller context. Check both
 when either source is incomplete.
 
-The 1.19.4 Markdown inventory remains 50 files (11 under `documentation`, 39
-under `common`); an unchanged file count does not imply unchanged contents.
-The earlier 1.19.3 audit found engine registrations for
-`is_deployed`, `state_deployed`, `province_deployed`, `is_core_of`,
-`is_not_core_of`, and `is_fighting_in_strategic_region`; generated trigger,
-dynamic-variable, and collection-operator documents omit some or all of those
-entries. In that situation, combine the official patch note, current executable
-token registration, and a current vanilla consumer. If no consumer exists,
-mark the parameter shape as provisional. Resolve it only when a task actually
-needs that feature, using the shared runtime-test necessity gate.
+The 1.20.0 Markdown inventory has the same 50 paths as 1.19.4 (11 under
+`documentation`, 39 under `common`). New entries in the existing generated
+files resolve several gaps from the 1.19.x audits. Read the installed entry for
+the user's build before carrying an earlier evidence gap forward.
 
 See `vanilla-documentation-map.md` for the complete 50-file inventory, source
 limitations, exact lookup workflow, and the current high-value findings that
 are broader than the Steam change log.
+
+## 1.20.0 additions and documentation catch-up
+
+The [official To the Bitter End release notes](https://steamcommunity.com/games/394360/announcements/detail/684145170657051627) identify the new
+war-participation trigger and the division-template bug fix. The local audit used
+public Steam build `26733403` (launcher checksum `0c4f`).
+
+| Change | Installed 1.20.0 evidence | Authoring decision |
+| --- | --- | --- |
+| War participation | `documentation/triggers_documentation.md` and `common/decisions/ROM.txt`, with a country-scope event consumer in `events/TTBE_Romania.txt` | Use a scalar country trigger and thresholds on a 0–1 scale. See [war participation](diplomacy-factions-assets.md#war-participation). |
+| Battalion membership | The official fix covers matches before the last battalion or support company. `common/unit_leader/00_traits.txt` uses subunit IDs in `unit_trigger`, and `common/raids/naval_commando_raids.txt` does so in a raid formula. | Audit workarounds that relied on the old last-slot behavior. Keep the division context and use a subunit ID such as `engineer`. |
+| Core-state operators | `documentation/script_collection_operator.md` now documents `is_core_of` and `is_not_core_of` with examples. | Filter state collections under `operators`. The scoped payload must resolve to a country. |
+| Army HQ and naval scope | `documentation/triggers_documentation.md` now covers `is_deployed` and `is_fighting_in_strategic_region`. `documentation/dynamic_variables_documentation.md` gives the deployed HQ state and province IDs. | Use `is_deployed = yes` in the general's character scope. Handle the documented zero values in [Army HQ deployment data](ai-and-military-content.md#army-hq-deployment-data-and-sub-unit-readiness). The strategic-region trigger takes a region ID in combatant scope. |
+| Subject border wars | The `start_border_war` example in `documentation/effects_documentation.md` places `overlord_fights = no` inside `attacker`. | This documented side block makes the subject controlling the state fight for itself. The documented default is `yes`. Check other placements against their own evidence. |
+
+The 1.20.0 `set_major` entry still shows the scalar form. The installed equipment
+schema and searched consumers still lack a complete
+`module_multiply_stats_multiplier` example. Treat these as unresolved when
+authoring either extended form. See the [1.20.0 migration gates](version-migration.md#operation-postern-1200)
+for DLC, GUI, AI and history overrides.
 
 ## 1.19.4 additions and evidence gaps
 
@@ -159,21 +174,11 @@ release subjects in paths that previously relied on implicit behavior.
 
 ### Core-state collection filters and deployed Army HQ data
 
-Patch 1.19.3 adds the collection-operator forms
-`is_core_of = ScopedVariable` and `is_not_core_of = ScopedVariable`. Prefer
-them over applying the equivalent trigger once per state when filtering a
-large state collection. The current executable registers both operator names,
-but shipped collection documentation and vanilla text contain no complete
-consumer. Do not invent a reusable block from the patch-note shorthand: prove
-the exact scoped-variable form in a focused test before production use.
-
-The engine also registers the unit-leader trigger `is_deployed` and dynamic
-variables `state_deployed` and `province_deployed` for Army HQ leaders. These
-are absent from the current generated trigger and dynamic-variable documents
-and have no current vanilla text consumer. Treat them as 1.19.3 engine
-capabilities with an unresolved authoring example, not as a copy-ready
-template. Test undeployed, deployed, moving, withdrawing, save/reload, and
-non-HQ leaders before relying on them.
+Patch 1.19.3 added the core-state collection operators and Army HQ deployment
+data. The original audit found engine registrations without complete generated
+entries. The [1.20.0 documentation](#1200-additions-and-documentation-catch-up)
+now shows the operator payloads, the deployment trigger's scope, and the
+meaning of the returned IDs.
 
 ### Crash and balance implications
 
@@ -359,3 +364,4 @@ they report the same change.
 | 2026-06-30 | [1.19.2](https://store.steampowered.com/news/app/394360/view/1836506165562428) | Updated math docs; logical math operations, `lerp`, `atan`, `atan2`; advisor `always_show_on_actions_tooltip`; raid `unit_animations`. |
 | 2026-09-17 | [1.19.3](https://steamcommunity.com/games/394360/announcements/detail/712286322480383531) | Admiral combat on_actions; combatant strategic-region trigger; `set_autonomy.keep_subjects`; core-state collection operators; Army HQ deployment trigger and variables; safer modded text buffers. |
 | 2026-10-27 | [1.19.4 QoL](https://steamcommunity.com/ogg/394360/announcements/detail/684142629662760620) | Fuel-saving thresholds; equipment stat scaling; state-variable math and advisor tooltip fixes; border-war/major-list options with incomplete local schema; native GUI controls requiring override review. |
+| 2026-11-19 | [To the Bitter End](https://steamcommunity.com/games/394360/announcements/detail/684145170657051627) | Country war-participation trigger, division battalion-membership fix, Romanian focus-pack and base-game changes, AI and state-history migration points. |

@@ -35,6 +35,27 @@ scripted triggers override, so do not copy a GER/SOV example into production.
 - Test both directions, AI and player use, rejected/accepted paths, target
   disappearance, and save/reload.
 
+## War participation
+
+HOI4 1.20.0 documents `any_war_participation` in
+`documentation/triggers_documentation.md`. Apply it in country scope:
+
+```pdx
+any_war_participation > 0.3
+any_war_participation < var:mod_participation_threshold
+```
+
+These are independent examples. The supported operators are `>`, `<` and `=`.
+Use a script value or scoped variable on the right. `0.3` represents 30% of
+the country's side's effort in one war. The trigger succeeds if any of the
+country's wars meets the comparison. For war score, use `any_war_score`.
+
+`common/decisions/ROM.txt` uses a literal threshold under an effect's
+`if.limit` and `events/TTBE_Romania.txt` checks a participating country via
+`FROM`. If a decision must track one specific conflict, add the intended
+war-specific logic. Checking that a particular war exists alongside this
+trigger still allows the percentage comparison to match another war.
+
 ## Factions
 
 Current vanilla faction schemas are documented in

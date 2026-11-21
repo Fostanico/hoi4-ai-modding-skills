@@ -50,16 +50,16 @@ Attribution records provenance, not proof of current engine behavior.
 ## Current official-source supplement
 
 The 2026-07-13 update added a separate, original summary of Paradox's official
-Steam news for Hearts of Iron IV; it was extended through patch 1.19.4 on
-2026-10-28. See
+Steam news for Hearts of Iron IV. The current refresh covers the 1.20.0
+To the Bitter End update. See
 `recent-official-modding-changes.md` for the entry-by-entry links and the
 current-version verification status.
 
 - Official feed: [Hearts of Iron IV Steam news](https://store.steampowered.com/news/app/394360)
-- Local vanilla text snapshot: Operation Postern 1.19.4.0.48d6 (a783)
+- Local vanilla text snapshot: Operation Postern v1.20.0.0.8873 (0c4f)
 - Local generated sources: installed `documentation/*.md` and
   `common/**/_documentation.md`
-- Verification date: 2026-10-28; source-only refresh, no game launch
+- Verification date: 2026-11-21 (installed-source review)
 
 Steam news is used to discover additions, removals, deprecations, engine fixes,
 and changed semantics. The installed generated documentation and working
@@ -87,10 +87,10 @@ The 2026-09-20 refresh found the same 50-path Markdown inventory in 1.19.3,
 then checked the new patch-note claims against the installed executable token
 registry and current vanilla consumers. `on_navy_leader_won_combat`,
 `on_navy_leader_lost_combat`, `is_fighting_in_strategic_region`, and
-`set_autonomy.keep_subjects` have current vanilla consumers. The HQ deployment
-tokens and core-state collection operators are registered by the engine but
-missing from generated Markdown and complete vanilla text examples, so the
-skills preserve that evidence gap rather than inventing templates.
+`set_autonomy.keep_subjects` had vanilla consumers. The HQ deployment tokens and
+core-state collection operators were registered by the engine. The 1.20.0
+refresh found their generated entries and refreshed the static evidence in
+[the version change map](recent-official-modding-changes.md#1200-additions-and-documentation-catch-up).
 
 ## Community skill review supplement
 

@@ -1,6 +1,21 @@
 # Changelog
 
-## Unreleased
+## 1.9.0 - 2026-11-21
+
+- 按官方公告和本机 Operation Postern 1.20.0.0.8873（0c4f）更新原版文档索引
+  与版本迁移。记录 `any_war_participation` 的国家作用域和 0–1 阈值、营连
+  检测修正及罗马尼亚国策、国际合作、军工机构和历史文件覆盖检查。
+  Refresh the source map and migration guidance for 1.20.0, covering the
+  country war-participation trigger, battalion membership fix, and Romanian
+  focus, International Cooperation, MIO, and history overrides.
+- 补充 1.20.0 文档中已明确的核心州集合过滤、陆军总部部署数据与边境冲突
+  `attacker.overlord_fights`。模板清单保留逐项核验版本。
+  Record the newly documented state collection operators, Army HQ deployment
+  data and border-war attacker option. Keep per-template evidence versions.
+- 累计纳入韩语 README、开发指南及韩语本地化模板，发布说明见
+  [v1.9.0](docs/releases/v1.9.0.md)。
+  Include the Korean README, modding guide and localisation templates.
+  See the linked release notes.
 
 - 将项目专属的视觉效果用户指南改写为通用 HOI4 Mod 开发指南，覆盖需求、证据来源、
   功能接线、状态与存档、GUI 与素材、多语言、性能、文件整合、排错、验收和 Git 交付。

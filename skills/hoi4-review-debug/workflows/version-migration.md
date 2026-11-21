@@ -17,11 +17,11 @@
 4. Use the base skill's `version-migration.md` gates. Verify every changed token
    in installed documentation and every object shape in a current vanilla
    consumer.
-   For 1.19.4, start with its [GUI and equipment override map](../../hoi4-pdx-modding/references/version-migration.md#operation-postern-1194).
-   Separate documented fuel thresholds, observed chassis blocks and native
-   control names from announced parameters with unresolved shape. A shipped
-   schema can lag the patch; neither absence from it nor patch-note prose alone
-   proves the final block syntax.
+   For 1.20.0, start with the [trigger and override migration gates](../../hoi4-pdx-modding/references/version-migration.md#operation-postern-1200).
+   When upgrading from before 1.19.4, also review the
+   [GUI and equipment overrides](../../hoi4-pdx-modding/references/version-migration.md#operation-postern-1194).
+   Re-read generated documentation on the target build before relying on an
+   earlier audit's schema gaps. Use current consumers to confirm context.
 5. Run the base validator, stale-ID and conflict-marker searches,
    `git diff --check`, and the relevant read-only audit tools.
 6. Apply the [runtime-test necessity gate](../../hoi4-content-builder/workflows/test-mod.md).

@@ -4,6 +4,13 @@ Verified against installed Hearts of Iron IV Operation Postern 1.19.3.0 (5632)
 on 2026-09-20. Paths below are relative to the installed
 game root.
 
+The 2026-11-21 refresh covered the 1.20.0 (0c4f) delta. For a country
+decision, event or focus that checks war contribution, use the
+[documented war-participation trigger](../../hoi4-pdx-modding/references/diplomacy-factions-assets.md#war-participation)
+with the existing skeleton. For Romanian overrides and division-scoped
+conditions, use the [1.20.0 migration gates](../../hoi4-pdx-modding/references/version-migration.md#operation-postern-1200).
+Individual template verification dates and builds remain in the manifest.
+
 The 2026-10-28 refresh checked the 1.19.4 (a783) delta, not every historical
 template again. Before building fuel AI, use the new
 [threshold contract](../../hoi4-pdx-modding/references/ai-and-military-content.md#fuel-conservation-in-1194)

@@ -1,9 +1,9 @@
 # Version migration
 
-Current migration targets were checked against installed Operation Postern
-1.19.4.0.48d6 (a783) and official patch notes on 2026-10-28. Earlier sections
-retain their historical evidence. Community adaptation guides are discovery material;
-installed documentation and current vanilla consumers decide the emitted code.
+The 1.20.0 migration gates use installed Operation Postern v1.20.0.0.8873
+(0c4f) and official patch notes, checked on 2026-11-21. Earlier sections
+retain their historical evidence. Verify exact syntax against the target
+build's documentation and vanilla consumers.
 
 ## Migration order
 
@@ -25,6 +25,39 @@ installed documentation and current vanilla consumers decide the emitted code.
    smallest affected path. A clean parser does not prove runtime behavior.
 
 ## Current high-risk gates
+
+### Operation Postern 1.20.0
+
+Start with the [1.20.0 evidence map](recent-official-modding-changes.md#1200-additions-and-documentation-catch-up).
+For a 1.19.x upgrade, prioritize the affected paths:
+
+- **Romanian focus trees and history.** `common/national_focus/romania_ttbe.txt`
+  defines `ba_romanian_focus` for ROM with `has_dlc = "To The Bitter End"`.
+  `common/national_focus/romania.txt` carries the older `romanian_focus`.
+  Check selection, cross-country focus references and `history/countries/ROM - Romania.txt`
+  with both DLC configurations. Re-merge the character and MIO files
+  (`common/characters/ROM.txt` and
+  `common/military_industrial_organization/organizations/ROM_organization.txt`)
+  where the mod overrides them. Paradox lists changes to both in the base game.
+- **Romanian International Cooperation.** Follow `ROM_diplomacy_category` in
+  `common/decisions/categories/ROM_decision_categories.txt` through
+  `common/scripted_guis/ROM_diplomacy_scripted_gui.txt` and
+  `interface/ROM_diplomacy.gui`. Retain the category's DLC gate and check
+  `common/on_actions/17_ttbe_on_actions.txt` and `events/TTBE_Romania.txt` for
+  callers and lifecycle. Infantry technology overrides should account for the
+  hidden `TtbE_river_fleet_tech` in `common/technologies/infantry.txt` and its
+  focus reward.
+- **Trigger behavior.** Replace a war-score proxy only if the intended metric
+  is a country's share of its side's effort. For battalion or support-company
+  membership, review slot-dependent workarounds in division-scoped trait, raid,
+  and focus conditions. If a native check is needed, use a single template
+  with the matching subunit before the last slot.
+- **Eastern Front, AI and other overrides.** Review state 93 (Volyn) in
+  Reichskommissariat Ukraine setup and re-merge affected state-history forts.
+  Check `common/ai_strategy` and `common/ai_templates` overrides for the
+  countries covered in the official notes. Check generic versus country
+  decision scoring if your mod customizes that competition, and compare any
+  overridden research-tab shortcut tooltips with the current vanilla values.
 
 ### Operation Postern 1.19.4
 
@@ -54,11 +87,11 @@ override. The new maximum casualty trickleback is defined in
 Do not retune a mod by copying selected patch-note numbers without its consumers.
 
 Audit state-variable math workarounds and hidden advisor modifier text against
-the corresponding engine fixes. Newly announced `overlord_fights`,
-`set_major.immediate_status_update` and `module_multiply_stats_multiplier` lack
-complete current text consumers in this audit; keep their unresolved shape
-explicit rather than teaching an invented template. Descriptor version changes
-alone do not establish compatibility.
+the corresponding engine fixes. The 1.19.4 audit lacked complete schemas for
+`overlord_fights`, `set_major.immediate_status_update` and
+`module_multiply_stats_multiplier`. See the [1.20.0 evidence map](recent-official-modding-changes.md#1200-additions-and-documentation-catch-up)
+for the documented border-war placement and the remaining gaps. Verify the
+intended load path before declaring compatibility in a descriptor.
 
 ### Operation Postern 1.19.3
 
@@ -73,11 +106,9 @@ For a 1.19.2-to-1.19.3 migration, audit these paths before broad testing:
 - `set_autonomy` paths that should preserve a target country's existing
   subjects need `keep_subjects = yes`; test both subject ownership and war
   state after the transition.
-- New collection operators `is_core_of` and `is_not_core_of`, and Army HQ
-  tokens `is_deployed`, `state_deployed`, and `province_deployed`, are present
-  in the 1.19.3 engine but missing from the shipped generated Markdown. With no
-  complete current vanilla consumer, require a focused runtime test before
-  promoting their exact block shape into a template.
+- The 1.19.3 generated Markdown omitted the new core-state operators and Army
+  HQ tokens. If targeting 1.19.3, distinguish evidence from that build from the
+  [documented 1.20.0 forms](recent-official-modding-changes.md#1200-additions-and-documentation-catch-up).
 - Full unit-file overrides must be compared against current `essential`
   blocks. Rebalance battalion adjusters at partial equipment/manpower,
   because 1.19.3 scales their effect with sub-unit readiness.
