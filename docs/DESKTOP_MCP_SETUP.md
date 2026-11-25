@@ -1,5 +1,7 @@
 # 可选本地桌面实机测试 MCP（`hoi4_desktop`）配置指南
 
+简体中文 | [English](DESKTOP_MCP_SETUP_EN.md) | [日本語](DESKTOP_MCP_SETUP_JA.md) | [Русский](DESKTOP_MCP_SETUP_RU.md) | [한국어](DESKTOP_MCP_SETUP_KO.md)
+
 `hoi4_desktop`（`mcp-server/hoi4_desktop_mcp.py`）是一台面向 **非 Codex 客户端**（如 **Google Antigravity、Cursor、Claude Code、Gemini CLI、Windsurf、Cline** 等无内置 Windows 桌面 Computer Use 的 AI 客户端）打造的**通用标准 MCP 服务器**，默认不启用，仅在你希望 AI 协助执行 [test-mod.md](../skills/hoi4-content-builder/workflows/test-mod.md) 实机验收时按需开启。
 
 它与只读取证服务器 `hoi4_local`（`mcp-server/hoi4_mcp.py`）**完全物理分离**：日常开发、代码审查与静态检查始终只使用只读的 `hoi4_local`；实机测试结束后随时一键关闭 `hoi4_desktop` 即可。

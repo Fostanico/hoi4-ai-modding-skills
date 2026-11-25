@@ -1,5 +1,7 @@
 # HOI4 AI Modding Skills 安装与共享指南
 
+简体中文 | [English](INSTALLATION_EN.md) | [日本語](INSTALLATION_JA.md) | [Русский](INSTALLATION_RU.md) | [한국어](INSTALLATION_KO.md)
+
 ## 套件构成
 
 这套工具包以**既有 Mod 的维护、排错、重构与持续完善**为重心，同时保留了**从自然语言生成全新内容与完整 Mod** 的全链路能力，由三个紧密配合的 Agent Skills 组成：

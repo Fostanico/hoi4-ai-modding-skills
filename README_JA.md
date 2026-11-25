@@ -15,8 +15,8 @@
 人間の読者向けに用意した資料のため、各 Skill には案内ルールだけを置き、通常作業のコンテキストを圧迫しない構成にしています。
 
 本リポジトリには、役割を**物理的に分離**したゼロ依存のローカル MCP サーバーも 2 種類収録しています。
-- **読み取り専用の証拠収集サーバー `hoi4_local`**（Codex Plugin に同梱）：ローカルの HOI4 導入環境検出、識別子の参照追跡、Git 変更ファイルの軽量検証、ログ読み取り、メディアのメタデータ確認を行います。完全ローカル・読み取り専用で、API キーも不要です。詳しくは [ローカルプラグインと MCP ヘルパー](docs/LOCAL_MCP_PLUGIN.md) をご覧ください。
-- **任意有効化の実機テストサーバー `hoi4_desktop`**（既定では無効）：Google Antigravity・Cursor・Claude Code・Gemini CLI などデスクトップ操作機能を持たないクライアント向けに、`hoi4.exe`・Paradox Launcher・Steam のみに限定した安全なスクリーンショット取得と入力操作を提供します。詳しくは [ローカルデスクトップ制御 MCP 設定ガイド](docs/DESKTOP_MCP_SETUP.md) をご覧ください。
+- **読み取り専用の証拠収集サーバー `hoi4_local`**（Codex Plugin に同梱）：ローカルの HOI4 導入環境検出、識別子の参照追跡、Git 変更ファイルの軽量検証、ログ読み取り、メディアのメタデータ確認を行います。完全ローカル・読み取り専用で、API キーも不要です。詳しくは [ローカルプラグインと MCP ヘルパー](docs/LOCAL_MCP_PLUGIN_JA.md) をご覧ください。
+- **任意有効化の実機テストサーバー `hoi4_desktop`**（既定では無効）：Google Antigravity・Cursor・Claude Code・Gemini CLI などデスクトップ操作機能を持たないクライアント向けに、`hoi4.exe`・Paradox Launcher・Steam のみに限定した安全なスクリーンショット取得と入力操作を提供します。詳しくは [ローカルデスクトップ制御 MCP 設定ガイド](docs/DESKTOP_MCP_SETUP_JA.md) をご覧ください。
 
 ## 3 つの Skills の役割分担
 
@@ -40,7 +40,7 @@ powershell -ExecutionPolicy Bypass -File .\scripts\install-codex-plugin.ps1
 
 現在のユーザーのローカルアプリデータ領域にプラグインを配置し、Codex CLI へ登録します。ゲームファイルの改変や Steam 起動、外部送信は一切行いません。完了後に**新しい Codex タスクを開く**と 3 つの Skills と 5 つの読み取り専用ツールが利用できるようになります。更新時は同じコマンドを再実行するだけです。
 
-動作環境：Windows、Python 3、Codex CLI（`ffprobe` が入っていれば音声・動画ストリーム情報も取得できます）。詳細は [ローカルプラグインと MCP ヘルパー](docs/LOCAL_MCP_PLUGIN.md) を参照してください。
+動作環境：Windows、Python 3、Codex CLI（`ffprobe` が入っていれば音声・動画ストリーム情報も取得できます）。詳細は [ローカルプラグインと MCP ヘルパー](docs/LOCAL_MCP_PLUGIN_JA.md) を参照してください。
 
 ### Skills のみを導入（各クライアント共通）
 
@@ -55,7 +55,7 @@ powershell -ExecutionPolicy Bypass -File .\scripts\install-codex-plugin.ps1
 - **Cursor**：プロジェクトおよびユーザー配下の `.agents/skills/`・`.cursor/skills/` を自動検出します。Agent を開き直すか更新し、チャットで `/` から名前指定もできます。選択中の任意のモデルで利用でき、Cloud Agents で `~/.cursor/skills/` を使う場合は設定で Skills 同期を有効にしてください。参考：[Cursor Agent Skills ドキュメント](https://cursor.com/docs/skills)。
 - **Google Antigravity / Claude Code / Gemini CLI**：各クライアントの Skills 配置先に 3 ディレクトリを置き、必要に応じて `hoi4_local` や `hoi4_desktop` を接続できます。
 
-全クライアント別の手順と配布ガイドは [インストールと共有のガイド](docs/INSTALLATION.md) にまとめています。
+全クライアント別の手順と配布ガイドは [インストールと共有のガイド](docs/INSTALLATION_JA.md) にまとめています。
 
 ## 依頼の例
 

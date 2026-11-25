@@ -15,8 +15,8 @@
 이 가이드는 사용자가 요청할 때 꺼내 볼 수 있도록 따로 둔 문서이며, 일반 작업 중에는 스킬 진입점에 적힌 안내 규칙만 읽어 컨텍스트를 가볍게 유지합니다.
 
 저장소에는 역할이 **물리적으로 분리된** 무의존 로컬 MCP 서버 두 가지도 함께 들어 있습니다.
-- **읽기 전용 로컬 증거 도우미 `hoi4_local`**(Codex 플러그인에 기본 포함): 로컬 HOI4 설치 탐색, 식별자 참조 추적, Git 변경 파일 정적 검증, 로그 읽기, 미디어 메타데이터 확인을 맡습니다. 완전 오프라인·읽기 전용으로 동작하며 API 키가 필요 없습니다. 자세한 내용은 [로컬 플러그인 및 MCP 도우미](docs/LOCAL_MCP_PLUGIN.md)를 참고하세요.
-- **선택형 실기 테스트 제어 서버 `hoi4_desktop`**(기본 비활성화, 필요 시 켜서 사용): Google Antigravity, Cursor, Claude Code, Gemini CLI처럼 내장 데스크톱 제어 기능이 없는 클라이언트에서 `hoi4.exe`, Paradox Launcher, Steam 창만 안전하게 캡처·조작할 수 있도록 프로세스 화이트리스트를 적용한 로컬 서버입니다. 자세한 내용은 [데스크톱 MCP 설정 가이드](docs/DESKTOP_MCP_SETUP.md)를 참고하세요.
+- **읽기 전용 로컬 증거 도우미 `hoi4_local`**(Codex 플러그인에 기본 포함): 로컬 HOI4 설치 탐색, 식별자 참조 추적, Git 변경 파일 정적 검증, 로그 읽기, 미디어 메타데이터 확인을 맡습니다. 완전 오프라인·읽기 전용으로 동작하며 API 키가 필요 없습니다. 자세한 내용은 [로컬 플러그인 및 MCP 도우미](docs/LOCAL_MCP_PLUGIN_KO.md)를 참고하세요.
+- **선택형 실기 테스트 제어 서버 `hoi4_desktop`**(기본 비활성화, 필요 시 켜서 사용): Google Antigravity, Cursor, Claude Code, Gemini CLI처럼 내장 데스크톱 제어 기능이 없는 클라이언트에서 `hoi4.exe`, Paradox Launcher, Steam 창만 안전하게 캡처·조작할 수 있도록 프로세스 화이트리스트를 적용한 로컬 서버입니다. 자세한 내용은 [데스크톱 MCP 설정 가이드](docs/DESKTOP_MCP_SETUP_KO.md)를 참고하세요.
 
 ## 세 가지 스킬 구성
 
@@ -40,7 +40,7 @@ powershell -ExecutionPolicy Bypass -File .\scripts\install-codex-plugin.ps1
 
 현재 사용자의 로컬 앱 데이터 폴더에 플러그인을 설치하고 Codex CLI에 등록합니다. 게임 파일 변경, Steam 실행, 외부 전송 없이 깔끔하게 끝납니다. 설치가 끝나면 **새 Codex 작업을 열어** 세 스킬과 다섯 가지 읽기 전용 도구를 바로 쓸 수 있으며, 저장소를 업데이트한 뒤에는 같은 명령을 다시 실행해 갱신하면 됩니다.
 
-필수 환경: Windows, Python 3, Codex CLI(`ffprobe`가 있으면 오디오·비디오 스트림 정보까지 함께 읽어 줍니다). 자세한 안내는 [로컬 플러그인 및 MCP 도우미](docs/LOCAL_MCP_PLUGIN.md)에 있습니다.
+필수 환경: Windows, Python 3, Codex CLI(`ffprobe`가 있으면 오디오·비디오 스트림 정보까지 함께 읽어 줍니다). 자세한 안내는 [로컬 플러그인 및 MCP 도우미](docs/LOCAL_MCP_PLUGIN_KO.md)에 있습니다.
 
 ### 스킬만 설치(클라이언트 공통)
 
@@ -55,7 +55,7 @@ powershell -ExecutionPolicy Bypass -File .\scripts\install-codex-plugin.ps1
 - **Cursor**: 프로젝트 및 사용자 경로의 `.agents/skills/`, `.cursor/skills/`를 자동 탐색합니다. Agent를 다시 열거나 새로고침한 뒤 채팅에서 `/`로 검색·호출할 수 있습니다. 현재 선택한 어떤 모델에도 함께 전달되며, Cloud Agents에서 `~/.cursor/skills/`를 쓰려면 설정에서 Skills 동기화를 켜세요. 참고: [Cursor Agent Skills 문서](https://cursor.com/docs/skills).
 - **Google Antigravity / Claude Code / Gemini CLI**: 각 클라이언트의 스킬 경로에 세 폴더를 배치하고, 필요에 따라 `hoi4_local` 및 `hoi4_desktop` MCP 서버를 연결할 수 있습니다.
 
-클라이언트별 상세 경로와 배포 규칙은 [설치 및 공유 안내](docs/INSTALLATION.md)에 정리되어 있습니다.
+클라이언트별 상세 경로와 배포 규칙은 [설치 및 공유 안내](docs/INSTALLATION_KO.md)에 정리되어 있습니다.
 
 ## 바로 써 보는 요청 예시
 

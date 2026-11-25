@@ -8,7 +8,7 @@ Treat the sample requests as patterns you can adapt to your own build, dependenc
 
 ## 1. Set Up Your Workbench
 
-Install all three skills together and keep their relative folder layout intact; see [Installation and Sharing](../../../../docs/INSTALLATION.md) for per-client paths. Open your target mod and let the AI read the project guide plus the directly relevant files—small edits start locally rather than scanning the entire repo.
+Install all three skills together and keep their relative folder layout intact; see [Installation and Sharing](../../../../docs/INSTALLATION_EN.md) for per-client paths. Open your target mod and let the AI read the project guide plus the directly relevant files—small edits start locally rather than scanning the entire repo.
 
 | What you want to do | Primary skill | Expected deliverable |
 | --- | --- | --- |

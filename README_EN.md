@@ -15,8 +15,8 @@ For an end-to-end handbook on working with AI across requests, scripts, saves, G
 The guide is written for human readers and delivered on demand—the skills keep only the delivery rule in their entrypoints so ordinary coding turns stay lean.
 
 The repository also ships two **physically separated**, zero-dependency local MCP servers:
-- **Read-only evidence server (`hoi4_local`)**, bundled with the Codex Plugin: discovers your local HOI4 installation, traces identifiers across files, validates Git changes, reads logs, and inspects media metadata—entirely offline, read-only, and free of any API-key requirement. See [Local Plugin and MCP Helper](docs/LOCAL_MCP_PLUGIN.md).
-- **Optional live-test control server (`hoi4_desktop`)**, disabled by default and enabled only on request: brings process-whitelisted Windows screenshot and input control (`hoi4.exe`, Paradox Launcher, and Steam only) to clients without built-in desktop computer use, such as Google Antigravity, Cursor, Claude Code, and Gemini CLI. See [Desktop MCP Setup Guide](docs/DESKTOP_MCP_SETUP.md).
+- **Read-only evidence server (`hoi4_local`)**, bundled with the Codex Plugin: discovers your local HOI4 installation, traces identifiers across files, validates Git changes, reads logs, and inspects media metadata—entirely offline, read-only, and free of any API-key requirement. See [Local Plugin and MCP Helper](docs/LOCAL_MCP_PLUGIN_EN.md).
+- **Optional live-test control server (`hoi4_desktop`)**, disabled by default and enabled only on request: brings process-whitelisted Windows screenshot and input control (`hoi4.exe`, Paradox Launcher, and Steam only) to clients without built-in desktop computer use, such as Google Antigravity, Cursor, Claude Code, and Gemini CLI. See [Desktop MCP Setup Guide](docs/DESKTOP_MCP_SETUP_EN.md).
 
 ## The Three Skills
 
@@ -40,7 +40,7 @@ powershell -ExecutionPolicy Bypass -File .\scripts\install-codex-plugin.ps1
 
 The script installs the plugin into your user local app-data folder and registers it via the Codex CLI—touching neither HOI4 nor Steam, and sending nothing over the network. **Start a fresh Codex task** once installation finishes to load all three skills and the five read-only MCP tools. Rerun the same command after pulling updates.
 
-Requirements: Windows, Python 3, and the Codex CLI (`ffprobe` is optional for extra audio/video stream metadata). See [Local Plugin and MCP Helper](docs/LOCAL_MCP_PLUGIN.md) for details and troubleshooting.
+Requirements: Windows, Python 3, and the Codex CLI (`ffprobe` is optional for extra audio/video stream metadata). See [Local Plugin and MCP Helper](docs/LOCAL_MCP_PLUGIN_EN.md) for details and troubleshooting.
 
 ### Skills Only (Works Across Clients)
 
@@ -55,7 +55,7 @@ Keep `SKILL.md`, `references/`, `workflows/`, `assets/`, `scripts/`, and `agents
 - **Cursor**: Discovers `.agents/skills/` and `.cursor/skills/` at both project and user levels (`~/`). Reopen or refresh Agent to load them, or type `/` in chat to invoke a skill explicitly. Skills work with whichever model you select; enable Skills sync in Cursor settings to share `~/.cursor/skills/` with Cloud Agents. See [Cursor Agent Skills documentation](https://cursor.com/docs/skills).
 - **Google Antigravity, Claude Code & Gemini CLI**: Install the three skills into the client's skills directory, and optionally wire up `hoi4_local` and `hoi4_desktop` MCP servers.
 
-Full per-client instructions and distribution rules live in [Installation and Sharing](docs/INSTALLATION.md).
+Full per-client instructions and distribution rules live in [Installation and Sharing](docs/INSTALLATION_EN.md).
 
 ## Example Prompts
 

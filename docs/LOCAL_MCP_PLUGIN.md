@@ -1,5 +1,7 @@
 # HOI4 本地插件与只读 MCP 助手（`hoi4_local`）
 
+简体中文 | [English](LOCAL_MCP_PLUGIN_EN.md) | [日本語](LOCAL_MCP_PLUGIN_JA.md) | [Русский](LOCAL_MCP_PLUGIN_RU.md) | [한국어](LOCAL_MCP_PLUGIN_KO.md)
+
 ## 架构与定位
 
 这套插件由**三套 Agent Skills** 和一个**本地只读 MCP 服务器（`hoi4_local`）**组成：
