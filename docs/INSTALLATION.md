@@ -88,13 +88,18 @@ claude.ai 可在 Settings > Features 上传自定义 skill ZIP；可用套餐、
 API/workspace 规则见
 [Anthropic Agent Skills 官方说明](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview)。
 
-## Gemini CLI
+## Gemini CLI / Google Antigravity
 
 Gemini CLI 可从用户级 `~/.gemini/skills/` 或 `~/.agents/skills/`，以及工作区
 `.gemini/skills/` 或 `.agents/skills/` 发现 skills。复制三个目录后运行
 `/skills reload`；也可用 `/skills link <path> --scope user|workspace` 做开发链接。
 远程单 skill 仓库可用 `gemini skills install <repository-url>`。详见
 [Gemini CLI Skills 官方文档](https://geminicli.com/docs/cli/using-agent-skills/)。
+
+Google Antigravity 可在 `~/.gemini/config/plugins/` 下将三套 Skills 与 `mcp-server/hoi4_mcp.py`
+组合成只读本地插件；若需要在 Antigravity、Cursor、Claude Code 或 Gemini CLI 等不含内置桌面
+Computer Use 的客户端中让 AI 协助执行 HOI4 实机验收，可额外按需启用独立的进程白名单桌面 MCP
+`hoi4_desktop`，配置与安全边界见 [可选本地桌面控制 MCP 配置指南](DESKTOP_MCP_SETUP.md)。
 
 ## 推荐许可证
 

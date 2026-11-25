@@ -53,6 +53,9 @@ foreach ($relative in $required) {
 }
 [void](New-Item -ItemType Directory -Path (Join-Path $expectedPluginRoot 'scripts') -Force)
 Copy-Item -LiteralPath (Join-Path $repoRoot 'scripts/test-mcp-server.py') -Destination (Join-Path $expectedPluginRoot 'scripts/test-mcp-server.py') -Force
+if (Test-Path -LiteralPath (Join-Path $repoRoot 'scripts/test-desktop-mcp-server.py')) {
+    Copy-Item -LiteralPath (Join-Path $repoRoot 'scripts/test-desktop-mcp-server.py') -Destination (Join-Path $expectedPluginRoot 'scripts/test-desktop-mcp-server.py') -Force
+}
 
 $pluginManifestPath = Join-Path $expectedPluginRoot '.codex-plugin/plugin.json'
 $pluginManifest = Get-Content -Raw -LiteralPath $pluginManifestPath | ConvertFrom-Json

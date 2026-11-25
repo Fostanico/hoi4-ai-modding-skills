@@ -66,8 +66,19 @@ JSON。安装或更新后应新建 Codex 任务，使新会话重新加载 Skill
 - 若插件能列出但 MCP 工具没有出现，先确认 Python 3 在 PATH、重新打开任务，再运行
   `python scripts/test-mcp-server.py`；不要因此直接修改 MOD 或启动游戏。
 
-## 后续阶段
+## 后续阶段与可选桌面实机 MCP
 
-后续版本可增加当前 playset 解析、descriptor/load-order 关系图和更细粒度的日志
-归因。写入型脚手架与自动化运行时测试应作为独立阶段设计，并强制采用变更预览、
-目标路径限制、可恢复修改、结果验证和显式授权，不与现有只读接口混用。
+`hoi4_local` 始终保持纯只读，不会与写入或键鼠控制混用。对于不具备原生桌面 Computer Use
+的客户端（如 Google Antigravity、Cursor、Claude Code、Gemini CLI 等），仓库额外提供
+**独立、默认不启用、仅限 HOI4/Launcher/Steam 进程白名单**的本地桌面控制 MCP 服务器
+`mcp-server/hoi4_desktop_mcp.py`（`hoi4_desktop`）：
+
+- 仅使用 Python 3 标准库与 Windows Win32 API，零第三方依赖、零联网；
+- 仅允许截取与操作 `hoi4.exe`、`Paradox Launcher`、`dowser.exe` 与 `Steam` 窗口；
+- 仍须完整遵守 `hoi4-content-builder/workflows/test-mod.md` 的用户授权、短测预算与
+  playset 还原约束。
+
+安装配置、安全边界与自检命令（`python scripts/test-desktop-mcp-server.py`）见
+[可选本地桌面控制 MCP 配置指南](DESKTOP_MCP_SETUP.md)。
+
+后续版本可继续增加当前 playset 解析、descriptor/load-order 关系图和更细粒度的日志归因。

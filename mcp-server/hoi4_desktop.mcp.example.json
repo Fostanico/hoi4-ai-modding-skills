@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "hoi4_desktop": {
+      "command": "cmd.exe",
+      "args": [
+        "/d",
+        "/s",
+        "/c",
+        "call",
+        "<REPO_OR_PLUGIN_ROOT>\\mcp-server\\launch_desktop.cmd"
+      ]
+    }
+  }
+}

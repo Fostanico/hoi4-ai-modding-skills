@@ -9,7 +9,12 @@ needed run, establish capability, authorization, and billing impact:
   browser automation alone is insufficient: the tool must be able to operate
   native Steam, launcher, and game windows on the target computer. Do not infer
   this capability from the agent's brand. Codex can expose native computer-use,
-  while other clients or API integrations may expose browser or desktop control.
+  while non-Codex clients (such as Antigravity, Cursor, Claude Code, or Gemini
+  CLI) can satisfy this requirement when the user explicitly enables the
+  optional, process-whitelisted local `hoi4_desktop` MCP server
+  (`mcp-server/hoi4_desktop_mcp.py`) or another authorized native desktop tool.
+  When using `hoi4_desktop`, prefer Borderless/Windowed display mode and keep
+  all authorization, budget, and playset-restoration gates unchanged.
 - If suitable computer-use is unavailable, do not inspect or ask about the
   user's subscription. Mark runtime unverified and offer a manual-test handoff
   only when useful; do not press a user who already declined testing.
