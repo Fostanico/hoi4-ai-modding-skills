@@ -1,44 +1,33 @@
-# HOI4 AI Modding Skills 共享与安装指南
+# HOI4 AI Modding Skills 安装与共享指南
 
-## 这套包是什么
+## 套件构成
 
-这套包由三个可组合 Agent Skills 组成：
+这套工具包以**既有 Mod 的维护、排错、重构与持续完善**为重心，同时保留了**从自然语言生成全新内容与完整 Mod** 的全链路能力，由三个紧密配合的 Agent Skills 组成：
 
-- `hoi4-content-builder`：面向不会 PDX 语言的用户，把自然语言需求做成完整 MOD；
-- `hoi4-pdx-modding`：提供 PDX 语言、目录、版本核验和静态验证基础；
-- `hoi4-review-debug`：负责日志、审查、迁移、性能和经用户同意的实机测试。
+- **`hoi4-review-debug`**：专注既有 Mod 的日志排查、跨文件审计、版本迁移、性能优化，以及经你授权的实机验证；
+- **`hoi4-pdx-modding`**：守住 PDX 语法、目录规范、目标版本核验与静态校验的底线；
+- **`hoi4-content-builder`**：把自然语言玩法构想直接生成脚本、素材、界面与多语言齐全的新功能或完整 Mod。
 
-必须把三个作为同一套件一起安装，才能获得完整的跨 skill 引用、验证和交接流程。
-单独安装虽然可能被客户端识别，但会缺失兄弟 skill 中的基础规则或专项流程，不能
-发挥本项目的最大作用。使用时用户只需描述玩法、题材、规则和素材，不需要先写 PDX
-代码。目标 MOD 自己的变量、flag、依赖和编码约定应留在该 MOD 的技术交接文档，
-不要写回通用 skills。
+**请始终将三套 Skill 成套安装。** 它们彼此引用规则、模板与交接流程；装齐三者才能让“设计 → 实现 → 验收”闭环运转。只需直接描述想要的玩法、规则和素材，无需先啃 PDX 脚本；至于某个 Mod 专属的变量、flag、依赖和编码约定，留在该项目自身的技术文档里即可，通用 Skills 始终保持轻盈与可复用。
 
-## 发布给别人
+## 如何分发与发布
 
-1. 发布仓库源代码和版本化 release，不要只发来历不明的压缩包。
-2. release 以包含三套 skill 的总包为默认下载，记录版本、源提交与包大小；只有接收方、
-   发布渠道要求或具体传输损坏问题需要时才补充校验和。若平台只能逐个上传，可同时提供
-   三个单独 ZIP，但应明确要求来自同一版本并全部安装。
-3. 保留 `LICENSE`、`ATTRIBUTION.md` 和各 skill 的完整目录结构。
-4. 不要打包 Paradox 原版文件、Workshop 教程、其他 MOD 素材或本机路径。原版和
-   第三方文件只用于核验，除非其许可证明确允许再分发。
-5. 每个游戏大版本重新核对 `references/template-catalog.md` 中的原版消费者，并在
-   release notes 写明核验的 HOI4 build。
+1. **优先分发仓库源码与版本化 Release**，避免直接丢出无出处、无版本的压缩包。
+2. **默认提供包含三套 Skill 的总包**，在发布说明里写清版本号、对应提交与包体大小（仅当发布渠道要求或排查传输损坏时再附校验和）。若目标平台只允许逐个上传，可额外附带三个同版本独立 ZIP，并提醒使用者一次装齐。
+3. **保留完整元信息**：随包保留 `LICENSE`、`ATTRIBUTION.md` 以及每个 Skill 的完整目录层级。
+4. **严守素材版权边界**：绝不将 Paradox 原版文件、Workshop 教程、其他 Mod 资源或个人本机路径打进发布包；原版与第三方文件仅在本机用于核验。
+5. **跟进游戏大版本**：每次 HOI4 大版本更新后，对照新原版复核 `references/template-catalog.md` 中的原版消费者，并在 release notes 中写明实测的 HOI4 build。
 
-## ChatGPT
+## 各平台安装方式
 
-在支持 Personal Skills 的 ChatGPT 账户中，打开个人头像 > **Skills** >
-**Create** > **Upload from your computer**，逐个上传同一 release 的三个 skill ZIP，
-并确认三者均已启用。安装后可以在
-Skills 页面分享给 workspace 成员或生成共享链接。Personal Skills 的可用套餐和
-管理员开关会变化，以 [OpenAI Skills 官方说明](https://help.openai.com/en/articles/20001066-skills-in-chatgpt)
-为准；ChatGPT 会扫描上传包，但上传者和使用者仍应自行审查脚本与来源。
+### ChatGPT
 
-## Codex
+在支持 Personal Skills 的账户中，进入个人头像 → **Skills** → **Create** → **Upload from your computer**，依次上传同一 Release 中的三个 Skill ZIP 并确认全部启用。装好后即可在 Skills 页面分享给工作区成员或生成链接。套餐支持与管理员开关以 [OpenAI Skills 官方说明](https://help.openai.com/en/articles/20001066-skills-in-chatgpt) 为准；上传与使用第三方包前，仍建议自行核对来源与脚本内容。
 
-个人安装：把三个 skill 目录放到 `$CODEX_HOME/skills/`。项目安装：把它们放到
-项目的 `.agents/skills/`，并将该目录纳入版本控制。保持结构：
+### Codex
+
+- **用户级安装**：将三个 Skill 目录放入 `$CODEX_HOME/skills/`。
+- **项目级安装**：将它们放入目标 Mod 的 `.agents/skills/` 并纳入 Git 管理，保持如下结构：
 
 ```text
 .agents/skills/
@@ -47,68 +36,32 @@ Skills 页面分享给 workspace 成员或生成共享链接。Personal Skills �
   hoi4-review-debug/SKILL.md
 ```
 
-重新打开任务或刷新 skills 后，用自然语言提出 HOI4 MOD 需求即可。项目根的
-`AGENTS.md` 只保存该项目长期有效的规则和交接入口。
+刷新或重开任务后，直接用自然语言提出需求即可；项目根目录的 `AGENTS.md` 用来沉淀该项目长期生效的规范与文档入口。
 
-### 带本地工具的 Codex Plugin
+#### 进阶：安装带只读本地工具的 Codex Plugin
 
-仓库根目录同时是一个插件源，包含三套 Skills 和一个只读的本地 MCP 助手。它适合
-需要读取当前 HOI4 安装、Workshop 依赖、Git 变更、日志和媒体元数据的 Codex 桌面版
-或 CLI 用户；不支持插件的客户端仍按前文复制 Skills。完整说明见
-[本地插件与 MCP 助手](LOCAL_MCP_PLUGIN.md)。
+仓库根目录本身就是完整的 Codex 插件源，将三套 Skills 与只读本地 MCP 助手 `hoi4_local` 打包在一起，适合需要在本机探测 HOI4 安装、追踪标识符、校验 Git 变更、查看日志与媒体元数据的用户。完整安装命令与安全边界见 [本地插件与 MCP 助手](LOCAL_MCP_PLUGIN.md)。
 
-本地开发安装后必须新建任务。旧任务已经固定了启动时可用的 Skills 和 MCP 工具，
-不能用一次重新安装可靠地热替换当前对话的工具清单。
+> **提示**：完成本地插件安装或刷新后，请**新建一个 Codex 任务**。已在进行的旧会话会锁定启动时的工具表，新任务才能加载刚更新的 Skills 与 MCP 工具。
 
-## Cursor
+### Cursor
 
-Cursor Agent 会自动发现项目级 `.agents/skills/<skill-name>/` 或
-`.cursor/skills/<skill-name>/`，以及用户级 `~/.agents/skills/<skill-name>/` 或
-`~/.cursor/skills/<skill-name>/`。把同一 release 的三个 skill 目录一起复制到任一
-受支持位置；项目目录适合跟随 MOD 版本控制，用户目录适合多个 MOD 共用。
+Cursor Agent 会自动发现项目级 `.agents/skills/<skill-name>/`、`.cursor/skills/<skill-name>/`，以及用户级 `~/.agents/skills/<skill-name>/`、`~/.cursor/skills/<skill-name>/`。将同一 Release 的三个 Skill 目录原样复制到任一位置即可——项目目录方便随 Mod 同步协作，用户目录方便跨 Mod 复用。
 
-刷新或重新打开 Agent 后，Cursor 可按任务自动选择 skill，也可以在 Agent 对话中
-输入 `/` 搜索名称并显式调用。Skills 由 Cursor Agent 提供给当前选定的模型，因而
-不绑定特定模型。用户级 `~/.cursor/skills/` 若要提供给 Cloud Agents，需要在 Cursor
-设置中启用 Skills 同步；项目级或其他本地 skill 不会自动复制到远程或自托管 worker。
+刷新或重开 Agent 后，Cursor 会按任务自动匹配 Skill，也可在对话中输入 `/` 按名称显式调用。Skills 会随当前选定的任意模型生效；若要在 Cloud Agents 中使用个人 `~/.cursor/skills/`，请在 Cursor 设置中开启 Skills 同步。需要本机只读取证或实机测试能力时，可在 `.cursor/mcp.json` 中按需接入 `hoi4_local` 或 `hoi4_desktop`。最新路径与远程规则见 [Cursor Agent Skills 官方文档](https://cursor.com/docs/skills)。
 
-Cursor 在这里使用的是同一套 Skills 内容。复制 Skills 不会安装 Codex Plugin 中的
-本地 MCP 助手；需要本地 MCP 工具的 Codex 用户仍按上一节安装插件。当前发现路径、
-显式调用与远程 Agent 规则以
-[Cursor Agent Skills 官方文档](https://cursor.com/docs/skills)为准。
+### Claude Code / claude.ai
 
-## Claude
+- **Claude Code**：将三个目录复制到 `~/.claude/skills/<skill-name>/`（用户级）或 `.claude/skills/<skill-name>/`（项目级），Claude 会依据 `description` 自动加载，也支持显式调用。详见 [Claude Code Skills 文档](https://code.claude.com/docs/en/slash-commands)。
+- **claude.ai**：可在 **Settings → Features** 上传自定义 Skill ZIP；套餐与运行环境规则以 [Anthropic Agent Skills 说明](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview) 为准。
 
-Claude Code 的个人目录是 `~/.claude/skills/<skill-name>/`，项目目录是
-`.claude/skills/<skill-name>/`。把三个目录分别放入其中；Claude 会根据
-`description` 自动加载，也可直接调用 skill。详见
-[Claude Code Skills 官方文档](https://code.claude.com/docs/en/slash-commands)。
+### Gemini CLI / Google Antigravity
 
-claude.ai 可在 Settings > Features 上传自定义 skill ZIP；可用套餐、代码执行与
-API/workspace 规则见
-[Anthropic Agent Skills 官方说明](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview)。
+- **Gemini CLI**：自动发现用户级 `~/.gemini/skills/`、`~/.agents/skills/` 与工作区 `.gemini/skills/`、`.agents/skills/`。复制三个目录后运行 `/skills reload` 即可生效，也支持 `/skills link <path> --scope user|workspace` 或 `gemini skills install <repository-url>`。详见 [Gemini CLI Skills 官方文档](https://geminicli.com/docs/cli/using-agent-skills/)。
+- **Google Antigravity**：可在 `~/.gemini/config/plugins/` 下将三套 Skills 与 `mcp-server/hoi4_mcp.py` 组合成只读本地插件；若需要在 Antigravity、Cursor、Claude Code 或 Gemini CLI 等不含内置桌面 Computer Use 的客户端中让 AI 协助完成 HOI4 实机验收，可额外按需启用独立的进程白名单桌面 MCP `hoi4_desktop`，详见 [可选本地桌面控制 MCP 配置指南](DESKTOP_MCP_SETUP.md)。
 
-## Gemini CLI / Google Antigravity
+## 开源许可说明
 
-Gemini CLI 可从用户级 `~/.gemini/skills/` 或 `~/.agents/skills/`，以及工作区
-`.gemini/skills/` 或 `.agents/skills/` 发现 skills。复制三个目录后运行
-`/skills reload`；也可用 `/skills link <path> --scope user|workspace` 做开发链接。
-远程单 skill 仓库可用 `gemini skills install <repository-url>`。详见
-[Gemini CLI Skills 官方文档](https://geminicli.com/docs/cli/using-agent-skills/)。
+整套 Skills 统一采用 **CC BY-SA 4.0** 许可：仓库中的通用指导吸收并改写了 Millennium Dawn（CC BY-SA 4.0）的公开工程资料，遵循相同协议分享能让衍生作品合规、省心。该协议允许自由复制、修改与商用，只需保留署名、注明修改并以相同协议发布改编部分。
 
-Google Antigravity 可在 `~/.gemini/config/plugins/` 下将三套 Skills 与 `mcp-server/hoi4_mcp.py`
-组合成只读本地插件；若需要在 Antigravity、Cursor、Claude Code 或 Gemini CLI 等不含内置桌面
-Computer Use 的客户端中让 AI 协助执行 HOI4 实机验收，可额外按需启用独立的进程白名单桌面 MCP
-`hoi4_desktop`，配置与安全边界见 [可选本地桌面控制 MCP 配置指南](DESKTOP_MCP_SETUP.md)。
-
-## 推荐许可证
-
-整套 skills 建议统一使用 **CC BY-SA 4.0**。原因是现有通用指导中包含对
-Millennium Dawn CC BY-SA 4.0 材料的改写与归纳，ShareAlike 要求再发布的改编
-材料继续使用同一许可证。该许可证允许复制、修改和商业使用，但必须署名、标明
-修改并以相同许可证分享。
-
-统一 CC BY-SA 4.0 比“文档 CC、脚本 MIT”的混合许可更容易让普通用户正确遵守。
-本建议不是法律意见；若未来完全重写并清除 ShareAlike 来源，可再评估将独立代码
-改用 MIT。许可证只覆盖本仓库明确发布的 skill 内容，不授予 Paradox、Workshop
-作者、其他 MOD 或素材的权利。
+统一采用 CC BY-SA 4.0 也避免了“文档一套协议、脚本另一套协议”带来的合规困扰；未来若独立工具代码彻底剥离 ShareAlike 衍生来源，再考虑单独采用 MIT 也不迟。本协议仅覆盖本仓库发布的 Skill 内容，Paradox Interactive、其他 Mod 及第三方素材均保留其原有版权。

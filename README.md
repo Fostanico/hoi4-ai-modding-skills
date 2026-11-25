@@ -2,199 +2,134 @@
 
 简体中文 | [English](README_EN.md) | [日本語](README_JA.md) | [Русский](README_RU.md) | [한국어](README_KO.md)
 
-这是三套供 Codex、ChatGPT、Cursor、Claude Code 和 Gemini CLI 使用的《钢铁雄心 IV》
-Agent Skills。它们现在更侧重于维护、诊断和完善已有 MOD，同时保留从自然语言需求
-开始制作新内容和完整 MOD 的能力。
+一套专为《钢铁雄心 IV》Mod 开发打造的组合式 Agent Skills，适配 **Codex、Google Antigravity、Cursor、Claude Code、Gemini CLI 与 ChatGPT**。这套套件**重心放在既有 Mod 的维护、排错、重构与持续完善**——帮你吃透庞杂工程、理顺跨文件依赖、调优性能并精准定位崩溃；同时完整保留了**从自然语言构想直接生成新功能乃至整套 Mod** 的能力。
 
-这不是一份要求用户先学完 PDX 语言的教程。你可以把工程、日志和目标交给 AI，
-让它沿着固定的证据链检查代码；熟悉 MOD 开发的用户也可以指定文件、约束和审批
-边界，把 skills 当作代码审查、兼容性迁移和故障诊断流程使用。
+你可以直接用日常语言描述想法，由 AI 负责拆解脚本、界面、素材与多语言链路；熟悉 PDX 脚本的作者也能借它建立代码审查、跨文件追踪、性能排查与崩溃定位的标准流程。
 
-从需求表达、脚本与存档设计，到界面、素材、多语言、排错和交付，可阅读完整的通用开发指南：
+想系统了解如何和 AI 协作开发 HOI4 Mod（从需求表达、脚本与存档设计，到 GUI、着色器、多语言、排错与发布交付），请阅读通用开发指南：
 [简体中文](skills/hoi4-pdx-modding/assets/user-guides/hoi4-modding-guide.zh-CN.md) |
 [English](skills/hoi4-pdx-modding/assets/user-guides/hoi4-modding-guide.en.md) |
 [日本語](skills/hoi4-pdx-modding/assets/user-guides/hoi4-modding-guide.ja.md) |
 [Русский](skills/hoi4-pdx-modding/assets/user-guides/hoi4-modding-guide.ru.md) |
 [한국어](skills/hoi4-pdx-modding/assets/user-guides/hoi4-modding-guide.ko.md)。
-指南作为按需交付给用户的文件保存；技能默认只加载交付规则，不读取指南正文。
+该指南面向人类读者按需取阅，技能默认只保留交付入口，避免在常规编码时白白占满上下文。
 
-仓库同时提供可选的 **Codex Plugin** 集成。插件将三套 Skills 与本地只读 MCP
-服务器作为同一套件分发：Skills 定义开发、审查和验证流程，MCP 服务器提供 HOI4
-安装发现、标识符追踪、Git 变更校验、日志读取和媒体元数据检查。所有 MCP 操作均在
-本机执行，不依赖云端 HOI4 文件库或 OpenAI API Key，且不包含游戏启动或 MOD 写入
-能力。架构、工具接口和安全边界见
-[本地插件与 MCP 助手](docs/LOCAL_MCP_PLUGIN.md)。
+仓库同时内置两款**完全物理分离**的零依赖本地 MCP 服务器：
+- **只读取证助手 `hoi4_local`**（随 Codex Plugin 一同打包）：负责本机探测 HOI4 安装、跨文件追踪标识符、轻量校验 Git 变更、读取日志与检查媒体元数据，全程只读、不联网、零改动风险。详见 [本地插件与 MCP 助手](docs/LOCAL_MCP_PLUGIN.md)。
+- **可选实机测试助手 `hoi4_desktop`**（默认关闭、按需启用）：面向没有内置桌面 Computer Use 的客户端（如 Google Antigravity、Cursor、Claude Code、Gemini CLI），通过硬编码进程白名单安全地截取和操作 HOI4、Paradox Launcher 与 Steam 窗口。详见 [可选本地桌面控制 MCP 配置指南](docs/DESKTOP_MCP_SETUP.md)。
 
-## 三套 Skills
+## 三套 Skills 如何分工
 
-| Skill | 主要用途 |
+| Skill | 核心专长 |
 | --- | --- |
-| `hoi4-review-debug` | 完善既有 MOD、跨文件 Mod Doctor、日志与崩溃分析、性能、兼容性、玩法平衡、UX、图标和资源审计 |
-| `hoi4-pdx-modding` | PDX 脚本、scope、生命周期、跨文件契约、本地化、版本迁移、技术文档、注释和静态校验 |
-| `hoi4-content-builder` | 从自然语言需求制作事件、决议、国策、角色、ideas、MIO、GUI、AI、OOB、地图、音乐、模型和完整系统 |
+| `hoi4-review-debug` | 既有 Mod 体检、跨文件 Mod Doctor、日志与崩溃诊断、性能调优、兼容性审查、玩法平衡、UX 与资源审计 |
+| `hoi4-pdx-modding` | PDX 语法与作用域、变量与存档生命周期、跨文件契约、多语言本地化、版本迁移、技术文档、注释与静态校验 |
+| `hoi4-content-builder` | 从自然语言构建事件、决议、国策、人物、民族精神、MIO、GUI、AI、OOB、地图、音乐、模型与完整系统 |
 
-**建议始终把三套 skill 一起安装。** 它们共享验证规则、工作流和跨 skill 引用：
-`content-builder` 负责把需求落成完整内容，`pdx-modding` 提供语言和版本核验基础，
-`review-debug` 负责维护、回归和运行时证据。单独安装可以读取该 skill 的入口说明，
-但会缺少兄弟 skill 的参考资料、验证步骤和完整交接流程，无法发挥这套包的最大作用。
+**请将三套 Skill 一并安装。** 它们像同一座工坊里的三道工序：`content-builder` 负责把创意做成完整功能，`pdx-modding` 守住语法、版本与接口契约，`review-debug` 负责查错、回归和实机验证。三者彼此引用规则与参考文档，成套安装才能跑通完整链路。
 
-## 安装
+## 快速安装
 
-### Codex 推荐：Skills + 本地工具
+### Codex：一键安装 Skills + 只读 MCP 插件
 
-在 Windows 上克隆或解压本仓库后，在仓库根目录运行：
+在 Windows 上克隆或解压本仓库后，于仓库根目录执行：
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\scripts\install-codex-plugin.ps1
 ```
 
-脚本会把完整插件安装到当前用户的本地应用数据目录，并通过 Codex CLI 注册；它不会
-修改 HOI4、启动游戏或上传本地文件。安装完成后新建一个 Codex 任务，即可同时使用
-三套 Skills 和五个只读本地工具。更新仓库后重新运行同一命令即可刷新插件。
+脚本会将插件安装到当前用户的本地应用数据目录，并通过 Codex CLI 完成注册，全程不触碰游戏文件、不启动 Steam，也不上传任何本地数据。装完后**新建一个 Codex 任务**，三套 Skills 和五个只读本地工具就会立即就位；日后拉取仓库更新时，重跑同一条命令即可刷新。
 
-要求：Windows、Python 3、Codex CLI；`ffprobe` 只用于补充音视频流信息，不是必需项。
-详细工具、安全边界和排错见[本地插件与 MCP 助手](docs/LOCAL_MCP_PLUGIN.md)。
+环境要求：Windows、Python 3、Codex CLI（若装有 `ffprobe`，媒体工具还会顺带读取音视频流信息）。详情见 [本地插件与 MCP 助手](docs/LOCAL_MCP_PLUGIN.md)。
 
-### 仅安装 Skills
+### 通用方式：安装三套 Skills
 
-从 [Releases](https://github.com/Fostanico/hoi4-ai-modding-skills/releases)
-下载完整包，或者克隆本仓库。把 `skills/` 下的三个目录复制到以下任一位置：
+从 [Releases](https://github.com/Fostanico/hoi4-ai-modding-skills/releases) 下载完整发布包或直接克隆仓库，将 `skills/` 下的三个目录原样复制到以下任一位置：
 
-- 当前 MOD 仓库：`<MOD_ROOT>/.agents/skills/`
-- 当前用户：`$HOME/.agents/skills/`
+- **项目级**（随 Mod 仓库同行）：`<MOD_ROOT>/.agents/skills/`
+- **用户级**（多项目共用）：`$HOME/.agents/skills/`
 
-项目目录适合随 MOD 一起维护，用户目录适合在多个 MOD 中共用。每个 skill 目录内的
-`SKILL.md`、`references/`、`workflows/`、`assets/`、`scripts/` 和
-`agents/` 应保持原有相对位置。
+请保持每个 Skill 目录内的 `SKILL.md`、`references/`、`workflows/`、`assets/`、`scripts/` 和 `agents/` 相对结构完整。
 
-不支持插件的客户端继续使用这种方式。它不会安装本地 MCP 工具。
+- **Codex / ChatGPT**：Codex 通常会自动发现更新（未生效时重启即可），可用 `/skills` 查看列表并用 `$hoi4-review-debug` 显式调用；ChatGPT 桌面版可在侧栏 Skills 页面查看。详见 [OpenAI Skills 文档](https://learn.chatgpt.com/docs/build-skills)。
+- **Cursor**：自动发现项目级 `.agents/skills/`、`.cursor/skills/` 及用户级 `~/.agents/skills/`、`~/.cursor/skills/`。刷新或重开 Agent 后即可自动匹配，也可在对话中输入 `/` 按名称调用。Skills 会注入给当前选定的任意模型；如需在 Cloud Agents 中使用个人目录，请在设置中开启 Skills 同步。详见 [Cursor Agent Skills 文档](https://cursor.com/docs/skills)。
+- **Google Antigravity / Claude Code / Gemini CLI**：支持按各平台目录安装三套 Skills，并可按需接入 `hoi4_local` 只读 MCP 与 `hoi4_desktop` 实机测试 MCP。
 
-Codex 通常会自动发现更新；没有出现时重启 Codex。在 Codex CLI 或 IDE 扩展中可用
-`/skills` 查看 skills，并用 `$hoi4-review-debug` 这样的名字显式调用。ChatGPT
-桌面版可以从侧栏的 Skills 页面查看。安装位置和调用方式也可参阅
-[OpenAI 的 Skills 文档](https://learn.chatgpt.com/docs/build-skills)。
+各客户端完整路径、插件配置与打包分发规范，见 [安装与共享指南](docs/INSTALLATION.md)。
 
-更完整的平台说明见 [安装与共享指南](docs/INSTALLATION.md)。
+## 实战提示词示例
 
-### Cursor Agent
+**接手或维护既有 Mod（先诊断、后动手）：**
 
-Cursor 可以直接发现项目级 `.agents/skills/` 或 `.cursor/skills/`，以及用户级
-`~/.agents/skills/` 或 `~/.cursor/skills/`。将 `skills/` 下的三个目录一起复制到
-其中一个位置，重新打开或刷新 Agent 后即可自动匹配；也可以在 Agent 对话中输入
-`/`，搜索 skill 名称并显式调用。
+> `$hoi4-review-debug` 帮我审查这个 Mod。先读项目技术文档和相关玩家文案，再系统检查跨文件引用、变量生命周期、周期性性能、图标、本地化与依赖兼容性。先提交带证据的清单和分批修复方案，暂不修改文件。
 
-Skills 由 Cursor Agent 提供给当前选定的模型使用，不绑定特定模型。项目级目录适合
-随 MOD 一起纳入版本控制；用户级 `~/.cursor/skills/` 若要在 Cloud Agents 中使用，
-需要在 Cursor 设置中启用 Skills 同步。复制 Skills 不会安装 Codex 专用的本地 MCP
-助手。路径、调用方式和远程 Agent 边界见
-[Cursor Agent Skills 官方文档](https://cursor.com/docs/skills)。
+**排查日志与崩溃（给出版本、依赖与最新日志）：**
 
-## 使用示例
+> 分析这份 `error.log`，把问题按本 Mod、依赖 Mod、原版和可选媒体分开归类，按根因合并重复报错，给出每组的定位证据和最小修复方案。
 
-维护已有 MOD 时，可以从一次只读审查开始：
+**开发全新功能（直接说出玩法目标与约束）：**
 
-> `$hoi4-review-debug` 审查这个 MOD。先读项目技术文档和相关本地化，再检查跨文件
-> 引用、变量生命周期、周期性性能、图标、本地化和依赖兼容性。先报告问题和方案，
-> 不要修改文件。
+> `$hoi4-content-builder` 为 HOI4 1.20 制作一组可重复决议，包含 AI 权重以及英文、简体中文、俄文、日文与韩文本地化。先核对当前原版语法，完成后对改动文件跑静态校验。
 
-处理日志时，最好同时给出 MOD 路径、目标游戏版本、启用的依赖和最新
-`error.log`：
+日常对话里无需每次手动点名 Skill——当你的请求匹配 `SKILL.md` 里的场景描述时，兼容客户端会自动选用对应技能；显式写出名称更适合固定流程的深度审查或专项排错。
 
-> 分析这份 `error.log`，区分本 MOD、依赖 MOD、原版和可忽略警告。按根因归组，
-> 给出证据、影响范围和最小修复方案。
+## 核心工作流
 
-制作新内容时，直接说明玩法目标和边界：
+三套技能共享同一套[工作流边界](skills/hoi4-pdx-modding/references/workflow-boundaries.md)：复用依然有效的已有证据，局部改动只复验受影响范围，文档随真实契约同步更新；实机短测把准备与还原一并计入时间预算，按问题选用最顺手的当前会话、测试存档或新局；一旦你喊停，AI 会立刻收手并给出简明交接。
 
-> `$hoi4-content-builder` 为 HOI4 1.19 制作一组可重复决议，包含 AI 权重、英文、
-> 简体中文、俄文和日文本地化。先核对当前原版语法，完成后运行静态校验。
+### 1. 体检与重构既有 Mod
 
-不必每次显式写 skill 名称。任务与 `SKILL.md` 中的描述匹配时，兼容的 Agent 也可以
-自动选择对应 skill；显式调用更适合需要固定工作流的审计和诊断任务。
+1. 先读项目技术文档、交接记录和玩家可见文案，吃透设计的真实意图。
+2. 沿事件、决议、effects、triggers、变量、flags、本地化与 GUI/GFX 梳理完整的跨文件调用链。
+3. 将确定性 Bug、兼容性隐患、性能瓶颈和需要作者拍板的玩法权衡分门别类。
+4. 需要审批时，在动第一行代码前先交付证据与分阶段方案。
+5. 获批后严守约定边界实施改动，按改动体量匹配校验深度（小改直接审 diff，常规改动校验变更文件，大改动跑跨文件审计），同时标清哪些表现还需进游戏目视确认。
 
-## 主要工作流
+### 2. 日志与崩溃定位
 
-三套技能共用[工作流边界](skills/hoi4-pdx-modding/references/workflow-boundaries.md)：
-复用仍有效的证据，局部修改只复验受影响部分，文档按实际合同变化更新。短测预算包含
-准备与清理，按问题选择当前会话、测试存档或新局；用户要求停止时及时停工并简短交接。
+1. 按根因归并 `error.log`，优先解决解析失败、作用域错位、装备/意识形态缺失和本地化键冲突。
+2. 结合日志时间戳、当前启用播放集和崩溃前玩家操作还原真实执行路径，避免被最后一条无关日志带偏。
+3. 必要时解析 Windows minidump，清楚标明判断置信度与尚缺的证据。
+4. 涉及 WinDbg、Ghidra、完整内存转储、附加进程或硬件断点时实行分级授权，每进入更高权限阶段前先征得你的明确同意。
 
-### 完善既有 MOD
+### 3. 从想法构建新内容
 
-1. 读取项目技术文档、交接记录和玩家可见本地化，确认功能原意。
-2. 建立事件、决议、effects、triggers、变量、flags、本地化、GUI 和 GFX 的跨文件关系。
-3. 区分确定性缺陷、兼容性风险、性能问题和需要作者决定的玩法选择。
-4. 先给出证据和分批方案；需要审批时停在修改之前。
-5. 获批后只改约定范围。静态检查按改动规模分档：足够小的 diff 只读即可，
-   不要为仪式跑完全部校验脚本；并说明仍需哪些游戏内测试。
+1. 将自然语言需求整理成清晰的功能范围、状态归属、资源清单、AI 策略、兼容规则和验收标准。
+2. 对照目标游戏版本的原版文档、实际原版消费者及真实启用的依赖核验语法与 token。
+3. 基于已验证的模板与多文件套件一次性接通脚本、GFX、素材与多语言文案，不留断链或孤立定义。
+4. 按改动范围完成编码、引用和文档核对；需要实机验证时严格遵守授权与预算。
 
-### 日志与崩溃诊断
+## 能力覆盖面
 
-1. 按根因合并 `error.log`，优先处理解析、scope、装备、ideology 和本地化冲突。
-2. 将日志时间、启用模组和崩溃时玩家行为与代码路径对应，不把最后一条日志当成原因。
-3. 必要时分析 Windows minidump，并报告结论置信度和缺失证据。
-4. WinDbg、Ghidra、完整用户态转储、附加进程和硬件数据断点采用分级授权；未获用户同意不进入下一阶段。
+- **脚本与状态**：PDX 语法、作用域链、事件目标、变量与 flag 生命周期
+- **核心玩法系统**：事件、决议、国策、民族精神、人物、MIO、装备、科技、AI 与 OOB
+- **性能与热路径**：高频 `on_actions`、全局遍历排查，以及事件驱动与分批处理改造
+- **多语言体系**：UTF-8 BOM 编码、重复键排查、颜色与图标标记、格式化变量、scope functions 与多语言模板
+- **界面与资源**：GUI/GFX 注册、决议/精神/特质图标、纹理路径、音频、加载图 DDS 规范、具名王牌与定制特工肖像
+- **兼容与演进**：原版及大型魔改依赖兼容分支、游戏大版本迁移与旧存档安全演进
+- **体验与工程交付**：玩法循环、数值平衡、AI 可用性与反制反馈、技术文档、可读注释与发布前检查
+- **深度诊断**：`error.log` 归因、崩溃转储、WinDbg 及授权下的进阶原生分析
 
-### 开发新内容
+## 工程底座
 
-1. 把自然语言需求整理成范围、状态、资源、AI 行为、兼容性和验收标准。
-2. 对照目标版本的原版文档、原版消费者和实际依赖确认语法与 token。
-3. 使用模板或套件完成脚本、GFX、资源和本地化，避免留下孤立定义。
-4. 按改动范围检查编码、跨文件引用及受影响的注释和技术文档；需要实机证据时遵循测试授权与预算。
+- **真实对话回归集**：`evals/real-dialogue-regression.json` 沉淀了匿名化处理后的真实开发任务，用 SHA-256 指纹保留来源追溯，同时保护所有私人会话与项目隐私。
+- **Mod Doctor 2**：支持自动解析当前 playset、仅审计 Git 变更、对比历史基线、配置有期限的抑制规则，按 Text / JSON / Markdown / SARIF 输出，并将确定性缺陷与启发式线索分开列报。
+- **多文件实战套件**：覆盖常见内容链路以及“科技解锁装备”“游戏规则开局初始化”等完整闭环。
+- **模板机器清单**：`assets/template-manifest.json` 逐项登记每个模板的目标版本、原版来源消费者、验证日期与必查项，并由校验器保证全量登记、无一遗漏。
+- **按需媒体审计**：结合消费场景、DDS 元数据与显式引用排查空间占用，仅在显式查重或内容比对时计算哈希，妥善保留加载图、mipmap、cubemap 与模型材质的专属要求。
 
-## 能检查什么
+## 证据原则与安全边界
 
-- PDX 语法、scope 链、事件目标、变量和 flag 生命周期
-- 事件、决议、国策、ideas、角色、MIO、装备、科技、AI 和 OOB
-- `on_actions` 热路径、全局扫描和可改为事件驱动或低频执行的逻辑
-- 本地化编码、重复键、颜色、图标、格式化变量、scope functions 和多语言模板
-- GUI/GFX 注册、idea/decision/trait 图标、贴图路径、音频和依赖资源
-- 加载图 DDS 约束、具名王牌飞行员、自定义特工特质/图标/固定肖像
-- 原版与大型依赖 MOD 的兼容分支、版本迁移和保存生命周期风险
-- 玩法循环、数值平衡、AI 可用性、反馈、反制手段和玩家体验
-- 技术文档、交接内容、可读注释、验证记录和发布前检查
-- `error.log`、crash dumps、WinDbg 与经过授权的进阶原生诊断
+- **以当前版本实证为准**：Skills 要求 AI 优先核对目标版本的原版代码、随游戏生成的文档、实际启用的依赖与玩家可见文案；Wiki 和社区教程用来启发思路、提供线索，最终结论落在本机当前版本上。
+- **静态检查与实机验证各司其职**：静态检查负责守住语法、引用、编码和接线；GUI 渲染、MIO 交互、复杂作用域与跨 Mod 兼容行为需要进游戏确认。
+- **敏感操作先沟通、后执行**：凡涉及启动 Steam、操控游戏窗口、安装调试工具、逆向分析、附加进程或采集完整内存，AI 都会先说明目的、范围与风险，得到你的同意后再动手。
 
-## 工程能力
+## 开源协议与致谢
 
-- 真实对话回归集：`evals/real-dialogue-regression.json` 收录匿名化的真实任务，
-  以来源提示词 SHA-256 指纹保留可追溯性，不公开私有会话或项目标识。
-- Mod Doctor 2：可读取当前 playset、只审查 Git 变更、比较历史基线、应用有期限的
-  抑制规则，并输出 Text、JSON、Markdown 或 SARIF；确定问题与启发式线索分开统计。
-- 多文件套件：除事件、国策、idea、GUI、音乐、具名王牌与特工等链路外，还包括
-  科技解锁装备和游戏规则启动初始化。
-- 模板机器清单：`assets/template-manifest.json` 记录目标游戏 build、来源消费者、
-  验证日期和必做检查，验证器确保全部模板文件均被登记。
-- 媒体优化：按消费者、DDS 元数据和显式引用审计空间占用；仅在明确查重或内容比较时
-  按需计算哈希。加载图、mipmap、cubemap 和模型材质不会被当作普通图片盲目转换。
+本项目采用 [CC BY-SA 4.0](LICENSE) 协议开源。复制、改编或再分发时，请保留署名与 [ATTRIBUTION.md](ATTRIBUTION.md)、注明改动，并以相同协议分享衍生作品。本协议仅适用于本仓库发布的 Skill 内容，游戏本体、其他 Mod 及第三方素材的权利归其各自版权方所有。
 
-## 使用边界
+特别致谢：
+- [Millennium Dawn](https://github.com/MillenniumDawn/Millennium-Dawn)：其公开开发资料为本套件的兼容性规范、工程结构与高级工作流奠定了坚实参考。
+- 秋起图书馆（Steam Workshop 项目 `3445449478`）：其社区教程与工具资料极大丰富了本套件的内容核对与参考体系。
 
-Skills 会要求 AI 尽量核对目标版本的原版文件、随游戏安装的文档、实际启用的依赖
-和玩家可见本地化。Wiki 和社区教程可以帮助定位问题，但不能代替当前版本验证。
-
-静态检查不能证明 GUI、MIO、事件 scope 或兼容分支在游戏中一定正常。涉及启动
-Steam、控制游戏、安装诊断工具、逆向分析、附加进程或采集完整内存时，应先说明
-目的、风险和范围，并取得用户授权。
-
-## 其他平台
-
-- Cursor：放入 `~/.cursor/skills/`、`~/.agents/skills/`，或项目的
-  `.cursor/skills/`、`.agents/skills/`；输入 `/` 可搜索并显式调用。
-- Claude Code：放入 `~/.claude/skills/` 或项目的 `.claude/skills/`。
-- Gemini CLI：放入 `~/.gemini/skills/`、`~/.agents/skills/` 或工作区支持的目录。
-- 支持上传自定义 Skill 的客户端：一次安装同一 release 中的三个 skill ZIP；只有
-  明确了解跨 skill 功能缺失的高级用户才应做单 skill 安装。
-
-不同客户端的发现路径会变化，安装前请核对对应平台的当前文档。
-
-## 开源协议
-
-本项目采用 [CC BY-SA 4.0](LICENSE)。复制、修改或再发布时，请保留署名和
-[ATTRIBUTION.md](ATTRIBUTION.md)，注明修改，并以相同协议分享改编内容。本协议
-不授予 Paradox Interactive、其他 MOD 或第三方素材的任何权利。
-
-## 致谢
-
-- [Millennium Dawn](https://github.com/MillenniumDawn/Millennium-Dawn)：其公开开发资料为兼容性、工程结构和高级工作流提供了重要参考。
-- 秋起图书馆（Steam Workshop 项目 `3445449478`）：其社区教程与工具资料帮助完善了内容核对和参考体系。
-
-完整来源与改编说明见 [ATTRIBUTION.md](ATTRIBUTION.md)。
+完整来源与改编记录见 [ATTRIBUTION.md](ATTRIBUTION.md)。

@@ -1,84 +1,65 @@
-# HOI4 本地插件与 MCP 助手
+# HOI4 本地插件与只读 MCP 助手（`hoi4_local`）
 
-## 架构与职责
+## 架构与定位
 
-本插件由三套 Agent Skills 和一个本地只读 MCP 服务器组成。Skills 定义 HOI4 MOD
-开发、审查、证据分级、版本核验、修改授权和验证流程；MCP 服务器将常用的本地取证
-操作暴露为有界、结构化的工具接口。Codex Plugin 清单负责将二者作为单一组件发现和
-安装。
+这套插件由**三套 Agent Skills** 和一个**本地只读 MCP 服务器（`hoi4_local`）**组成：
+- **Skills** 负责方法论——规定如何设计功能、核验版本、收集证据、控制改动边界与组织交付；
+- **`hoi4_local` MCP** 负责本机取证——把高频的只读查询封装成结构化、有边界的工具调用；
+- **Codex Plugin 清单**将二者打包为一个组件，实现一键安装与同步刷新。
 
-MCP 工具只负责收集本地证据，不构成新的语法或运行时权威。工具输出仍须按照 Skills
-规定的来源层级，与目标版本原版消费者、实际依赖和运行时证据交叉核验。MCP 不可用
-时，PowerShell、Python、`rg`、Git 及仓库内置脚本仍是完整的备用执行路径。
+`hoi4_local` 的职责是快速、准确地递上本机事实；最终的语法与行为结论，仍由 AI 结合目标版本的原版消费者、启用依赖与实机观察来拍板。如果某个客户端暂不支持 MCP，仓库里的 PowerShell、Python、`rg` 与 Git 脚本同样能走通全流程。
 
-## 工具接口
+## 五项只读工具
 
-| 工具 | 用途 | 限制 |
+| 工具 | 做什么 | 使用提示 |
 | --- | --- | --- |
-| `detect_hoi4_environment` | 查找 MOD 工作区、HOI4 安装、用户数据、日志和 Workshop | 不判断当前 playset 一定启用了什么 |
-| `trace_hoi4_identifier` | 在 MOD、原版和指定依赖中追踪 ID、flag、本地化键、GFX 名称 | 精确文本搜索，不把命中自动等同为有效消费者 |
-| `validate_hoi4_changes` | 对显式路径或 Git 变更运行轻量 PDX/本地化校验 | 不运行全量 Mod Doctor，不修改文件 |
-| `read_hoi4_logs` | 有界读取 `error.log`、`game.log` 等日志尾部并合并重复行 | 不清空日志；旧时间戳不等于最新实机结果 |
-| `inspect_hoi4_media` | 查看 DDS/PNG/JPEG/GIF 元数据及 ffprobe 音视频流 | 元数据不证明 HOI4 消费者一定支持该格式 |
+| `detect_hoi4_environment` | 探测 Mod 工作区、HOI4 安装路径、用户数据目录、日志与 Workshop 位置 | 展示本机路径全貌；当前实际启用的 Mod 列表请结合 playset / `dlc_load.json` 确认 |
+| `trace_hoi4_identifier` | 在 Mod、原版及指定依赖中精确追踪 ID、flag、本地化键与 GFX 名称 | 返回源码文本命中，拿到结果后需继续确认调用方是否真正消费该标识符 |
+| `validate_hoi4_changes` | 对指定路径或 Git 变更运行轻量 PDX 与本地化静态校验 | 聚焦变更文件且绝不改写源码；全仓深度体检请使用 Mod Doctor |
+| `read_hoi4_logs` | 有界读取 `error.log`、`game.log` 等日志尾部，并自动合并重复行 | 始终保留原日志不清空；分析前请先核对文件时间戳是否对应本轮运行 |
+| `inspect_hoi4_media` | 读取 DDS/PNG/JPEG/GIF 的尺寸与格式元数据，并在装有 `ffprobe` 时读取音视频流 | 提供客观文件参数；实际渲染要求需对照对应 GUI/GFX 消费者规范 |
 
-五个工具全部只读。它们不会启动 Steam 或 HOI4，不会切换 playset，不会删除、
-覆盖或创建 MOD 文件，也不会结束游戏进程。未来若加入写入或实机测试能力，应使用
-独立工具接口、显式声明更高风险等级，并保留相应的用户授权边界。
+五个工具**100% 只读**：绝不启动 Steam 或 HOI4，绝不切换 playset，绝不增删改任何 Mod 文件，也绝不干预游戏进程。需要与游戏窗口交互时，请使用下方完全独立的可选桌面控制服务器 `hoi4_desktop`。
 
-## 传输与运行模型
+## 运行机制
 
-MCP 服务器使用本地 stdio 传输。Codex 按需启动子进程，并通过标准输入/输出交换
-MCP JSON-RPC 消息。该实现不需要公网服务、OpenAI API Key、端口映射或云端 HOI4
-文件库；服务进程由客户端管理生命周期，不监听网络端口。
+- **本地 stdio 传输**：由客户端按需拉起子进程，通过标准输入/输出交换 UTF-8 JSON-RPC 消息；进程生命周期完全交由客户端托管，不监听任何网络端口。
+- **零外部依赖、零联网**：仅依赖 Python 3 标准库，无需云端语料库或 OpenAI API Key。若本机 PATH 中已有 `ffprobe`，媒体工具会自动补充音视频流信息；未安装时直接标明缺失，绝不擅自下载软件。
 
-服务器只依赖 Python 3 标准库。媒体工具如果在 PATH 找到 `ffprobe`，会额外读取
-音视频流信息；没有 `ffprobe` 时会明确报告缺失，而不是自动下载软件。
+## 安装与更新
 
-## 安装与刷新
-
-仓库根目录本身就是插件源，`.codex-plugin/plugin.json` 引用唯一一份 `skills/`
-和 `.mcp.json`。开发者先运行：
+仓库根目录即插件源，`.codex-plugin/plugin.json` 直接指向唯一的 `skills/` 与 `.mcp.json`。开发自检命令：
 
 ```powershell
 python scripts/test-mcp-server.py
 python <plugin-creator>/scripts/validate_plugin.py <repository-root>
 ```
 
-Windows 用户可在仓库根目录运行以下命令安装或刷新：
+Windows 用户在仓库根目录运行即可安装或一键刷新：
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\scripts\install-codex-plugin.ps1
 ```
 
-脚本在当前用户的本地应用数据目录建立独立的 `hoi4-local-modding` marketplace，
-为开发版本添加 cachebuster，并通过 Codex CLI 完成安装，无需手动维护 marketplace
-JSON。安装或更新后应新建 Codex 任务，使新会话重新加载 Skills 和 MCP 工具。发布
-包应包含完整插件 ZIP，同时保留三个独立 Skill ZIP，以支持不具备插件能力的客户端。
+脚本会在当前用户的本地应用数据目录维护独立的 `hoi4-local-modding` marketplace，并自动写入刷新标识后通过 Codex CLI 完成注册，无需手改配置文件。安装或更新完成后，请**新建 Codex 任务**以加载最新工具表。对外发布时建议同时提供完整插件 ZIP 与三个独立 Skill ZIP，兼顾各类客户端。
 
-## 安全与排错
+## 安全防线与排查
 
-- MCP 的标准输出只允许一行一个 UTF-8 JSON-RPC 消息；调试信息必须写入标准错误。
-- 搜索只读取有限的文本扩展名，跳过 `.git`、`node_modules`、`dist` 等目录，并限制
-  单文件大小和返回条数。
-- 校验路径必须保持在传入的 `mod_root` 内，不能用 `..` 越出工作区。
-- 日志工具只能选择预先登记的 HOI4 日志名，不能借此读取任意文件。
-- 媒体工具只接受 `mod_root` 内的媒体文件，并对文件数量设置上限。
-- 若插件能列出但 MCP 工具没有出现，先确认 Python 3 在 PATH、重新打开任务，再运行
-  `python scripts/test-mcp-server.py`；不要因此直接修改 MOD 或启动游戏。
+- **纯净通道**：stdout 仅输出单行 UTF-8 JSON-RPC 消息，诊断信息一律走 stderr。
+- **有界扫描**：跨文件搜索仅限白名单文本后缀，自动跳过 `.git`、`node_modules`、`dist` 等目录，并限制单文件体积与返回条数。
+- **工作区防越界**：校验与媒体检查严格限定在传入的 `mod_root` 内，拒绝 `..` 路径逃逸，并对单次检查的文件数设上限。
+- **日志白名单**：日志工具仅允许读取预先登记的 HOI4 日志文件名，杜绝任意文件读取。
+- **工具未出现时**：先确认 `python` / `py -3` 已在 PATH 中、重新打开新对话，再运行 `python scripts/test-mcp-server.py` 定位问题。
 
-## 后续阶段与可选桌面实机 MCP
+## 可选进阶：独立桌面实机测试 MCP（`hoi4_desktop`）
 
-`hoi4_local` 始终保持纯只读，不会与写入或键鼠控制混用。对于不具备原生桌面 Computer Use
-的客户端（如 Google Antigravity、Cursor、Claude Code、Gemini CLI 等），仓库额外提供
-**独立、默认不启用、仅限 HOI4/Launcher/Steam 进程白名单**的本地桌面控制 MCP 服务器
-`mcp-server/hoi4_desktop_mcp.py`（`hoi4_desktop`）：
+为了守住 `hoi4_local` 绝对只读的底线，所有涉及窗口截图与键鼠操控的能力都被彻底拆分到了另一台**默认关闭、按需启用**的本地服务器 `mcp-server/hoi4_desktop_mcp.py`（`hoi4_desktop`）：
 
-- 仅使用 Python 3 标准库与 Windows Win32 API，零第三方依赖、零联网；
-- 仅允许截取与操作 `hoi4.exe`、`Paradox Launcher`、`dowser.exe` 与 `Steam` 窗口；
-- 仍须完整遵守 `hoi4-content-builder/workflows/test-mod.md` 的用户授权、短测预算与
-  playset 还原约束。
+- 专为 **Google Antigravity、Cursor、Claude Code、Gemini CLI** 等没有内置桌面 Computer Use 的客户端设计；
+- 纯 Python 3 标准库 + Windows 原生 Win32 API，零外部依赖、零联网；
+- 进程白名单硬编码锁死为 `hoi4.exe`、`Paradox Launcher`、`dowser.exe` 与 `Steam`，无法触碰浏览器、聊天软件或 IDE；
+- 同样完整遵守 `hoi4-content-builder/workflows/test-mod.md` 的用户授权、短测预算与配置还原规范。
 
-安装配置、安全边界与自检命令（`python scripts/test-desktop-mcp-server.py`）见
-[可选本地桌面控制 MCP 配置指南](DESKTOP_MCP_SETUP.md)。
+配置方法、安全细节与离线自检（`python scripts/test-desktop-mcp-server.py`）详见 [可选本地桌面控制 MCP 配置指南](DESKTOP_MCP_SETUP.md)。
 
-后续版本可继续增加当前 playset 解析、descriptor/load-order 关系图和更细粒度的日志归因。
+后续迭代方向包括当前 playset 解析、descriptor 加载顺序关系图，以及更细粒度的日志根因归因。

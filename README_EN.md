@@ -2,240 +2,134 @@
 
 [简体中文](README.md) | English | [日本語](README_JA.md) | [Русский](README_RU.md) | [한국어](README_KO.md)
 
-This repository contains three Agent Skills for maintaining, diagnosing,
-improving, and building Hearts of Iron IV mods with Codex, ChatGPT, Cursor,
-Claude Code, and Gemini CLI.
+A composable suite of three Agent Skills for *Hearts of Iron IV* modding across **Codex, Google Antigravity, Cursor, Claude Code, Gemini CLI, and ChatGPT**.
 
-The current emphasis is existing-mod work: understanding an unfamiliar codebase,
-finding cross-file failures, reviewing performance and compatibility, and
-turning crash evidence into an actionable repair plan. The skills also retain a
-complete path from a plain-language idea to playable PDX script for people who
-do not already know the HOI4 scripting language.
+The suite is **focused primarily on maintaining, auditing, and improving existing mods**—unraveling unfamiliar codebases, fixing cross-file bugs, tuning performance, guarding compatibility, and triaging crashes—while retaining a complete workflow for **creating new features and full mods from plain English** without writing PDX script by hand.
 
-For the complete development workflow, from requests, scripts, and saves to
-interfaces, media, localisation, diagnosis, and delivery, read the general guide:
+For an end-to-end handbook on working with AI across requests, scripts, saves, GUI, shaders, media, localisation, diagnosis, and Git delivery, see the General Modding Guide:
 [English](skills/hoi4-pdx-modding/assets/user-guides/hoi4-modding-guide.en.md) |
 [简体中文](skills/hoi4-pdx-modding/assets/user-guides/hoi4-modding-guide.zh-CN.md) |
 [日本語](skills/hoi4-pdx-modding/assets/user-guides/hoi4-modding-guide.ja.md) |
 [Русский](skills/hoi4-pdx-modding/assets/user-guides/hoi4-modding-guide.ru.md) |
 [한국어](skills/hoi4-pdx-modding/assets/user-guides/hoi4-modding-guide.ko.md).
-It is a file to deliver to users on demand. Skill entrypoints contain the
-delivery rule; agents are instructed not to read the guide body by default.
+The guide is written for human readers and delivered on demand—the skills keep only the delivery rule in their entrypoints so ordinary coding turns stay lean.
 
-The repository also provides an optional **Codex Plugin** integration. The
-plugin distributes the three Skills together with a local read-only MCP server:
-the Skills define development, review, and validation workflows, while the MCP
-server provides structured access to installation discovery, identifier
-tracing, Git-change validation, log reading, and media metadata. All MCP
-operations execute locally, require neither a cloud-hosted HOI4 corpus nor an
-OpenAI API key, and expose no game-launch or mod-write capability. See
-[Local plugin and MCP helper](docs/LOCAL_MCP_PLUGIN.md) for the architecture,
-tool interfaces, and security boundaries.
+The repository also ships two **physically separated**, zero-dependency local MCP servers:
+- **Read-only evidence server (`hoi4_local`)**, bundled with the Codex Plugin: discovers your local HOI4 installation, traces identifiers across files, validates Git changes, reads logs, and inspects media metadata—entirely offline, read-only, and free of any API-key requirement. See [Local Plugin and MCP Helper](docs/LOCAL_MCP_PLUGIN.md).
+- **Optional live-test control server (`hoi4_desktop`)**, disabled by default and enabled only on request: brings process-whitelisted Windows screenshot and input control (`hoi4.exe`, Paradox Launcher, and Steam only) to clients without built-in desktop computer use, such as Google Antigravity, Cursor, Claude Code, and Gemini CLI. See [Desktop MCP Setup Guide](docs/DESKTOP_MCP_SETUP.md).
 
-## Included Skills
+## The Three Skills
 
-| Skill | Main job |
+| Skill | Focus |
 | --- | --- |
-| `hoi4-review-debug` | Existing-mod improvement, cross-file Mod Doctor, logs and crashes, performance, compatibility, balance, UX, icons, and asset audits |
-| `hoi4-pdx-modding` | PDX script, scopes, lifecycle, cross-file contracts, localisation, migration, technical documentation, comments, and static validation |
-| `hoi4-content-builder` | Events, decisions, focuses, characters, ideas, MIOs, GUI, AI, OOBs, maps, music, models, and complete systems from plain-language requirements |
+| `hoi4-review-debug` | Existing-mod audits, cross-file Mod Doctor, log and crash triage, performance tuning, compatibility checks, gameplay balance, UX, and asset reviews |
+| `hoi4-pdx-modding` | PDX syntax and scopes, variable and save lifecycle, cross-file contracts, localisation, version migration, technical docs, comments, and static validation |
+| `hoi4-content-builder` | End-to-end events, decisions, focuses, characters, ideas, MIOs, GUI, AI, OOBs, maps, music, models, and complete systems from plain-language ideas |
 
-**Install all three skills together.** They share validation rules, workflows,
-and sibling references: `content-builder` turns requirements into complete
-content, `pdx-modding` supplies language and version verification, and
-`review-debug` handles maintenance, regression, and runtime evidence. A single
-skill can still load, but it loses sibling references and cannot provide the
-package's full workflow.
+**Install all three skills together.** They work as one workshop: `content-builder` turns ideas into wired features, `pdx-modding` enforces target-version syntax and contracts, and `review-debug` handles audits, regressions, and runtime evidence. Installing the full trio keeps every cross-skill reference and handoff intact.
 
 ## Installation
 
-### Recommended for Codex: Skills plus local tools
+### Codex: Skills + Read-Only Local MCP Plugin (Recommended)
 
-On Windows, clone or extract this repository and run the following command from
-its root:
+On Windows, clone or extract this repository and run from the repository root:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\scripts\install-codex-plugin.ps1
 ```
 
-The script installs the complete plugin under the current user's local
-application-data directory and registers it through the Codex CLI. It does not
-modify HOI4, launch the game, or upload local files. Start a new Codex task when
-installation finishes. Rerun the same command after updating the repository to
-refresh the plugin.
+The script installs the plugin into your user local app-data folder and registers it via the Codex CLI—touching neither HOI4 nor Steam, and sending nothing over the network. **Start a fresh Codex task** once installation finishes to load all three skills and the five read-only MCP tools. Rerun the same command after pulling updates.
 
-Requirements: Windows, Python 3, and the Codex CLI. `ffprobe` is optional and
-only adds audio/video stream metadata. See
-[Local plugin and MCP helper](docs/LOCAL_MCP_PLUGIN.md) for tools, safety
-boundaries, and troubleshooting.
+Requirements: Windows, Python 3, and the Codex CLI (`ffprobe` is optional for extra audio/video stream metadata). See [Local Plugin and MCP Helper](docs/LOCAL_MCP_PLUGIN.md) for details and troubleshooting.
 
-### Skills only
+### Skills Only (Works Across Clients)
 
-Download a complete package from
-[Releases](https://github.com/Fostanico/hoi4-ai-modding-skills/releases), or
-clone this repository. Copy the three directories under `skills/` into either:
+Download a release package from [Releases](https://github.com/Fostanico/hoi4-ai-modding-skills/releases) or clone the repository, then copy all three directories under `skills/` into:
 
-- `<MOD_ROOT>/.agents/skills/` for a repository-scoped installation;
-- `$HOME/.agents/skills/` for a user-scoped installation shared by multiple mods.
+- **Project scope** (versioned with one mod): `<MOD_ROOT>/.agents/skills/`
+- **User scope** (shared across mods): `$HOME/.agents/skills/`
 
-Keep each skill's `SKILL.md`, `references/`, `workflows/`, `assets/`, `scripts/`,
-and `agents/` directories together. Codex normally detects changes automatically;
-restart it if an installed skill does not appear.
+Keep `SKILL.md`, `references/`, `workflows/`, `assets/`, `scripts/`, and `agents/` intact inside each skill folder.
 
-Clients without plugin support can continue to install the three Skills this
-way. This does not install the local MCP tools.
+- **Codex & ChatGPT**: Codex picks up updates automatically (restart if needed). Run `/skills` to inspect installed skills or invoke one directly with `$hoi4-review-debug`; ChatGPT desktop lists uploaded skills on the sidebar Skills page. See [OpenAI's Skills documentation](https://learn.chatgpt.com/docs/build-skills).
+- **Cursor**: Discovers `.agents/skills/` and `.cursor/skills/` at both project and user levels (`~/`). Reopen or refresh Agent to load them, or type `/` in chat to invoke a skill explicitly. Skills work with whichever model you select; enable Skills sync in Cursor settings to share `~/.cursor/skills/` with Cloud Agents. See [Cursor Agent Skills documentation](https://cursor.com/docs/skills).
+- **Google Antigravity, Claude Code & Gemini CLI**: Install the three skills into the client's skills directory, and optionally wire up `hoi4_local` and `hoi4_desktop` MCP servers.
 
-In Codex CLI or the IDE extension, use `/skills` to inspect available skills and
-type a name such as `$hoi4-review-debug` to invoke one explicitly. In the
-ChatGPT desktop app, installed skills are visible from the Skills page in the
-sidebar. See the current
-[OpenAI skills documentation](https://learn.chatgpt.com/docs/build-skills) for
-Codex discovery paths and invocation behavior.
+Full per-client instructions and distribution rules live in [Installation and Sharing](docs/INSTALLATION.md).
 
-See [Installation and sharing](docs/INSTALLATION.md) for other clients and
-release-package details.
+## Example Prompts
 
-### Cursor Agent
+**Audit an existing mod before changing a line:**
 
-Cursor discovers project skills from `.agents/skills/` or `.cursor/skills/`
-and user skills from `~/.agents/skills/` or `~/.cursor/skills/`. Copy all three
-directories under `skills/` to one of those locations, then reopen or refresh
-the Agent. You can also type `/` in Agent chat, search for a skill by name, and
-invoke it explicitly.
+> `$hoi4-review-debug` Review this mod. Start with the project's technical guide and relevant player-facing localisation, then check cross-file references, variable lifecycles, periodic performance, icons, localisation, and dependency compatibility. Share an evidence-backed report and staged repair plan before editing anything.
 
-Cursor Agent supplies the skills to the currently selected model, so this
-package is not tied to one model. Project-level skills can be versioned with a
-mod. To use personal `~/.cursor/skills/` in Cloud Agents, enable Skills sync in
-Cursor settings. Copying the skills does not install the Codex-only local MCP
-helper. See the current
-[Cursor Agent Skills documentation](https://cursor.com/docs/skills) for paths,
-invocation, and remote-agent boundaries.
+**Triage `error.log` cleanly:**
 
-## Usage examples
+> Analyze this `error.log`. Separate issues caused by this mod, dependencies, vanilla, and optional media. Group repeated entries by root cause and propose the smallest clean fix for each group.
 
-Start an existing-mod review without changing files:
+**Build new content from plain English:**
 
-> `$hoi4-review-debug` Review this mod. Read its technical documentation and
-> relevant player-facing localisation first, then inspect cross-file references,
-> variable lifecycle, periodic performance, icons, localisation, and dependency
-> compatibility. Report evidence and a repair plan before editing anything.
+> `$hoi4-content-builder` Build a repeatable decision set for HOI4 1.20 with AI weights and English, Simplified Chinese, Russian, Japanese, and Korean localisation. Verify syntax against the current vanilla build first, then run changed-file static checks.
 
-For logs, provide the mod path, target game version, enabled dependencies, and
-the newest `error.log` when possible:
-
-> Analyze this `error.log`. Separate errors caused by this mod, dependencies,
-> vanilla, and optional media. Group repeated messages by root cause and give
-> the smallest viable repair for each group.
-
-For new content, describe the intended gameplay and constraints:
-
-> `$hoi4-content-builder` Build a repeatable decision set for HOI4 1.19 with AI
-> weights and English, Simplified Chinese, Russian, and Japanese localisation.
-> Verify the current vanilla syntax before implementation and run static checks.
-
-Explicit invocation is optional. Compatible agents can select a skill when the
-request matches its `SKILL.md` description; naming the skill is useful when you
-want a specific review or diagnosis workflow.
+You can let compatible agents auto-select a skill from your request, or name one explicitly whenever you want a structured audit or diagnostic run.
 
 ## Core Workflows
 
-All three skills follow [shared workflow boundaries](skills/hoi4-pdx-modding/references/workflow-boundaries.md):
-reuse valid evidence, recheck only affected paths after local changes, and update
-documentation when its contract changes. Short-test budgets include preparation
-and cleanup; choose a relevant session, test save, or new game. A user stop
-instruction ends further work with a concise handoff.
+All three skills follow [shared workflow boundaries](skills/hoi4-pdx-modding/references/workflow-boundaries.md): reuse valid evidence, recheck only affected paths after local edits, update docs when real contracts change, keep short in-game test budgets inclusive of setup and cleanup, and stop promptly with a concise handoff whenever you say stop.
 
-### Improve an Existing Mod
+### 1. Improve an Existing Mod
 
-1. Read the project's technical guide, handoff notes, and relevant player-facing localisation.
-2. Map events, decisions, effects, triggers, variables, flags, localisation, GUI, and GFX across files.
-3. Separate confirmed defects, compatibility risks, performance problems, and design choices that require author approval.
-4. Present evidence and a staged plan before editing when approval is required.
-5. Apply only the approved scope. Scale static checks to the diff: inspect-only
-   for tiny edits, changed-path scripts for ordinary files, and relevant broader
-   checks for large or cross-file work. Avoid unnecessary validation runs and
-   state any remaining need for in-game evidence.
+1. Read the project's technical guide, handoff notes, and player-facing localisation to understand the intended design.
+2. Map real call chains across events, decisions, effects, triggers, variables, flags, localisation, GUI, and GFX.
+3. Separate confirmed defects, compatibility hazards, performance bottlenecks, and gameplay trade-offs that need author sign-off.
+4. Present evidence and a staged plan before editing whenever approval is required.
+5. Apply only the agreed scope, scale static verification to the size of the diff (read-only diff review for tiny tweaks, changed-file scripts for normal edits, broader checks for cross-file refactors), and state what still calls for an in-game look.
 
-### Diagnose Logs and Crashes
+### 2. Diagnose Logs and Crashes
 
-1. Group `error.log` messages by root cause and prioritize parser, scope, equipment, ideology, and localisation failures.
-2. Correlate timestamps, the active playset, and the player's last actions with actual code paths.
-3. Analyze Windows minidumps when needed, with explicit confidence levels and missing evidence.
-4. Require staged user consent before WinDbg, Ghidra, full user dumps, process attachment, or hardware data breakpoints.
+1. Group `error.log` by root cause, tackling parser, scope, equipment, ideology, and localisation failures first.
+2. Match timestamps, active playset, and the player's last actions to real code paths instead of blaming the final log line.
+3. Inspect Windows minidumps when warranted, reporting confidence levels alongside any missing evidence.
+4. Gate deeper native steps—WinDbg, Ghidra, full memory dumps, process attachment, and hardware data breakpoints—behind explicit staged consent.
 
-### Build New Content
+### 3. Build New Content
 
-1. Convert plain-language requirements into scope, state, resources, AI behavior, compatibility rules, and acceptance criteria.
-2. Verify syntax and tokens against the target installation, current vanilla consumers, and exact enabled dependencies.
-3. Build script, GFX, assets, and localisation from verified templates without leaving orphaned definitions.
-4. Check encoding, cross-file references, and affected comments/documentation in proportion to the change; follow authorization and budget limits when runtime evidence is needed.
+1. Turn plain-language ideas into clear scope, state ownership, assets, AI rules, compatibility expectations, and acceptance criteria.
+2. Check syntax and tokens directly against the target build's vanilla files, generated docs, and enabled dependencies.
+3. Assemble scripts, GFX, assets, and localisation from verified templates and kits with every entry point connected.
+4. Verify encoding, cross-file references, and affected docs in proportion to the change, and honor test authorization and time budgets whenever runtime proof is needed.
 
 ## Coverage
 
-- PDX syntax, scope chains, event targets, variables, and flag lifecycle
-- Events, decisions, focuses, ideas, characters, MIOs, equipment, technology, AI, and OOBs
-- `on_actions` hot paths, global scans, cadence, and event-driven alternatives
-- Localisation encoding, duplicate keys, colors, icons, formatted variables, scope functions, and multilingual templates
-- GUI/GFX registration, idea/decision/trait icons, texture paths, audio, and dependency assets
-- Loading-screen DDS constraints, named ace pilots, and custom operative traits, icons, and fixed portraits
-- Compatibility branches for vanilla and major total conversions, version migration, and save lifecycle risks
-- Gameplay loops, numerical balance, AI usability, feedback, counterplay, and player experience
-- Technical guides, handoff notes, readable comments, validation records, and release checks
-- `error.log`, crash dumps, WinDbg, and consent-based advanced native diagnosis
+- **Script & state**: PDX syntax, scope chains, event targets, variables, and flag lifecycles
+- **Core gameplay**: events, decisions, focuses, ideas, characters, MIOs, equipment, technology, AI, and OOBs
+- **Performance**: high-frequency `on_actions`, global scans, cadence design, and event-driven or batched updates
+- **Localisation**: UTF-8 BOM encoding, duplicate keys, color/icon codes, formatted variables, scope functions, and multilingual templates
+- **UI & media**: GUI/GFX registration, idea/decision/trait icons, texture paths, audio, loading-screen DDS rules, named aces, and custom operative traits/portraits
+- **Compatibility & migration**: vanilla and total-conversion compatibility branches, major-version upgrades, and save-safe state evolution
+- **Player experience & docs**: gameplay loops, balance, AI usability, feedback, counterplay, technical guides, readable comments, and release checklists
+- **Native diagnostics**: `error.log` triage, crash dumps, WinDbg, and consent-gated deeper native analysis
 
-## Engineering Features
+## Engineering Highlights
 
-- A real-dialogue regression set in `evals/real-dialogue-regression.json`.
-  Prompts are anonymized, source prompts are represented only by SHA-256
-  fingerprints, and private session or project identifiers are not published.
-- Mod Doctor 2 can resolve the active playset, focus on Git changes, compare a
-  prior baseline, apply expiring suppressions, separate confirmed findings from
-  heuristic leads, and emit Text, JSON, Markdown, or SARIF.
-- Multi-file kits cover established content chains plus technology-to-equipment
-  unlocks and game-rule startup initialization.
-- `assets/template-manifest.json` records the target build, source consumers,
-  verification dates, and required checks. Its validator ensures every template
-  and kit file is registered exactly once.
-- The media workflow inventories DDS metadata, explicit references, and measured
-  conversion candidates. Hashing is opt-in for a specific duplicate or content
-  comparison; loading screens, mipmaps, cubemaps, and model materials retain
-  their consumer-specific requirements.
+- **Real-dialogue regression suite**: `evals/real-dialogue-regression.json` captures anonymized real modding tasks traced via SHA-256 prompt fingerprints, keeping private chats and project identifiers out of the repo.
+- **Mod Doctor 2**: resolves the active playset, scopes audits to Git changes, diffs against prior baselines, honors expiring suppression rules, separates confirmed defects from heuristic leads, and outputs Text, JSON, Markdown, or SARIF.
+- **Multi-file kits**: cover established content chains plus technology-to-equipment unlocks and game-rule startup initialization.
+- **Template manifest**: `assets/template-manifest.json` tracks target build, vanilla source consumers, verification dates, and required checks, enforced by a manifest validator.
+- **Consumer-aware media audits**: inspect DDS metadata, explicit references, and real conversion candidates, computing hashes only for explicit duplicate or content checks while respecting loading-screen, mipmap, cubemap, and model-material constraints.
 
-## Boundaries
+## Evidence and Safety Principles
 
-The skills instruct the agent to verify claims against the target game version,
-installed documentation, actual enabled dependencies, and player-facing
-localisation. Wikis and community tutorials are useful leads, but they do not
-replace current-version evidence.
+- **Verify against the live build**: skills direct the agent to check the target installation's vanilla files, shipped documentation, enabled dependencies, and player-facing text. Wikis and community guides are helpful starting points; your installed build has the final say.
+- **Pair static checks with runtime checks**: static checks catch syntax, references, encoding, and wiring; GUI rendering, MIO interactions, complex scopes, and cross-mod compatibility belong in an in-game run.
+- **Explicit consent for elevated actions**: launching Steam, controlling game windows, installing diagnostic tools, reverse engineering, attaching to processes, or capturing full memory always starts with a clear explanation of purpose, scope, and risk—and waits for your go-ahead.
 
-Static checks do not prove that GUI, MIO, event scope, or compatibility behavior
-works at runtime. Starting Steam, controlling the game, installing diagnostic
-tools, reverse engineering, attaching to a process, or collecting full memory
-requires a clear explanation of purpose and scope plus the user's consent.
+## License and Acknowledgements
 
-## Other Clients
+Licensed under [CC BY-SA 4.0](LICENSE). Keep attribution and [ATTRIBUTION.md](ATTRIBUTION.md), note your changes, and share adaptations under the same license. This license covers the published skills in this repository; Paradox Interactive, other mods, and third-party assets remain under their respective rights holders.
 
-- Cursor: `~/.cursor/skills/`, `~/.agents/skills/`, or a project's
-  `.cursor/skills/` or `.agents/skills/`; type `/` to search for and invoke one.
-- Claude Code: `~/.claude/skills/` or a project's `.claude/skills/`.
-- Gemini CLI: `~/.gemini/skills/`, `~/.agents/skills/`, or a supported workspace path.
-- Clients that accept uploaded custom skills: install all three skill ZIP files
-  from the same release. Single-skill installation is for advanced users who
-  explicitly accept the missing sibling workflows.
+Acknowledgements:
+- [Millennium Dawn](https://github.com/MillenniumDawn/Millennium-Dawn), whose open development docs shaped compatibility practices, project structure, and advanced workflows.
+- Qiuqi Library (秋起图书馆, Steam Workshop item `3445449478`), whose community tutorials and tooling references enriched the verification and reference system.
 
-Discovery paths can change. Check the current documentation for the client you
-are installing into.
-
-## License
-
-This project is licensed under [CC BY-SA 4.0](LICENSE). Keep attribution and
-[ATTRIBUTION.md](ATTRIBUTION.md), identify modifications, and distribute adapted
-material under the same license. This license does not grant rights to Paradox
-Interactive, third-party mods, or third-party assets.
-
-## Acknowledgements
-
-- [Millennium Dawn](https://github.com/MillenniumDawn/Millennium-Dawn), whose public development material informed compatibility, project structure, and advanced workflows.
-- Qiuqi Library (秋起图书馆, Steam Workshop item `3445449478`), whose community tutorials and tool references helped improve the verification system.
-
-See [ATTRIBUTION.md](ATTRIBUTION.md) for detailed provenance and adaptation notes.
+Full provenance and adaptation notes appear in [ATTRIBUTION.md](ATTRIBUTION.md).

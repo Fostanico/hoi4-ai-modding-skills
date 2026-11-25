@@ -2,165 +2,163 @@
 
 [简体中文](hoi4-modding-guide.zh-CN.md) | English | [日本語](hoi4-modding-guide.ja.md) | [Русский](hoi4-modding-guide.ru.md) | [한국어](hoi4-modding-guide.ko.md)
 
-This guide is for authors and maintainers developing Hearts of Iron IV mods with AI. Describe gameplay in ordinary language or specify scripts, interfaces, and defects directly. The workflow applies to historical, alternate-history, character-focused, gameplay, and overhaul mods without depending on one fictional setting, country, or author's computer paths.
+A practical playbook for authors and maintainers building *Hearts of Iron IV* mods with AI. Describe gameplay in plain language or point straight at scripts, interfaces, and bugs. The practices below fit historical tweaks, alternate-history overhauls, character mods, and gameplay expansions alike, free of any single setting or machine-specific paths.
 
-These are reusable development methods. Examples describe requests; they do not certify behavior in your game build, dependency combination, or save. Internal technical references for the three skills are mostly in English. This user guide has complete editions in five languages.
+Treat the sample requests as patterns you can adapt to your own build, dependency stack, and saves. The internal technical references for the three skills are primarily in English, while this user handbook ships in five complete languages.
 
-## 1. Getting started
+## 1. Set Up Your Workbench
 
-Install all three skills together and preserve their relative directories. See the [installation and sharing instructions](../../../../docs/INSTALLATION.md) for client setup. Open the target mod and let the AI read project guidance and relevant code. A small change does not require scanning the entire project.
+Install all three skills together and keep their relative folder layout intact; see [Installation and Sharing](../../../../docs/INSTALLATION.md) for per-client paths. Open your target mod and let the AI read the project guide plus the directly relevant files—small edits start locally rather than scanning the entire repo.
 
-| Task | Primary skill | Expected result |
-|---|---|---|
-| Turn an idea into new content or a complete system | `hoi4-content-builder` | An accessible, usable feature with scripts, assets, and text |
-| Edit scripts, localisation, interfaces, or compatibility logic | `hoi4-pdx-modding` | An implementation consistent with the target build and project |
-| Diagnose defects, review performance, or investigate migration issues | `hoi4-review-debug` | Evidence-based findings and repairs within the agreed scope |
+| What you want to do | Primary skill | Expected deliverable |
+| --- | --- | --- |
+| Turn an idea into a new feature or system | `hoi4-content-builder` | A playable, reachable feature with wired scripts, assets, and text |
+| Edit scripts, localisation, UI, or compatibility code | `hoi4-pdx-modding` | Clean changes aligned with the target build and project conventions |
+| Audit defects, tune performance, or migrate versions | `hoi4-review-debug` | Evidence-backed root causes and tightly scoped repairs |
 
-Compatible clients may select a skill automatically; you can also name it explicitly. Skills supply methods and references. File access, commands, network access, and game control depend on the client. The optional local MCP tools provide read-only evidence; they do not launch the game or modify the mod.
+Compatible clients can pick the right skill automatically, or you can name one directly when you want a fixed workflow. Skills supply the engineering discipline and references; file edits, shell commands, network access, and live game control come from your client and any enabled MCP server (`hoi4_local` for read-only local evidence, and optional `hoi4_desktop` when you want authorized in-game testing).
 
-A first request might be:
+A solid first prompt looks like this:
 
-> Add an “Industrial Assistance” decision to the current mod. The player pays 50 political power for a production bonus lasting 30 days. It cannot be bought again while active, but becomes available after expiry. The AI should consider it only during war. Preserve existing dependencies and cover the project's supported languages. Read relevant project guidance and vanilla examples, implement the feature, and perform necessary static checks. Do not launch the game or commit yet.
+> Add an “Industrial Assistance” decision to the current mod: the player spends 50 political power for a 30-day production bonus. Hide repeat purchases while active, and unlock it again once it expires. The AI should consider it only at war. Preserve existing dependencies and cover every language the project supports. Read the relevant project docs and vanilla examples first, implement the feature, and run static checks on changed files. Hold off on launching the game or committing.
 
-The numbers and restrictions are examples. Replace them with your design; the AI should determine the appropriate implementation.
+Swap the numbers and rules for your own design; let the AI verify the exact PDX implementation against your installed build.
 
-## 2. Describe behavior that can be checked
+## 2. Describe Checkable Behavior
 
-A short request is usually sufficient. For larger work, add the information below where it is not already discoverable in the project.
+A few clear sentences cover most requests. For larger systems, fill in any details the AI cannot infer from the codebase:
 
-| Information | What to establish |
-|---|---|
-| Goal | New mod, existing feature change, feasibility study, or read-only review |
-| Environment | Project location, target game build, relevant DLCs, dependencies, and actual load order |
-| Player path | Entry point, visible content, actions and outcomes, and exit path |
-| Rules | Costs, conditions, effects, duration, failure, cancellation, and repeated actions |
-| State scope | Owning country or object; behavior on closing, loading a save, and starting a campaign |
-| AI and compatibility | Whether and when AI uses it; requirements for existing saves or multiplayer |
-| Assets and languages | Available originals, permission to use them, visual requirements, and supported languages |
-| Work boundaries | Files that may change, game-testing permission, and commit or publication scope |
+| Dimension | Helpful details to specify |
+| --- | --- |
+| Goal | New mod, existing-feature edit, feasibility study, or read-only review |
+| Environment | Mod path, target game build, relevant DLCs, dependencies, and actual load order |
+| Player journey | Entry point, what appears on screen, interactions and outcomes, exit path |
+| Rules | Costs, prerequisites, effects, duration, plus failure, cancellation, and repeat behavior |
+| State ownership | Owning country or entity; what happens on window close, save reload, or a new campaign |
+| AI & compatibility | When AI uses it; existing-save or multiplayer expectations |
+| Media & languages | Source originals, usage permissions, visual direction, and target languages |
+| Working boundaries | Editable scope, permission to launch HOI4, and commit/release expectations |
 
-State boundaries directly: “analyze first, do not implement,” “fix only this issue,” or “do not add more tests.” When asked to stop, the AI should stop starting checks and repairs and report the current state. “Finish the current step” means the one bounded operation already in progress.
+Be blunt about boundaries: “analyze first, hold off on edits,” “fix only this bug,” or “stop adding tests.” When you ask the AI to stop, it halts new checks and repairs immediately and hands off the current state. “Finish the current step” refers solely to the single bounded action already underway.
 
-## 3. Establish the project and sources
+## 3. Ground Yourself in the Project and Target Build
 
-For existing work, read technical guidance, affected player-facing text, and callers first. Variable names do not explain gameplay, and filenames do not establish a feature's actual purpose.
+Before touching existing code, read the technical guide, the player-facing text, and the real call chain. Player prose and actual callers tell you what a feature truly does far more reliably than guessing from filenames or variable names.
 
-Verify syntax and interfaces against the target installation: current vanilla files and shipped documentation, skill templates and kits, and the dependencies actually enabled. Correct a template when it conflicts with current consumer evidence. Wikis and community material can provide leads, but old examples must not override the target build's behavior.
+Verify syntax and interfaces directly against your target installation: vanilla files, shipped engine docs, verified skill templates, and the exact enabled dependencies. Whenever a template disagrees with live vanilla consumers, trust the live consumer and update the template. Wikis and community posts are handy pointers; confirm every detail against your installed build before shipping.
 
-Inspect relevant `descriptor.mod` settings, `replace_path`, load order, and competing definitions. A compatibility patch needs the exact dependency version and its real identifiers. State what remains unverified when installation files or runtime evidence are unavailable.
+Check `descriptor.mod`, `replace_path`, load order, and competing definitions touching your change. Write compatibility patches against the real dependency version and its actual identifiers—never guess internal IDs from translated UI text. If installation files or runtime access are missing, note clearly what stays unverified.
 
-## 4. Complete one working feature chain
+## 4. Wire One Complete End-to-End Slice First
 
-Build the smallest feature that works from entry to outcome, then expand its content. A decision might require:
+Get the smallest playable slice working from entry to feedback before scaling content volume. For a decision, that complete chain looks like:
 
 ```text
-Category and entry → visibility/availability → cost and effect → state/modifier → feedback
-                                         ↘ localisation, icon, AI usage rules
+Category & entry → visibility/availability → cost & effect → state/modifier → player feedback
+                                         ↘ localisation, icon & AI rules
 ```
 
-Events, focuses, technologies, equipment, MIOs, characters, GUI, and music each have their own consumers and resource chains. A definition file alone is incomplete if its entry point, icon, text, or actual effect is missing.
+Events, focuses, technologies, equipment, MIOs, characters, GUI, and music each have their own registration and consumer chain. A feature is ready when its entry point, icon, text, and effect all connect cleanly.
 
-When changing existing behavior, trace the real call chain through `ROOT`, `FROM`, country, state, character, and other scopes. Identify whose state each effect reads or writes. Add guards where a caller can actually be absent or the save lifecycle requires them; silent fallbacks can hide broken connections.
+When modifying existing code, trace `ROOT`, `FROM`, country, state, and character scopes along the real call path so you know whose state every effect reads or mutates. Add guards only where a caller can genuinely be absent or save migration demands them; let broken wiring surface cleanly instead of masking it behind silent fallbacks.
 
-Complex systems can start with an offline rules model and a small native example, but the example must retain the mechanisms the design needs. A multi-entity system should model creation, lookup, deletion, and slot reuse; one hardcoded object cannot establish the full design. For feasibility-only requests, deliver limits, options, and a validation path, then wait for implementation instructions.
+For ambitious systems, an offline rules model or tiny native prototype is a great first step—just keep the core mechanics your real design relies on. Multi-entity systems should exercise creation, lookup, deletion, and slot reuse rather than a single hardcoded object. When you ask for feasibility only, expect limits, trade-offs, and a concrete validation plan before any code is written.
 
-## 5. Design state, saves, and time
+## 5. Design State, Saves, and Time Deliberately
 
-Every persistent variable, flag, array, or event target needs an owner, purpose, and lifetime. Answer practical questions before selecting a data structure:
+Give every persistent variable, flag, array, or event target a clear owner, purpose, and lifetime. Answer four questions before choosing a structure:
 
-- When does initialization occur? Can new content initialize in an existing save? Can repeated initialization grant rewards again?
-- Does reopening a window continue progress, reset it, or only refresh the display? Are failure, cancellation, and restart separate paths?
-- What survives loading a save, switching countries, or losing the host? Which multiplayer state is shared, and which belongs to individual players?
-- What defines “first completion”? “Once per game and difficulty in each save” requires separate game and difficulty records, rather than one global first-win flag.
+- **Initialization**: When does setup run? Can existing saves initialize the new feature safely without re-granting one-time rewards?
+- **Re-entry & branches**: Does reopening a window resume progress, reset it, or simply refresh the display? Do failure, cancellation, and restart follow distinct paths?
+- **Persistence & multiplayer**: What survives reloading a save, tag switching, or losing a host? Which state is global and which belongs per player?
+- **Granularity of “first time”**: “Once per mode and difficulty in each save” calls for separate mode and difficulty tracking rather than a single global flag.
 
-Preserve persistent IDs and existing save state. Renaming them or changing their meaning needs a migration design. Renaming a file usually does not migrate identifiers stored in saves.
+Keep persistent save identifiers stable; changing an ID or its meaning requires an explicit migration path. Saves bind to scripted IDs, so renaming a file leaves save data untouched.
 
-Separate animation time from gameplay time. Days, hours, clicks, and explicit logical steps have different semantics; account for pause and game speed. Use state machines, event-driven updates, or bounded batches for the complexity actually needed. Ordinary features rarely need a general-purpose interpreter.
+Separate UI animation clocks from gameplay clocks. Game days, hours, clicks, and explicit logical steps each behave differently under pause and speed changes. Reach for state machines, event-driven updates, or bounded batches when the mechanic genuinely calls for them; straightforward features belong in straightforward script.
 
-## 6. GUI, visual effects, and assets
+## 6. GUI, Shaders, and Assets
 
-Specify layout, clickable areas, refresh conditions, closing behavior, and rule feedback together. Inspect affected long text, target resolution, scaling, occlusion, layer order, and reopening behavior.
+Pair visual layout with hitboxes, refresh rules, close paths, and gameplay feedback. Inspect long translations, target resolutions, UI scaling, z-order occlusion, and close-and-reopen behavior.
 
-A shader does not automatically receive script state, exact pointer coordinates, or a clock that resets whenever a window opens. Verify tilted visuals and their hitboxes, decorative globes and playable maps, and loops and one-time reveals as separate interface questions. Browser previews and standalone shader compilation do not establish native parsing or interaction.
+Before relying on a GUI shader for logic, check what uniforms and inputs the engine actually passes—script state, cursor coordinates, and per-open clocks each need verification against the engine interface. Treat tilted art versus clickable bounds, decorative globes versus interactive maps, and looping versus one-shot animations as distinct interface questions. Browser previews and offline shader compiles speed up visual iteration, while native parsing and click behavior are verified inside HOI4.
 
-Process media from original sources and retain provenance and usage permissions. Confirm dimensions, format, alpha, mipmaps, cropping, and padding against the actual consumer; one image's settings are not universal. Lossy DDS re-encoding can damage line art. A smaller file is not necessarily better for image quality or GPU memory.
+Always process media from clean originals and track provenance and rights. Match dimensions, pixel format, alpha, mipmaps, cropping, and padding to the exact consumer rather than applying one preset everywhere. Repeated lossy DDS compression degrades crisp line art; choose formats for visual fidelity, VRAM budget, and consumer requirements rather than chasing the smallest file size.
 
-For frame animations, specify frame count, playback rate, looping, and atlas layout; consider texture limits and memory for large images. For music, distinguish main-menu and in-game-player registration, formats, and triggers. When renaming or renumbering assets, inspect explicit references and engine naming conventions while preserving other assets' contents.
+Define frame count, frame rate, looping, and atlas layout up front for animated textures, watching GPU texture limits on large sheets. For music, keep main-menu and in-game-player registration, formats, and triggers distinct. When renaming or renumbering assets, check both explicit references and engine naming conventions without disturbing unrelated files.
 
-Keep originals, extracted frames, previews, and temporary conversions in the project's agreed asset or build locations. Release packages should contain runtime requirements. Preserving originals does not mean committing every intermediate file.
+Store originals, extracted frames, previews, and scratch conversions in agreed build or asset folders, and ship only runtime files in release packages.
 
-## 7. Plan localisation with the feature
+## 7. Build Localisation Alongside the Feature
 
-Every supported language should cover the same features and keys. Establish terminology, names, and gameplay concepts before translating. Preserve identifiers, variables, icon markers, color codes, and dynamic placeholders. Keep authoring instructions out of player-facing prose.
+Keep every supported language aligned on features and keys. Lock down terminology, character names, and gameplay terms before translating, preserving all IDs, variables, icon tags, color codes, and dynamic placeholders—and keep authoring notes out of player prose.
 
-Check language filenames, headers, encoding, and indentation, following project conventions and skill templates for key syntax. Text existing in a file does not prove that the intended interface consumes it: names, descriptions, generated modifier text, and custom tooltips can work differently.
+Check filenames, language headers, UTF-8 BOM encoding, indentation, and key syntax against project conventions and skill templates. Once strings are written, confirm the target UI actually reads them: titles, descriptions, engine-generated modifier lines, and custom tooltips often pull from different keys.
 
-Check wrapping, button width, and glyph rendering for new or changed long strings. Translations must communicate the same costs, conditions, failures, and rewards. Update language selectors, user guides, and public descriptions together so no language is left with headings only or outdated instructions.
+Inspect wrapping, button widths, and font glyph coverage on new or longer text. Make sure costs, prerequisites, failures, and rewards convey the exact same rules in every language, and update language switchers, guides, and public descriptions together.
 
-## 8. Performance and file consolidation
+## 8. Performance Tuning and File Consolidation
 
-Find actual costs before choosing an optimization. Examine frequent `on_actions`, global scans, nested loops, repeatedly evaluated display conditions, and large animated textures. Event-driven updates or caching may help when results change only with state; define cache invalidation explicitly.
+Measure or locate real bottlenecks before optimizing: high-frequency `on_actions`, global scans, nested loops, repeatedly evaluated visibility triggers, and oversized animated textures. Replace polling with event-driven updates or caching wherever outputs change only on state transitions, defining explicit invalidation rules.
 
-Do not silently turn a daily mechanic into a weekly one to reduce execution frequency. Batched work needs progress tracking and limits while preserving intended outcomes and feedback.
+Preserve intended gameplay cadence when trimming overhead—never quietly turn a daily mechanic into a weekly one just to lower tick counts. Batched work should track progress, cap per-tick volume, and keep player feedback faithful to the design.
 
-Consolidate fragments by feature ownership when they share parser directories, loading rules, and lifecycles. Retain splits justified by load order, compatibility, generated ownership, or maintenance boundaries. Fewer files primarily improve maintenance and startup file access; they do not establish sustained FPS gains.
+Consolidate tiny fragments by feature ownership when they share parser folders, loading rules, and lifecycles, while preserving splits needed for load order, compatibility, generators, or ownership boundaries. Fewer files chiefly improve maintainability and startup I/O; treat runtime FPS gains as something to confirm by profiling.
 
-During merges, compare definitions, namespaces, order, duplicate keys, and resource references. Identical keys with different values require a semantic decision. Update generators so the next build does not recreate old paths. Outputs should be reproducible, and manual corrections should reach their authoritative sources.
+When merging files, verify definitions, namespaces, order, duplicate keys, and asset links, resolving same-key/different-value clashes by intent. Update any generator scripts alongside the merge so future builds stay reproducible and edits always flow from authoritative sources.
 
-## 9. Diagnose from reproduction and evidence
+## 9. Diagnose from Reproduction and Solid Evidence
 
-Record the build, enabled mods, action taken, expected behavior, and actual result. Read logs for the relevant time window, group repeated messages by cause, and prioritize parse or reference errors that can prevent later content from loading. The last log entry, stale logs after exit, and a single guess do not establish a crash cause.
+Anchor every bug report in five facts: game build, enabled mods, action taken, expected outcome, and actual behavior. Inspect logs from the matching run window, group repeated messages by root cause, and clear parse or reference errors that block downstream loading first. Trace the full trail rather than pinning blame on the final log line, a stale log from an earlier run, or a quick guess.
 
-Trace cross-file problems through definitions and consumers, then examine scopes, state, dependencies, and assets. Separate definite defects, heuristic leads, design preferences, and unverified hypotheses. Keep repairs focused on the identified cause.
+Follow cross-file failures from definition to consumer, then check scopes, state, dependencies, and assets. Keep confirmed defects, heuristic leads, design preferences, and open hypotheses clearly separated, focusing edits on verified root causes.
 
-Use native debugging or dump analysis when the problem needs it, tools are available, and authorization covers the operation; protect private data. Routine log investigation should not automatically escalate to process attachment, tool installation, or full-memory capture.
+Reserve native debugging and dump analysis for problems that genuinely call for them—when tools are available and your consent covers that scope—handling private data with care. Routine `error.log` work stays lightweight unless you ask to go deeper.
 
-## 10. Validate with sufficient evidence
+## 10. Right-Sized Verification
 
-| Change or evidence | Appropriate check | What it does not establish |
-|---|---|---|
-| Small prose, comment, or known-template edit | Read the diff and preserve formatting and placeholders | That all gameplay was tested |
-| Scripts, references, encoding, or asset wiring | Affected-file static checks and reference tracing | Correct native scope, timing, or interface behavior |
-| Offline model, web, or image preview | Rules, layout, pixels, or media-format checks | Native input, rendering, or save behavior |
-| In-game operation | Observation in a specified build, playset, and scenario | Coverage of other versions, saves, multiplayer, and every branch |
+| Change or evidence | Right-sized check | Remaining blind spots |
+| --- | --- | --- |
+| Small prose, comment, or familiar-template tweak | Read the diff; verify formatting and placeholders | Runtime logic untouched |
+| Script, reference, encoding, or asset wiring | Changed-file static checks and reference tracing | In-game scope, timing, and UI interaction |
+| Offline model, web mockup, or static image preview | Rules math, layout, pixels, and media format | Native input, shader rendering, and save behavior |
+| In-game run | Direct observation on a named build, playset, and scenario | Other builds, existing saves, multiplayer, and unvisited branches |
 
-Choose the smallest sufficient check for the failure risk and reuse evidence that still applies. A small task usually needs 0–3 relevant observations. If native testing is necessary, use the shortest authorized route through an existing session, test save, or new campaign, including preparation and cleanup in the time budget. After a repair, rerun only the necessary targeted check.
+Match verification depth to failure risk and reuse still-valid evidence. Small tasks typically need 0–3 targeted checks. When an in-game launch is warranted, take the shortest authorized path—an open session, a test save, or a fresh bookmark—and budget setup and cleanup inside the window. After a fix, recheck only what changed.
 
-A game launch should answer something static checks cannot. If native control is unavailable or testing is declined, report “runtime unverified” and provide a useful manual entry point when needed. Old testing records do not prove new changes.
+Launch the game to answer questions static checks leave open. If desktop control is unavailable or you prefer to skip live runs, mark runtime behavior unverified and keep a concise manual check path handy. Always pair new edits with fresh evidence.
 
-## 11. Documentation, Git, and delivery
+## 11. Documentation, Git, and Delivery
 
-Technical guidance records current structure, entry points, state, compatibility, and build contracts. A development log records changes and evidence. Small edits can update existing documentation without creating another document set.
+- **Keep docs sharp and proportionate**: technical guides hold current architecture, entry points, state, compatibility, and build contracts; development logs capture what changed and how it was verified. Small changes belong in existing sections rather than brand-new documents.
+- **Keep Git actions clean and explicit**: inspect working tree and staged diffs before committing, preserve unrelated changes from other work, and deliver asset renames, generators, and references together. Committing, pushing, cutting a release, and uploading to Workshop are separate steps executed only on your say-so against the configured remote and branch.
+- **Hand off transparently**: summarize what shipped, what was verified, what remains unverified, and current Git status. Keep public docs generic with placeholder paths—never leak private directories, bespoke project characters, or unverifiable private test claims—and retain provenance and licenses in place.
 
-Inspect the worktree and staged diff before committing, preserving other contributors' unfinished changes. Deliver asset renames, generators, and references together. Committing, pushing, creating a release, and uploading to Workshop are separate actions; follow the user's request and existing authorization, using the configured remote and branch.
+## 12. Ready-to-Adapt Prompt Templates
 
-Report what is complete, the validation scope, unverified behavior, and Git status. Public documentation should use generic examples and placeholder paths, without private directories, project characters, bespoke rules, or unverifiable individual acceptance claims. Keep provenance and licenses in appropriate locations.
+**Feasibility study only**
 
-## 12. Requests you can adapt
+> Assess whether this mod can support a management panel with saved progress. Outline input interfaces, state ownership, reload and pause behavior, performance limits, and the smallest validation plan. Share the analysis first—hold off on editing files or launching the game.
 
-**Feasibility only**
+**Fix a concrete bug**
 
-> Assess whether this mod can support a management panel with saved progress. Explain input interfaces, state ownership, loading and pause behavior, performance limits, and the smallest validation plan. Do not edit files or launch the game yet.
+> This event grants its reward again the second time it opens. Trace the entry point, player-facing text, and state lifecycle, then prevent repeat claims while preserving progress in existing saves. Verify only the affected branches and leave other reward numbers untouched.
 
-**Repair existing behavior**
+**Consolidate fragmented files**
 
-> This event grants its reward again when opened a second time. Trace the entry point, player-facing text, and state lifecycle. Fix repeat claims while preserving progress in existing saves. Check only related branches and leave other reward values unchanged.
+> Consolidate the recently added fragment files by feature while keeping IDs, load order, and compatibility boundaries intact. Update generators and references, provide a before/after path map with content-equivalence checks, and keep gameplay identical.
 
-**Consolidate files**
+**Swap art and sync translations**
 
-> Consolidate recently added fragments by feature, preserving IDs, load order, and compatibility boundaries. Update generators and references. Provide a before/after path mapping and necessary content-equivalence checks without changing gameplay.
+> Replace this UI background with the provided original, scaling proportionally to the consumer's exact dimensions, matching the existing padding style, and keeping the original untouched. Update descriptions across every supported language, check the longest strings and new paths, and summarize output formats and checks.
 
-**Replace media and translate**
+**Prepare a clean delivery**
 
-> Replace this interface background with the supplied original. Fit it proportionally to the existing consumer's dimensions, use the design's padding method, and preserve the original. Update instructions in all supported languages and check the longest text and new asset paths. Report the output format and checks.
+> Write release notes for the completed fixes, clearly separating tested behavior from unverified areas. Inspect staged changes, then commit and push to this project's target branch while leaving unrelated local edits untouched. Skip publishing a release or Workshop upload this round.
 
-**Prepare delivery**
+## 13. Technical References on Demand
 
-> Summarize the completed fixes in release notes, distinguishing tested behavior from unverified areas. Inspect the staged scope, then commit and push to this project's configured target branch while preserving unrelated local changes. Do not publish a release or upload to Workshop in this task.
-
-## 13. Technical references on demand
-
-These references are for implementation. Select those relevant to the current problem instead of loading all of them.
+Pull in only the references relevant to the task at hand:
 
 - [Build a feature](../../../hoi4-content-builder/workflows/build-feature.md) and [template catalog](../../../hoi4-content-builder/references/template-catalog.md)
 - [Player-facing meaning and existing code](../../references/semantic-intent-audit.md), [state and algorithms](../../references/algorithm-engineering.md)
