@@ -28,7 +28,7 @@
 2. **推荐无边框全屏（Borderless）或窗口化（Windowed）**：部分显卡驱动在独占全屏下会拦截 GDI/PrintWindow 截屏。
 3. **权限一致**：以普通用户权限运行 `hoi4.exe`（不要单独勾选管理员运行），确保同权限的客户端能正常发送键鼠输入。
 
-## 暴露的工具（10 项）
+## 暴露的工具（11 项）
 
 | 工具 | 性质 | 用途 |
 | --- | --- | --- |
@@ -40,7 +40,8 @@
 | `scroll_hoi4_window` | 交互 | 在指定坐标滚动滚轮（地图缩放、决议/国策列表滚动） |
 | `send_hoi4_keys` | 交互 | 发送 DirectX 硬件扫描码按键或组合键（屏蔽 `Alt+Tab` / `Alt+F4`） |
 | `type_hoi4_text` | 交互 | 以输入法免疫的 Unicode 直注方式向目标窗口输入短文本（上限 500 字符） |
-| `run_hoi4_console_command` | 交互 | **仅限 `hoi4.exe`**：自动开启控制台、输入单行指令、回车，并可选关闭控制台与截屏 |
+| `lookup_hoi4_console_commands` | 只读 | 在执行控制台指令前按命令名、别名、分类或中英文意图实时查表（涵盖 1.20.0 全部 458 条指令/变量、参数示例与发行版可用性） |
+| `run_hoi4_console_command` | 交互 | **仅限 `hoi4.exe`**：自动开启控制台、输入单行指令、回车，并可选关闭控制台与截屏；附带语法误用预警（如 `effect` vs `eval_effect`、开发版限定指令） |
 | `launch_hoi4_steam` | 交互 | 经用户明确授权后打开 `steam://rungameid/394360`（需传 `confirm_user_authorized: true`） |
 
 ## 客户端接入示例
@@ -49,7 +50,7 @@
 
 ### 1. Google Antigravity（推荐做成独立可开关插件）
 
-在 `~/.gemini/config/plugins/hoi4-desktop-control/` 中放置 `plugin.json`、`mcp_config.json` 与 `mcp-server/hoi4_desktop_mcp.py`，并在 `mcp_config.json` 中写入：
+在 `~/.gemini/config/plugins/hoi4-desktop-control/` 中放置 `plugin.json`、`mcp_config.json` 与 `mcp-server/` 下的 `hoi4_desktop_mcp.py`、`hoi4_console_catalog.py`、`hoi4_console_commands.json`，并在 `mcp_config.json` 中写入：
 
 ```json
 {
@@ -104,4 +105,4 @@ Codex 桌面版已内置原生 Computer Use，默认插件清单 `.mcp.json` 仅
 python scripts/test-desktop-mcp-server.py
 ```
 
-测试脚本会完整校验进程白名单拦截、坐标越界拒绝、纯 Python PNG 编解码往返、空值参数容错、JSON-RPC 握手、10 项工具清单以及未授权 `launch_hoi4_steam` 拒绝，全程不启动 Steam、不触碰桌面窗口。
+测试脚本会完整校验进程白名单拦截、坐标越界拒绝、纯 Python PNG 编解码往返、空值参数容错、控制台命令查表与误用预警、JSON-RPC 握手、11 项工具清单以及未授权 `launch_hoi4_steam` 拒绝，全程不启动 Steam、不触碰桌面窗口。

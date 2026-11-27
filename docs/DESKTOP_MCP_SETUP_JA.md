@@ -28,7 +28,7 @@
 2. **ボーダレスフルスクリーンまたはウィンドウモード推奨**：排他フルスクリーンでは一部ドライバが GDI / `PrintWindow` キャプチャを遮断します。
 3. **権限レベルの一致**：`hoi4.exe` は通常ユーザー権限で起動してください（管理者実行すると一般権限クライアントからの `SendInput` が届きません）。
 
-## 提供ツール（10 種）
+## 提供ツール（11 種）
 
 | ツール | 種別 | 用途 |
 | --- | --- | --- |
@@ -40,7 +40,8 @@
 | `scroll_hoi4_window` | 対話操作 | 指定座標でマウスホイールを回転（ズーム・ディシジョン／国家方針一覧スクロール） |
 | `send_hoi4_keys` | 対話操作 | DirectX ハードウェアスキャンコードでキー・ショートカットを送信（`Alt+Tab` / `Alt+F4` 禁止） |
 | `type_hoi4_text` | 対話操作 | IME を回避する Unicode 直注入で短文を入力（上限 500 文字） |
-| `run_hoi4_console_command` | 対話操作 | **`hoi4.exe` 専用**：コンソール（`` ` ``）を開き 1 行コマンドを実行、任意で閉じて撮影 |
+| `lookup_hoi4_console_commands` | 読み取り専用 | 実行前に HOI4 1.20.0 の全 458 コンソールコマンド・変数を検索（構文・例・AI 影響・製品版可否） |
+| `run_hoi4_console_command` | 対話操作 | **`hoi4.exe` 専用**：コンソール（`` ` ``）を開き 1 行コマンドを実行、任意で閉じて撮影（構文ミスの注意喚起付き） |
 | `launch_hoi4_steam` | 対話操作 | ユーザーの明示承認後に `steam://rungameid/394360` を起動（`confirm_user_authorized: true` 必須） |
 
 ## クライアント設定例
@@ -49,7 +50,7 @@
 
 ### 1. Google Antigravity（推奨：独立トグルプラグイン化）
 
-`~/.gemini/config/plugins/hoi4-desktop-control/` に `plugin.json`、`mcp_config.json`、`mcp-server/hoi4_desktop_mcp.py` を置き、`mcp_config.json` に次を記載します。
+`~/.gemini/config/plugins/hoi4-desktop-control/` に `plugin.json`、`mcp_config.json`、`mcp-server/` の `hoi4_desktop_mcp.py`・`hoi4_console_catalog.py`・`hoi4_console_commands.json` を置き、`mcp_config.json` に次を記載します。
 
 ```json
 {
@@ -104,4 +105,4 @@ Codex デスクトップ版はネイティブの Computer Use を標準搭載し
 python scripts/test-desktop-mcp-server.py
 ```
 
-プロセスホワイトリスト拒否、範囲外座標の遮断、純 Python PNG 往復変換、`null` 引数フォールバック、JSON-RPC ハンドシェイク、全 10 ツール定義、未承認 `launch_hoi4_steam` 拒否を一括検証します。Steam の起動やデスクトップ操作は一切発生しません。
+プロセスホワイトリスト拒否、範囲外座標の遮断、純 Python PNG 往復変換、`null` 引数フォールバック、コンソール検索と構文警告、JSON-RPC ハンドシェイク、全 11 ツール定義、未承認 `launch_hoi4_steam` 拒否を一括検証します。Steam の起動やデスクトップ操作は一切発生しません。

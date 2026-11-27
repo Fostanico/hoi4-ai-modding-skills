@@ -11,7 +11,7 @@
 
 `hoi4_local` 的职责是快速、准确地递上本机事实；最终的语法与行为结论，仍由 AI 结合目标版本的原版消费者、启用依赖与实机观察来拍板。如果某个客户端暂不支持 MCP，仓库里的 PowerShell、Python、`rg` 与 Git 脚本同样能走通全流程。
 
-## 五项只读工具
+## 六项只读工具
 
 | 工具 | 做什么 | 使用提示 |
 | --- | --- | --- |
@@ -20,8 +20,9 @@
 | `validate_hoi4_changes` | 对指定路径或 Git 变更运行轻量 PDX 与本地化静态校验 | 聚焦变更文件且绝不改写源码；全仓深度体检请使用 Mod Doctor |
 | `read_hoi4_logs` | 有界读取 `error.log`、`game.log` 等日志尾部，并自动合并重复行 | 始终保留原日志不清空；分析前请先核对文件时间戳是否对应本轮运行 |
 | `inspect_hoi4_media` | 读取 DDS/PNG/JPEG/GIF 的尺寸与格式元数据，并在装有 `ffprobe` 时读取音视频流 | 提供客观文件参数；实际渲染要求需对照对应 GUI/GFX 消费者规范 |
+| `lookup_hoi4_console_commands` | 按命令名、别名、分类或中英文意图检索 HOI4 控制台指令与可调变量（内含 1.20.0 全部 458 项，并自动合并本机 `documentation/console_commands_documentation.md`） | 标注发行版可用性、AI 连带影响与常见踩坑（如内联脚本用 `eval_effect` 而非 `effect`），支持开发版限定命令预警 |
 
-五个工具**100% 只读**：绝不启动 Steam 或 HOI4，绝不切换 playset，绝不增删改任何 Mod 文件，也绝不干预游戏进程。需要与游戏窗口交互时，请使用下方完全独立的可选桌面控制服务器 `hoi4_desktop`。
+六个工具**100% 只读**：绝不启动 Steam 或 HOI4，绝不切换 playset，绝不增删改任何 Mod 文件，也绝不干预游戏进程。需要与游戏窗口交互时，请使用下方完全独立的可选桌面控制服务器 `hoi4_desktop`。
 
 ## 运行机制
 

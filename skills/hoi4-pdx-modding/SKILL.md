@@ -158,6 +158,10 @@ See [localisation-deep-dive.md](references/localisation-deep-dive.md#player-faci
   format conversion, deduplication, rollback, and size verification.
 - [vanilla-documentation-map.md](references/vanilla-documentation-map.md):
   choosing installed schema sources and debug commands.
+- [console-commands.md](references/console-commands.md): verified HOI4 1.20.0
+  console commands, tweakables, `eval_effect` vs `effect` pitfalls, and
+  retail-build availability (also searchable via `lookup_hoi4_console_commands`
+  in `hoi4_local` / `hoi4_desktop`).
 - [review-checklist.md](references/review-checklist.md): reviews, renames,
   regression checks, encoding, and handoff.
 - [development-documentation.md](references/development-documentation.md):

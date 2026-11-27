@@ -28,7 +28,7 @@
 2. **테두리 없는 창 모드(Borderless) 또는 창 모드(Windowed) 권장**: 단독 전체 화면에서는 일부 그래픽 드라이버가 GDI/`PrintWindow` 캡처를 막습니다.
 3. **권한 일치**: `hoi4.exe`를 일반 사용자 권한으로 실행하세요(관리자 권한으로 따로 실행하면 일반 권한 클라이언트의 `SendInput`이 전달되지 않습니다).
 
-## 제공 도구 (10종)
+## 제공 도구 (11종)
 
 | 도구 | 성격 | 용도 |
 | --- | --- | --- |
@@ -40,7 +40,8 @@
 | `scroll_hoi4_window` | 상호작용 | 지정 위치에서 마우스 휠 스크롤(지도 확대/축소, 결정·국가중점 목록 스크롤) |
 | `send_hoi4_keys` | 상호작용 | DirectX 하드웨어 스캔코드 키·조합키 전송(`Alt+Tab` / `Alt+F4` 차단) |
 | `type_hoi4_text` | 상호작용 | IME 간섭 없는 Unicode 직접 주입으로 짧은 텍스트 입력(최대 500자) |
-| `run_hoi4_console_command` | 상호작용 | **`hoi4.exe` 전용**: 콘솔(`` ` ``)을 열고 한 줄 명령 실행, 선택적으로 닫기 및 캡처 |
+| `lookup_hoi4_console_commands` | 읽기 전용 | 콘솔 실행 전 HOI4 1.20.0 명령·변수 458종 실시간 검색(문법, 예시, AI 영향, 정식 빌드 지원 여부) |
+| `run_hoi4_console_command` | 상호작용 | **`hoi4.exe` 전용**: 콘솔(`` ` ``)을 열고 한 줄 명령 실행, 선택적으로 닫기 및 캡처(문법 오용 경고 포함) |
 | `launch_hoi4_steam` | 상호작용 | 사용자 명시 승인 후 `steam://rungameid/394360` 실행(`confirm_user_authorized: true` 필수) |
 
 ## 클라이언트 연결 예시
@@ -49,7 +50,7 @@
 
 ### 1. Google Antigravity (권장: 독립 토글 플러그인)
 
-`~/.gemini/config/plugins/hoi4-desktop-control/` 아래에 `plugin.json`, `mcp_config.json`, `mcp-server/hoi4_desktop_mcp.py`를 배치하고 `mcp_config.json`에 아래 내용을 적습니다.
+`~/.gemini/config/plugins/hoi4-desktop-control/` 아래에 `plugin.json`, `mcp_config.json`과 `mcp-server/`의 `hoi4_desktop_mcp.py`, `hoi4_console_catalog.py`, `hoi4_console_commands.json`을 배치하고 `mcp_config.json`에 아래 내용을 적습니다.
 
 ```json
 {
@@ -104,4 +105,4 @@ Codex 데스크톱 앱은 네이티브 Computer Use를 기본 제공하므로 �
 python scripts/test-desktop-mcp-server.py
 ```
 
-프로세스 화이트리스트 차단, 범위 밖 좌표 거부, 순수 Python PNG 인코딩·디코딩 왕복, `null` 인자 폴백, JSON-RPC 핸드셰이크, 10개 도구 스키마, 미승인 `launch_hoi4_steam` 거부를 한 번에 검증하며 Steam을 띄우거나 데스크톱 창을 건드리지 않습니다.
+프로세스 화이트리스트 차단, 범위 밖 좌표 거부, 순수 Python PNG 인코딩·디코딩 왕복, `null` 인자 폴백, 콘솔 명령 검색 및 문법 경고, JSON-RPC 핸드셰이크, 11개 도구 스키마, 미승인 `launch_hoi4_steam` 거부를 한 번에 검증하며 Steam을 띄우거나 데스크톱 창을 건드리지 않습니다.

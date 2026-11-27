@@ -70,6 +70,7 @@ def main() -> int:
                 "validate_hoi4_changes",
                 "read_hoi4_logs",
                 "inspect_hoi4_media",
+                "lookup_hoi4_console_commands",
             ],
             f"unexpected tool list: {names}",
         )
@@ -180,7 +181,40 @@ def main() -> int:
             media_info = media["result"]["structuredContent"]["files"][0]
             require((media_info["width"], media_info["height"]) == (2, 3), "PNG dimensions were not parsed")
 
-        print("MCP smoke test passed: handshake and all 5 read-only tools.")
+        console_resp = send(
+            process,
+            {
+                "jsonrpc": "2.0",
+                "id": 8,
+                "method": "tools/call",
+                "params": {
+                    "name": "lookup_hoi4_console_commands",
+                    "arguments": {"query": "eval_effect", "limit": 5},
+                },
+            },
+        )
+        require(console_resp["result"]["isError"] is False, "console command lookup failed")
+        console_data = console_resp["result"]["structuredContent"]
+        require(console_data["match_count"] >= 1, "eval_effect lookup returned no matches")
+        require(console_data["matches"][0]["name"] == "eval_effect", "eval_effect should rank first")
+
+        dev_only_resp = send(
+            process,
+            {
+                "jsonrpc": "2.0",
+                "id": 9,
+                "method": "tools/call",
+                "params": {
+                    "name": "lookup_hoi4_console_commands",
+                    "arguments": {"query": "spawn", "release_only": True},
+                },
+            },
+        )
+        require(dev_only_resp["result"]["isError"] is False, "dev-only lookup failed")
+        dev_warnings = dev_only_resp["result"]["structuredContent"].get("dev_only_warnings") or []
+        require(any(w["name"] == "spawn" for w in dev_warnings), "spawn must surface dev_only_warnings")
+
+        print("MCP smoke test passed: handshake and all 6 read-only tools.")
         return 0
     finally:
         if process.stdin:

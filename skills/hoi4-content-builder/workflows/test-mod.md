@@ -142,6 +142,12 @@ elapsed-time budget before launcher preparation; setup and cleanup count.
 Use the console early and flexibly to reach the required state: verified
 event/effect IDs, resources, flags, variables, or existing debug fixtures can
 skip unrelated recruitment, story, focus, waiting, and gameplay prerequisites.
+Consult [console-commands.md](../../hoi4-pdx-modding/references/console-commands.md)
+(or call `lookup_hoi4_console_commands` when `hoi4_local` / `hoi4_desktop` MCP
+is available) before guessing unfamiliar console syntax—in particular, use
+`eval_effect` for inline PDX effects rather than `effect` (which expects a named
+scripted effect), pass explicit `1`/`0` to boolean tweakables such as
+`Decision.NoChecks 1`, and avoid dev-only commands (`spawn`, `exit`, `endraids`).
 Do not require a complete normal playthrough before using the console. If an
 entry button is itself under test, prepare its prerequisites with the console
 and exercise that button once. If victory or reward dispatch is under test,

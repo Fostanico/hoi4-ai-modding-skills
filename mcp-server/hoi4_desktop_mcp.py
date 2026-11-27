@@ -30,6 +30,16 @@ import time
 from typing import Any
 import zlib
 
+_SERVER_DIR = str(Path(__file__).resolve().parent)
+if _SERVER_DIR not in sys.path:
+    sys.path.insert(0, _SERVER_DIR)
+
+from hoi4_console_catalog import (  # noqa: E402
+    CATEGORIES as CONSOLE_CATEGORIES,
+    inspect_console_command,
+    lookup_console_commands,
+)
+
 
 SERVER_NAME = "hoi4-desktop-control"
 SERVER_VERSION = "1.0.0"
@@ -1110,9 +1120,41 @@ TOOLS: list[dict[str, Any]] = [
         read_only=False,
     ),
     make_tool(
+        "lookup_hoi4_console_commands",
+        "Look up HOI4 console commands",
+        "Search the verified HOI4 console command & tweakable variable catalog before calling run_hoi4_console_command. Returns exact syntax, aliases, examples, AI-impact warnings, and retail release-build availability.",
+        {
+            "query": {
+                "type": "string",
+                "maxLength": 120,
+                "description": "Optional command name, alias, or English/Chinese keyword (e.g. 'eval_effect', 'flag', 'focus', 'tdebug', '决议', '变量').",
+            },
+            "category": {
+                "type": "string",
+                "enum": ["all", *sorted(CONSOLE_CATEGORIES)],
+                "description": "Optional category filter (default: 'all').",
+            },
+            "release_only": {
+                "type": "boolean",
+                "description": "Filter to commands available in retail Steam builds (default: true). Dev-only queries still surface a warning.",
+            },
+            "limit": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 100,
+                "description": "Maximum matches to return (default: 20).",
+            },
+            "game_root": {
+                "type": "string",
+                "description": "Optional absolute HOI4 install path to live-merge documentation/console_commands_documentation.md.",
+            },
+        },
+        read_only=True,
+    ),
+    make_tool(
         "run_hoi4_console_command",
         "Run a console command inside hoi4.exe",
-        "Strictly targets hoi4.exe: opens the debug console (`), types one single-line HOI4 console command, presses Enter, and optionally closes the console and captures a screenshot.",
+        "Strictly targets hoi4.exe: opens the debug console (`), types one single-line HOI4 console command, presses Enter, and optionally closes the console and captures a screenshot. Call lookup_hoi4_console_commands first whenever unsure of exact syntax (e.g. use 'eval_effect' for inline PDX effects, not 'effect').",
         {
             "hwnd": {"type": "integer", "description": "Optional exact hoi4.exe window handle."},
             "command": {
@@ -1381,6 +1423,35 @@ def handle_type_text(args: dict[str, Any]) -> tuple[dict[str, Any], list[dict[st
     }, []
 
 
+def handle_lookup_console_commands(args: dict[str, Any]) -> tuple[dict[str, Any], list[dict[str, Any]]]:
+    query = str(args.get("query") or "")
+    if len(query) > 120 or "\n" in query or "\r" in query:
+        raise ToolInputError("query must be a single line of at most 120 characters.")
+    category = str(args.get("category") or "all")
+    release_only = _opt_bool(args, "release_only", True)
+    limit = _opt_int(args, "limit", 20)
+    if not 1 <= limit <= 100:
+        raise ToolInputError("limit must be between 1 and 100.")
+    raw_game_root = args.get("game_root")
+    game_root: Path | None = None
+    if raw_game_root:
+        candidate = Path(os.path.expandvars(os.path.expanduser(str(raw_game_root)))).resolve()
+        if not candidate.is_dir():
+            raise ToolInputError(f"game_root is not an existing directory: {candidate}")
+        game_root = candidate
+    try:
+        payload = lookup_console_commands(
+            query=query,
+            category=category,
+            release_only=release_only,
+            limit=limit,
+            game_root=game_root,
+        )
+    except ValueError as exc:
+        raise ToolInputError(str(exc)) from exc
+    return payload, []
+
+
 def handle_run_console_command(args: dict[str, Any]) -> tuple[dict[str, Any], list[dict[str, Any]]]:
     check_failsafe()
     command = str(args.get("command") or "").strip()
@@ -1388,6 +1459,7 @@ def handle_run_console_command(args: dict[str, Any]) -> tuple[dict[str, Any], li
         raise ToolInputError("command must be a non-empty single-line HOI4 console command.")
     if len(command) > 300:
         raise ToolInputError("command is capped at 300 characters.")
+    advisory = inspect_console_command(command)
     info = resolve_target_window({"hwnd": args.get("hwnd"), "target": "hoi4"}, allowed_subset=HOI4_GAME_PROCESSES)
     info = ensure_foreground(info["hwnd"], auto_focus=True)
 
@@ -1412,6 +1484,8 @@ def handle_run_console_command(args: dict[str, Any]) -> tuple[dict[str, Any], li
         "command": command,
         "closed_console": close_console,
     }
+    if advisory:
+        payload["command_advisory"] = advisory
     extra: list[dict[str, Any]] = []
     if _opt_bool(args, "capture_after", False):
         cap_meta, extra = _capture_payload(info["hwnd"], max_width=_opt_int(args, "max_width", 1280))
@@ -1441,6 +1515,7 @@ TOOL_HANDLERS = {
     "scroll_hoi4_window": handle_scroll_window,
     "send_hoi4_keys": handle_send_keys,
     "type_hoi4_text": handle_type_text,
+    "lookup_hoi4_console_commands": handle_lookup_console_commands,
     "run_hoi4_console_command": handle_run_console_command,
     "launch_hoi4_steam": handle_launch_hoi4_steam,
 }

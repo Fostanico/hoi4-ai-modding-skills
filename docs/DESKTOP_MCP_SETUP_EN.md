@@ -28,7 +28,7 @@ It is **physically separated** from the read-only evidence server `hoi4_local` (
 2. **Borderless Fullscreen or Windowed mode recommended**: some GPU drivers block GDI/`PrintWindow` capture in exclusive fullscreen.
 3. **Matching privilege level**: run `hoi4.exe` as a normal user (not elevated as Administrator) so a standard-privilege MCP host can deliver input via `SendInput`.
 
-## Exposed Tools (10)
+## Exposed Tools (11)
 
 | Tool | Kind | Purpose |
 | --- | --- | --- |
@@ -40,7 +40,8 @@ It is **physically separated** from the read-only evidence server `hoi4_local` (
 | `scroll_hoi4_window` | Interactive | Scrolls the mouse wheel at a target point (map zoom, decision/focus lists) |
 | `send_hoi4_keys` | Interactive | Sends DirectX hardware-scancode keys or combos (`Alt+Tab` / `Alt+F4` blocked) |
 | `type_hoi4_text` | Interactive | Types short text (up to 500 chars) via IME-safe Unicode injection |
-| `run_hoi4_console_command` | Interactive | **`hoi4.exe` only**: opens the console (`` ` ``), types one single-line command, presses Enter, and optionally closes the console and captures a screenshot |
+| `lookup_hoi4_console_commands` | Read-only | Searches all 458 verified HOI4 1.20.0 console commands & tweakables before running console commands (syntax, examples, AI impact, release-build availability) |
+| `run_hoi4_console_command` | Interactive | **`hoi4.exe` only**: opens the console (`` ` ``), types one single-line command, presses Enter, and optionally closes the console and captures a screenshot (includes syntax-pitfall advisories) |
 | `launch_hoi4_steam` | Interactive | Opens `steam://rungameid/394360` after explicit user consent (`confirm_user_authorized: true` required) |
 
 ## Client Configuration Examples
@@ -49,7 +50,7 @@ Replace `<REPO_ROOT>` with your local absolute path to this repository (or plugi
 
 ### 1. Google Antigravity (Recommended: Standalone Toggleable Plugin)
 
-Place `plugin.json`, `mcp_config.json`, and `mcp-server/hoi4_desktop_mcp.py` under `~/.gemini/config/plugins/hoi4-desktop-control/`, with `mcp_config.json`:
+Place `plugin.json`, `mcp_config.json`, and `mcp-server/` files (`hoi4_desktop_mcp.py`, `hoi4_console_catalog.py`, `hoi4_console_commands.json`) under `~/.gemini/config/plugins/hoi4-desktop-control/`, with `mcp_config.json`:
 
 ```json
 {
@@ -104,4 +105,4 @@ Run from the repository root:
 python scripts/test-desktop-mcp-server.py
 ```
 
-The smoke suite verifies process-whitelist rejection, out-of-bounds coordinate rejection, pure-Python PNG encoding/decoding, null-argument fallback handling, JSON-RPC handshake, all 10 tool schemas, and unauthorized `launch_hoi4_steam` refusal—without launching Steam or touching any desktop window.
+The smoke suite verifies process-whitelist rejection, out-of-bounds coordinate rejection, pure-Python PNG encoding/decoding, null-argument fallback handling, console lookup and syntax-pitfall linting, JSON-RPC handshake, all 11 tool schemas, and unauthorized `launch_hoi4_steam` refusal—without launching Steam or touching any desktop window.

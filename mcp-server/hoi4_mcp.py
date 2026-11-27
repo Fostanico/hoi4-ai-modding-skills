@@ -20,6 +20,15 @@ from collections import Counter
 from pathlib import Path
 from typing import Any, Iterable
 
+_SERVER_DIR = str(Path(__file__).resolve().parent)
+if _SERVER_DIR not in sys.path:
+    sys.path.insert(0, _SERVER_DIR)
+
+from hoi4_console_catalog import (  # noqa: E402
+    CATEGORIES as CONSOLE_CATEGORIES,
+    lookup_console_commands,
+)
+
 
 SERVER_NAME = "hoi4-local-modding"
 SERVER_VERSION = "1.6.0"
@@ -250,6 +259,39 @@ TOOLS = [
             },
         },
         ["mod_root"],
+    ),
+    tool(
+        "lookup_hoi4_console_commands",
+        "Look up HOI4 console commands",
+        "Search the verified HOI4 console command & tweakable variable reference by command name, alias, category, or English/Chinese intent. Shows exact syntax, examples, AI-impact warnings, and whether a command works in retail release builds (automatically merges installed documentation/console_commands_documentation.md when found).",
+        {
+            "query": {
+                "type": "string",
+                "maxLength": 120,
+                "description": "Optional command name, alias, or keyword (e.g. 'eval_effect', 'flag', 'focus', 'tdebug', 'mio', '决议', '变量'). Omit to browse top commands in a category.",
+            },
+            "category": {
+                "type": "string",
+                "enum": ["all", *sorted(CONSOLE_CATEGORIES)],
+                "default": "all",
+                "description": "Optional category filter.",
+            },
+            "release_only": {
+                "type": "boolean",
+                "default": True,
+                "description": "Return only commands available in retail Steam builds (default: true). Exact dev-only queries still surface a dev_only_warnings explanation.",
+            },
+            "limit": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 100,
+                "default": 20,
+            },
+            "game_root": {
+                "type": "string",
+                "description": "Optional absolute HOI4 install directory to live-merge documentation/console_commands_documentation.md; auto-detected when omitted.",
+            },
+        },
     ),
 ]
 
@@ -898,12 +940,42 @@ def tool_inspect_media(args: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def tool_lookup_console_commands(args: dict[str, Any]) -> dict[str, Any]:
+    query = str(args.get("query") or "")
+    if len(query) > 120 or "\n" in query or "\r" in query:
+        raise ToolInputError("query must be a single line of at most 120 characters")
+    category = str(args.get("category") or "all")
+    raw_rel = args.get("release_only")
+    release_only = True if raw_rel is None else bool(raw_rel)
+    raw_limit = args.get("limit")
+    limit = 20 if raw_limit is None else int(raw_limit)
+    if not 1 <= limit <= 100:
+        raise ToolInputError("limit must be between 1 and 100")
+    explicit_game = args.get("game_root")
+    game_root = (
+        resolve_directory(explicit_game, "game_root")
+        if explicit_game
+        else discover_game_root(None)
+    )
+    try:
+        return lookup_console_commands(
+            query=query,
+            category=category,
+            release_only=release_only,
+            limit=limit,
+            game_root=game_root,
+        )
+    except ValueError as exc:
+        raise ToolInputError(str(exc)) from exc
+
+
 TOOL_HANDLERS = {
     "detect_hoi4_environment": tool_detect_environment,
     "trace_hoi4_identifier": tool_trace_identifier,
     "validate_hoi4_changes": tool_validate_changes,
     "read_hoi4_logs": tool_read_logs,
     "inspect_hoi4_media": tool_inspect_media,
+    "lookup_hoi4_console_commands": tool_lookup_console_commands,
 }
 
 

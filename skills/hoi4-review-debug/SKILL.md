@@ -102,9 +102,10 @@ For a broad review or applied refactor, additionally use the base
   broaden one authorization into tool installation, static decompilation, or live
   debugging.
 - **Runtime test:** follow the builder's
-  [test-mod.md](../hoi4-content-builder/workflows/test-mod.md) for native-tool
-  capability, user-willingness summary, one-request limit, authorization, and
-  quota. A GPT-series model, especially GPT-6astra or GPT-6.1sol, applies
+  [test-mod.md](../hoi4-content-builder/workflows/test-mod.md) and
+  [console-commands.md](../hoi4-pdx-modding/references/console-commands.md) for
+  native-tool capability, verified console shortcuts, user-willingness summary,
+  one-request limit, authorization, and quota. A GPT-series model, especially GPT-6astra or GPT-6.1sol, applies
   that file's necessity gate before this lane becomes a launch. Prefer an
   existing playset with only the required mods enabled. For short/simple
   tests, use console preparation and only the agreed observations; follow

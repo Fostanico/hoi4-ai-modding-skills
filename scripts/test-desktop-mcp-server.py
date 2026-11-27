@@ -92,6 +92,20 @@ def test_unit_helpers() -> None:
     require(mod._opt_bool({"close_console": None}, "close_console", True) is True, "_opt_bool must fall back on None")
     require(mod._opt_bool({"close_console": False}, "close_console", True) is False, "_opt_bool must preserve False")
 
+    # 5. Console command preflight advisory lint
+    eff_warn = mod.inspect_console_command("effect set_country_flag = my_flag")
+    require(
+        any("eval_effect" in msg for msg in eff_warn.get("advisories", [])),
+        f"Inline 'effect' misuse should advise eval_effect: {eff_warn}",
+    )
+    spawn_warn = mod.inspect_console_command("spawn infantry 6521 1")
+    require(
+        any("release build" in msg for msg in spawn_warn.get("advisories", [])),
+        f"Dev-only 'spawn' should warn about release builds: {spawn_warn}",
+    )
+    ok_lint = mod.inspect_console_command("eval_effect set_country_flag = my_flag")
+    require(ok_lint == {}, f"Valid eval_effect should emit no advisory: {ok_lint}")
+
 
 def send(process: subprocess.Popen[str], payload: dict) -> dict:
     assert process.stdin is not None and process.stdout is not None
@@ -144,12 +158,14 @@ def test_stdio_protocol() -> None:
             "scroll_hoi4_window",
             "send_hoi4_keys",
             "type_hoi4_text",
+            "lookup_hoi4_console_commands",
             "run_hoi4_console_command",
             "launch_hoi4_steam",
         }
         require(set(tools.keys()) == expected_tools, f"Unexpected tool set: {sorted(tools.keys())}")
         require(tools["list_hoi4_windows"]["annotations"]["readOnlyHint"] is True, "list_hoi4_windows must be readOnly")
         require(tools["capture_hoi4_window"]["annotations"]["readOnlyHint"] is True, "capture_hoi4_window must be readOnly")
+        require(tools["lookup_hoi4_console_commands"]["annotations"]["readOnlyHint"] is True, "lookup_hoi4_console_commands must be readOnly")
         require(tools["click_hoi4_window"]["annotations"]["readOnlyHint"] is False, "click_hoi4_window must not be readOnly")
 
         # Non-intrusive live whitelist listing on Windows
@@ -198,7 +214,40 @@ def test_stdio_protocol() -> None:
         )
         require(bad_hwnd["result"]["isError"] is True, "capture_hoi4_window must reject invalid hwnd")
 
-        print("Desktop MCP smoke & safety-boundary tests passed (10 tools verified, zero desktop side effects).")
+        # Console lookup works offline & supports aliases + Chinese intent
+        lookup_resp = send(
+            process,
+            {
+                "jsonrpc": "2.0",
+                "id": 6,
+                "method": "tools/call",
+                "params": {
+                    "name": "lookup_hoi4_console_commands",
+                    "arguments": {"query": "tdebug", "limit": 5},
+                },
+            },
+        )
+        require(lookup_resp["result"]["isError"] is False, f"lookup_hoi4_console_commands failed: {lookup_resp}")
+        require(
+            lookup_resp["result"]["structuredContent"]["matches"][0]["name"] == "provtooltipdebug",
+            "tdebug alias should resolve to provtooltipdebug",
+        )
+
+        zh_resp = send(
+            process,
+            {
+                "jsonrpc": "2.0",
+                "id": 7,
+                "method": "tools/call",
+                "params": {
+                    "name": "lookup_hoi4_console_commands",
+                    "arguments": {"query": "决议", "limit": 5},
+                },
+            },
+        )
+        require(zh_resp["result"]["isError"] is False and zh_resp["result"]["structuredContent"]["match_count"] >= 1, "Chinese intent lookup failed")
+
+        print("Desktop MCP smoke & safety-boundary tests passed (11 tools verified, zero desktop side effects).")
     finally:
         if process.stdin:
             process.stdin.close()

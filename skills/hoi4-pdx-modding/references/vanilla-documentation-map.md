@@ -221,6 +221,11 @@ aiview                         enable AI debug information
 `ai_trace` and `ai_dump` are documented as unavailable in release builds. Do
 not make them required test steps for a normal retail installation.
 
+For the full categorized console cheat sheet (including `eval_effect` vs
+`effect`, boolean `1`/`0` tweakables, AI-impact warnings, and dev-only traps),
+see [console-commands.md](console-commands.md) or call
+`lookup_hoi4_console_commands` when `hoi4_local` / `hoi4_desktop` MCP is active.
+
 ## Database documentation inventory
 
 Read the document adjacent to the object being changed:

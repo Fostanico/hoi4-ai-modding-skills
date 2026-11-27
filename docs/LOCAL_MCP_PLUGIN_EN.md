@@ -11,7 +11,7 @@ This plugin bundles **three Agent Skills** with a **read-only local MCP server (
 
 `hoi4_local` delivers objective local facts quickly; syntax and runtime conclusions still come from cross-checking against the target build's vanilla consumers, active dependencies, and in-game observations. On clients without MCP support, the repository's PowerShell, Python, `rg`, and Git scripts cover the full workflow as well.
 
-## Five Read-Only Tools
+## Six Read-Only Tools
 
 | Tool | What it does | Usage notes |
 | --- | --- | --- |
@@ -20,8 +20,9 @@ This plugin bundles **three Agent Skills** with a **read-only local MCP server (
 | `validate_hoi4_changes` | Runs lightweight PDX and localisation static checks on explicit paths or Git changes | Scoped to changed files and strictly read-only; use Mod Doctor for full-repository audits |
 | `read_hoi4_logs` | Reads bounded tails of `error.log`, `game.log`, and registered HOI4 logs while collapsing duplicates | Leaves logs untouched; check file timestamps first to confirm they match your latest run |
 | `inspect_hoi4_media` | Reads DDS/PNG/JPEG/GIF dimensions and format metadata, plus audio/video streams when `ffprobe` is installed | Reports objective file specs; verify rendering requirements against the target GUI/GFX consumer |
+| `lookup_hoi4_console_commands` | Searches all 458 verified HOI4 1.20.0 console commands & tweakables by name, alias, category, or English/Chinese intent (live-merging installed `documentation/console_commands_documentation.md`) | Highlights retail release-build availability, AI side effects, and pitfalls (e.g. `eval_effect` vs `effect`), and warns on dev-only commands |
 
-All five tools are **100% read-only**: they never launch Steam or HOI4, never modify playsets, never edit or delete mod files, and never touch running game processes. Whenever you need interactive window capture and input for live testing, use the completely separate opt-in server `hoi4_desktop` below.
+All six tools are **100% read-only**: they never launch Steam or HOI4, never modify playsets, never edit or delete mod files, and never touch running game processes. Whenever you need interactive window capture and input for live testing, use the completely separate opt-in server `hoi4_desktop` below.
 
 ## Transport and Runtime Model
 
